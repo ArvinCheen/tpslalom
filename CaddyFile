@@ -1,0 +1,19 @@
+https://dev.tpslalom {
+    tls self_signed
+
+    log stdout
+
+    root public
+
+     fastcgi / 127.0.0.1:9000 php {
+         path /
+     }
+
+     rewrite / {
+         to {path} {path}/ /index.php?{query}
+     }
+
+    
+    # proxy / localhost:8000
+    # proxy / local.fbbuy.com.tw
+}
