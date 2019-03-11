@@ -77,60 +77,64 @@
                         <option value="國小六年級" {{ $player->group == '國小六年級' ? 'selected' : '' }}>國小六年級</option>
                         <option value="國中" {{ $player->group == '國中' ? 'selected' : '' }}>國中</option>
                         <option value="男女子" {{ $player->group == '男女子' ? 'selected' : '' }}>男女子</option>
-                        {{--<option value="高中" {{ $player->group == '高中' ? 'selected' : '' }}>高中</option>--}}
-                        {{--<option value="大專" {{ $player->group == '大專' ? 'selected' : '' }}>大專</option>--}}
-                        {{--<option value="社會" {{ $player->group == '社會' ? 'selected' : '' }}>社會</option>--}}
+                        <option value="高中" {{ $player->group == '高中' ? 'selected' : '' }}>高中</option>
+                        <option value="大專" {{ $player->group == '大專' ? 'selected' : '' }}>大專</option>
+                        <option value="社會" {{ $player->group == '社會' ? 'selected' : '' }}>社會</option>
                     </select>
                 </div>
             </div>
 
-            <div class="col-md-4 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">報名項目</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    {{--<li class="list-group-item mb-3">--}}
-                        {{--<div>--}}
-                            {{--<h6>前進雙足S型</h6>--}}
-                        {{--</div>--}}
-                        {{--<div class="">--}}
-                            {{--<select class="form-control" name="doubleS">--}}
-                                {{--<option value=''> -- 未參賽 -- </option>--}}
-                                {{--<option value="初級組" {{ $player->doubleS == '初級組' ? 'selected' : '' }}>初級組</option>--}}
-                                {{--<option value="新人組" {{ $player->doubleS == '新人組' ? 'selected' : '' }}>新人組</option>--}}
-                                {{--<option value="選手組" {{ $player->doubleS == '選手組' ? 'selected' : '' }}>選手組</option>--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
-                    {{--</li>--}}
-                    <li class="list-group-item mb-3">
-                        <div>
-                            <h6>前進單足S型</h6>
-                        </div>
-                        <div class="">
-                            <select class="form-control" name="singleS">
-                                <option value=''> -- 未參賽 -- </option>
-                                <option value="新人組" {{ $player->singleS == '新人組' ? 'selected' : '' }}>新人組</option>
-                                <option value="選手組" {{ $player->singleS == '選手組' ? 'selected' : '' }}>選手組</option>
-                            </select>
-                        </div>
-                    </li>
-                    {{--<li class="list-group-item mb-3">--}}
-                        {{--<div>--}}
-                            {{--<h6>前進交叉型</h6>--}}
-                        {{--</div>--}}
-                        {{--<div class="">--}}
-                            {{--<select class="form-control" name="cross">--}}
-                                {{--<option value=''> -- 未參賽 -- </option>--}}
-                                {{--<option value="新人組" {{ $player->cross == '新人組' ? 'selected' : '' }}>新人組</option>--}}
-                                {{--<option value="選手組" {{ $player->cross == '選手組' ? 'selected' : '' }}>選手組</option>--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
-                    {{--</li>--}}
-                </ul>
 
-                <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法修改</button>
-                {{--<button class="btn btn-primary btn-lg btn-block mb-3" type="submit">修改</button>--}}
-                {{--<input type="button" class="btn btn-danger btn-lg btn-block" onclick="cancelEnroll()" value="取消報名">--}}
+                <div class="col-md-4 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">報名項目</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item mb-3">
+                            <div>
+                                <h6>選擇級別</h6>
+                            </div>
+                            <div class="">
+                                <select class="form-control" name="level" id="levelSelectBar" required>
+                                    <option value="初級組" {{ $player->level == '初級組' ? 'selected' : '' }}>初級組</option>
+                                    <option value="新人組" {{ $player->level == '新人組' ? 'selected' : '' }}>新人組</option>
+                                    <option value="選手組" {{ $player->level == '選手組' ? 'selected' : '' }}>選手組</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="list-group-item mb-3" id="enrollItemSelectBar" >
+                            <div>
+                                <h6>選擇參賽項目</h6>
+                            </div>
+                            <div class="form-check" style="margin-top:10px">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S型" id="doubleS" {{ !is_null($player->doubleS) ? 'checked' : null}}>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    前進雙足S型
+                                </label>
+                            </div>
+                            <div class="form-check" style="margin-top:10px">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S型" id="singleS" {{ !is_null($player->singleS) ? 'checked' : null}}>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    前進單足S型
+                                </label>
+                            </div>
+                            <div class="form-check" style="margin-top:10px">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉型" id="cross" {{ !is_null($player->cross) ? 'checked' : null}}>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    前進交叉型
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                    @if (config('app.enroll'))
+                        <button class="btn btn-primary btn-lg btn-block mb-3" type="submit">修改</button>
+                        <input type="button" class="btn btn-danger btn-lg btn-block" onclick="cancelEnroll()" value="取消報名">
+                    @else
+                        <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法修改</button>
+                    @endif
+                </div>
+
+
             </div>
         </div>
         </form>
@@ -147,6 +151,70 @@
 @section('js')
 
     <script>
+        lockLevelSelectBar();
+
+        if ($("#levelSelectBar").val() == '初級組') {
+            $('#singleS').prop('disabled', true);
+            $('#cross').prop('disabled', true);
+        }
+
+        $("#levelSelectBar").change(function() {
+            switch ($(this).val()) {
+                case '初級組':
+                    $('#doubleS').prop('disabled', false).prop('checked', false);
+                    $('#singleS').prop('disabled', true).prop('checked', false);
+                    $('#cross').prop('disabled', true).prop('checked', false);
+                    break;
+                case '新人組':
+                    $('#doubleS').attr('disabled', false).prop('checked', false);
+                    $('#singleS').attr('disabled', false).prop('checked', false);
+                    $('#cross').attr('disabled', false).prop('checked', false);
+                    break;
+                case '選手組':
+                    $('#doubleS').attr('disabled', false).prop('checked', false);
+                    $('#singleS').attr('disabled', false).prop('checked', false);
+                    $('#cross').attr('disabled', false).prop('checked', false);
+                    break;
+            }
+        });
+
+        $('#doubleS').change(function() {
+            lockLevelSelectBar();
+        });
+
+        $('#singleS').change(function() {
+            lockLevelSelectBar();
+        });
+
+        $('#cross').change(function() {
+            lockLevelSelectBar();
+        });
+
+        function lockLevelSelectBar() {
+            if ($("#levelSelectBar").val() === '新人組') {
+                if ($('#doubleS:checked').val() === '前進雙足S型' && $('#singleS:checked').val() === '前進單足S型') {
+                    console.log(1);
+                    $('#cross').attr('disabled', true);
+                } else {
+                    $('#cross').attr('disabled', false);
+                }
+
+                if ($('#singleS:checked').val() === '前進單足S型' && $('#cross:checked').val() === '前進交叉型') {
+                    console.log(2);
+                    $('#doubleS').attr('disabled', true);
+                } else {
+                    $('#doubleS').attr('disabled', false);
+                }
+
+                if ($('#cross:checked').val() === '前進交叉型' && $('#doubleS:checked').val() === '前進雙足S型') {
+                    console.log(3);
+                    $('#singleS').attr('disabled', true);
+                } else {
+                    $('#singleS').attr('disabled', false);
+                }
+            }
+        }
+
         function cancelEnroll() {
             $('#cancelForm').submit();
         }

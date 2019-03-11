@@ -9,7 +9,7 @@
 <div class="mh mb-5">
     <div class="container">
         <div class="mt-5 mb-5 text-center">
-            <h2 class="mb-3">107年中正盃 報名</h2>
+            <h2 class="mb-3">108年青年盃 報名</h2>
             <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>
             <p>相關組別報名注意事項，請參閱簡章</p>
         </div>
@@ -24,7 +24,7 @@
                             <option value=''> -- 請選擇一位選手 -- </option>
                             <option value="newPlayer"> 新增一個全新的選手 </option>
                             @foreach ($playerList as $val)
-                                <option value="{{ $val->playerSn }}" {{ old('playerSn') == $val->playerSn ? 'selected' : '' }}>
+                                <option value="{{ $val->playerSn }}">
                                     No.{{ $val->playerSn }} {{ $val->name }}
                                 </option>
                             @endforeach
@@ -32,64 +32,64 @@
                     </div>
                     <div class="mb-3">
                         <label for="address">姓名</label>
-                        <input type="text" class="form-control" name="name" placeholder='' value="{{ old('name') }}" required disabled>
+                        <input type="text" class="form-control" name="name" placeholder='' value="" required disabled>
                     </div>
                     <div class="mb-3">
                         <label for="address">單位</label>
-                        <input type="text" class="form-control" name="agency" placeholder="" value="{{ old('agency') }}" required disabled>
+                        <input type="text" class="form-control" name="agency" placeholder="" value="" required disabled>
                     </div>
                     <div class="mb-3">
                         <label>性別</label>
                         <select class="form-control" name="gender" required disabled>
                             <option value=''> -- 請選擇 -- </option>
-                            <option value="男" {{ old('gender') == '男' ? 'selected' : '' }}>男</option>
-                            <option value="女" {{ old('gender') == '女' ? 'selected' : '' }}>女</option>
+                            <option value="男" >男</option>
+                            <option value="女" >女</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label>縣市</label>
                         <select class="form-control" name="city" required disabled>
                             <option value=''> -- 請選擇 -- </option>
-                            <option value="臺北市" {{ old('city') == '臺北市' ? 'selected' : '' }}>臺北市</option>
-                            <option value="基隆市" {{ old('city') == '基隆市' ? 'selected' : '' }}>基隆市</option>
-                            <option value="新北市" {{ old('city') == '新北市' ? 'selected' : '' }}>新北市</option>
-                            <option value="連江縣" {{ old('city') == '連江縣' ? 'selected' : '' }}>連江縣</option>
-                            <option value="宜蘭縣" {{ old('city') == '宜蘭縣' ? 'selected' : '' }}>宜蘭縣</option>
-                            <option value="新竹市" {{ old('city') == '新竹市' ? 'selected' : '' }}>新竹市</option>
-                            <option value="新竹縣" {{ old('city') == '新竹縣' ? 'selected' : '' }}>新竹縣</option>
-                            <option value="桃園市" {{ old('city') == '桃園市' ? 'selected' : '' }}>桃園市</option>
-                            <option value="苗栗縣" {{ old('city') == '苗栗縣' ? 'selected' : '' }}>苗栗縣</option>
-                            <option value="台中市" {{ old('city') == '台中市' ? 'selected' : '' }}>台中市</option>
-                            <option value="彰化縣" {{ old('city') == '彰化縣' ? 'selected' : '' }}>彰化縣</option>
-                            <option value="南投縣" {{ old('city') == '南投縣' ? 'selected' : '' }}>南投縣</option>
-                            <option value="嘉義市" {{ old('city') == '嘉義市' ? 'selected' : '' }}>嘉義市</option>
-                            <option value="嘉義縣" {{ old('city') == '嘉義縣' ? 'selected' : '' }}>嘉義縣</option>
-                            <option value="雲林縣" {{ old('city') == '雲林縣' ? 'selected' : '' }}>雲林縣</option>
-                            <option value="台南市" {{ old('city') == '台南市' ? 'selected' : '' }}>台南市</option>
-                            <option value="高雄市" {{ old('city') == '高雄市' ? 'selected' : '' }}>高雄市</option>
-                            <option value="澎湖縣" {{ old('city') == '澎湖縣' ? 'selected' : '' }}>澎湖縣</option>
-                            <option value="金門縣" {{ old('city') == '金門縣' ? 'selected' : '' }}>金門縣</option>
-                            <option value="屏東縣" {{ old('city') == '屏東縣' ? 'selected' : '' }}>屏東縣</option>
-                            <option value="台東縣" {{ old('city') == '台東縣' ? 'selected' : '' }}>台東縣</option>
-                            <option value="花蓮縣" {{ old('city') == '花蓮縣' ? 'selected' : '' }}>花蓮縣</option>
+                            <option value="臺北市">臺北市</option>
+                            <option value="基隆市">基隆市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="連江縣">連江縣</option>
+                            <option value="宜蘭縣">宜蘭縣</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="台中市">台中市</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="台南市">台南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="澎湖縣">澎湖縣</option>
+                            <option value="金門縣">金門縣</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="台東縣">台東縣</option>
+                            <option value="花蓮縣">花蓮縣</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label>組別</label>
                         <select class="form-control" name="group" required disabled>
                             <option value=''> -- 請選擇 -- </option>
-                            <option value="幼童" {{ old('group') == '幼童' ? 'selected' : '' }}>幼童</option>
-                            <option value="國小一年級" {{ old('group') == '國小一年級' ? 'selected' : '' }}>國小一年級</option>
-                            <option value="國小二年級" {{ old('group') == '國小二年級' ? 'selected' : '' }}>國小二年級</option>
-                            <option value="國小三年級" {{ old('group') == '國小三年級' ? 'selected' : '' }}>國小三年級</option>
-                            <option value="國小四年級" {{ old('group') == '國小四年級' ? 'selected' : '' }}>國小四年級</option>
-                            <option value="國小五年級" {{ old('group') == '國小五年級' ? 'selected' : '' }}>國小五年級</option>
-                            <option value="國小六年級" {{ old('group') == '國小六年級' ? 'selected' : '' }}>國小六年級</option>
-                            <option value="國中" {{ old('group') == '國中' ? 'selected' : '' }}>國中</option>
-                            <option value="男女子" {{ old('group') == '男女子' ? 'selected' : '' }}>男女子</option>
-                            <option value="高中" {{ old('group') == '高中' ? 'selected' : '' }}>高中</option>
-                            <option value="大專" {{ old('group') == '大專' ? 'selected' : '' }}>大專</option>
-                            <option value="社會" {{ old('group') == '社會' ? 'selected' : '' }}>社會</option>
+                            <option value="幼童">幼童</option>
+                            <option value="國小一年級">國小一年級</option>
+                            <option value="國小二年級">國小二年級</option>
+                            <option value="國小三年級">國小三年級</option>
+                            <option value="國小四年級">國小四年級</option>
+                            <option value="國小五年級">國小五年級</option>
+                            <option value="國小六年級">國小六年級</option>
+                            <option value="國中">國中</option>
+                            <option value="男女子">男女子</option>
+                            <option value="高中">高中</option>
+                            <option value="大專">大專</option>
+                            <option value="社會">社會</option>
                         </select>
                     </div>
                 </div>
@@ -104,11 +104,11 @@
                                 <h6>選擇級別</h6>
                             </div>
                             <div class="">
-                                <select class="form-control" name="level" id="levelSelectBar">
+                                <select class="form-control" name="level" id="levelSelectBar" required>
                                     <option value=''> -- 選擇級別 -- </option>
-                                    <option value="初級組" {{ old('level') == '初級組' ? 'selected' : '' }}>初級組</option>
-                                    <option value="新人組" {{ old('level') == '新人組' ? 'selected' : '' }}>新人組</option>
-                                    <option value="選手組" {{ old('level') == '選手組' ? 'selected' : '' }}>選手組</option>
+                                    <option value="初級組">初級組</option>
+                                    <option value="新人組">新人組</option>
+                                    <option value="選手組">選手組</option>
                                 </select>
                             </div>
                         </li>
@@ -117,19 +117,19 @@
                                 <h6>選擇參賽項目</h6>
                             </div>
                             <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="doubleS" id="doubleS">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S型" id="doubleS" >
                                 <label class="form-check-label" for="defaultCheck1">
                                     前進雙足S型
                                 </label>
                             </div>
                             <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="singleS" id="singleS">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S型" id="singleS" >
                                 <label class="form-check-label" for="defaultCheck1">
                                     前進單足S型
                                 </label>
                             </div>
                             <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="cross" id="cross">
+                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉型" id="cross" >
                                 <label class="form-check-label" for="defaultCheck1">
                                     前進交叉型
                                 </label>
@@ -138,7 +138,7 @@
                     </ul>
 
                     @if (config('app.enroll'))
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="enrollButton">報名</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
                     @else
                         <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
                     @endif
@@ -187,21 +187,21 @@
 
     function lockLevelSelectBar() {
         if ($("#levelSelectBar").val() === '新人組') {
-            if ($('#doubleS:checked').val() === 'doubleS' && $('#singleS:checked').val() === 'singleS') {
+            if ($('#doubleS:checked').val() === '前進雙足S型' && $('#singleS:checked').val() === '前進單足S型') {
                 console.log(1);
                 $('#cross').attr('disabled', true);
             } else {
                 $('#cross').attr('disabled', false);
             }
 
-            if ($('#singleS:checked').val() === 'singleS' && $('#cross:checked').val() === 'cross') {
+            if ($('#singleS:checked').val() === '前進單足S型' && $('#cross:checked').val() === '前進交叉型') {
                 console.log(2);
                 $('#doubleS').attr('disabled', true);
             } else {
                 $('#doubleS').attr('disabled', false);
             }
 
-            if ($('#cross:checked').val() === 'cross' && $('#doubleS:checked').val() === 'doubleS') {
+            if ($('#cross:checked').val() === '前進交叉型' && $('#doubleS:checked').val() === '前進雙足S型') {
                 console.log(3);
                 $('#singleS').attr('disabled', true);
             } else {
@@ -209,7 +209,6 @@
             }
         }
     }
-
 
     $("select[name='playerSn']").change(function() {
         var playerSn = $(this).val();

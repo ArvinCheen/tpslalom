@@ -29,15 +29,14 @@ class EnrollModel extends Model
         return $this->hasOne('App\Models\GameModel', 'gameSn', 'gameSn');
     }
 
-
-    public function store($playerSn, $playerNumber, $group, $doubleS, $item)
+    public function store($playerSn, $playerNumber, $group, $level, $item)
     {
         return $this->create([
             'gameSn'       => config('app.gameSn'),
             'playerSn'     => $playerSn,
             'playerNumber' => $playerNumber,
             'accountId'    => auth()->user()->accountId,
-            'level'        => $doubleS,
+            'level'        => $level,
             'group'        => $group,
             'item'         => $item,
         ]);
@@ -89,6 +88,13 @@ class EnrollModel extends Model
         return $this->where('gameSn', config('app.gameSn'))
             ->where('playerSn', $playerSn)
             ->value('group');
+    }
+
+    public function getLevel($playerSn)
+    {
+        return $this->where('gameSn', config('app.gameSn'))
+            ->where('playerSn', $playerSn)
+            ->value('level');
     }
 
     public function getPlayerEnrollItem($playerSn)

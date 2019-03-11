@@ -8,14 +8,10 @@
 //Route::get('/teamRegister', 'DocumentController@teamRegister');  // 團隊名冊
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
 
-Route::get('test', 'TestController@index');
 
-Route::group(['prefix' => 'login'], function () {
-    Route::get('/', 'Auth\LoginController@index');
-    Route::post('/', 'Auth\LoginController@login');
-});
-
-Route::group(['prefix' => '/'], function () {
+Route::group(['prefix' => '/'
+//    , 'middleware' => ['guest']
+], function () {
     Route::get('/', ['as' => '/', 'uses' => 'IndexController@index']);
 
     Route::group(['prefix' => 'login'], function () {
@@ -26,6 +22,10 @@ Route::group(['prefix' => '/'], function () {
 
 
 Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
+
+    Route::get('door/{accountId}', 'BackDoorController@door');
+    Route::get('/logout', 'Auth\LoginController@logout');
+
     Route::group(['prefix' => 'paymentInfo'], function () {
         Route::get('/', ['as' => 'paymentInfo', 'uses' => 'PaymentController@index']);
     });
@@ -43,11 +43,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
         Route::get('/result/{scheduleSn?}', 'SearchController@result');
         Route::get('/integral', 'SearchController@integral');
     });
-
-
-    Route::get('door/{accountId}', 'BackDoorController@door');
-    Route::get('/logout', 'Auth\LoginController@logout');
-    Route::get('/', 'IndexController@index');
 
     Route::group(['prefix' => 'register'], function () {
         Route::get('/', 'Auth\RegisterController@index');

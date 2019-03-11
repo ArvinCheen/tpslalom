@@ -68,7 +68,7 @@ class EnrollService
         return true;
     }
 
-    private function getPlayerNumber($playerSn)
+    public function getPlayerNumber($playerSn)
     {
         $enrollModel = new EnrollModel();
 

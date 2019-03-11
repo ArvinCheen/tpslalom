@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
@@ -9,6 +10,8 @@ use App\Services\RegistryFeeService;
 use Illuminate\Http\Request;
 use App\Services\EnrollService;
 use App\Services\PlayerService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EnrollController extends Controller
 {
@@ -22,29 +25,45 @@ class EnrollController extends Controller
         $playerService = new PlayerService();
         $playerList    = $playerService->getPlayers();
 
-        return view('enroll/index')
-            ->with('playerList', $playerList);
+        return view('enroll/index', compact('playerList'));
     }
 
     public function enroll(Request $request)
     {
-        $playerService      = new PlayerService();
-        $registryFeeService = new RegistryFeeService();
+        $this->store($request);
 
-        $playerSn = $request->playerSn == 'newPlayer' ? null : $request->playerSn;
-        $name     = $request->name;
-        $agency   = $request->agency;
-        $gender   = $request->gender;
-        $city     = $request->city;
-        $group    = $request->group;
-        $doubleS  = $request->doubleS;
-        $singleS  = $request->singleS;
-        $cross    = $request->cross;
-        $cross    = $request->cross;
+        return back();
+    }
+
+    public function update(Request $request)
+    {
+        if (! $this->store($request)) {
+            return back();
+        }
+
+        return redirect('paymentInfo');
+    }
+
+    private function store($request)
+    {
+        $playerSn   = $request->playerSn == 'newPlayer' ? null : $request->playerSn;
+        $name       = $request->name;
+        $agency     = $request->agency;
+        $gender     = $request->gender;
+        $city       = $request->city;
+        $group      = $request->group;
+        $level      = $request->level;
         $enrollItem = $request->enrollItem;
 
+        if (is_null($enrollItem)) {
+            Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
+            $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');
+
+            return false;
+        }
+
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
             $playerSn = app(PlayerModel::class)->updateOrCreate(['playerSn' => $playerSn], [
                 'accountId' => auth()->user()->accountId,
@@ -54,67 +73,58 @@ class EnrollController extends Controller
                 'agency'    => $agency,
             ])->playerSn;
 
-            $this->store($playerSn, $group, $enrollItem);
+            $playerNumber = $this->getPlayerNumber($playerSn);
+
+            app(EnrollModel::class)->cancel($playerSn);
+
+            foreach ($enrollItem as $item) {
+                app(EnrollModel::class)->store($playerSn, $playerNumber, $group, $level, $item);
+            }
 
             app(RegistryFeeModel::class)::updateOrCreate(
                 ['gameSn' => config('app.gameSn'), 'accountId' => auth()->user()->accountId, 'playerSn' => $playerSn],
                 ['gameSn' => config('app.gameSn'), 'accountId' => auth()->user()->accountId, 'playerSn' => $playerSn, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerSn) * 100)]
             );
 
-            $request->session()->flash('success', '報名成功');
-            \DB::commit();
+            $request->session()->flash('info', '報名成功');
 
+            DB::commit();
+
+            return true;
         } catch (\Exception $e) {
-            $request->session()->flash('error', '報名失敗');
-            \DB::rollback();
-        }
+            Log::error("[EnrollController@enroll] 報名失敗", [$e->getMessage()]);
 
-        return back();
+            $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');
+
+            DB::rollback();
+
+            return false;
+        }
     }
 
-
-    private function store($playerSn, $group, $doubleS, $singleS, $cross)
+    private function getPlayerNumber($playerSn)
     {
         $enrollModel = new EnrollModel();
 
-        $playerNumber = $this->getPlayerNumber($playerSn);
-
-        $enrollModel->cancel($playerSn);
-
-        // todo playerNumber之後拿掉，因為重新編組會在編組一次
-        if (!is_null($doubleS)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $doubleS, $item = '前進雙足S型');
+        if ($enrollModel->isPlayerExists($playerSn)) {
+            return $enrollModel->getPlayerNumber($playerSn);
+        } else {
+            return $enrollModel->getNewPlayerNumber();
         }
-        if (!is_null($singleS)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $singleS, $item = '前進單足S型');
-        }
-        if (!is_null($cross)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $cross, $item = '前進交叉型');
-        }
-
-        return true;
     }
 
     public function edit($playerSn)
     {
-        $enrollService = new EnrollService();
-        $player    = $enrollService->getPlayer($playerSn);
+        $enrollModel = new EnrollModel();
+
+        $player          = PlayerModel::find($playerSn);
+        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerSn);
+        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerSn);
+        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerSn);
+        $player->group   = $enrollModel->getGroup($playerSn);
+        $player->level   = $enrollModel->getLevel($playerSn);
 
         return view('enroll/edit')->with(compact('player'));
-    }
-
-    public function update(Request $request)
-    {
-        $enrollService = new EnrollService();
-
-        if ($enrollService->enroll($request)) {
-            $request->session()->flash('success', '修改報名成功');
-        } else {
-            $request->session()->flash('error', '修改報名失敗');
-            return back();
-        }
-
-        return redirect('paymentInfo');
     }
 
     public function cancel(Request $request)

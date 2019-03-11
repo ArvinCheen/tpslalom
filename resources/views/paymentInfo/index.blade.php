@@ -10,9 +10,8 @@
         <div class="mt-5 mb-5 text-center">
             <h2 class="mb-3">繳費資訊</h2>
             <p> 報名費請於報名截止日前匯款至 </p>
-            <p> 瑞興商業銀行 長安分行 </p>
-            <p> 帳號007-521-160-7330 台北市體育總會滑輪溜冰協會張進坤 </p>
-            {{--<p> 匯款完成後請到「<a href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform" target="_blank">這裡</a>」填寫匯款資料 </p>--}}
+            <p> 王道銀行營業部 (048) 0100-0051-3275-88 </p>
+            <p> 戶名： 曾大宇 </p>
         </div>
         <div class="row justify-content-center col-md-12">
             <div class="col-md-8  px-4">

@@ -24,8 +24,6 @@ class PlayerModel extends Model
 
     public function getPlayers()
     {
-        return $this->where('accountId', auth()->user()->accountId)
-            ->orderByDesc('playerSn')
-            ->get();
+        return $this->where('accountId', auth()->user()->accountId)->orderByDesc('playerSn')->get();
     }
 }
