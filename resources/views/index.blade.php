@@ -17,55 +17,49 @@
         <p class="lead">承辦單位：臺北市體育總會滑輪溜冰協會</p>
         <p class="lead">比賽地點：迎風溜冰場</p>
         <p class="lead">比賽日期：108年05月12日(日) 上午八點</p>
-        {{--<hr class="mb-4">--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-12 col-sm-6 col-md-4">--}}
-                {{--<div class="card card-lg h-100">--}}
-                    {{--<div class="card-img">--}}
-                        {{--<a href="https://yakuthemes.com/gameforest/game-post.html">--}}
-                            {{--<img src="{{ URL::asset('front/doubleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="card-block">--}}
-                        {{--<h4 class="card-title mb-3">--}}
-                            {{--<a >前進雙足S型</a>--}}
-                        {{--</h4>--}}
-                        {{--<p class="card-text">前進雙足S型起跑距離為8米，擺放17個角椎，各角錐間距為(初級組：160公分、新人組以上皆為120公分)</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-12 col-sm-6 col-md-4">--}}
-                {{--<div class="card card-lg h-100">--}}
-                    {{--<div class="card-img">--}}
-                        {{--<a href="https://yakuthemes.com/gameforest/game-post.html">--}}
-                            {{--<img src="{{ URL::asset('front/singleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="card-block">--}}
-                        {{--<h4 class="card-title mb-3">--}}
-                            {{--<a >前進單足S型</a>--}}
-                        {{--</h4>--}}
-                        {{--<p class="card-text">前進單足S型起跑距離為12米，擺放20個角椎，各角錐間距為80公分</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-12 col-sm-6 col-md-4">--}}
-                {{--<div class="card card-lg h-100">--}}
-                    {{--<div class="card-img">--}}
-                        {{--<a href="https://yakuthemes.com/gameforest/game-post.html">--}}
-                            {{--<img src="{{ URL::asset('front/cross.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="card-block">--}}
-                        {{--<h4 class="card-title mb-3">--}}
-                            {{--<a >前進交叉型</a>--}}
-                        {{--</h4>--}}
-                        {{--<p class="card-text">前進交叉型起跑距離為8米，擺放17個角椎，各角錐間距為120公分</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        <hr>
+        <hr class="mb-4">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card card-lg h-100">
+                    <div class="card-img">
+                        <img src="{{ URL::asset('front/doubleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title mb-3">
+                            <a >前進雙足S型</a>
+                        </h4>
+                        <p class="card-text">前進雙足S型起跑距離為8米，擺放17個角椎，各角錐間距為(初級組：160公分、新人組以上皆為120公分)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card card-lg h-100">
+                    <div class="card-img">
+                        <img src="{{ URL::asset('front/singleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title mb-3">
+                            <a >前進單足S型</a>
+                        </h4>
+                        <p class="card-text">前進單足S型起跑距離為12米，擺放20個角椎，各角錐間距為80公分</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card card-lg h-100">
+                    <div class="card-img">
+                        <img src="{{ URL::asset('front/cross.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title mb-3">
+                            <a >前進交叉型</a>
+                        </h4>
+                        <p class="card-text">前進交叉型起跑距離為8米，擺放17個角椎，各角錐間距為120公分</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4">
         <h4>競賽內容：</h4>
        <p> (1) 單足S形為二回合計時賽，二輪成績擇優排名。</p>
        <p> (2) 每踢倒、漏過一個樁加比賽0.2秒，失誤超過四個，則該次比賽失格，單足S形在抵達終點前任何地方浮足落地則該次比賽失格。</p>
