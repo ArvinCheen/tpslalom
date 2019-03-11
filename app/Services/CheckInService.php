@@ -10,7 +10,7 @@ class CheckInService
     public function index($scheduleSn)
     {
         if (is_null($scheduleSn)) {
-            $schedule = ScheduleModel::where('gameSn', session('gameSn'))->first();
+            $schedule = ScheduleModel::where('gameSn', config('app.gameSn'))->first();
         } else {
             $schedule = ScheduleModel::where('scheduleSn', $scheduleSn)->first();
         }
@@ -19,7 +19,7 @@ class CheckInService
             return [];
         }
 
-        return \DB::table('enroll')->where('gameSn', session('gameSn'))
+        return \DB::table('enroll')->where('gameSn', config('app.gameSn'))
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
             ->where('gender', $schedule->gender)
             ->where('level', $schedule->level)
@@ -30,8 +30,8 @@ class CheckInService
 
     public function update($playerSn, $scheduleSn, $checkStatus)
     {
-        $enrollInfo = ScheduleModel::where('gameSn', session('gameSn'))->where('scheduleSn', $scheduleSn)->first();
-        $query      = EnrollModel::where('gameSn', session('gameSn'))
+        $enrollInfo = ScheduleModel::where('gameSn', config('app.gameSn'))->where('scheduleSn', $scheduleSn)->first();
+        $query      = EnrollModel::where('gameSn', config('app.gameSn'))
             ->where('level', $enrollInfo->level)
             ->where('group', $enrollInfo->group)
             ->where('item', $enrollInfo->item)
@@ -46,11 +46,11 @@ class CheckInService
 
     public function getSchedules()
     {
-        return ScheduleModel::where('gameSn', session('gameSn'))->get();
+        return ScheduleModel::where('gameSn', config('app.gameSn'))->get();
     }
 
     public function getScheduleSn()
     {
-        return ScheduleModel::where('gameSn', session('gameSn'))->value('scheduleSn');
+        return ScheduleModel::where('gameSn', config('app.gameSn'))->value('scheduleSn');
     }
 }

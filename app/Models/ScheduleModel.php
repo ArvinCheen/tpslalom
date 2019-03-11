@@ -29,11 +29,13 @@ class ScheduleModel extends Model
 
     public function getSchedules()
     {
-        return $this->where('gameSn', session('gameSn'))->get();
+        return $this->where('gameSn', config('app.gameSn')
+        )->get();
     }
 
     public function getSchedule($order)
     {
-        return $this->where('gameSn', session('gameSn'))->where('order', $order)->first();
+        return $this->where('gameSn', config('app.gameSn')
+        )->where('order', $order)->first();
     }
 }

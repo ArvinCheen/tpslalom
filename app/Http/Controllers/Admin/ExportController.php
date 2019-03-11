@@ -28,7 +28,7 @@ class ExportController extends Controller
             return back();
         }
 
-        $gameInfo = ScheduleModel::where('gameSn', session('gameSn'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo = ScheduleModel::where('gameSn', config('app.gameSn'))->where('scheduleSn', $scheduleSn)->first();
         $order    = $gameInfo->order;
         $level    = $gameInfo->level;
         $gender   = $gameInfo->gender;
@@ -36,7 +36,7 @@ class ExportController extends Controller
         $item     = $gameInfo->item;
 
         $queryTaipei = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
@@ -48,7 +48,7 @@ class ExportController extends Controller
             ->get();
 
         $queryOtherCity = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
@@ -70,7 +70,7 @@ class ExportController extends Controller
     public function completion($accountId)
     {
         $data = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('enroll.accountId', $accountId)
             ->whereNotNull('rank')
             ->where('check', '出賽')
@@ -126,7 +126,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A12', function ($cell) use ($val) {
-                            $completeName = GameModel::where('gameSn', session('gameSn'))->value('completeName');
+                            $completeName = GameModel::where('gameSn', config('app.gameSn'))->value('completeName');
                             $cell->setValue($completeName);
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
@@ -134,7 +134,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('H13', function ($cell) use ($val) {
-                            $letter = GameModel::where('gameSn', session('gameSn'))->value('letter');
+                            $letter = GameModel::where('gameSn', config('app.gameSn'))->value('letter');
                             $cell->setValue($letter);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
@@ -239,7 +239,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A44', function ($cell) use ($val) {
-                            $date     = GameModel::where('gameSn', session('gameSn'))->value('date');
+                            $date     = GameModel::where('gameSn', config('app.gameSn'))->value('date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
                             $cell->setFontSize(20);
@@ -255,7 +255,7 @@ class ExportController extends Controller
     {
         $teams = EnrollModel::select('teamName')
             ->leftJoin('account', 'account.accountId', 'enroll.accountId')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->groupBy('enroll.accountId')
             ->get();
 
@@ -270,7 +270,7 @@ class ExportController extends Controller
                 ]);
                 $sheet->setHeight(1, 80);
                 $sheet->cell('A1', function ($cell) {
-                    $abridgeName = GameModel::where('gameSn', session('gameSn'))->value('abridgeName');
+                    $abridgeName = GameModel::where('gameSn', config('app.gameSn'))->value('abridgeName');
                     $cell->setValue($abridgeName . ' 隊伍簽到表');
                     $cell->setFontSize(24);
                     $cell->setAlignment('center');
@@ -298,7 +298,7 @@ class ExportController extends Controller
 
     public function records()
     {
-        $schedule = ScheduleModel::where('gameSn', session('gameSn'))->get();
+        $schedule = ScheduleModel::where('gameSn', config('app.gameSn'))->get();
 
         Excel::create('紀錄手寫單', function ($excel) use ($schedule) {
             foreach ($schedule as $val) {
@@ -333,7 +333,7 @@ class ExportController extends Controller
                         'L' => 9.5,
                     ]);
                     $sheet->cell('A1', function ($cell) use ($val) {
-                        $abridgeName = GameModel::where('gameSn', session('gameSn'))->value('abridgeName');
+                        $abridgeName = GameModel::where('gameSn', config('app.gameSn'))->value('abridgeName');
                         $cell->setValue($abridgeName . ' - 紀錄單 - ' . $val->order);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');

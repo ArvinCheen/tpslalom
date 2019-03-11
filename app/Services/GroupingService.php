@@ -10,7 +10,7 @@ class GroupingService
 {
     public function grouping()
     {
-        ScheduleModel::where('gameSn', session('gameSn'))->delete();
+        ScheduleModel::where('gameSn', config('app.gameSn'))->delete();
 
         $this->setGrouping('新人組', '幼童', '男', '前進單足S型');
         $this->setGrouping('新人組', '幼童', '女', '前進單足S型');
@@ -55,10 +55,10 @@ class GroupingService
         $enrollQuery    = new EnrollModel();
         $numberOfPlayer = $enrollQuery->countGameItemNumberOfPlayer($level, $group, $gender, $item);
 
-        $schedule = '場次' . (ScheduleModel::where('gameSn', session('gameSn'))->count() + 1);
+        $schedule = '場次' . (ScheduleModel::where('gameSn', config('app.gameSn'))->count() + 1);
         if ($numberOfPlayer) {
             $insertData = [
-                'gameSn'         => session('gameSn'),
+                'gameSn'         => config('app.gameSn'),
                 'order'          => $schedule,
                 'level'          => $level,
                 'group'          => $group,
@@ -72,10 +72,10 @@ class GroupingService
 
     public function createPlayerNumber()
     {
-        $playerSns = RegistryFeeModel::select('playerSn')->where('gameSn', session('gameSn'))->get();
+        $playerSns = RegistryFeeModel::select('playerSn')->where('gameSn', config('app.gameSn'))->get();
 
         foreach ($playerSns as $key => $val) {
-            EnrollModel::where('gameSn', session('gameSn'))->where('playerSn', $val->playerSn)->update(['playerNumber' => $key + 1]);
+            EnrollModel::where('gameSn', config('app.gameSn'))->where('playerSn', $val->playerSn)->update(['playerNumber' => $key + 1]);
         }
     }
 }

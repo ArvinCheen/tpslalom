@@ -37,11 +37,11 @@ class SearchService
 
     public function getResult($scheduleSn, $city)
     {
-        $gameInfo = ScheduleModel::where('gameSn', session('gameSn'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo = ScheduleModel::where('gameSn', config('app.gameSn'))->where('scheduleSn', $scheduleSn)->first();
 
-        $query = EnrollModel::where('gameSn', session('gameSn'))
+        $query = EnrollModel::where('gameSn', config('app.gameSn'))
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('level', $gameInfo->level)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
@@ -95,7 +95,7 @@ class SearchService
     {
         $integralData = EnrollModel::selectRaw('teamName, enroll.accountId, sum(integral) as integralTotal')
             ->leftJoin('account', 'account.accountId', 'enroll.accountId')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->whereNotNull('integral')
             ->groupBy('enroll.accountId')
             ->orderByDesc('integralTotal')
@@ -105,7 +105,7 @@ class SearchService
             $accountId = $val->accountId;
 
             $val->playerData = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-                ->where('gameSn', session('gameSn'))
+                ->where('gameSn', config('app.gameSn'))
                 ->where('enroll.accountId', $accountId)
                 ->where('integral', '>', 0)
                 ->orderByDesc('integral')

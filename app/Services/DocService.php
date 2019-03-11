@@ -40,7 +40,7 @@ class DocService
             $item   = $val->item;
 
             $val->playerList = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-                ->where('gameSn', session('gameSn'))
+                ->where('gameSn', config('app.gameSn'))
                 ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
@@ -59,7 +59,7 @@ class DocService
         foreach ($participateTeam as $val) {
             $val->players = \DB::table('enroll')
                 ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-                ->where('gameSn', session('gameSn'))
+                ->where('gameSn', config('app.gameSn'))
                 ->where('enroll.accountId', $val->accountId)
                 ->groupBy('enroll.playerSn')
                 ->get();

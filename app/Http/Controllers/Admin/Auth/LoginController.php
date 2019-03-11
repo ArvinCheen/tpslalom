@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest')->except('login', 'logout');
+//        $this->middleware('guest')->except('login', 'logout');
     }
 
     public function index()
@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (\Auth::attempt(['accountId' => $accountId, 'password' => $password], true)) {
             app('request')->session()->flash('success', '登入成功');
 
-            session(['gameSn' => env('GAME')]);
+            session(['gameSn' => config('app.gameSn')]);
 
             return redirect('/admin');
         } else {

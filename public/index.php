@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -55,6 +57,9 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+
 $response->send();
 
 $kernel->terminate($request, $response);
+
+

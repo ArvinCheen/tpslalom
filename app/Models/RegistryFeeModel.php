@@ -21,17 +21,16 @@ class RegistryFeeModel extends Model
     public function store($playerSn, $enrollCount)
     {
         $existKey = [
-            'gameSn'    => env('GAME'),
+            'gameSn'    => config('app.gameSn'),
             'accountId' => auth()->user()->accountId,
             'playerSn'  => $playerSn,
         ];
 
         $data = [
-            'gameSn'    => env('GAME'),
+            'gameSn'    => config('app.gameSn'),
             'accountId' => auth()->user()->accountId,
             'playerSn'  => $playerSn,
-//            'fee'       => 400 + ($enrollCount * 100)
-            'fee'       => 500 //36中正盃改為只開放單項，費用500
+            'fee'       => 500 + ($enrollCount * 100)
         ];
 
         return $this->updateOrCreate($existKey, $data);
@@ -40,7 +39,7 @@ class RegistryFeeModel extends Model
     public function deleteRegistryFee($playerSn)
     {
         $this->where('playerSn', $playerSn)
-            ->where('gameSn', env('GAME'))
+            ->where('gameSn', config('app.gameSn'))
             ->delete();
     }
 
@@ -57,8 +56,8 @@ class RegistryFeeModel extends Model
         return $this->select($select)
             ->leftJoin('enroll', 'enroll.playerSn', 'registryfee.playerSn')
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('enroll.gameSn', env('GAME'))
-            ->where('registryfee.gameSn', env('GAME'))
+            ->where('enroll.gameSn', config('app.gameSn'))
+            ->where('registryfee.gameSn', config('app.gameSn'))
             ->where('registryfee.accountId', auth()->user()->accountId)
             ->orderByDesc('enroll.enrollSn')
             ->groupBy('enroll.playerNumber')
@@ -68,7 +67,7 @@ class RegistryFeeModel extends Model
     public function getTotal()
     {
         return $this->where('accountId', auth()->user()->accountId)
-            ->where('gameSn', env('GAME'))
+            ->where('gameSn', config('app.gameSn'))
             ->sum('fee');
     }
 
@@ -86,7 +85,7 @@ class RegistryFeeModel extends Model
             sum(fee) AS totalFee
     '))
         ->leftJoin('account', 'account.accountId', 'registryfee.accountId')
-        ->where('gameSn', session('gameSn'))
+        ->where('gameSn', config('app.gameSn'))
         ->groupBy('account.accountId')
         ->get();
     }

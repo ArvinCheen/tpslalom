@@ -9,11 +9,11 @@ class ResultService
 {
     public function getPlayers($scheduleSn)
     {
-        $gameInfo = ScheduleModel::where('gameSn', session('gameSn'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo = ScheduleModel::where('gameSn', config('app.gameSn'))->where('scheduleSn', $scheduleSn)->first();
 
-        return EnrollModel::where('gameSn', session('gameSn'))
+        return EnrollModel::where('gameSn', config('app.gameSn'))
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('level', $gameInfo->level)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
@@ -35,7 +35,7 @@ class ResultService
     {
         $players = EnrollModel::select('enroll.enrollSn', 'finalResult')
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', session('gameSn'))
+            ->where('gameSn', config('app.gameSn'))
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
@@ -147,7 +147,7 @@ class ResultService
     public function isGameOver($scheduleSn)
     {
         $enrollModel = new EnrollModel();
-        $gameInfo    = ScheduleModel::where('gameSn', session('gameSn'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo    = ScheduleModel::where('gameSn', config('app.gameSn'))->where('scheduleSn', $scheduleSn)->first();
 
         $level  = $gameInfo->level;
         $gender = $gameInfo->gender;
