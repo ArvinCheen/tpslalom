@@ -9,9 +9,7 @@
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
 
 
-Route::group(['prefix' => '/'
-//    , 'middleware' => ['guest']
-], function () {
+Route::group(['prefix' => '/'], function () {
     Route::get('/', ['as' => '/', 'uses' => 'IndexController@index']);
 
     Route::group(['prefix' => 'login'], function () {
@@ -20,6 +18,11 @@ Route::group(['prefix' => '/'
     });
 });
 
+
+Route::group(['prefix' => 'register'], function () {
+    Route::get('/', 'Auth\RegisterController@index');
+    Route::post('/', 'Auth\RegisterController@register');
+});
 
 Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
 
@@ -44,12 +47,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
         Route::get('/integral', 'SearchController@integral');
     });
 
-    Route::group(['prefix' => 'register'], function () {
-        Route::get('/', 'Auth\RegisterController@index');
-        Route::post('/', 'Auth\RegisterController@register');
-    });
-
-
     Route::group(['prefix' => 'about'], function () {
         Route::get('/', 'AboutController@index');
     });
@@ -63,8 +60,8 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'AccountController@index');
-        Route::get('register', 'RegisterController@index');
-        Route::post('register', 'AccountController@register');
+//        Route::get('register', 'RegisterController@index');
+//        Route::post('register', 'AccountController@register');
         Route::put('update', 'AccountController@update');
     });
 
