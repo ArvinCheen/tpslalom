@@ -76,7 +76,6 @@
                         <option value="國小五年級" {{ $player->group == '國小五年級' ? 'selected' : '' }}>國小五年級</option>
                         <option value="國小六年級" {{ $player->group == '國小六年級' ? 'selected' : '' }}>國小六年級</option>
                         <option value="國中" {{ $player->group == '國中' ? 'selected' : '' }}>國中</option>
-                        <option value="男女子" {{ $player->group == '男女子' ? 'selected' : '' }}>男女子</option>
                         <option value="高中" {{ $player->group == '高中' ? 'selected' : '' }}>高中</option>
                         <option value="大專" {{ $player->group == '大專' ? 'selected' : '' }}>大專</option>
                         <option value="社會" {{ $player->group == '社會' ? 'selected' : '' }}>社會</option>
