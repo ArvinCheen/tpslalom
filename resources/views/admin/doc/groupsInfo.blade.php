@@ -28,26 +28,26 @@
                             @php
                                 $i = 0;
                             @endphp
-                            @while($i < count($val->playerList))
+                            @while($i < count($val->players))
                                 <tr>
                                     <td class="w-25">
-                                        @if (isset($val->playerList[$i]))
-                                            {{ $val->playerList[$i]->playerNumber }} {{ $val->playerList[$i]->name }} ({{ $val->playerList[$i]->agency }})
+                                        @if (isset($val->players[$i]))
+                                            {{ $val->players[$i]->playerNumber }} {{ $val->players[$i]->name }} ({{ $val->players[$i]->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($val->playerList[$i + 1]))
-                                            {{ $val->playerList[$i + 1]->playerNumber }} {{ $val->playerList[$i + 1]->name }} ({{ $val->playerList[$i + 1]->agency }})
+                                        @if (isset($val->players[$i + 1]))
+                                            {{ $val->players[$i + 1]->playerNumber }} {{ $val->players[$i + 1]->name }} ({{ $val->players[$i + 1]->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($val->playerList[$i + 2]))
-                                            {{ $val->playerList[$i + 2]->playerNumber }} {{ $val->playerList[$i + 2]->name }} ({{ $val->playerList[$i + 2]->agency }})
+                                        @if (isset($val->players[$i + 2]))
+                                            {{ $val->players[$i + 2]->playerNumber }} {{ $val->players[$i + 2]->name }} ({{ $val->players[$i + 2]->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($val->playerList[$i + 3]))
-                                            {{ $val->playerList[$i + 3]->playerNumber }} {{ $val->playerList[$i + 3]->name }} ({{ $val->playerList[$i + 3]->agency }})
+                                        @if (isset($val->players[$i + 3]))
+                                            {{ $val->players[$i + 3]->playerNumber }} {{ $val->players[$i + 3]->name }} ({{ $val->players[$i + 3]->agency }})
                                         @endif
                                     </td>
                                 </tr>

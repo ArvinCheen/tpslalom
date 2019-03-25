@@ -10,11 +10,6 @@ use App\Services\CheckInService;
 
 class ResultController extends Controller
 {
-    public function __construct()
-    {
-//        $this->middleware('auth');
-    }
-
     public function index($scheduleSn = null)
     {
         $checkInService = new CheckInService();
@@ -41,18 +36,19 @@ class ResultController extends Controller
         $scheduleSn       = $request->scheduleSn;
         $isGameOver       = $request->isGameOver;
 
-        if (!$this->validateInt($request)) {
+        if (! $this->validateInt($request)) {
             app('request')->session()->flash('error', '秒數請輸入數字');
             return back()->withInput();
         }
 
         if ($isGameOver) {
-            app()->make(ResultService::class)->processOverGame($scheduleSn);
+            // todo slack notify
+            app(ResultService::class)->processOverGame($scheduleSn);
 
             app('request')->session()->flash('info', '排名成功');
         } else {
             foreach ($enrollSn as $key => $value) {
-                app(ResultService::class)->updatePlayerResult($enrollSn[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+                app(ResultService::class)->updateResult($enrollSn[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
             }
 
             app('request')->session()->flash('success', '更新選手成績成功');

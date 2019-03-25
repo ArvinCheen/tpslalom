@@ -20,12 +20,12 @@
                     <h4 class="mb-3">選手資訊</h4>
                     <div class="mb-3">
                         <label>出賽選手</label>
-                        <select class="form-control" name="playerSn" required>
+                        <select class="form-control" name="playerId" required>
                             <option value=''> -- 請選擇一位選手 -- </option>
                             <option value="newPlayer"> 新增一個全新的選手 </option>
-                            @foreach ($playerList as $val)
-                                <option value="{{ $val->playerSn }}">
-                                    No.{{ $val->playerSn }} {{ $val->name }}
+                            @foreach ($players as $player)
+                                <option value="{{ $player->id }}">
+                                    No.{{ $player->id }} {{ $player->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -209,16 +209,16 @@
         }
     }
 
-    $("select[name='playerSn']").change(function() {
-        var playerSn = $(this).val();
+    $("select[name='playerId']").change(function() {
+        var playerId = $(this).val();
 
         clearForm();
 
-        if (playerSn === '') {
+        if (playerId === '') {
             disabledForm(true);
         } else {
             disabledForm(false);
-            getPlayer(playerSn);
+            getPlayer(playerId);
         }
     });
 
@@ -246,11 +246,13 @@
         $("select[name='cross']").prop("selectedIndex", 0);
     }
 
-    function getPlayer(playerSn) {
+    function getPlayer(playerId) {
+        console.log(playerId);
         $.ajax({
-            url: "player/ajaxGetPlayer/" + playerSn,
+            url: "player/ajaxGetPlayer/" + playerId,
             dateType: "JSON",
             success: function (msg) {
+                console.log(msg);
                 $("input[name='name']").val(msg.name);
                 $("input[name='agency']").val(msg.agency);
                 $("select[name='gender'] option[value=" + msg.gender + "]").prop('selected', true);

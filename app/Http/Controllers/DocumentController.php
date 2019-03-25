@@ -37,7 +37,7 @@ class DocumentController extends Controller
             $gender = $val->gender;
             $item = $val->item;
 
-            $val->playerList = DB::table('enroll')
+            $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
                 ->where('gameSn', $gameSn)
                 ->where('level', $level)
@@ -58,7 +58,7 @@ class DocumentController extends Controller
         $participateTeam = $enrollQuery->getParticipateTeam($gameSn);
 
         foreach ($participateTeam as $val) {
-            $val->playerList = DB::table('enroll')
+            $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
                 ->where('gameSn', $gameSn)
                 ->where('enroll.accountId', $val->accountId)

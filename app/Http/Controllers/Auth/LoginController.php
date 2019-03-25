@@ -9,15 +9,6 @@ use App\Services\GameService;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
-    protected $redirectTo = '/login';
-
-    public function __construct()
-    {
-//        $this->middleware('guest')->except('logout', 'admi/dev.tpslalomnLogout');
-    }
-
     public function index()
     {
         return view('auth/login');
@@ -25,26 +16,22 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $accountId = $request->accountId;
-        $password  = $request->password;
+        $account  = $request->account;
+        $password = $request->password;
 
-        if (\Auth::attempt(['accountId' => $accountId, 'password' => $password], true)) {
-            app('request')->session()->flash('success', '登入成功');
-
-
-
-            return redirect('/');
+        if (\Auth::attempt(['account' => $account, 'password' => $password], true)) {
+            return redirect('/')->with(['success' => '登入成功']);
         } else {
-            $request->session()->flash('error', '帳號密碼錯誤');
-            return redirect('/login')->withInput();
+            return redirect('/login')->with(['error' => '帳號密碼錯誤']);
         }
     }
 
     public function logout()
     {
         \Auth::logout();
+
         session()->flush();
-        app('request')->session()->flash('success', '登出成功');
-        return redirect('login');
+
+        return redirect('login')->with(['success' => '登出成功']);
     }
 }

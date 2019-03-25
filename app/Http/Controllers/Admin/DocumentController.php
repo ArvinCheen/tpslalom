@@ -46,7 +46,7 @@ class DocumentController extends Controller
             $gender = $val->gender;
             $item = $val->item;
 
-            $val->playerList = DB::table('enroll')
+            $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
                 ->where('gameSn', $gameSn)
                 ->where('level', $level)
@@ -68,7 +68,7 @@ class DocumentController extends Controller
 
         foreach ($participateTeam as $val) {
 
-            $val->playerList = DB::table('enroll')
+            $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
                 ->where('gameSn', $gameSn)
                 ->where('enroll.accountId', $val->accountId)
@@ -643,7 +643,7 @@ class DocumentController extends Controller
                     $gender = $val->gender;
                     $item = $val->item;
 
-                    $playerList = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+                    $players = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
                         ->where('gameSn', $gameSn)
                         ->where('level', $level)
                         ->where('group', $group)
@@ -653,7 +653,7 @@ class DocumentController extends Controller
                         ->get();
 
                     $location = 7;
-                    foreach ($playerList as $key => $player) {
+                    foreach ($players as $key => $player) {
                         $location++;
                         $sheet->setHeight($location, 33);
 

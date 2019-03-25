@@ -6,17 +6,7 @@ use DB;
 
 class RegistryFeeModel extends Model
 {
-    protected $table = 'registryfee';
-
-    protected $primaryKey = 'registryFeeSn';
-
-    protected $fillable = ['gameSn', 'accountId', 'playerNumber', 'playerSn', 'fee'];
-
-    public $timestamps = true;
-
-    const CREATED_AT = 'createTime';
-
-    const UPDATED_AT = 'updateTime';
+    protected $table = 'registry_fee';
 
     public function store($playerSn, $enrollCount)
     {

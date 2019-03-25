@@ -15,38 +15,34 @@ use Illuminate\Support\Facades\Log;
 
 class EnrollController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $playerService = new PlayerService();
-        $playerList    = $playerService->getPlayers();
+        $players = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
 
-        return view('enroll/index', compact('playerList'));
+        return view('enroll/index', compact('players'));
     }
 
     public function enroll(Request $request)
     {
-        $this->store($request);
+        if (! $this->store($request)) {
+            return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
+        }
 
-        return back();
+        return back()->with(['success' => '報名成功']);
     }
 
     public function update(Request $request)
     {
         if (! $this->store($request)) {
-            return back();
+            return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
         }
 
-        return redirect('paymentInfo');
+        return redirect('paymentInfo')->with(['success' => '報名成功']);
     }
 
     private function store($request)
     {
-        $playerSn   = $request->playerSn == 'newPlayer' ? null : $request->playerSn;
+        $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
         $agency     = $request->agency;
         $gender     = $request->gender;
@@ -65,64 +61,59 @@ class EnrollController extends Controller
         try {
             DB::beginTransaction();
 
-            $playerSn = app(PlayerModel::class)->updateOrCreate(['playerSn' => $playerSn], [
-                'accountId' => auth()->user()->accountId,
+            $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
+                'accountId' => auth()->user()->id,
                 'name'      => $name,
                 'gender'    => $gender,
                 'city'      => $city,
                 'agency'    => $agency,
-            ])->playerSn;
+            ])->id;
 
-            $playerNumber = $this->getPlayerNumber($playerSn);
+            app(EnrollModel::class)->cancel($playerId);
 
-            app(EnrollModel::class)->cancel($playerSn);
+            $playerNumber = $this->getPlayerNumber($playerId);
 
             foreach ($enrollItem as $item) {
-                app(EnrollModel::class)->store($playerSn, $playerNumber, $group, $level, $item);
+                app(EnrollModel::class)->store($playerId, $playerNumber, $group, $level, $item);
             }
 
             app(RegistryFeeModel::class)::updateOrCreate(
-                ['gameSn' => config('app.gameSn'), 'accountId' => auth()->user()->accountId, 'playerSn' => $playerSn],
-                ['gameSn' => config('app.gameSn'), 'accountId' => auth()->user()->accountId, 'playerSn' => $playerSn, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerSn) * 100)]
+                ['gameSn' => config('app.gameSn'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
+                ['gameSn' => config('app.gameSn'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
             );
-
-            $request->session()->flash('info', '報名成功');
 
             DB::commit();
 
             return true;
         } catch (\Exception $e) {
             Log::error("[EnrollController@enroll] 報名失敗", [$e->getMessage()]);
-
-            $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');
-
             DB::rollback();
 
             return false;
         }
     }
 
-    private function getPlayerNumber($playerSn)
+    private function getPlayerNumber($playerId)
     {
         $enrollModel = new EnrollModel();
 
-        if ($enrollModel->isPlayerExists($playerSn)) {
-            return $enrollModel->getPlayerNumber($playerSn);
+        if ($enrollModel->isPlayerExists($playerId)) {
+            return $enrollModel->getPlayerNumber($playerId);
         } else {
             return $enrollModel->getNewPlayerNumber();
         }
     }
 
-    public function edit($playerSn)
+    public function edit($playerId)
     {
         $enrollModel = new EnrollModel();
 
-        $player          = PlayerModel::find($playerSn);
-        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerSn);
-        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerSn);
-        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerSn);
-        $player->group   = $enrollModel->getGroup($playerSn);
-        $player->level   = $enrollModel->getLevel($playerSn);
+        $player          = PlayerModel::find($playerId);
+        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerId);
+        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerId);
+        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerId);
+        $player->group   = $enrollModel->getGroup($playerId);
+        $player->level   = $enrollModel->getLevel($playerId);
 
         return view('enroll/edit')->with(compact('player'));
     }
@@ -131,7 +122,7 @@ class EnrollController extends Controller
     {
         $enrollService = new EnrollService();
 
-        if ($enrollService->cancel($request->playerSn)) {
+        if ($enrollService->cancel($request->playerId)) {
             app('request')->session()->flash('warning', '取消報名成功');
         } else {
             app('request')->session()->flash('error', '取消報名失敗');

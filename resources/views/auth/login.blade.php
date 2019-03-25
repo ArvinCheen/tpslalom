@@ -17,7 +17,7 @@
                                 {{ csrf_field() }}
                                 <div class="form-group input-icon-left m-b-10">
                                     <i class="fa fa-user"></i>
-                                    <input type="text" name="accountId" class="form-control" placeholder="帳號">
+                                    <input type="text" name="account" class="form-control" placeholder="帳號">
                                 </div>
                                 <div class="form-group input-icon-left m-b-15">
                                     <i class="fa fa-lock"></i>

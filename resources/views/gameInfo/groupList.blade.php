@@ -24,10 +24,10 @@
                             <td>共 {{ $val->numberOfPlayer }} 人</td>
                         </tr>
 
-                        @foreach ($val->playerList as $playerList)
+                        @foreach ($val->players as $player)
                             <tr>
                                 <td class="" style="border:1px solid">
-                                    {{ $playerList->playerNumber }} {{ $playerList->name }} ({{ $playerList->city . $playerList->agency }})
+                                    {{ $player->playerNumber }} {{ $player->name }} ({{ $player->city . $player->agency }})
                                 </td>
                             </tr>
                         @endforeach

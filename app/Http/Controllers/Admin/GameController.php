@@ -36,19 +36,19 @@ class GameController extends Controller
             ->with('gameEvent', $gameEvent);
     }
 
-    public function enrollPlayerList($gameEvent)
+    public function enrollPlayers($gameEvent)
     {
         $enrollModel = new EnrollModel();
 
-        $playerListFeet   = $enrollModel->getGamePlayerList($gameEvent, $item = '前進雙足S型');
-        $playerListSingle = $enrollModel->getGamePlayerList($gameEvent, $item = '前進單足S型');
-        $playerListCross  = $enrollModel->getGamePlayerList($gameEvent, $item = '前進交叉型');
+        $playersFeet   = $enrollModel->getGamePlayers($gameEvent, $item = '前進雙足S型');
+        $playersSingle = $enrollModel->getGamePlayers($gameEvent, $item = '前進單足S型');
+        $playersCross  = $enrollModel->getGamePlayers($gameEvent, $item = '前進交叉型');
 
-        return view('admin/game/enrollPlayerList')
+        return view('admin/game/enrollPlayers')
             ->with('gameEvent', $gameEvent)
-            ->with('playerListFeet', $playerListFeet)
-            ->with('playerListSingle', $playerListSingle)
-            ->with('playerListCross', $playerListCross);
+            ->with('playersFeet', $playersFeet)
+            ->with('playersSingle', $playersSingle)
+            ->with('playersCross', $playersCross);
     }
 
     public function enterResultMode($gameSn, $order)
@@ -128,10 +128,10 @@ class GameController extends Controller
         $level     = $request->level;
         $group     = $request->group;
 
-        $playerList = $enrollModel->getGamePlayerList($gameEvent, $item, $level, $group);
+        $players = $enrollModel->getGamePlayers($gameEvent, $item, $level, $group);
 
         return view('admin/game/enterMode')
-            ->with('playerList', $playerList)
+            ->with('players', $players)
             ->with('gameEvent', $gameEvent)
             ->with('item', $item)
             ->with('level', $level)

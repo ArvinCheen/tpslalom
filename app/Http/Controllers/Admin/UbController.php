@@ -417,7 +417,7 @@ class ExportController extends Controller
                     $gender = $val->gender;
                     $item   = $val->item;
 
-                    $playerList = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+                    $players = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
                         ->where('gameSn', $gameSn)
                         ->where('level', $level)
                         ->where('group', $group)
@@ -427,7 +427,7 @@ class ExportController extends Controller
                         ->get();
 
                     $location = 6;
-                    foreach ($playerList as $key => $player) {
+                    foreach ($players as $key => $player) {
                         $location++;
                         $sheet->setHeight($location, 33);
 

@@ -37,7 +37,7 @@
                     <form action="{{ URL('admin/login') }}" class="m-login__form m-form" method="post">
                         {{ csrf_field() }}
                         <div class="form-group m-form__group">
-                            <input class="form-control m-input" type="text" placeholder="帳號" name="accountId" autocomplete="off">
+                            <input class="form-control m-input" type="text" placeholder="帳號" name="account" autocomplete="off">
                         </div>
                         <div class="form-group m-form__group">
                             <input class="form-control m-input m-login__form-input--last" type="password" placeholder="密碼" name="password">

@@ -50,11 +50,11 @@
                 </div>
             @endif
 
-            @if ($playerList->isEmpty())
+            @if ($players->isEmpty())
                 目前你的帳號下還沒有選手資料
             @endif
-            @foreach($playerList as $val)
-                <a href="{{ URL('editPlayer/' . $val->sn) }}">唯一識別碼：{{ $val->sn }} - {{ $val->name }}</a><br>
+            @foreach($players as $player)
+                <a href="{{ URL('editPlayer/' . $player->sn) }}">唯一識別碼：{{ $player->sn }} - {{ $player->name }}</a><br>
             @endforeach
         </div>
     </body>

@@ -39,7 +39,7 @@ class DocService
             $gender = $val->gender;
             $item   = $val->item;
 
-            $val->playerList = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            $val->players = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
                 ->where('gameSn', config('app.gameSn'))
                 ->where('level', $level)
                 ->where('group', $group)

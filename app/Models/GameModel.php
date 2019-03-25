@@ -7,13 +7,9 @@ class GameModel extends Model
 {
     protected $table = 'game';
 
-    protected $primaryKey = 'gameSn';
-
-    protected $fillable = ['abridgeName', 'completeName', 'letter'];
-
     public function getAll()
     {
-        return $this->orderByDesc('gameSn')->get();
+        return $this->orderByDesc('id')->get();
     }
 }
 

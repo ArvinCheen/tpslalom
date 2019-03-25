@@ -8,11 +8,6 @@ use App\Services\AccountService;
 
 class AccountController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $accountService = new AccountService();

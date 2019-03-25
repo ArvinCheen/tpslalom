@@ -58,13 +58,13 @@
                         <td colspan="3"> 經理：{{ $val->managementName }} </td>
                     </tr>
                     <tr>
-                        <td colspan="3"> 選手人數及名冊：{{ count($val->playerList) }} 人 </td>
+                        <td colspan="3"> 選手人數及名冊：{{ count($val->players) }} 人 </td>
                     </tr>
 
-                    @foreach ($val->playerList as $playerList)
+                    @foreach ($val->players as $player)
                         <tr>
                             <td class="" style="border:1px solid">
-                                {{ $playerList->playerNumber }} {{ $playerList->name }} ({{ $playerList->city . $playerList->agency }})
+                                {{ $player->playerNumber }} {{ $player->name }} ({{ $player->city . $player->agency }})
                             </td>
                         </tr>
                     @endforeach

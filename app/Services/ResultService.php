@@ -76,9 +76,9 @@ class ResultService
         }
     }
 
-    public function updatePlayerResult($enrollSn, $roundOneSecond, $roundOneMissConr, $roundTwoSecond, $roundTwoMissConr)
+    public function updateResult($enrollSn, $roundOneSecond, $roundOneMissConr, $roundTwoSecond, $roundTwoMissConr)
     {
-        if (!empty($roundOneSecond) || !empty($roundOneMissConr) || !empty($roundTwoSecond) || !empty($roundTwoMissConr)) {
+        if (! empty($roundOneSecond) || ! empty($roundOneMissConr) || ! empty($roundTwoSecond) || ! empty($roundTwoMissConr)) {
 
             $resultRoundOne = null;
             $resultRoundTwo = null;
@@ -86,7 +86,7 @@ class ResultService
             if ($roundOneMissConr > 4) {
                 $roundOneMissConr = 99;
             } else {
-                if (!is_null($roundOneSecond)) {
+                if (! is_null($roundOneSecond)) {
                     $resultRoundOne = $roundOneSecond + ($roundOneMissConr * 0.2);
                 }
             }
@@ -94,40 +94,38 @@ class ResultService
             if ($roundTwoMissConr > 4) {
                 $roundTwoMissConr = 99;
             } else {
-                if (!is_null($roundTwoSecond)) {
+                if (! is_null($roundTwoSecond)) {
                     $resultRoundTwo = $roundTwoSecond + ($roundTwoMissConr * 0.2);
                 }
             }
 
-            if (!is_null($resultRoundOne) && !is_null($resultRoundTwo)) {
-
+            if (! is_null($resultRoundOne) && ! is_null($resultRoundTwo)) {
                 $resultRoundFinal = $resultRoundOne < $resultRoundTwo ? $resultRoundOne : $resultRoundTwo;
+
                 if (is_null($roundOneMissConr)) {
                     $roundOneMissConr = 0;
                 }
                 if (is_null($roundTwoMissConr)) {
                     $roundTwoMissConr = 0;
                 }
-
             } elseif (is_null($resultRoundOne) && is_null($resultRoundTwo)) {
                 $resultRoundFinal = '無成績';
             } else {
-
-                if (!is_null($resultRoundOne)) {
+                if (! is_null($resultRoundOne)) {
                     $resultRoundFinal = $resultRoundOne;
-                    if (!is_null($roundOneSecond) && is_null($roundOneMissConr)) {
+                    if (! is_null($roundOneSecond) && is_null($roundOneMissConr)) {
                         $roundOneMissConr = 0;
                     }
                 }
-                if (!is_null($resultRoundTwo)) {
+                if (! is_null($resultRoundTwo)) {
                     $resultRoundFinal = $resultRoundTwo;
-                    if (!is_null($roundTwoSecond) && is_null($roundTwoMissConr)) {
+                    if (! is_null($roundTwoSecond) && is_null($roundTwoMissConr)) {
                         $roundTwoMissConr = 0;
                     }
                 }
             }
 
-            $updateArray = [
+            EnrollModel::where('enrollSn', $enrollSn)->update([
                 'roundOneSecond'   => $roundOneSecond,
                 'roundOneMissConr' => $roundOneMissConr,
                 'roundTwoSecond'   => $roundTwoSecond,
@@ -135,9 +133,7 @@ class ResultService
                 'finalResult'      => $resultRoundFinal,
                 'integral'         => null,
                 'rank'             => null,
-            ];
-
-            EnrollModel::where('enrollSn', $enrollSn)->update($updateArray);
+            ]);
         }
     }
 
@@ -161,10 +157,10 @@ class ResultService
     {
         $gameInfo = ScheduleModel::find($scheduleSn);
 
-        $level    = $gameInfo->level;
-        $gender   = $gameInfo->gender;
-        $group    = $gameInfo->group;
-        $item     = $gameInfo->item;
+        $level  = $gameInfo->level;
+        $gender = $gameInfo->gender;
+        $group  = $gameInfo->group;
+        $item   = $gameInfo->item;
 
         app(EnrollModel::class)->cleanRankAndIntegral($level, $gender, $group, $item);
 
