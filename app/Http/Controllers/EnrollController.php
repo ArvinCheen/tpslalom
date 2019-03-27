@@ -7,9 +7,11 @@ use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
 use App\Services\RegistryFeeService;
+use App\Services\SlackNotify;
 use Illuminate\Http\Request;
 use App\Services\EnrollService;
 use App\Services\PlayerService;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -34,7 +36,7 @@ class EnrollController extends Controller
     public function update(Request $request)
     {
         if (! $this->store($request)) {
-            return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
+            return back()->with(['error' => '報名失敗']);
         }
 
         return redirect('paymentInfo')->with(['success' => '報名成功']);
@@ -62,11 +64,11 @@ class EnrollController extends Controller
             DB::beginTransaction();
 
             $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
-                'accountId' => auth()->user()->id,
-                'name'      => $name,
-                'gender'    => $gender,
-                'city'      => $city,
-                'agency'    => $agency,
+                'account_id' => auth()->user()->id,
+                'name'       => $name,
+                'gender'     => $gender,
+                'city'       => $city,
+                'agency'     => $agency,
             ])->id;
 
             app(EnrollModel::class)->cancel($playerId);
@@ -74,21 +76,29 @@ class EnrollController extends Controller
             $playerNumber = $this->getPlayerNumber($playerId);
 
             foreach ($enrollItem as $item) {
-                app(EnrollModel::class)->store($playerId, $playerNumber, $group, $level, $item);
+                EnrollModel::create([
+                    'game_id'       => config('app.game_id'),
+                    'player_id'     => $playerId,
+                    'player_number' => $playerNumber,
+                    'account_id'    => auth()->user()->id,
+                    'level'         => $level,
+                    'group'         => $group,
+                    'item'          => $item,
+                ]);
             }
 
             app(RegistryFeeModel::class)::updateOrCreate(
-                ['gameSn' => config('app.gameSn'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
-                ['gameSn' => config('app.gameSn'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
             );
 
-            DB::commit();
+            app()->make(SlackNotify::class)->setMsg("報名成功：{$name} - {$playerId}")->notify();
 
+            DB::commit();
             return true;
         } catch (\Exception $e) {
-            Log::error("[EnrollController@enroll] 報名失敗", [$e->getMessage()]);
+            app()->make(SlackNotify::class)->setMsg('[EnrollController@store] Error ' . $e->getMessage())->notify();
             DB::rollback();
-
             return false;
         }
     }
@@ -106,28 +116,32 @@ class EnrollController extends Controller
 
     public function edit($playerId)
     {
-        $enrollModel = new EnrollModel();
-
-        $player          = PlayerModel::find($playerId);
-        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerId);
-        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerId);
-        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerId);
-        $player->group   = $enrollModel->getGroup($playerId);
-        $player->level   = $enrollModel->getLevel($playerId);
+        $player               = PlayerModel::find($playerId);
+        $player->doubleS      = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S型');
+        $player->singleS      = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S型');
+        $player->cross        = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
+        $player->group        = app(EnrollModel::class)->getGroup($playerId);
+        $player->level        = app(EnrollModel::class)->getLevel($playerId);
 
         return view('enroll/edit')->with(compact('player'));
     }
 
     public function cancel(Request $request)
     {
-        $enrollService = new EnrollService();
+        try {
+            DB::beginTransaction();
 
-        if ($enrollService->cancel($request->playerId)) {
-            app('request')->session()->flash('warning', '取消報名成功');
-        } else {
-            app('request')->session()->flash('error', '取消報名失敗');
+            app(EnrollModel::class)->cancel($request->playerId);
+            app(RegistryFeeModel::class)->deleteRegistryFee($request->playerId);
+
+            DB::commit();
+
+            app(SlackNotify::class)->setMsg('有人取消報名')->notify();
+            return redirect('paymentInfo')->with(['warning' => '取消報名成功']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            Log::error("[EnrollController@cancel] 取消報名失敗", [$e->getMessage()]);
+            return redirect('paymentInfo')->with(['error' => '取消報名失敗']);
         }
-
-        return redirect('paymentInfo');
     }
 }

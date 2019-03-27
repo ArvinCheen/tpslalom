@@ -16,7 +16,7 @@
         <form action='{{ URL('enroll/update') }}' method="post">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-            <input type="hidden" name="playerSn" value="{{ $player->playerSn }}"/>
+            <input type="hidden" name="playerId" value="{{ $player->id }}"/>
             <div class="row">
             <div class="col-md-8 mb-5">
                 <h4 class="mb-3">選手資訊</h4>
@@ -143,7 +143,7 @@
 <form id="cancelForm" action="{{ URL('enroll/cancel') }}" method="POST">
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <input type="hidden" name="playerSn" value="{{ $player->playerSn }}"/>
+    <input type="hidden" name="playerId" value="{{ $player->id }}"/>
 </form>
 @endsection
 

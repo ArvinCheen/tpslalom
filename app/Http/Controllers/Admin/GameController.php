@@ -23,8 +23,8 @@ class GameController extends Controller
 //        $gameList = $enrollModel->getGameList();
 //
 //        foreach ($gameList as $val) {
-//            $val->numberOfParticipants = DB::table('registryFee')->where('gameSn', $val->gameSn)->count();
-//            $val->feeTotal = DB::table('registryFee')->where('gameSn', $val->gameSn)->sum('fee');
+//            $val->numberOfParticipants = DB::table('registryFee')->where('game_id', $val->game_id)->count();
+//            $val->feeTotal = DB::table('registryFee')->where('game_id', $val->game_id)->sum('fee');
 //        }
 
         return view('admin/game/gameList');
@@ -51,7 +51,7 @@ class GameController extends Controller
             ->with('playersCross', $playersCross);
     }
 
-    public function enterResultMode($gameSn, $order)
+    public function enterResultMode($gameId, $order)
     {
 //        $EnrollQuery = new EnrollQuery();
 //        $EnrollQuery->updateData();
@@ -59,8 +59,8 @@ class GameController extends Controller
 //        dd('over');
 
         $scheduleQuery = new ScheduleModel();
-        $scheduleList  = $scheduleQuery->getAllSchedule($gameSn);
-        $schedule      = $scheduleQuery->getSchedule($gameSn, $order);
+        $scheduleList  = $scheduleQuery->getAllSchedule($gameId);
+        $schedule      = $scheduleQuery->getSchedule($gameId, $order);
 
         $enrollData = DB::table('enroll')
             ->select(
@@ -79,7 +79,7 @@ class GameController extends Controller
                 'integral'
             )
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where($gameSn, $gameSn)
+            ->where($gameId, $gameId)
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
@@ -111,7 +111,7 @@ class GameController extends Controller
             ->with('enrollData', $enrollData)
             ->with('scheduleList', $scheduleList)
             ->with('order', $order)
-            ->with($gameSn, $gameSn)
+            ->with($gameId, $gameId)
             ->with('order', $schedule->order)
             ->with('level', $schedule->level)
             ->with('group', $schedule->group)
@@ -138,11 +138,11 @@ class GameController extends Controller
             ->with('group', $group);
     }
 
-    public function medalQuantity($gameSn)
+    public function medalQuantity($gameId)
     {
         $enrollModel = new EnrollModel();
 
-        $medalData = $enrollModel->getMedalQuantity($gameSn);
+        $medalData = $enrollModel->getMedalQuantity($gameId);
 
         $goldTotal   = 0;
         $silverTotal = 0;
@@ -165,48 +165,48 @@ class GameController extends Controller
             ->with('copperTotal', $copperTotal);
     }
 
-    public function arrangementSchedule($gameSn)
+    public function arrangementSchedule($gameId)
     {
 //        這個好像沒用到了
 //        $scheduleQuery = new ScheduleModel();
-//        $scheduleQuery::where($gameSn, $gameSn)->delete();
+//        $scheduleQuery::where($gameId, $gameId)->delete();
 //
 //        $gameService = new GameService();
 //
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '幼童', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '幼童', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小一年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小一年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小二年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小二年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '幼童', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '幼童', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小一年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小一年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小二年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小二年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小三年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小三年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小四年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小四年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小五年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小五年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小六年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國小六年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小三年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小三年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小四年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小四年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小五年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小五年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小六年級', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國小六年級', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國中', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '國中', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國中', $gender = '男', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '國中', $gender = '女', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '新人', $group = '男女子', $gender = '男女子', $item = '前進單足S型');
-//        $gameService->arrangementSchedule($gameSn, $level = '選手', $group = '男女子', $gender = '男女子', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '幼童', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '幼童', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小一年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小一年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小二年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小二年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '幼童', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '幼童', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小一年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小一年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小二年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小二年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小三年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小三年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小四年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小四年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小五年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小五年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小六年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國小六年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小三年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小三年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小四年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小四年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小五年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小五年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小六年級', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國小六年級', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國中', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '國中', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國中', $gender = '男', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '國中', $gender = '女', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '新人', $group = '男女子', $gender = '男女子', $item = '前進單足S型');
+//        $gameService->arrangementSchedule($gameId, $level = '選手', $group = '男女子', $gender = '男女子', $item = '前進單足S型');
 //
 //        app('request')->session()->flash('success', '場次編組成功');
 //        return back();

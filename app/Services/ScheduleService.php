@@ -8,11 +8,11 @@ class ScheduleService
 {
     public function getSchedules()
     {
-        return ScheduleModel::where('gameSn', config('app.gameSn'))->get();
+        return ScheduleModel::where('game_id', config('app.game_id'))->get();
     }
 
     public function getScheduleSn()
     {
-        return ScheduleModel::where('gameSn', config('app.gameSn'))->value('scheduleSn');
+        return ScheduleModel::where('game_id', config('app.game_id'))->value('scheduleSn');
     }
 }

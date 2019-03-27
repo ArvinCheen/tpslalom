@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             if (app('request')->route()->getPrefix() == '/admin') {
-                if (is_null(config('app.gameSn'))) {
+                if (is_null(config('app.game_id'))) {
                     \Auth::logout();
                     return redirect('admin/login');
                 }
@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
                 return redirect('admin');
             }
 
-            if (is_null(config('app.gameSn'))) {
+            if (is_null(config('app.game_id'))) {
                 \Auth::logout();
                 return redirect('login');
             }

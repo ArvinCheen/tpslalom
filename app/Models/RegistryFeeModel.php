@@ -8,16 +8,18 @@ class RegistryFeeModel extends Model
 {
     protected $table = 'registry_fee';
 
+    protected $fillable = ['game_id', 'account_id', 'player_number', 'player_id', 'fee'];
+
     public function store($playerSn, $enrollCount)
     {
         $existKey = [
-            'gameSn'    => config('app.gameSn'),
+            'game_id'    => config('app.game_id'),
             'accountId' => auth()->user()->accountId,
             'playerSn'  => $playerSn,
         ];
 
         $data = [
-            'gameSn'    => config('app.gameSn'),
+            'game_id'    => config('app.game_id'),
             'accountId' => auth()->user()->accountId,
             'playerSn'  => $playerSn,
             'fee'       => 500 + ($enrollCount * 100)
@@ -26,39 +28,35 @@ class RegistryFeeModel extends Model
         return $this->updateOrCreate($existKey, $data);
     }
 
-    public function deleteRegistryFee($playerSn)
+    public function deleteRegistryFee($playerId)
     {
-        $this->where('playerSn', $playerSn)
-            ->where('gameSn', config('app.gameSn'))
+        $this->where('player_id', $playerId)
+            ->where('game_id', config('app.game_id'))
             ->delete();
     }
 
     public function getCart()
     {
-        $select = [
-            'registryfee.fee',
-            'enroll.playerSn',
+        return $this->select([
+            'registry_fee.fee',
+            'enroll.player_number',
             'enroll.level',
             'enroll.group',
-            'player.name'
-        ];
-
-        return $this->select($select)
-            ->leftJoin('enroll', 'enroll.playerSn', 'registryfee.playerSn')
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('enroll.gameSn', config('app.gameSn'))
-            ->where('registryfee.gameSn', config('app.gameSn'))
-            ->where('registryfee.accountId', auth()->user()->accountId)
-            ->orderByDesc('enroll.enrollSn')
-            ->groupBy('enroll.playerNumber')
+            'player.name',
+        ])
+            ->leftJoin('enroll', 'enroll.player_number', 'registry_fee.player_number')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
+            ->where('enroll.game_id', config('app.game_id'))
+            ->where('registry_fee.game_id', config('app.game_id'))
+            ->where('registry_fee.account_id', auth()->user()->id)
+            ->orderByDesc('enroll.id')
+            ->groupBy('enroll.player_number')
             ->get();
     }
 
     public function getTotal()
     {
-        return $this->where('accountId', auth()->user()->accountId)
-            ->where('gameSn', config('app.gameSn'))
-            ->sum('fee');
+        return $this->where('account_id', auth()->user()->id)->where('game_id', config('app.game_id'))->sum('fee');
     }
 
     public function getBills()
@@ -74,8 +72,8 @@ class RegistryFeeModel extends Model
             management,
             sum(fee) AS totalFee
     '))
-        ->leftJoin('account', 'account.accountId', 'registryfee.accountId')
-        ->where('gameSn', config('app.gameSn'))
+        ->leftJoin('account', 'account.accountId', 'registry_fee.accountId')
+        ->where('game_id', config('app.game_id'))
         ->groupBy('account.accountId')
         ->get();
     }

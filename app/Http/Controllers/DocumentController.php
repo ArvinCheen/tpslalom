@@ -15,21 +15,21 @@ class DocumentController extends Controller
         $this->middleware('auth');
     }
 
-    public function schedule($gameSn)
+    public function schedule($gameId)
     {
         $scheduleQuery = new ScheduleModel();
-        $schedule = $scheduleQuery->getAllSchedule($gameSn);
+        $schedule = $scheduleQuery->getAllSchedule($gameId);
 
         return view('schedule')
             ->with('schedule', $schedule)
             ->with('active', '賽程表');
     }
 
-    public function playerRegister($gameSn = 2)
+    public function playerRegister($gameId = 2)
     {
 
         $scheduleQuery = new ScheduleModel();
-        $schedule = $scheduleQuery->getAllSchedule($gameSn);
+        $schedule = $scheduleQuery->getAllSchedule($gameId);
 
         foreach ($schedule as $val) {
             $level = $val->level;
@@ -39,7 +39,7 @@ class DocumentController extends Controller
 
             $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
-                ->where('gameSn', $gameSn)
+                ->where('game_id', $gameId)
                 ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
@@ -52,15 +52,15 @@ class DocumentController extends Controller
             ->with('active', '分組名冊');
     }
 
-    public function teamRegister($gameSn = 2)
+    public function teamRegister($gameId = 2)
     {
         $enrollQuery = new EnrollModel();
-        $participateTeam = $enrollQuery->getParticipateTeam($gameSn);
+        $participateTeam = $enrollQuery->getParticipateTeam($gameId);
 
         foreach ($participateTeam as $val) {
             $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-                ->where('gameSn', $gameSn)
+                ->where('game_id', $gameId)
                 ->where('enroll.accountId', $val->accountId)
                 ->groupBy('enroll.playerSn')
                 ->get();
@@ -77,7 +77,7 @@ class DocumentController extends Controller
             SELECT team_name, enroll.accountId, sum(integral) as integralTotal 
             FROM `enroll` 
             left JOIN account on account.accountId = enroll.accountId
-            where `gameSn` = 2 and integral > 0 
+            where `game_id` = 2 and integral > 0 
             group by enroll.accountId
             order by integralTotal desc
         ');
@@ -86,7 +86,7 @@ class DocumentController extends Controller
             $accountId = $val->accountId;
 
             $val->playerData = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
-                ->where('gameSn', 2)
+                ->where('game_id', 2)
                 ->where('enroll.accountId', $accountId)
                 ->where('integral', '>', 0)
                 ->orderByDesc('integral')

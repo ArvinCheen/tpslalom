@@ -35,7 +35,7 @@ class ResultController extends Controller
                 'integral'
             )
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', config('app.gameSn'))
+            ->where('game_id', config('app.game_id'))
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
@@ -83,7 +83,7 @@ class ResultController extends Controller
                 'integral'
             )
             ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-            ->where('gameSn', $gameSn)
+            ->where('game_id', $gameId)
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)

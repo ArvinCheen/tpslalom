@@ -2,7 +2,7 @@
 
 return [
 
-    'gameSn' => 5,
+    'game_id' => 5,
 
     'enroll' => 1,
 

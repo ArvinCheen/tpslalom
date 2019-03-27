@@ -16,11 +16,11 @@ class DocumentController extends Controller
 //        $this->middleware('auth');
     }
 
-    public function schedule($gameSn)
+    public function schedule($gameId)
     {
 
         $scheduleQuery = new ScheduleModel();
-        $schedule = $scheduleQuery->getAllSchedule($gameSn);
+        $schedule = $scheduleQuery->getAllSchedule($gameId);
 
         $second = 0;
         $controllerSecond = 20;
@@ -32,13 +32,13 @@ class DocumentController extends Controller
 
         return view('admin/document/schedule')
             ->with('schedule', $schedule)
-            ->with('gameSn', $gameSn);
+            ->with('game_id', $gameId);
     }
 
-    public function playerRegister($gameSn)
+    public function playerRegister($gameId)
     {
         $scheduleQuery = new ScheduleModel();
-        $schedule = $scheduleQuery->getAllSchedule($gameSn);
+        $schedule = $scheduleQuery->getAllSchedule($gameId);
 
         foreach ($schedule as $val) {
             $level = $val->level;
@@ -48,7 +48,7 @@ class DocumentController extends Controller
 
             $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
-                ->where('gameSn', $gameSn)
+                ->where('game_id', $gameId)
                 ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
@@ -58,19 +58,19 @@ class DocumentController extends Controller
 
         return view('admin/document/playerRegister')
             ->with('schedule', $schedule)
-            ->with('gameSn', $gameSn);
+            ->with('game_id', $gameId);
     }
 
-    public function teamRegister($gameSn)
+    public function teamRegister($gameId)
     {
         $enrollQuery = new EnrollModel();
-        $participateTeam = $enrollQuery->getParticipateTeam($gameSn);
+        $participateTeam = $enrollQuery->getParticipateTeam($gameId);
 
         foreach ($participateTeam as $val) {
 
             $val->players = DB::table('enroll')
                 ->leftJoin('player', 'player.sn', 'enroll.playerSn')
-                ->where('gameSn', $gameSn)
+                ->where('game_id', $gameId)
                 ->where('enroll.accountId', $val->accountId)
                 ->groupBy('enroll.playerSn')
                 ->get();
@@ -78,23 +78,23 @@ class DocumentController extends Controller
 
         return view('admin/document/teamRegister')
             ->with('participateTeam', $participateTeam)
-            ->with('gameSn', $gameSn);
+            ->with('game_id', $gameId);
     }
 
-    public function checkBill($gameSn)
+    public function checkBill($gameId)
     {
         $registryFee = new RegistryFeeModel();
-        $checkBill = $registryFee->checkBill($gameSn);
+        $checkBill = $registryFee->checkBill($gameId);
 
         return view('admin/document/checkBill')
             ->with('checkBill', $checkBill)
-            ->with('gameSn', $gameSn);
+            ->with('game_id', $gameId);
     }
 
-    public function detailDocument($gameSn)
+    public function detailDocument($gameId)
     {
         $enrollQuery = new EnrollModel();
-        $enrollPlayer = $enrollQuery->getDetailDocument($gameSn);
+        $enrollPlayer = $enrollQuery->getDetailDocument($gameId);
 
         foreach ($enrollPlayer as $val) {
             if (preg_match("/\前進雙足S型/i", $val->item_all)){
@@ -110,27 +110,27 @@ class DocumentController extends Controller
 
         return view('admin/document/detailDocument')
             ->with('enrollPlayer', $enrollPlayer)
-            ->with('gameSn', $gameSn);
+            ->with('game_id', $gameId);
     }
 
-    public function certificateOfCompletion($gameSn)
+    public function certificateOfCompletion($gameId)
     {
         $teamList = DB::table('enroll')
             ->leftJoin('account', 'account.accountId', 'enroll.accountId')
-            ->where('gameSn', $gameSn)
+            ->where('game_id', $gameId)
             ->groupBy('enroll.accountId')
             ->get();
 
 
         return view('admin/document/certificateOfCompletion')
-            ->with('gameSn', $gameSn)
+            ->with('game_id', $gameId)
             ->with('teamList', $teamList);
     }
 
-    public function exportCertificateOfCompletion($gameSn, $accountId)
+    public function exportCertificateOfCompletion($gameId, $accountId)
     {
         $data = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
-            ->where('gameSn', $gameSn)
+            ->where('game_id', $gameId)
             ->where('enroll.accountId', $accountId)
             ->where('rank', '>', '6')
             ->where('finalResult', '<>', '無成績')
@@ -300,10 +300,10 @@ class DocumentController extends Controller
         })->download('xls');
     }
 
-    public function exportCertificate($order, $gameSn, $level, $group, $gender, $item)
+    public function exportCertificate($order, $gameId, $level, $group, $gender, $item)
     {
         $enrollQuery = new EnrollModel();
-        $isOverGame = $enrollQuery->isOverGame($gameSn, $level, $gender, $group, $item);
+        $isOverGame = $enrollQuery->isOverGame($gameId, $level, $gender, $group, $item);
 
         if (!$isOverGame) {
             app('request')->session()->flash('error', '賽事未結束');
@@ -311,7 +311,7 @@ class DocumentController extends Controller
         }
 
         $queryTaipei = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
-            ->where('gameSn', $gameSn)
+            ->where('game_id', $gameId)
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
@@ -323,7 +323,7 @@ class DocumentController extends Controller
             ->get();
 
         $queryOtherCity = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
-            ->where('gameSn', $gameSn)
+            ->where('game_id', $gameId)
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
@@ -495,9 +495,9 @@ class DocumentController extends Controller
         })->download('xls');
     }
 
-    public function checkIn($gameSn)
+    public function checkIn($gameId)
     {
-        $schedule = DB::table('schedule')->where('gameSn', $gameSn)->get();
+        $schedule = DB::table('schedule')->where('game_id', $gameId)->get();
 
         Excel::create('檢錄單', function($excel) use($schedule) {
             foreach($schedule as $val) {
@@ -637,14 +637,14 @@ class DocumentController extends Controller
 
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('4', 33);
-                    $gameSn = $val->gameSn;
+                    $gameId = $val->game_id;
                     $level = $val->level;
                     $group = $val->group;
                     $gender = $val->gender;
                     $item = $val->item;
 
                     $players = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
-                        ->where('gameSn', $gameSn)
+                        ->where('game_id', $gameId)
                         ->where('level', $level)
                         ->where('group', $group)
                         ->where('gender', $gender)

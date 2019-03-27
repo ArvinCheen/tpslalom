@@ -7,6 +7,8 @@ class GameModel extends Model
 {
     protected $table = 'game';
 
+    protected $fillable = ['abridge_name', 'complete_name', 'letter'];
+
     public function getAll()
     {
         return $this->orderByDesc('id')->get();

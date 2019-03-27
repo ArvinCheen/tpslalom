@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (\Auth::attempt(['accountId' => $accountId, 'password' => $password], true)) {
             app('request')->session()->flash('success', '登入成功');
 
-            session(['gameSn' => config('app.gameSn')]);
+            session(['game_id' => config('app.game_id')]);
 
             return redirect('/admin');
         } else {

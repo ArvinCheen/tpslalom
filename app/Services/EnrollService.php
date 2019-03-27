@@ -30,7 +30,7 @@ class EnrollService
             } else {
                 $player = $playerService->store($playerSn, $name, $gender, $city, $agency);
 
-                $playerSn = $player->playerSn;
+                $playerSn = $player->id;
 
                 $this->store($playerSn, $group, $doubleS, $singleS, $cross);
 

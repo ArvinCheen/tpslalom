@@ -75,10 +75,10 @@ class GameService
 //        $numberOfPlayer = $enrollQuery->countGameItemNumberOfPlayer($level, $group, $gender, $item);
 //
 //        $scheduleQuery = new ScheduleModel();
-//        $schedule = '場次' . ($scheduleQuery::where('gameSn', config('app.gameSn'))->count() + 1);
+//        $schedule = '場次' . ($scheduleQuery::where('game_id', config('app.game_id'))->count() + 1);
 //        if ($numberOfPlayer) {
 //            $insertData = [
-//                'gameSn' => config('app.gameSn'),
+//                'game_id' => config('app.game_id'),
 //                'order' => $schedule,
 //                'level' => $level,
 //                'group' => $group,

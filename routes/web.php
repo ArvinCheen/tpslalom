@@ -35,7 +35,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'enroll'], function () {
         Route::get('/', ['as' => '/', 'uses' => 'EnrollController@index']);
-        Route::get('edit/{playerSn}', ['as' => 'edit', 'uses' => 'EnrollController@edit']);
+        Route::get('edit/{playerNumber}', ['as' => 'edit', 'uses' => 'EnrollController@edit']);
         Route::put('update', ['as' => 'update', 'uses' => 'EnrollController@update']);
         Route::post('enroll', ['as' => 'enroll', 'uses' => 'EnrollController@enroll']);
         Route::delete('cancel', ['as' => 'cancel', 'uses' => 'EnrollController@cancel']);

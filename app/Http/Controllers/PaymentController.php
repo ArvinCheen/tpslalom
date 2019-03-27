@@ -2,25 +2,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\EnrollModel;
+use App\Models\RegistryFeeModel;
 use Illuminate\Http\Request;
-use App\Services\PaymentService;
 
 class PaymentController extends Controller
 {
-    public function __construct()
-    {
-//        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $paymentService = new PaymentService();
+        $paymentInfo = app(RegistryFeeModel::class)->getCart();
 
-        $cart  = $paymentService->getPaymentInfo();
-        $total = number_format($paymentService->getTotal());
+        foreach ($paymentInfo as $payment) {
+            $payment->item = $this->assembleItem($payment->player_number);
+        }
 
-        return  view('paymentInfo/index')
-            ->with(compact('cart'))
-            ->with(compact('total'));
+        $total = number_format(app(RegistryFeeModel::class)->getTotal());
+
+        return  view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
+    }
+
+    private function assembleItem($playerNumber)
+    {
+        $items = app(EnrollModel::class)->getPlayerEnrollItem($playerNumber);
+
+        $itemView = null;
+
+        foreach ($items as $item) {
+            $itemView .= $item->item . '（' . $item->level . '） / ';
+        }
+
+        return substr($itemView, 0, -3);
     }
 }

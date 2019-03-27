@@ -19,7 +19,7 @@
                     <div class="col-md-9 ">
                         <select class="form-control m-select2" id="m_select2_1" name="scheduleSn">
                             @foreach ($schedules as $schedule)
-                                <option value="{{ $schedule->scheduleSn }}" {{ $scheduleSn == $schedule->scheduleSn ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}  {{ $schedule->item }} {{ $schedule->numberOfPlayer }}人</option>
+                                <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}  {{ $schedule->item }} {{ $schedule->number_of_player }}人</option>
                             @endforeach
                         </select>
                     </div>
@@ -39,20 +39,20 @@
                         <tbody>
                         @foreach ($players as $player)
                             <tr>
-                                <td> {{ $player->playerNumber }} </td>
+                                <td> {{ $player->player_number }} </td>
                                 <td> {{ $player->name }} </td>
                                 <td> {{ $player->agency }} </td>
                                 <td>
                                     <span class="m-switch m-switch--sm m-switch--icon m-switch--warning">
                                         <label class="m-0">
 
-                                            <input type="checkbox" {{ $player->check == '出賽' ? 'checked' : null }} onclick="checkIn({{ $player->playerSn }}, '{{ $player->check }}')">
+                                            <input type="checkbox" {{ $player->check == '出賽' ? 'checked' : null }} onclick="checkIn({{ $player->id }}, '{{ $player->check }}')">
 
                                             <span class="m-0"></span>
                                         </label>
                                     </span>
                                 </td>
-                                <td class="w-25"> {{ $player->checkInTime }} </td>
+                                <td class="w-25"> {{ $player->check_in_time }} </td>
                             </tr>
                         @endforeach
                         </tbody>

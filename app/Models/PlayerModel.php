@@ -7,13 +7,15 @@ class PlayerModel extends Model
 {
     protected $table = 'player';
 
-    public function store($playerSn, $data)
+    protected $fillable = ['account_id', 'name', 'gender', 'city', 'agency'];
+
+    public function store($playerId, $data)
     {
-        return $this->updateOrCreate(['playerSn' => $playerSn], $data);
+        return $this->updateOrCreate(['player_id' => $playerId], $data);
     }
 
     public function getPlayers()
     {
-        return $this->where('accountId', auth()->user()->accountId)->orderByDesc('playerSn')->get();
+        return $this->where('account_id', auth()->user()->Id)->orderByDesc('player_id')->get();
     }
 }

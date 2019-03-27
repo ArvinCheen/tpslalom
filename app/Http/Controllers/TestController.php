@@ -15,14 +15,14 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        $gameSn = 4;
-        $schedules = ScheduleModel::where('gameSn', $gameSn)->get();
-        $gameName = GameModel::where('gameSn', $gameSn)->value('completeName');
+        $gameId = 4;
+        $schedules = ScheduleModel::where('game_id', $gameId)->get();
+        $gameName = GameModel::where('game_id', $gameId)->value('completeName');
         $genders = ['男', '女'];
 
         $locals = ['臺北市', '非北市'];
 
-        return view('test')->with(compact('schedules','locals', 'gameName', 'genders', 'gameSn'));
+        return view('test')->with(compact('schedules','locals', 'gameName', 'genders', 'game_id'));
     }
 
 }
