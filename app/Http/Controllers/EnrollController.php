@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
 use App\Models\PlayerModel;
@@ -88,6 +89,7 @@ class EnrollController extends Controller
 
             $request->session()->flash('info', '報名成功');
 
+            app(SlackNotify::class)->setMsg("{$name} - {$playerNumber} 報名成功")->notify();
             DB::commit();
 
             return true;
