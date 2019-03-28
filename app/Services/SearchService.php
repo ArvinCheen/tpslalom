@@ -13,13 +13,13 @@ class SearchService
         $players = PlayerModel::select([
             'playerSn', 'name', 'teamName'
         ])
-            ->leftJoin('account', 'account.accountId', 'player.accountId')
+            ->leftJoin('account', 'account.id', 'player.accountId')
             ->where('name', $playerName)
             ->get();
 
         foreach ($players as $player) {
             $player->results = EnrollModel::select([
-                'level', 'group', 'item', 'finalResult', 'rank', 'abridgeName'
+                'level', 'group', 'item', 'final_result', 'rank', 'abridgeName'
             ])
                 ->leftJoin('game', 'game.game_id', 'enroll.game_id')
                 ->where('player_id', $player->id)
@@ -40,14 +40,14 @@ class SearchService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('scheduleSn', $scheduleSn)->first();
 
         $query = EnrollModel::where('game_id', config('app.game_id'))
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $gameInfo->level)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
-            ->where('finalResult', '<>','無成績')
-            ->whereNotNull('finalResult');
+            ->where('final_result', '<>','無成績')
+            ->whereNotNull('final_result');
 
         if ($city == 'taipei') {
             $query->where('city', '臺北市');
@@ -89,29 +89,5 @@ class SearchService
         }
 
         return $data;
-    }
-
-    public function getIntegral()
-    {
-        $integralData = EnrollModel::selectRaw('teamName, enroll.accountId, sum(integral) as integralTotal')
-            ->leftJoin('account', 'account.accountId', 'enroll.accountId')
-            ->where('game_id', config('app.game_id'))
-            ->whereNotNull('integral')
-            ->groupBy('enroll.accountId')
-            ->orderByDesc('integralTotal')
-            ->get();
-
-        foreach ($integralData as $val) {
-            $accountId = $val->accountId;
-
-            $val->playerData = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
-                ->where('game_id', config('app.game_id'))
-                ->where('enroll.accountId', $accountId)
-                ->where('integral', '>', 0)
-                ->orderByDesc('integral')
-                ->get();
-        }
-
-        return $integralData;
     }
 }

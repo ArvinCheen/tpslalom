@@ -7,7 +7,7 @@ use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
 use App\Services\RegistryFeeService;
-use App\Services\SlackNotify;
+use App\Helpers\SlackNotify;
 use Illuminate\Http\Request;
 use App\Services\EnrollService;
 use App\Services\PlayerService;
@@ -92,7 +92,7 @@ class EnrollController extends Controller
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
             );
 
-            app()->make(SlackNotify::class)->setMsg("報名成功：{$name} - {$playerId}")->notify();
+            app()->make(SlackNotify::class)->setMsg("報名成功：{$name} - {$playerNumber}")->notify();
 
             DB::commit();
             return true;

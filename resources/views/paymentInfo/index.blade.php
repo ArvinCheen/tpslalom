@@ -26,7 +26,7 @@
                                     <span>${{ $payment->fee }} 元</span>
                                 </div>
                                 <div>
-                                    <a class="small" href="{{ URL('enroll/edit/' . $payment->player_number) }}">
+                                    <a class="small" href="{{ URL('enroll/edit/' . $payment->player_id) }}">
                                         修改報名
                                     </a>
                                 </div>

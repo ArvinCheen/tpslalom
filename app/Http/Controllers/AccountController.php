@@ -1,36 +1,43 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\AccountModel;
+use App\Models\PlayerModel;
 use App\Services\PlayerService;
 use Illuminate\Http\Request;
 use App\Services\AccountService;
+use Log;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        $accountService = new AccountService();
-        $playerService  = new PlayerService();
+        $account = AccountModel::find(auth()->user()->id);
 
-        $account = $accountService->getAccount();
-        $players = $playerService->getPlayers();
+        $players = app(PlayerModel::class)->getPlayers();
 
-        return view('account/index')
-            ->with(compact('players'))
-            ->with(compact('account'));
+        return view('account/index')->with(compact('players', 'account'));
     }
 
     public function update(Request $request)
     {
-        $accountService = new AccountService();
+        try {
+            AccountModel::where('id', $request->accountId)->update([
+                'email'      => $request->email,
+                'team_name'  => $request->teamName,
+                'phone'      => $request->phone,
+                'address'    => $request->address,
+                'coach'      => $request->coach,
+                'leader'     => $request->leader,
+                'management' => $request->management,
+            ]);
 
-        if ($accountService->update($request)) {
-            $request->session()->flash('success', '修改帳戶成功');
-        } else {
-            $request->session()->flash('errpr', '修改帳戶失敗');
+            return back()->with(['success' => '修改帳戶成功']);
+        } catch (\Exception $e) {
+            Log::error("[AccountController@update] 修改帳號失敗", [$e->getMessage()]);
+            return back()->with(['errpr' => '修改帳戶失敗']);
         }
-
-        return back();
     }
 }

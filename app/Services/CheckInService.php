@@ -20,7 +20,7 @@ class CheckInService
         }
 
         return \DB::table('enroll')->where('game_id', config('app.game_id'))
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('gender', $schedule->gender)
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)

@@ -3,27 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\ScheduleModel;
 use Illuminate\Http\Request;
 use App\Services\CheckInService;
 use App\Services\ScheduleService;
 
 class CheckInController extends Controller
 {
-    public function __construct()
-    {
-//        $this->middleware('auth');
-    }
-
     public function index($scheduleSn = null)
     {
         $checkInService  = new CheckInService();
-        $scheduleService = new ScheduleService();
 
         $players   = $checkInService->index($scheduleSn);
-        $schedules = $scheduleService->getSchedules();
+        $schedules = app(ScheduleModel::class)->getSchedules();
 
         if (is_null($scheduleSn)) {
-            $scheduleSn = $scheduleService->getScheduleSn();
+            $scheduleSn = app(ScheduleModel::class)->getFirstScheduleId();
         }
 
         return view('admin/checkIn/index')->with(compact('players', 'schedules', 'scheduleSn'));

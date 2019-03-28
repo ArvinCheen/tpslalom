@@ -9,10 +9,7 @@
     <div class="container">
         <div class="mt-5 mb-5 text-center">
             <h2 class="mb-3">註冊</h2>
-            <p>
-                註冊頁面
-                
-            </p>
+            <p>註冊頁面</p>
         </div>
         <form action='{{ URL('register') }}' method="POST">
             {{ csrf_field() }}
@@ -20,7 +17,7 @@
                 <div class="col-md-12 mb-5">
                     <div class="mb-3">
                         <label>帳號</label>
-                        <input type="text" class="form-control" name="accountId" required autocomplete="off" >
+                        <input type="text" class="form-control" name="account" required autocomplete="off" >
                     </div>
                     <div class="mb-3">
                         <label>密碼</label>

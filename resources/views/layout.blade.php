@@ -112,7 +112,7 @@
         </div>
         <div class="navbar-search">
             <div class="container">
-                <form action="{{ URL('search/players') }}" method="get">
+                <form action="" method="get" disabled="true">
                     <input type="text" name="playerName" class="form-control" placeholder="搜尋選手">
                     <i class="fa fa-times close"></i>
                 </form>

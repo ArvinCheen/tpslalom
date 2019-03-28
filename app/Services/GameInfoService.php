@@ -26,7 +26,7 @@ class GameInfoService
             $gender = $val->gender;
             $item   = $val->item;
 
-            $val->players = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            $val->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
                 ->where('level', $level)
                 ->where('group', $group)
@@ -44,7 +44,7 @@ class GameInfoService
         $participateTeam = $enrollModel->getParticipateTeam();
 
         foreach ($participateTeam as $val) {
-            $val->players = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')->where('game_id', config('app.game_id'))->where('enroll.accountId', $val->accountId)->groupBy('enroll.playerSn')->get();
+            $val->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('enroll.account_id', $val->accountId)->groupBy('enroll.player_id')->get();
         }
 
         return $participateTeam;

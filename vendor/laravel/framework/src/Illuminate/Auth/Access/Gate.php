@@ -80,7 +80,7 @@ class Gate implements GateContract
      * @param  array  $policies
      * @param  array  $beforeCallbacks
      * @param  array  $afterCallbacks
-     * @param  callable  $guessPolicyNamesUsingCallback
+     * @param  callable|null  $guessPolicyNamesUsingCallback
      * @return void
      */
     public function __construct(Container $container, callable $userResolver, array $abilities = [],
@@ -293,6 +293,18 @@ class Gate implements GateContract
         return collect($abilities)->contains(function ($ability) use ($arguments) {
             return $this->check($ability, $arguments);
         });
+    }
+
+    /**
+     * Determine if all of the given abilities should be denied for the current user.
+     *
+     * @param  iterable|string  $abilities
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function none($abilities, $arguments = [])
+    {
+        return ! $this->any($abilities, $arguments);
     }
 
     /**

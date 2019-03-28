@@ -5,13 +5,6 @@ use App\Models\AccountModel;
 
 class AccountService
 {
-    public function getAccount()
-    {
-        $accountSn = app('request')->user()->accountSn;
-
-        return AccountModel::find($accountSn);
-    }
-
     public function update($request)
     {
         try {

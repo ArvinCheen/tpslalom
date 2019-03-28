@@ -1,27 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\SlackNotify;
+use App\Models\AccountModel;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Services\RegisterService;
+use Log;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    public function __construct()
-    {
-//        $this->middleware('guest');
-    }
-
     public function index()
     {
         \Auth::logout();
@@ -30,25 +20,49 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $registerService = new RegisterService();
-
-        $accountId  = $request->accountId;
+        $account    = $request->account;
+        $password   = $request->password;
         $email      = $request->email;
         $teamName   = $request->teamName;
         $phone      = $request->phone;
         $coach      = $request->coach;
+        $leader     = $request->leader;
+        $management = $request->management;
+        $address    = $request->address;
 
-        if ($accountId == '' || $email == '' || $teamName == '' || $phone == '' || $coach == '') {
-            $request->session()->flash('error', '請輸入必填欄位');
-            return false;
+        if ($account == '' || $email == '' || $teamName == '' || $phone == '' || $coach == '') {
+            return back()->with(['error' => '請輸入必填欄位']);
         }
 
-        if ($registerService->register($request)) {
-            \Auth::attempt(['accountId' => $request->accountId, 'password' => $request->password], true);
-            $request->session()->flash('success', '註冊成功');
-            return redirect('/');
+        if (app(AccountModel::class)->isAccountExist($account)) {
+            return back()->with(['error' => '帳號重覆'])->withInput();
         } else {
-            return back()->withInput();
+            try {
+                DB::beginTransaction();
+                AccountModel::create([
+                    'account'    => $account,
+                    'password'   => bcrypt($password),
+                    'email'      => $email,
+                    'team_name'  => $teamName,
+                    'phone'      => $phone,
+                    'coach'      => $coach,
+                    'leader'     => $leader,
+                    'management' => $management,
+                    'address'    => $address,
+                ]);
+
+                app()->make(SlackNotify::class)->setMsg("註冊成功：{$account}")->notify();
+
+                Auth::attempt(['account' => $request->account, 'password' => $request->password], true);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                Log::error("[EnrollController@cancel] 取消報名失敗", [$e->getMessage()]);
+                DB::rollBack();
+                return back()->with(['error' => '帳號註冊失敗'])->withInput();
+            }
+
+            return redirect('/')->with(['success' => '註冊成功']);
         }
     }
 }

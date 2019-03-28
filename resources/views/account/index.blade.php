@@ -17,17 +17,17 @@
         <form action='{{ URL('account/update') }}' method="POST">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-            <input type="hidden" name="accountSn" value="{{ $account->accountSn }}"/>
+            <input type="hidden" name="accountId" value="{{ $account->id }}"/>
             <div class="row">
                 <div class="col-md-8 mb-5">
                     <h4 class="mb-3">帳號資訊</h4>
                     <div class="mb-3">
                         <label>帳號</label>
-                        <input type="text" class="form-control" name="teamName" placeholder='' value="{{ $account->accountId }}" disabled>
+                        <input type="text" class="form-control" placeholder='' value="{{ $account->account }}" disabled>
                     </div>
                     <div class="mb-3">
                         <label>團隊名稱</label>
-                        <input type="text" class="form-control" name="teamName" placeholder='' value="{{ $account->teamName }}" required>
+                        <input type="text" class="form-control" name="teamName" placeholder='' value="{{ $account->team_name }}" required>
                     </div>
                     <div class="mb-3">
                         <label>電話</label>
@@ -63,19 +63,19 @@
                         <span class="text-muted">選手名冊</span>
                     </h4>
                     <ul class="list-group mb-3">
-                        @foreach ($players as $val)
+                        @foreach ($players as $player)
                             <li class="list-group-item mb-3">
                                 <div>
-                                    <h6> {{ $val->name }} <small> - No.{{ $val->playerSn }}</small></h6>
-                                    <small> {{ $val->gender }} / {{ $val->city }} / {{ $val->agency }} </small>
+                                    <h6> {{ $player->name }}</h6>
+                                    <small> {{ $player->gender }} / {{ $player->city }} / {{ $player->agency }} </small>
                                 </div>
                             </li>
                         @endforeach
                         @if ($players->isEmpty())
                             <li class="list-group-item mb-3">
                                 <div>
-                                    <h6> 目前您底下無選手資料 </h6>
-                                    <a href="{{ URL('enroll') }}" ><small> 請前往報名頁面新增選手 </small></a>
+                                    <h6> 目前您無選手資料 </h6>
+                                    <a href="{{ URL('enroll') }}" ><small> 您可以前往報名頁面新增選手 </small></a>
                                 </div>
                             </li>
                         @endif

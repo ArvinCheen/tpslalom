@@ -47,7 +47,7 @@ class DocumentController extends Controller
             $item = $val->item;
 
             $val->players = DB::table('enroll')
-                ->leftJoin('player', 'player.sn', 'enroll.playerSn')
+                ->leftJoin('player', 'player.sn', 'enroll.player_id')
                 ->where('game_id', $gameId)
                 ->where('level', $level)
                 ->where('group', $group)
@@ -69,10 +69,10 @@ class DocumentController extends Controller
         foreach ($participateTeam as $val) {
 
             $val->players = DB::table('enroll')
-                ->leftJoin('player', 'player.sn', 'enroll.playerSn')
+                ->leftJoin('player', 'player.sn', 'enroll.player_id')
                 ->where('game_id', $gameId)
-                ->where('enroll.accountId', $val->accountId)
-                ->groupBy('enroll.playerSn')
+                ->where('enroll.account_id', $val->accountId)
+                ->groupBy('enroll.player_id')
                 ->get();
         }
 
@@ -116,9 +116,9 @@ class DocumentController extends Controller
     public function certificateOfCompletion($gameId)
     {
         $teamList = DB::table('enroll')
-            ->leftJoin('account', 'account.accountId', 'enroll.accountId')
+            ->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', $gameId)
-            ->groupBy('enroll.accountId')
+            ->groupBy('enroll.account_id')
             ->get();
 
 
@@ -129,11 +129,11 @@ class DocumentController extends Controller
 
     public function exportCertificateOfCompletion($gameId, $accountId)
     {
-        $data = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+        $data = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.player_id')
             ->where('game_id', $gameId)
-            ->where('enroll.accountId', $accountId)
+            ->where('enroll.account_id', $accountId)
             ->where('rank', '>', '6')
-            ->where('finalResult', '<>', '無成績')
+            ->where('final_result', '<>', '無成績')
             ->get();
 
         if ($data->isEmpty()) {
@@ -310,7 +310,7 @@ class DocumentController extends Controller
             return back();
         }
 
-        $queryTaipei = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+        $queryTaipei = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.player_id')
             ->where('game_id', $gameId)
             ->where('level', $level)
             ->where('gender', $gender)
@@ -322,7 +322,7 @@ class DocumentController extends Controller
             ->orderBy('rank')
             ->get();
 
-        $queryOtherCity = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+        $queryOtherCity = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.player_id')
             ->where('game_id', $gameId)
             ->where('level', $level)
             ->where('gender', $gender)
@@ -643,13 +643,13 @@ class DocumentController extends Controller
                     $gender = $val->gender;
                     $item = $val->item;
 
-                    $players = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+                    $players = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.player_id')
                         ->where('game_id', $gameId)
                         ->where('level', $level)
                         ->where('group', $group)
                         ->where('gender', $gender)
                         ->where('item', $item)
-                        ->orderBy('playerNumber')
+                        ->orderBy('player_number')
                         ->get();
 
                     $location = 7;

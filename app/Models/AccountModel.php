@@ -1,21 +1,43 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * App\Models\AccountModel
+ *
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccountModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccountModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccountModel query()
+ * @mixin \Eloquent
+ */
 class AccountModel extends Authenticatable
 {
     use Notifiable;
 
     protected $table = 'account';
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $guarded = 'id';
 
-    public function isAccountExist($accountId)
+    protected $fillable = ['id', 'account', 'password', 'email', 'team_name', 'phone', 'address', 'coach', 'leader'];
+
+    protected $hidden = ['password', 'remember_token'];
+
+    public function isAccountExist($account)
     {
-        return $this->where('account_id', $accountId)->exists();
+        return $this->where('account', $account)->exists();
     }
 }
+
+
+
+
+
+
+
+
+
+

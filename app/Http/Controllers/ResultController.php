@@ -1,40 +1,39 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\ScheduleModel;
 
 class ResultController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function searchResult($order)
     {
+        // todo 這裡應該可以帶 schedule id
+
         $scheduleModel = new ScheduleModel();
-        $schedules = $scheduleModel->getSchedules();
-        $schedule = $scheduleModel->getSchedule($order);
+        $schedules     = $scheduleModel->getSchedules();
+        $schedule      = $scheduleModel->getSchedule($order);
 
         $enrollDataTaipei = DB::table('enroll')
             ->select(
-                'enroll.enrollSn',
-                'finalResult',
+                'enroll.id',
+                'final_result',
                 'rank',
-                'playerNumber',
+                'player_number',
                 'name',
                 'city',
                 'agency',
-                'roundOneSecond',
-                'roundOneMissConr',
-                'roundTwoSecond',
-                'roundTwoMissConr',
-                'finalResult',
+                'round_one_second',
+                'round_one_miss_conr',
+                'round_two_second',
+                'round_two_miss_conr',
+                'final_result',
                 'integral'
             )
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
@@ -47,7 +46,7 @@ class ResultController extends Controller
             ->get();
 
         foreach ($enrollDataTaipei as $val) {
-            if (!is_null($val->finalResult)) {
+            if (! is_null($val->finalResult)) {
                 $explodeSecond = explode(".", $val->finalResult);
                 if ($explodeSecond[0] <> '無成績') {
 
@@ -68,21 +67,21 @@ class ResultController extends Controller
 
         $enrollDataOtherCity = DB::table('enroll')
             ->select(
-                'enroll.enrollSn',
-                'finalResult',
+                'enroll.id',
+                'final_result',
                 'rank',
-                'playerNumber',
+                'player_number',
                 'name',
                 'city',
                 'agency',
-                'roundOneSecond',
-                'roundOneMissConr',
-                'roundTwoSecond',
-                'roundTwoMissConr',
-                'finalResult',
+                'round_one_second',
+                'round_one_miss_conr',
+                'round_two_second',
+                'round_two_miss_conr',
+                'final_result',
                 'integral'
             )
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', $gameId)
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
@@ -95,7 +94,7 @@ class ResultController extends Controller
             ->get();
 
         foreach ($enrollDataOtherCity as $val) {
-            if (!is_null($val->finalResult)) {
+            if (! is_null($val->finalResult)) {
                 $explodeSecond = explode(".", $val->finalResult);
                 if ($explodeSecond[0] <> '無成績') {
 

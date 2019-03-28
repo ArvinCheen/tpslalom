@@ -38,7 +38,7 @@ class DocumentController extends Controller
             $item = $val->item;
 
             $val->players = DB::table('enroll')
-                ->leftJoin('player', 'player.sn', 'enroll.playerSn')
+                ->leftJoin('player', 'player.sn', 'enroll.player_id')
                 ->where('game_id', $gameId)
                 ->where('level', $level)
                 ->where('group', $group)
@@ -59,10 +59,10 @@ class DocumentController extends Controller
 
         foreach ($participateTeam as $val) {
             $val->players = DB::table('enroll')
-                ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+                ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', $gameId)
-                ->where('enroll.accountId', $val->accountId)
-                ->groupBy('enroll.playerSn')
+                ->where('enroll.account_id', $val->accountId)
+                ->groupBy('enroll.player_id')
                 ->get();
         }
 
@@ -74,20 +74,20 @@ class DocumentController extends Controller
     public function searchIntegral()
     {
         $integralData = DB::select('
-            SELECT team_name, enroll.accountId, sum(integral) as integralTotal 
+            SELECT team_name, enroll.account_id, sum(integral) as integralTotal 
             FROM `enroll` 
-            left JOIN account on account.accountId = enroll.accountId
+            left JOIN account on account.id = enroll.account_id
             where `game_id` = 2 and integral > 0 
-            group by enroll.accountId
+            group by enroll.account_id
             order by integralTotal desc
         ');
 
         foreach ($integralData as $val) {
             $accountId = $val->accountId;
 
-            $val->playerData = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.playerSn')
+            $val->playerData = DB::table('enroll')->leftJoin('player', 'player.sn', 'enroll.player_id')
                 ->where('game_id', 2)
-                ->where('enroll.accountId', $accountId)
+                ->where('enroll.account_id', $accountId)
                 ->where('integral', '>', 0)
                 ->orderByDesc('integral')
                 ->get();

@@ -75,7 +75,7 @@ class GroupingService
         $playerSns = RegistryFeeModel::select('playerSn')->where('game_id', config('app.game_id'))->get();
 
         foreach ($playerSns as $key => $val) {
-            EnrollModel::where('game_id', config('app.game_id'))->where('playerSn', $val->playerSn)->update(['playerNumber' => $key + 1]);
+            EnrollModel::where('game_id', config('app.game_id'))->where('playerSn', $val->playerSn)->update(['player_number' => $key + 1]);
         }
     }
 }

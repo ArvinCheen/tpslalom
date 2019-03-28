@@ -64,27 +64,27 @@ class GameController extends Controller
 
         $enrollData = DB::table('enroll')
             ->select(
-                'enroll.enrollSn',
-                'finalResult',
+                'enroll.id',
+                'final_result',
                 'rank',
-                'playerNumber',
+                'player_number',
                 'name',
                 'city',
                 'agency',
-                'roundOneSecond',
+                'round_one_second',
                 'round_one_miss_conr',
                 'round_two_second',
                 'round_two_miss_conr',
-                'finalResult',
+                'final_result',
                 'integral'
             )
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where($gameId, $gameId)
             ->where('level', $schedule->level)
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
             ->where('item', $schedule->item)
-            ->orderBy('playerNumber')
+            ->orderBy('player_number')
             ->get();
 
         foreach ($enrollData as $val) {

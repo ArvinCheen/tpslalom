@@ -37,7 +37,7 @@ class ExportController extends Controller
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
 
-        $queryTaipei = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+        $queryTaipei = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
@@ -49,7 +49,7 @@ class ExportController extends Controller
             ->orderBy('rank')
             ->get();
 
-        $queryOtherCity = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+        $queryOtherCity = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
@@ -71,12 +71,12 @@ class ExportController extends Controller
 
     public function completion($accountId)
     {
-        $data = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+        $data = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('enroll.accountId', $accountId)
+            ->where('enroll.account_id', $accountId)
             ->whereNotNull('rank')
             ->where('check', '出賽')
-            ->where('finalResult', '<>', '無成績')
+            ->where('final_result', '<>', '無成績')
             ->get();
 
         if ($data->isEmpty()) {
@@ -256,9 +256,9 @@ class ExportController extends Controller
     public function teamCheckIn()
     {
         $teams = EnrollModel::select('teamName')
-            ->leftJoin('account', 'account.accountId', 'enroll.accountId')
+            ->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
-            ->groupBy('enroll.accountId')
+            ->groupBy('enroll.account_id')
             ->get();
 
         $fileName = '隊伍簽到表';
@@ -417,13 +417,13 @@ class ExportController extends Controller
                     $gender = $val->gender;
                     $item   = $val->item;
 
-                    $players = EnrollModel::leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+                    $players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
                         ->where('game_id', $gameId)
                         ->where('level', $level)
                         ->where('group', $group)
                         ->where('gender', $gender)
                         ->where('item', $item)
-                        ->orderBy('playerNumber')
+                        ->orderBy('player_number')
                         ->get();
 
                     $location = 6;

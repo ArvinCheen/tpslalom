@@ -12,7 +12,7 @@ class ResultService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('scheduleSn', $scheduleSn)->first();
 
         return EnrollModel::where('game_id', config('app.game_id'))
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $gameInfo->level)
             ->where('group', $gameInfo->group)
@@ -33,8 +33,8 @@ class ResultService
 
     public function processIntegral($level, $gender, $group, $item)
     {
-        $players = EnrollModel::select('enroll.enrollSn', 'finalResult')
-            ->leftJoin('player', 'player.playerSn', 'enroll.playerSn')
+        $players = EnrollModel::select('enroll.id', 'final_result')
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
@@ -126,11 +126,11 @@ class ResultService
             }
 
             EnrollModel::where('enrollSn', $enrollSn)->update([
-                'roundOneSecond'   => $roundOneSecond,
-                'roundOneMissConr' => $roundOneMissConr,
-                'roundTwoSecond'   => $roundTwoSecond,
-                'roundTwoMissConr' => $roundTwoMissConr,
-                'finalResult'      => $resultRoundFinal,
+                'round_one_second'   => $roundOneSecond,
+                'round_one_miss_conr' => $roundOneMissConr,
+                'round_two_second'   => $roundTwoSecond,
+                'round_two_miss_conr' => $roundTwoMissConr,
+                'final_result'      => $resultRoundFinal,
                 'integral'         => null,
                 'rank'             => null,
             ]);

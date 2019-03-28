@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\EnrollModel
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel query()
+ * @mixin \Eloquent
+ */
 class EnrollModel extends Model
 {
     protected $table = 'enroll';
@@ -196,7 +204,7 @@ class EnrollModel extends Model
             'enroll.createTime',
         ])
             ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->leftJoin('account', 'account.account_id', 'enroll.accountId')
+            ->leftJoin('account', 'account.account_id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
             ->where('item', $item)
             ->groupBy('player.id')
@@ -240,7 +248,7 @@ class EnrollModel extends Model
     public function getResultOrderSns($level, $gender, $group, $item, $city)
     {
         $query = $this
-            ->select('enroll.enrollSn')
+            ->select('enroll.id')
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
@@ -265,7 +273,7 @@ class EnrollModel extends Model
     public function getOtherCityResultOrderSn($level, $gender, $group, $item)
     {
         return $this
-            ->select('enroll.enrollSn')
+            ->select('enroll.id')
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
@@ -377,9 +385,9 @@ class EnrollModel extends Model
 
     public function getParticipateTeam()
     {
-        return $this->leftJoin('account', 'account.account_id', 'enroll.accountId')
+        return $this->leftJoin('account', 'account.account_id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
-            ->groupBy('enroll.accountId')
+            ->groupBy('enroll.account_id')
             ->get();
     }
 
