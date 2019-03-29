@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
 use App\Models\RegistryFeeModel;
-use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
@@ -21,9 +20,9 @@ class PaymentController extends Controller
         return  view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
     }
 
-    private function assembleItem($playerNumber)
+    private function assembleItem($playerId)
     {
-        $items = app(EnrollModel::class)->getPlayerEnrollItem($playerNumber);
+        $items = app(EnrollModel::class)->getPlayerEnrollItem($playerId);
 
         $itemView = null;
 

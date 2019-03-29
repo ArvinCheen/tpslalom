@@ -26,13 +26,13 @@ class CheckInController extends Controller
 
     public function update(Request $request)
     {
-        $playerSn    = $request->playerSn;
+        $playerId    = $request->playerSn;
         $scheduleSn  = $request->scheduleSn;
         $checkStatus = $request->checkStatus;
 
         $checkInService = new CheckInService();
 
-        if (!$checkInService->update($playerSn, $scheduleSn, $checkStatus)) {
+        if (!$checkInService->update($playerId, $scheduleSn, $checkStatus)) {
             app('request')->session()->flash('error', '檢錄失敗');
             return back();
         }

@@ -134,9 +134,7 @@
         <div class="footer-bottom">
             <div class="footer-social">
                 <a href="https://www.facebook.com/tpslalom/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>
-                {{--<a href="#" data-toggle="tooltip" title="" data-original-title="twitter"><i class="fa fa-twitter"></i></a>--}}
-                {{--<a href="#" data-toggle="tooltip" title="" data-original-title="twitch"><i class="fa fa-twitch"></i></a>--}}
-                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="tooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>
+                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>
             </div>
             <p>Copyright © 2019 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>
 

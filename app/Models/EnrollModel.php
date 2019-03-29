@@ -21,10 +21,10 @@ class EnrollModel extends Model
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
         'rank', 'integral', 'check', 'check_in_time'];
 
-//    public function player()
-//    {
-//        return $this->hasOne('App\Models\PlayerModel', 'player_id', 'player_id');
-//    }
+    public function player()
+    {
+        return $this->hasOne('App\Models\PlayerModel', 'id', 'player_id');
+    }
 //
 //    public function game()
 //    {
@@ -128,7 +128,7 @@ class EnrollModel extends Model
         dd($data);
     }
 
-    public function updateSameResultForRank($level, $gender, $group, $item, $final_result, $city, $updateData)
+    public function updateSameResultForRank($level, $gender, $group, $item, $finalResult, $city, $updateData)
     {
         $query = $this->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
@@ -136,7 +136,7 @@ class EnrollModel extends Model
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('final_result', $final_result);
+            ->where('final_result', $finalResult);
 
         if ($city == '臺北市') {
             $query->where('city', '臺北市');
@@ -147,7 +147,7 @@ class EnrollModel extends Model
         $query->update($updateData);
     }
 
-    public function updateSameResultForIntegral($level, $gender, $group, $item, $final_result, $updateData)
+    public function updateSameResultForIntegral($level, $gender, $group, $item, $finalResult, $updateData)
     {
         return $this->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
@@ -155,43 +155,38 @@ class EnrollModel extends Model
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('final_result', $final_result)
+            ->where('final_result', $finalResult)
             ->update($updateData);
     }
 
-    public function cleanRankAndIntegral($level, $gender, $group, $item)
+    public function cleanRankAndIntegral($scheduleId)
     {
-        $updateData = [
-            'rank'     => null,
-            'integral' => null,
-        ];
+        $gameInfo = ScheduleModel::find($scheduleId);
 
-        $enrolls = $this
+        $enrolls = $this->select('enroll.id')
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('level', $level)
-            ->where('gender', $gender)
-            ->where('group', $group)
-            ->where('item', $item)
+            ->where('level', $gameInfo->level)
+            ->where('gender', $gameInfo->gender)
+            ->where('group', $gameInfo->group)
+            ->where('item', $gameInfo->item)
             ->get()
             ->map(function ($query) {
-                return $query->enrollSn;
+                return $query->id;
             });
 
-        return $this->whereIn('enrollSn', $enrolls)->update($updateData);
+        return $this->whereIn('id', $enrolls)->update(['rank' => null, 'integral' => null,]);
     }
 
     public function getGameList()
     {
         return $this->groupBy('game_id')
-            ->orderBy('enrollSn', 'desc')
+            ->orderByDesc('id')
             ->get();
     }
 
     public function getEnrollPlayers($item)
     {
-
-
         return $this->select([
             'enroll.player_number',
             'name',
@@ -199,16 +194,16 @@ class EnrollModel extends Model
             'level',
             'group',
             'item',
-            'account.account_id',
+            'account.id',
             'coach',
-            'enroll.createTime',
+            'enroll.created_at',
         ])
             ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->leftJoin('account', 'account.account_id', 'enroll.account_id')
+            ->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
             ->where('item', $item)
             ->groupBy('player.id')
-            ->orderByDesc('enroll.createTime')
+            ->orderByDesc('enroll.created_at')
             ->get();
     }
 
@@ -247,25 +242,24 @@ class EnrollModel extends Model
 
     public function getResultOrderSns($level, $gender, $group, $item, $city)
     {
-        $query = $this
-            ->select('enroll.id')
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
+        return $this::select('id')
+            ->with(['player' => function ($query) use ($gender, $city) {
+                $query->where('gender', $gender);
+
+                if (! is_null($city)) {
+                    if ($city == '臺北市') {
+                        $query->where('city', '臺北市');
+                    } else {
+                        $query->where('city', '<>', '臺北市');
+                    }
+                }
+            }])
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
-            ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('final_result', '<>', '無成績');
-
-        if (! is_null($city)) {
-            if ($city == '臺北市') {
-                $query->where('city', '臺北市');
-            } else {
-                $query->where('city', '<>', '臺北市');
-            }
-        }
-
-        return $query->limit(6)
+            ->where('final_result', '<>', '無成績')
+            ->limit(6)
             ->orderBy(\DB::raw("final_result * 1"))
             ->get();
     }
@@ -379,13 +373,12 @@ class EnrollModel extends Model
             ->where('gender', $gender)
             ->where('item', $item)
             ->count();
-        dd();
     }
 
 
     public function getParticipateTeam()
     {
-        return $this->leftJoin('account', 'account.account_id', 'enroll.account_id')
+        return $this->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
             ->groupBy('enroll.account_id')
             ->get();
@@ -409,7 +402,7 @@ class EnrollModel extends Model
             GROUP_CONCAT(item) AS itemAll
         '))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->leftJoin('account', 'account.account_id', 'player.accountId')
+            ->leftJoin('account', 'account.id', 'player.accountId')
             ->leftJoin('registry_fee', 'registry_fee.player_id', 'enroll.player_id')
             ->where('enroll.game_id', config('app.game_id'))
             ->where('registry_fee.game_id', config('app.game_id'))

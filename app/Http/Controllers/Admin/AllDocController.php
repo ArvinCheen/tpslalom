@@ -7,11 +7,6 @@ use App\Services\DocService;
 
 class AllDocController extends Controller
 {
-    public function __construct()
-    {
-//        $this->middleware('auth');
-    }
-
     public function index()
     {
         $allDocService = new DocService();

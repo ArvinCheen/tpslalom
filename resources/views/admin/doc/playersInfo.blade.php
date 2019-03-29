@@ -51,7 +51,7 @@
                                         <td> {{ $val->item }} </td>
                                         <td> {{ $val->accountId }} </td>
                                         <td> {{ $val->coach }} </td>
-                                        <td> {{ $val->createTime }} </td>
+                                        <td> {{ $val->created_at }} </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -99,7 +99,7 @@
                                         <td> {{ $val->item }} </td>
                                         <td> {{ $val->accountId }} </td>
                                         <td> {{ $val->coach }} </td>
-                                        <td> {{ $val->createTime }} </td>
+                                        <td> {{ $val->created_at }} </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -147,7 +147,7 @@
                                         <td> {{ $val->item }} </td>
                                         <td> {{ $val->accountId }} </td>
                                         <td> {{ $val->coach }} </td>
-                                        <td> {{ $val->createTime }} </td>
+                                        <td> {{ $val->created_at }} </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

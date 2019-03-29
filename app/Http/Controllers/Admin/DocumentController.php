@@ -146,7 +146,6 @@ class DocumentController extends Controller
         $this->exportExcelForCertificateOfCompletion($teamName, $data);
     }
 
-
     private function exportExcelForCertificateOfCompletion($teamName, $data)
     {
         Excel::create($teamName, function($excel) use($data) {

@@ -11,7 +11,7 @@ class EnrollService
         $playerService      = new PlayerService();
         $registryFeeService = new RegistryFeeService();
 
-        $playerSn = $request->playerSn == 'newPlayer' ? null : $request->playerSn;
+        $playerId = $request->playerSn == 'newPlayer' ? null : $request->playerSn;
         $name     = $request->name;
         $agency   = $request->agency;
         $gender   = $request->gender;
@@ -28,13 +28,13 @@ class EnrollService
             if(is_null($singleS)) {
                 return false;
             } else {
-                $player = $playerService->store($playerSn, $name, $gender, $city, $agency);
+                $player = $playerService->store($playerId, $name, $gender, $city, $agency);
 
-                $playerSn = $player->id;
+                $playerId = $player->id;
 
-                $this->store($playerSn, $group, $doubleS, $singleS, $cross);
+                $this->store($playerId, $group, $doubleS, $singleS, $cross);
 
-                $registryFeeService->calculation($playerSn);
+                $registryFeeService->calculation($playerId);
             }
 
             \DB::commit();
@@ -46,47 +46,47 @@ class EnrollService
         return true;
     }
 
-    private function store($playerSn, $group, $doubleS, $singleS, $cross)
+    private function store($playerId, $group, $doubleS, $singleS, $cross)
     {
         $enrollModel = new EnrollModel();
 
-        $playerNumber = $this->getPlayerNumber($playerSn);
+        $playerNumber = $this->getPlayerNumber($playerId);
 
-        $enrollModel->cancel($playerSn);
+        $enrollModel->cancel($playerId);
 
         // todo playerNumber之後拿掉，因為重新編組會在編組一次
         if (!is_null($doubleS)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $doubleS, $item = '前進雙足S型');
+            $enrollModel->store($playerId, $playerNumber, $group, $doubleS, $item = '前進雙足S型');
         }
         if (!is_null($singleS)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $singleS, $item = '前進單足S型');
+            $enrollModel->store($playerId, $playerNumber, $group, $singleS, $item = '前進單足S型');
         }
         if (!is_null($cross)) {
-            $enrollModel->store($playerSn, $playerNumber, $group, $cross, $item = '前進交叉型');
+            $enrollModel->store($playerId, $playerNumber, $group, $cross, $item = '前進交叉型');
         }
 
         return true;
     }
 
-    public function getPlayerNumber($playerSn)
+    public function getPlayerNumber($playerId)
     {
         $enrollModel = new EnrollModel();
 
-        if ($enrollModel->isPlayerExists($playerSn)) {
-            return $enrollModel->getPlayerNumber($playerSn);
+        if ($enrollModel->isPlayerExists($playerId)) {
+            return $enrollModel->getPlayerNumber($playerId);
         } else {
             return $enrollModel->getNewPlayerNumber();
         }
     }
 
-    public function getPlayer($playerSn)
+    public function getPlayer($playerId)
     {
         $playerService = new PlayerService();
 
-        return $playerService->getPlayerWithEnrollInfo($playerSn);
+        return $playerService->getPlayerWithEnrollInfo($playerId);
     }
 
-    public function cancel($playerSn)
+    public function cancel($playerId)
     {
         $enrollModel      = new EnrollModel();
         $registryFeeModel = new RegistryFeeModel();
@@ -95,8 +95,8 @@ class EnrollService
             \DB::disableQueryLog();
             \DB::beginTransaction();
 
-            $enrollModel->cancel($playerSn);
-            $registryFeeModel->deleteRegistryFee($playerSn);
+            $enrollModel->cancel($playerId);
+            $registryFeeModel->deleteRegistryFee($playerId);
 
             \DB::commit();
         } catch (\Exception $e) {

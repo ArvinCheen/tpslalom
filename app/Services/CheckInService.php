@@ -28,29 +28,19 @@ class CheckInService
             ->get();
     }
 
-    public function update($playerSn, $scheduleSn, $checkStatus)
+    public function update($playerId, $scheduleSn, $checkStatus)
     {
         $enrollInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('scheduleSn', $scheduleSn)->first();
         $query      = EnrollModel::where('game_id', config('app.game_id'))
             ->where('level', $enrollInfo->level)
             ->where('group', $enrollInfo->group)
             ->where('item', $enrollInfo->item)
-            ->where('playerSn', $playerSn)
+            ->where('playerSn', $playerId)
             ->update([
                 'check'       => $checkStatus,
                 'checkInTime' => $checkStatus == '出賽' ? date('Y/m/d H:i:s', time()) : null,
             ]);
 
         return $query;
-    }
-
-    public function getSchedules()
-    {
-        return ScheduleModel::where('game_id', config('app.game_id'))->get();
-    }
-
-    public function getScheduleSn()
-    {
-        return ScheduleModel::where('game_id', config('app.game_id'))->value('scheduleSn');
     }
 }

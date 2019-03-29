@@ -6,11 +6,11 @@ use App\Models\PlayerModel;
 
 class PlayerService
 {
-    public function store($playerSn, $name, $gender, $city, $agency)
+    public function store($playerId, $name, $gender, $city, $agency)
     {
         $playerModel = new PlayerModel();
 
-        return $playerModel->store($playerSn , [
+        return $playerModel->store($playerId , [
             'accountId' => auth()->user()->accountId,
             'name'      => $name,
             'gender'    => $gender,
@@ -19,15 +19,15 @@ class PlayerService
         ]);
     }
 
-    public function getPlayerWithEnrollInfo($playerSn)
+    public function getPlayerWithEnrollInfo($playerId)
     {
         $enrollModel = new EnrollModel();
 
-        $player = PlayerModel::find($playerSn);
-        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerSn);
-        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerSn);
-        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerSn);
-        $player->group   = $enrollModel->getGroup($playerSn);
+        $player = PlayerModel::find($playerId);
+        $player->doubleS = $enrollModel->getItemLevel($item = '前進雙足S型', $playerId);
+        $player->singleS = $enrollModel->getItemLevel($item = '前進單足S型', $playerId);
+        $player->cross   = $enrollModel->getItemLevel($item = '前進交叉型', $playerId);
+        $player->group   = $enrollModel->getGroup($playerId);
 
         return $player;
     }

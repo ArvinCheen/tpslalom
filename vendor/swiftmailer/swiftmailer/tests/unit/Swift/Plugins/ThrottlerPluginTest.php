@@ -5,7 +5,7 @@ class Swift_Plugins_ThrottlerPluginTest extends \SwiftMailerTestCase
     public function testBytesPerMinuteThrottling()
     {
         $sleeper = $this->createSleeper();
-        $timer = $this->createTimer();
+        $timer = $this->created_atr();
 
         //10MB/min
         $plugin = new Swift_Plugins_ThrottlerPlugin(
@@ -38,7 +38,7 @@ class Swift_Plugins_ThrottlerPluginTest extends \SwiftMailerTestCase
     public function testMessagesPerMinuteThrottling()
     {
         $sleeper = $this->createSleeper();
-        $timer = $this->createTimer();
+        $timer = $this->created_atr();
 
         //60/min
         $plugin = new Swift_Plugins_ThrottlerPlugin(

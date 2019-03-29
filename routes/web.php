@@ -134,8 +134,11 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['prefix' => 'result'], function () {
         Route::get('/{scheduleSn?}', 'Admin\ResultController@index');  // 更新成績
-        Route::put('/updateResult', 'Admin\ResultController@updateResult');  // 更新成績
+        Route::put('/update', 'Admin\ResultController@update');  // 更新成績
     });
+
+    Route::put('/rank', ["as" => "admin.rank", 'uses' => 'Admin\RankController@rank']); // 排名
+//    Route::put('/rank', 'Admin\RankController@rank');  // 排名
 
     Route::group(['prefix' => 'export'], function () {
         Route::get('/certificate/{scheduleSn}', 'Admin\ExportController@certificate');  // 獎狀
@@ -146,7 +149,6 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 /**
-Route::group(['prefix' => '/'], function () {
-});
-
-*/
+ * Route::group(['prefix' => '/'], function () {
+ * });
+ */

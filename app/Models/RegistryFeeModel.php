@@ -18,18 +18,18 @@ class RegistryFeeModel extends Model
 
     protected $fillable = ['game_id', 'account_id', 'player_id', 'fee'];
 
-//    public function store($playerSn, $enrollCount)
+//    public function store($playerId, $enrollCount)
 //    {
 //        $existKey = [
 //            'game_id'    => config('app.game_id'),
 //            'accountId' => auth()->user()->accountId,
-//            'playerSn'  => $playerSn,
+//            'playerSn'  => $playerId,
 //        ];
 //
 //        $data = [
 //            'game_id'    => config('app.game_id'),
 //            'accountId' => auth()->user()->accountId,
-//            'playerSn'  => $playerSn,
+//            'playerSn'  => $playerId,
 //            'fee'       => 500 + ($enrollCount * 100)
 //        ];
 //

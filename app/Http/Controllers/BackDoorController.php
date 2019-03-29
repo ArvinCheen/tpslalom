@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\AccountModel;
 use Illuminate\Http\Request;
 
 class BackDoorController extends Controller
 {
-    public function door($accountId)
+    public function door($account)
     {
-        $accountSn = \DB::table('account')->where('accountId', $accountId)->value('accountSn');
-        \Auth::loginUsingId($accountSn);
+        \Auth::loginUsingId(AccountModel::where('account', $account)->value('id'));
 
         return redirect('/');
     }

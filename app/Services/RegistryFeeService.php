@@ -6,13 +6,13 @@ use App\Models\RegistryFeeModel;
 
 class RegistryFeeService
 {
-    public function calculation($playerSn)
+    public function calculation($playerId)
     {
         $enrollModel      = new EnrollModel();
         $registryFeeModel = new RegistryFeeModel();
 
-        $enrollCount = $enrollModel->getEnrollQuantity($playerSn);
+        $enrollCount = $enrollModel->getEnrollQuantity($playerId);
 
-        return $registryFeeModel->store($playerSn, $enrollCount);
+        return $registryFeeModel->store($playerId, $enrollCount);
     }
 }
