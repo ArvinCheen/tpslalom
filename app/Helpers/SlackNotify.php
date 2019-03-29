@@ -10,7 +10,7 @@ class SlackNotify
 
     private $channel = 'tpslalom';
 
-    private $username = 'Bot';
+    private $username = '黑蝙蝠';
 
     private $msg = 'Hello World';
 
@@ -21,7 +21,7 @@ class SlackNotify
 
     public function notify()
     {
-        $uri = 'https://hooks.slack.com/services/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';
+        $uri = 'https://hooks.slack.com/services/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';
 
         $array = [
             'channel'  => $this->getChannel(),
