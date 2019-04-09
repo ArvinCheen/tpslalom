@@ -30,8 +30,7 @@ class SearchController extends Controller
 
         if (is_null($scheduleId)) {
             if (is_null($scheduleId = app(ScheduleModel::class)->getFirstScheduleId())) {
-                return back()->with('error', '目前無成績資料');
-                // todo 無資料不應該回上一項，直接到成績頁面顯示無資料比較好
+                return back()->with('error', '目前未開放查詢');
             }
         }
 
@@ -46,26 +45,22 @@ class SearchController extends Controller
             'taipeiResult',
             'otherCityResult'
         ));
-
-
     }
 
     public function integral()
     {
-        $integrals = EnrollModel::selectRaw('team_name, enroll.account_id, sum(integral) as integral_total')
+        $integrals = EnrollModel::selectRaw('team_name, enroll.account_id, sum(integral) as integralTotal')
             ->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
             ->whereNotNull('integral')
             ->groupBy('enroll.account_id')
-            ->orderByDesc('integral_total')
+            ->orderByDesc('integralTotal')
             ->get();
 
         foreach ($integrals as $integral) {
-            $accountId = $integral->accountId;
-
-            $integral->playerData = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
+            $integral->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
-                ->where('enroll.account_id', $accountId)
+                ->where('enroll.account_id', $integral->account_id)
                 ->where('integral', '>', 0)
                 ->orderByDesc('integral')
                 ->get();
@@ -76,6 +71,6 @@ class SearchController extends Controller
             // todo 無資料不應該回上一項，直接到成績頁面顯示無資料比較好
         }
 
-        return view('search/integral')->with(compact('integralData'));
+        return view('search/integral')->with(compact('integrals'));
     }
 }

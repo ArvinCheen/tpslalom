@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
+use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
 use Illuminate\Http\Request;
 use App\Models\EnrollModel;
@@ -23,10 +24,10 @@ class ResultController extends Controller
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
-            $enrolls = EnrollModel::with(['player' => function ($query) use ($gameInfo)
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo)
             {
                 $query->where('gender', $gameInfo->gender);
-            }])
+            })
                 ->where('game_id', config('app.game_id'))
                 ->where('level', $gameInfo->level)
                 ->where('group', $gameInfo->group)
@@ -44,27 +45,17 @@ class ResultController extends Controller
         $roundOneMissConr = $request->roundOneMissConr;
         $roundTwoSecond   = $request->roundTwoSecond;
         $roundTwoMissConr = $request->roundTwoMissConr;
-        $scheduleId       = $request->scheduleSn;
-        $isGameOver       = $request->isGameOver;
 
         if (! $this->validateInt($request)) {
             app('request')->session()->flash('error', '秒數請輸入數字');
             return back()->withInput();
         }
 
-        if ($isGameOver) {
-            app(ResultService::class)->processOverGame($scheduleId);
-
-            app(SlackNotify::class)->setMsg(ScheduleModel::find($scheduleId)->order . " 比賽結束")->notify();
-
-            return back()->with(['info' => '排名成功']);
-        } else {
-            foreach ($enrollIds as $key => $enrollId) {
-                $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
-            }
-
-            return back()->with(['success' => '更新選手成績成功']);
+        foreach ($enrollIds as $key => $enrollId) {
+            $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
         }
+
+        return back()->with(['success' => '更新選手成績成功']);
     }
 
 

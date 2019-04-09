@@ -25,6 +25,11 @@ class EnrollModel extends Model
     {
         return $this->hasOne('App\Models\PlayerModel', 'id', 'player_id');
     }
+
+    public function account()
+    {
+        return $this->hasOne('App\Models\AccountModel', 'id', 'account_id');
+    }
 //
 //    public function game()
 //    {
@@ -196,14 +201,13 @@ class EnrollModel extends Model
             'item',
             'account.id',
             'coach',
-            'enroll.created_at',
         ])
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->leftJoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
             ->where('item', $item)
             ->groupBy('player.id')
-            ->orderByDesc('enroll.created_at')
+            ->orderBy('enroll.player_number')
             ->get();
     }
 
@@ -243,7 +247,7 @@ class EnrollModel extends Model
     public function getResultOrderSns($level, $gender, $group, $item, $city)
     {
         return $this::select('id')
-            ->with(['player' => function ($query) use ($gender, $city) {
+            ->whereHas('player', function ($query) use ($gender, $city) {
                 $query->where('gender', $gender);
 
                 if (! is_null($city)) {
@@ -253,7 +257,7 @@ class EnrollModel extends Model
                         $query->where('city', '<>', '臺北市');
                     }
                 }
-            }])
+            })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('group', $group)
@@ -378,8 +382,7 @@ class EnrollModel extends Model
 
     public function getParticipateTeam()
     {
-        return $this->leftJoin('account', 'account.id', 'enroll.account_id')
-            ->where('game_id', config('app.game_id'))
+        return $this->with('account')->where('game_id', config('app.game_id'))
             ->groupBy('enroll.account_id')
             ->get();
     }
@@ -392,7 +395,7 @@ class EnrollModel extends Model
             `level`, 
             `group`, 
             gender, 
-            teamName, 
+            team_name, 
             agency,
             city, 
             coach, 
@@ -402,7 +405,7 @@ class EnrollModel extends Model
             GROUP_CONCAT(item) AS itemAll
         '))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->leftJoin('account', 'account.id', 'player.accountId')
+            ->leftJoin('account', 'account.id', 'player.account_id')
             ->leftJoin('registry_fee', 'registry_fee.player_id', 'enroll.player_id')
             ->where('enroll.game_id', config('app.game_id'))
             ->where('registry_fee.game_id', config('app.game_id'))

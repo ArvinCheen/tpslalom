@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Level;
 use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\ScheduleModel;
 use Illuminate\Http\Request;
 use App\Models\EnrollModel;
-use App\Services\ResultService;
-use App\Services\CheckInService;
 
 class RankController extends Controller
 {
@@ -87,11 +86,11 @@ class RankController extends Controller
     private function getIntegrals($level)
     {
         switch ($level) {
-            case '初級組':
+            case Level::Primary:
                 return [1, 2, 3, 4, 5, 7];
-            case '新人組':
+            case Level::Novice:
                 return [2, 3, 4, 5, 6, 8];
-            case '新人組':
+            case Level::Contestant:
                 return [3, 4, 5, 6, 7, 9];
         }
     }

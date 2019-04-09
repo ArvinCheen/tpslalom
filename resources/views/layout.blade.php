@@ -4,20 +4,20 @@
 <head>
     <html lang="{{ app()->getLocale() }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>直排輪體育賽事</title>
-    <link rel="icon" href="{{ URL::asset('front/logo.png') }}" sizes="32x32" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+    <link rel="icon" href="{{ URL::asset('front/logo.png') }}" sizes="32x32"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- 由後台提供的plugins調整bootstrap元素 Start -->
-    <link href="{{ URL::asset('global/css/plugins.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('global/css/plugins.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- 由後台提供的plugins調整bootstrap元素 End -->
 
     <!-- 訊息通知 Start -->
-    <link href="{{ URL::asset('global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- 訊息通知 End -->
 
     <link rel="stylesheet" href="{{ URL::asset('front/theme.css') }}"/>
@@ -65,13 +65,13 @@
                                 <a href="#">比賽資訊</a>
                                 <ul>
                                     <li>
-                                        <a href="{{ URL('gameInfo/schedule') }}"> 賽程表 </a>
+                                        <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL('gameInfo/groupList') }}"> 分組名冊 </a>
+                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL('gameInfo/teamList') }}"> 團隊名冊 </a>
+                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
                                     </li>
                                     <li>
                                         <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
@@ -142,8 +142,8 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -176,13 +176,13 @@
     @if (session('success'))
         toastr['success']('{{ session('success') }}');
     @endif
-    @if (session('info'))
+        @if (session('info'))
         toastr['info']('{{ session('info') }}');
     @endif
-    @if (session('warning'))
+        @if (session('warning'))
         toastr['warning']('{{ session('warning') }}');
     @endif
-    @if (session('error'))
+        @if (session('error'))
         toastr['error']('{{ session('error') }}');
     @endif
     /* 訊息通知 End */

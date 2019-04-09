@@ -38,15 +38,15 @@
                             <td> 經理 </td>
                             <td> 費用 </td>
                         </tr>
-                        @foreach($bills as $val)
+                        @foreach($bills as $bill)
                             <tr>
-                                <td> {{ $val->teamName }} </td>
-                                <td> {{ $val->phone }} </td>
-                                <td> {{ $val->address }} </td>
-                                <td> {{ $val->coach }} </td>
-                                <td> {{ $val->leader }} </td>
-                                <td> {{ $val->management }} </td>
-                                <td> {{ number_format($val->totalFee) }} </td>
+                                <td> {{ $bill->team_name }} </td>
+                                <td> {{ $bill->phone }} </td>
+                                <td> {{ $bill->address }} </td>
+                                <td> {{ $bill->coach }} </td>
+                                <td> {{ $bill->leader }} </td>
+                                <td> {{ $bill->management }} </td>
+                                <td> {{ number_format($bill->totalFee) }} </td>
                             </tr>
                         @endforeach
                     </table>

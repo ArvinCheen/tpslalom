@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="form-group m-form__group row">
                     <div class="col-md-6">
-                        <select class="form-control m-select2" id="m_select2_1" name="scheduleSn">
+                        <select class="form-control m-select2" id="m_select2_1">
                             @foreach ($schedules as $schedule)
                                 <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組  {{ $schedule->item }} {{ $schedule->number_of_player }}人</option>
                             @endforeach
@@ -41,7 +41,6 @@
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <input type="hidden" name="scheduleSn" value="{{ $scheduleId }}">
-                    <input type="hidden" name="isGameOver">
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
@@ -114,19 +113,14 @@
     <script src="{{ URL::asset('assets/demo/default/custom/components/forms/widgets/select2.js') }}" type="text/javascript"></script>
     <script>
         $("#m_select2_1").change(function() {
-            var scheduleSn = $(this).val();
-            window.location = "{{ URL('admin/result/') }}/" + scheduleSn
+            var scheduleId = $(this).val();
+            window.location = "{{ URL('admin/result/') }}/" + scheduleId
         });
 
         $(".resultInput").keydown(function(e) {
             if (e.which == 13) {
                 $("#result-form").submit();
             }
-        })
-
-        function gameOver() {
-            $("input[name='isGameOver']").val(1);
-            $("#result-form").submit();
-        }
+        });
     </script>
 @endsection

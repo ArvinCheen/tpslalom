@@ -22,8 +22,8 @@ class PlayerModel extends Model
         return $this->updateOrCreate(['player_id' => $playerId], $data);
     }
 
-    public function getPlayers()
+    public function enroll()
     {
-        return $this->where('account_id', auth()->user()->id)->orderByDesc('id')->get();
+        return $this->belongsTo('App\Models\EnrollModel', 'id', 'player_id');
     }
 }

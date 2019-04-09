@@ -181,7 +181,7 @@
 			<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-light m-aside-menu--submenu-skin-light " data-menu-vertical="true" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
 				<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 					<li class="m-menu__section">
-						<h4 class="m-menu__section-text"> 107 中正盃 </h4>
+						<h4 class="m-menu__section-text"> 操作類 </h4>
 						<i class="m-menu__section-icon flaticon-more-v3"></i>
 					</li>
 
@@ -193,14 +193,14 @@
 							<span class="m-menu__link-text"> 輸入成績 </span>
 						</a>
 					</li>
-					{{--<li class="m-menu__item " aria-haspopup="true">--}}
-						{{--<a href="{{ URL('admin/checkIn') }}" class="m-menu__link ">--}}
-							{{--<i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
-								{{--<span></span>--}}
-							{{--</i>--}}
-							{{--<span class="m-menu__link-text"> 檢錄 </span>--}}
-						{{--</a>--}}
-					{{--</li>--}}
+					<li class="m-menu__item " aria-haspopup="true">
+						<a href="{{ URL('admin/checkIn') }}" class="m-menu__link ">
+							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+								<span></span>
+							</i>
+							<span class="m-menu__link-text"> 檢錄 </span>
+						</a>
+					</li>
 					<li class="m-menu__item " aria-haspopup="true">
 						<a href="{{ URL('admin/grouping') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -215,7 +215,7 @@
 						<i class="m-menu__section-icon flaticon-more-v3"></i>
 					</li>
 					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('admin/doc/allDoc') }}" class="m-menu__link ">
+						<a href="{{ URL('admin/doc/all') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 								<span></span>
 							</i>
@@ -223,7 +223,7 @@
 						</a>
 					</li>
 					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('admin/doc/groupsInfo') }}" class="m-menu__link ">
+						<a href="{{ URL('admin/doc/groups') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 								<span></span>
 							</i>
@@ -231,7 +231,7 @@
 						</a>
 					</li>
 					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('admin/doc/teamsInfo') }}" class="m-menu__link ">
+						<a href="{{ URL('admin/doc/teams') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 								<span></span>
 							</i>
@@ -239,7 +239,7 @@
 						</a>
 					</li>
 					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('admin/doc/playersInfo') }}" class="m-menu__link ">
+						<a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 								<span></span>
 							</i>
@@ -270,14 +270,6 @@
 							<span class="m-menu__link-text"> 匯出紀錄手寫單 </span>
 						</a>
 					</li>
-					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('/admin/export/teamCheckIn') }}" class="m-menu__link ">
-							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-								<span></span>
-							</i>
-							<span class="m-menu__link-text"> 匯出隊伍簽到表 </span>
-						</a>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -287,9 +279,6 @@
 	</div>
 </div>
 
-{{--<link href="{{ URL::asset('assets/vendors/base/vendors.bundle.js') }}" rel="stylesheet" type="text/css" />--}}
-{{--<link href="{{ URL::asset('assets/demo/demo2/base/scripts.bundle.js') }}" rel="stylesheet" type="text/css" />--}}
-{{--<link href="{{ URL::asset('assets/app/js/layout-builder.js') }}" rel="stylesheet" type="text/css" />--}}
 <script src="{{ URL::asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/demo/demo2/base/scripts.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/app/js/layout-builder.js') }}" type="text/javascript"></script>

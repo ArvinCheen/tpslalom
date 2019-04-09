@@ -21,7 +21,7 @@
                 <p>點擊積分可展開</p>
             </div>
             <div class="col-md-12 mt-3">
-                @foreach ($integralData as $key => $val)
+                @foreach ($integrals as $key => $integral)
                     <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false" aria-controls="{{ $key }}collapse">
                         <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                         <tr>
@@ -29,10 +29,10 @@
                                 @if ($key < 3)
                                     第 {{ $key + 1 }} 名：
                                 @endif
-                                {{ $val->teamName }}
+                                {{ $integral->team_name }}
                             </th>
                             <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                                總分：{{ $val->integralTotal }}分
+                                總分：{{ $integral->integralTotal }}分
                             </th>
                         </tr>
                         </thead>
@@ -48,9 +48,9 @@
                                 <th> 項目 </th>
                                 <th class="text-center"> 積分 </th>
                             </tr>
-                            @foreach ($val->playerData as $player)
+                            @foreach ($integral->players as $player)
                                 <tr>
-                                    <th class="text-center"> {{ $player->playerNumber }} </th>
+                                    <th class="text-center"> {{ $player->player_number }} </th>
                                     <th class="text-center"> {{ $player->name }} </th>
                                     <td> {{ $player->level . $player->group . $player->gender . '子組' }} </td>
                                     <td class="text-center"> {{ $player->integral }} </td>

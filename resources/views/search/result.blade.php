@@ -24,7 +24,7 @@
             <div class="col-md-12">
                 <select class="form-control" id="m_select2_1" name="scheduleSn">
                     @foreach ($schedules as $schedule)
-                        <option value="{{ $schedule->scheduleSn }}" {{ $scheduleSn == $schedule->scheduleSn ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組  {{ $schedule->item }} </option>
+                        <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組  {{ $schedule->item }} </option>
                     @endforeach
                 </select>
             </div>
@@ -54,13 +54,13 @@
                         @foreach ($taipeiResult as $val)
                             <tr>
                                 <td class="text-center"> {{ $val->rank }}</td>
-                                <td class="text-center"> {{ $val->playerNumber }}</td>
+                                <td class="text-center"> {{ $val->player_number }}</td>
                                 <td class="text-center"> {{ $val->name }}</td>
-                                <td class="text-center"> {{ $val->roundOneSecond }}</td>
-                                <td class="text-center"> {{ $val->roundOneMissConr }}</td>
-                                <td class="text-center"> {{ $val->roundTwoSecond }}</td>
-                                <td class="text-center"> {{ $val->roundTwoMissConr }}</td>
-                                <td class="text-center"> {{ $val->finalResult }}</td>
+                                <td class="text-center"> {{ $val->round_one_second }}</td>
+                                <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }}</td>
+                                <td class="text-center"> {{ $val->round_two_second }}</td>
+                                <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }}</td>
+                                <td class="text-center"> {{ $val->final_result }}</td>
                                 <td class="text-center"> {{ $val->integral }}</td>
                             </tr>
                         @endforeach
@@ -92,13 +92,13 @@
                         @foreach ($otherCityResult as $val)
                             <tr>
                                 <td class="text-center"> {{ $val->rank }}</td>
-                                <td class="text-center"> {{ $val->playerNumber }}</td>
+                                <td class="text-center"> {{ $val->player_number }}</td>
                                 <td class="text-center"> {{ $val->name }}</td>
-                                <td class="text-center"> {{ $val->roundOneSecond }}</td>
-                                <td class="text-center"> {{ $val->roundOneMissConr }}</td>
-                                <td class="text-center"> {{ $val->roundTwoSecond }}</td>
-                                <td class="text-center"> {{ $val->roundTwoMissConr }}</td>
-                                <td class="text-center"> {{ $val->finalResult }}</td>
+                                <td class="text-center"> {{ $val->round_one_second }}</td>
+                                <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }}</td>
+                                <td class="text-center"> {{ $val->round_two_second }}</td>
+                                <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }}</td>
+                                <td class="text-center"> {{ $val->final_result }}</td>
                                 <td class="text-center"> {{ $val->integral }}</td>
                             </tr>
                         @endforeach

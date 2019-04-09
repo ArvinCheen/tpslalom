@@ -35,9 +35,9 @@ class SearchService
         return $players;
     }
 
-    public function getResult($scheduleSn, $city)
+    public function getResult($scheduleId, $city)
     {
-        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
         $query = EnrollModel::where('game_id', config('app.game_id'))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
@@ -55,7 +55,7 @@ class SearchService
             $query->where('city', '<>','臺北市');
         }
 
-        $data = $query->orderBy(\DB::raw('finalResult * 1'))->get();
+        $data = $query->orderBy(\DB::raw('final_result * 1'))->get();
 
         return $this->translationResult($data);
     }

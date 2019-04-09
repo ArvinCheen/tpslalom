@@ -10,7 +10,7 @@ class SlackNotify
 
     private $channel = 'tpslalom';
 
-    private $username = '黑蝙蝠';
+    private $username = '黑蝙蝠（測試中）';
 
     private $msg = 'Hello World';
 
@@ -21,15 +21,8 @@ class SlackNotify
 
     public function notify()
     {
-//        if (env('APP_ENV') == 'local') {
-//            $url = 'https://hooks.slack.com/services/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';
-//        } else {
-//            $url = 'https://hooks.slack.com/services/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';
-//        }
-
-        $url = 'https://hooks.slack.com/services/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'; //TEST
-//        $url = 'https://hooks.slack.com/services/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';
         $url = 'https://hooks.slack.com/services/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';
+
         $array = [
             'channel'  => $this->getChannel(),
             'username' => $this->getUsername(),

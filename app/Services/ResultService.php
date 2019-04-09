@@ -7,14 +7,10 @@ use App\Models\ScheduleModel;
 
 class ResultService
 {
-
-    /**
-     * @return String
-     */
-    public function isGameOver($scheduleSn)
+    public function isGameOver($scheduleId)
     {
         $enrollModel = new EnrollModel();
-        $gameInfo    = ScheduleModel::where('game_id', config('app.game_id'))->where('scheduleSn', $scheduleSn)->first();
+        $gameInfo    = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
         $level  = $gameInfo->level;
         $gender = $gameInfo->gender;
