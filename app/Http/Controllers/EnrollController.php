@@ -8,7 +8,6 @@ use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
 use App\Services\RegistryFeeService;
-use App\Helpers\SlackNotify;
 use Illuminate\Http\Request;
 use App\Services\EnrollService;
 use App\Services\PlayerService;

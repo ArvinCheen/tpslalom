@@ -17,6 +17,7 @@ class Test2 extends Command
 
     public function handle()
     {
+        dd(bcrypt(1234));
         $accounts = AccountModel::get();
 
 
