@@ -76,13 +76,18 @@ Route::group(['prefix' => '/'], function () {
     });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/login', ["as" => "admin.login", 'uses' => 'Admin\Auth\LoginController@index']);
+    Route::post('/login', 'Admin\Auth\LoginController@login');
+    Route::get('/logout', 'Admin\Auth\LoginController@logout');
+});
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () {
 
     Route::get('/', 'Admin\ResultController@index');
-    Route::get('/logout', 'Admin\Auth\LoginController@logout');
 
-    Route::get('/login', 'Admin\Auth\LoginController@index');
-    Route::post('/login', 'Admin\Auth\LoginController@login');
 
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', 'Admin\DashboardController@index');

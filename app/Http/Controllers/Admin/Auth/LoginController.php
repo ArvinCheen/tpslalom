@@ -11,11 +11,6 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    public function __construct()
-    {
-//        $this->middleware('guest')->except('login', 'logout');
-    }
-
     public function index()
     {
         return view('/admin/login');
@@ -23,10 +18,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $accountId = $request->accountId;
+        $account = $request->account;
         $password  = $request->password;
 
-        if (\Auth::attempt(['accountId' => $accountId, 'password' => $password], true)) {
+        if (\Auth::attempt(['account' => $account, 'password' => $password], true)) {
             app('request')->session()->flash('success', '登入成功');
 
             session(['game_id' => config('app.game_id')]);
