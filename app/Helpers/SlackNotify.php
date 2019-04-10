@@ -10,7 +10,7 @@ class SlackNotify
 
     private $channel = 'tpslalom';
 
-    private $username = '黑蝙蝠（測試中）';
+    private $username = '黑蝙蝠';
 
     private $msg = 'Hello World';
 
