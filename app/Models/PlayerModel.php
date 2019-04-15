@@ -26,4 +26,9 @@ class PlayerModel extends Model
     {
         return $this->belongsTo('App\Models\EnrollModel', 'id', 'player_id');
     }
+
+    public function getPlayers()
+    {
+        return $this->where('account_id', auth()->user()->id)->orderByDesc('id')->get();
+    }
 }
