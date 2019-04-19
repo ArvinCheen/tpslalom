@@ -94,6 +94,7 @@ class DocController extends Controller
     {
         $bills = RegistryFeeModel::select(DB::raw('
             account.id,
+            account.account,
             team_name,
             email,
             phone,
