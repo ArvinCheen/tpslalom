@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
+use App\Models\AccountModel;
 use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
@@ -92,9 +93,8 @@ class EnrollController extends Controller
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
             );
 
-            app()->make(SlackNotify::class)->setMsg("報名成功：{$name} - {$playerNumber}")->notify();
-
-            app(SlackNotify::class)->setMsg("{$name} - {$playerNumber} 報名成功")->notify();
+            $account = AccountModel::find(auth()->user()->id)->team_name;
+            app(SlackNotify::class)->setMsg("```選手號碼：{$playerNumber} {$name}（{$account}） 報名成功```")->notify();
             DB::commit();
             return true;
         } catch (\Exception $e) {
