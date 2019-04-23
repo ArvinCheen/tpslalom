@@ -64,15 +64,15 @@
                             <li class="has-dropdown">
                                 <a href="#">比賽資訊</a>
                                 <ul>
-                                    {{--<li>--}}
-                                        {{--<a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>--}}
-                                    {{--</li>--}}
+                                    <li>
+                                        <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
+                                    </li>
                                     <li>
                                         <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
                                     </li>
