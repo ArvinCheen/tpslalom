@@ -29,33 +29,32 @@
                             <tbody>
                             @php
                                 $i = 0;
-                                $x = 0
                             @endphp
                             @while($i < count($team->players))
                                 <tr>
                                     <td class="w-25">
-                                        @if (isset($team->players[$x + $i]))
-                                            {{ $team->players[$x + $i]->player_number }} {{ $team->players[$x + $i]->player->name }} ({{ $team->players[$x + $i]->player->city . $team->players[$x + $i]->player->agency }})
+                                        @if (isset($team->players[$i]))
+                                            {{ $team->players[$i]->player_number }} {{ $team->players[$i]->player->name }} ({{ $team->players[$i]->player->city . $team->players[$i]->player->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($team->players[$x + $i + 1]))
-                                            {{ $team->players[$x + $i + 1]->player_number }} {{ $team->players[$x + $i + 1]->player->name }} ({{ $team->players[$x + $i + 1]->player->city . $team->players[$x + $i + 1]->player->agency }})
+                                        @if (isset($team->players[$i + 1]))
+                                            {{ $team->players[$i + 1]->player_number }} {{ $team->players[$i + 1]->player->name }} ({{ $team->players[$i + 1]->player->city . $team->players[$i + 1]->player->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($team->players[$x + $i + 2]))
-                                            {{ $team->players[$x + $i + 2]->player_number }} {{ $team->players[$x + $i + 2]->player->name }} ({{ $team->players[$x + $i + 2]->player->city . $team->players[$x + $i + 2]->player->agency }})
+                                        @if (isset($team->players[$i + 2]))
+                                            {{ $team->players[$i + 2]->player_number }} {{ $team->players[$i + 2]->player->name }} ({{ $team->players[$i + 2]->player->city . $team->players[$i + 2]->player->agency }})
                                         @endif
                                     </td>
                                     <td class="w-25">
-                                        @if (isset($team->players[$x + $i + 3]))
-                                            {{ $team->players[$x + $i + 3]->player_number }} {{ $team->players[$x + $i + 3]->player->name }} ({{ $team->players[$x + $i + 3]->player->city . $team->players[$x + $i + 3]->player->agency }})
+                                        @if (isset($team->players[$i + 3]))
+                                            {{ $team->players[$i + 3]->player_number }} {{ $team->players[$i + 3]->player->name }} ({{ $team->players[$i + 3]->player->city . $team->players[$i + 3]->player->agency }})
                                         @endif
                                     </td>
                                 </tr>
                                 @php
-                                    $i += 3
+                                    $i += 4
                                 @endphp
                             @endwhile
                             </tbody>
