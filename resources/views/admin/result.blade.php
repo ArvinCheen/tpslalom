@@ -24,7 +24,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <div>
+                    <div class="ml-2">
+                        <a href="{{ URL('admin/result\/') . ($scheduleId + 1) }}" class="btn btn-primary" > 下一場 </a>
+                    </div>
+                    <div class="ml-2">
                         <a href="{{ URL('admin/export/certificate') }}/{{$scheduleId}}"><button type="button" class="btn btn-primary"> 匯出獎狀 </button></a>
                     </div>
                     <div class="ml-2">
@@ -34,15 +37,6 @@
                             <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">
                             <button type="submit" class="btn btn-primary"> 排名 </button>
                         </form>
-
-{{--                        <form action="{{ URL('admin/result/') . ($scheduleId+1) }}/scheduleId" method="POST">--}}
-{{--                            {{ csrf_field() }}--}}
-{{--                            {{ method_field('PUT') }}--}}
-{{--                            <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">--}}
-{{--                            <button type="submit" class="btn btn-primary"> 下一場 </button>--}}
-{{--                        </form>--}}
-
-
                     </div>
                 </div>
                 <form id="result-form" action="{{ URL('admin/result/update') }}" method="POST">
