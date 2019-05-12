@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
 use App\Models\ScheduleModel;
