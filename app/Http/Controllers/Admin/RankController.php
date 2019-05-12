@@ -63,16 +63,20 @@ class RankController extends Controller
             ->where('item', $item)
             ->whereNotNull('final_result')
             ->limit(6)
-            ->orderByDesc(\DB::raw('final_result * 1'))
+            ->orderBy(\DB::raw('final_result * 1'))
             ->get();
 
         $integrals = $this->getIntegrals($level);
 
-        foreach ($enrolls as $enroll) {
+        $count = count($enrolls);
 
-            $integral = array_shift($integrals);
+        foreach ($enrolls as $key => $enroll) {
+            $count--;
+
+            $integral = $integrals[$count];
 
             if ($enroll->final_result == '無成績') {
+                $count++; // todo 這裡寫法可優化
                 continue;
             }
 
