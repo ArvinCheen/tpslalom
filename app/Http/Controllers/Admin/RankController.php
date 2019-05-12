@@ -24,10 +24,10 @@ class RankController extends Controller
     private function processOverGame($scheduleId)
     {
         $gameInfo = ScheduleModel::find($scheduleId);
-        $level    = $gameInfo->level;
-        $gender   = $gameInfo->gender;
-        $group    = $gameInfo->group;
-        $item     = $gameInfo->item;
+        $level = $gameInfo->level;
+        $gender = $gameInfo->gender;
+        $group = $gameInfo->group;
+        $item = $gameInfo->item;
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
@@ -69,58 +69,44 @@ class RankController extends Controller
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('check', 1)
+            ->whereNotNull('rank')
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
 
         $integrals = $this->getIntegrals($level);
 
-        $count = count($enrolls);
+        $count = 0;
 
-        try {
-
-            foreach ($enrolls as $key => $enroll) {
-                $count--;
-
-//echo $count."<br>";
-                //同成績處理 start
-                if ($key <> 0 && $enroll->final_result <> '無成績') {
-                    if ($enrolls[$key - 1]->final_result == $enrolls[$key]->final_result) {
-                        $count++; // todo 這裡寫法可優化
-                    }
-                }
-//            同成績處理 end
-//dd($count);
-                $integral = $integrals[$count];
-
-                if ($enroll->final_result == '無成績') {
+        foreach ($enrolls as $key => $enroll) {
+            //同成績處理 start
+            if ($key <> 0 ) {
+                if ($enrolls[$key - 1]->final_result == $enrolls[$key]->final_result) {
                     $count++; // todo 這裡寫法可優化
-                    continue;
                 }
-
-                if ($item == '前進單足S型') {
-                    $integral++;
-                }
-
-                EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
             }
-        } catch (\Exception $e) {
-//            dd($e->getMessage());
-        }
-//dd();
+            //同成績處理 end
 
+            $integral = $integrals[$count];
+
+            if ($item == '前進單足S型') {
+                $integral++;
+            }
+
+            EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
+            $count++;
+        }
     }
 
     private function getIntegrals($level)
     {
         switch ($level) {
             case Level::Primary:
-                return [1, 2, 3, 4, 5, 7];
+                return [7, 5, 4, 3, 2, 1];
             case Level::Novice:
-                return [2, 3, 4, 5, 6, 8];
+                return [8, 6, 5, 4, 3, 2];
             case Level::Contestant:
-                return [3, 4, 5, 6, 7, 9];
+                return [9, 7, 6, 5, 4, 3];
         }
     }
 
