@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
@@ -69,32 +69,29 @@ class RankController extends Controller
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->whereNotNull('rank')
+            ->where('check', 1)
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
 
+
         $integrals = $this->getIntegrals($level);
 
-        $count = 0;
-
-        foreach ($enrolls as $key => $enroll) {
-            //同成績處理 start
-            if ($key <> 0 ) {
-                if ($enrolls[$key - 1]->final_result == $enrolls[$key]->final_result) {
-                    $count++; // todo 這裡寫法可優化
-                }
-            }
-            //同成績處理 end
-
+        $count = count($enrolls) - 1;
+        foreach ($enrolls as $enroll) {
             $integral = $integrals[$count];
+
+            if ($enroll->final_result == '無成績') {
+                continue;
+            }
 
             if ($item == '前進單足S型') {
                 $integral++;
             }
 
             EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
-            $count++;
+
+            $count--;
         }
     }
 
@@ -102,11 +99,11 @@ class RankController extends Controller
     {
         switch ($level) {
             case Level::Primary:
-                return [7, 5, 4, 3, 2, 1];
+                return [1, 2, 3, 4, 5, 7];
             case Level::Novice:
-                return [8, 6, 5, 4, 3, 2];
+                return [2, 3, 4, 5, 6, 8];
             case Level::Contestant:
-                return [9, 7, 6, 5, 4, 3];
+                return [3, 4, 5, 6, 7, 9];
         }
     }
 
