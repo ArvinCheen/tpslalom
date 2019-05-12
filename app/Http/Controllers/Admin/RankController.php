@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
@@ -61,7 +61,7 @@ class RankController extends Controller
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->whereNotNull('rank')
+            ->whereNotNull('final_result')
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
@@ -69,12 +69,13 @@ class RankController extends Controller
         $integrals = $this->getIntegrals($level);
 
         foreach ($enrolls as $enroll) {
-            if ($enroll->final_result == '無成績') {
-                continue;
-            }
 
             $integral = array_shift($integrals);
 
+            if ($enroll->final_result == '無成績') {
+                continue;
+            }
+            
             if ($item == '前進單足S型') {
                 $integral++;
             }

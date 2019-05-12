@@ -424,7 +424,7 @@ class EnrollModel extends Model
             ->where('final_result', '<>', '無成績')
             ->whereNull('rank')
             ->count();
-return true;
+return true; // todo 這裡有換個方式呈現成績
         if ($data == 0) {
             return true;
         } else {
