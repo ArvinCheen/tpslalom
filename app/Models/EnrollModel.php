@@ -244,10 +244,9 @@ class EnrollModel extends Model
             ->update($updateData);
     }
 
-    public function getResultOrderSns($level, $gender, $group, $item, $city)
+    public function getResults($level, $gender, $group, $item, $city)
     {
-        return $this::select('id')
-            ->whereHas('player', function ($query) use ($gender, $city) {
+        return $this::whereHas('player', function ($query) use ($gender, $city) {
                 $query->where('gender', $gender);
 
                 if (! is_null($city)) {

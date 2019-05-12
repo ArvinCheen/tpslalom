@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
@@ -44,10 +44,19 @@ class RankController extends Controller
 
     public function processRank($level, $gender, $group, $item, $city = null)
     {
-        $enrollIds = app(EnrollModel::class)->getResultOrderSns($level, $gender, $group, $item, $city);
+        $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $city);
 
-        foreach ($enrollIds as $key => $enrollId) {
-            EnrollModel::where('id', $enrollId->id)->update(['rank' => $key + 1]);
+        foreach ($results as $key => $result) {
+            if ($key <> 0) {
+                if ($results[$key - 1]->final_result == $results[$key]->final_result) { //同成績處理 start
+                    $前一個選手的名次 = EnrollModel::where('id', $results[$key - 1]->id)->first()->rank; // todo 這裡的命名要改
+                    EnrollModel::where('id', $result->id)->update(['rank' => $前一個選手的名次]);
+                } else {
+                    EnrollModel::where('id', $result->id)->update(['rank' => $key + 1]);
+                }
+            } else {
+                EnrollModel::where('id', $result->id)->update(['rank' => $key + 1]);
+            }
         }
     }
 
