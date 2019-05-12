@@ -63,7 +63,7 @@ class RankController extends Controller
             ->where('item', $item)
             ->whereNotNull('final_result')
             ->limit(6)
-            ->orderBy(\DB::raw('final_result * 1'))
+            ->orderByDesc(\DB::raw('final_result * 1'))
             ->get();
 
         $integrals = $this->getIntegrals($level);
@@ -75,7 +75,7 @@ class RankController extends Controller
             if ($enroll->final_result == '無成績') {
                 continue;
             }
-            
+
             if ($item == '前進單足S型') {
                 $integral++;
             }
