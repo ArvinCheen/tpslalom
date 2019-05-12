@@ -396,7 +396,7 @@ class ExportController extends Controller
                     $location = 6;
                     foreach ($enrolls as $key => $enroll) {
                         $location++;
-                        $sheet->setHeight($location, 33);
+                        $sheet->setHeight($location, 45);
 
                         $sheet->cell('A' . $location, function ($cell) use ($enroll) {
                             $cell->setValue($enroll->player_number);
