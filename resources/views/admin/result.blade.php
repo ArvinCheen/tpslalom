@@ -35,6 +35,14 @@
                             <button type="submit" class="btn btn-primary"> 排名 </button>
                         </form>
 
+{{--                        <form action="{{ URL('admin/result/') . ($scheduleId+1) }}/scheduleId" method="POST">--}}
+{{--                            {{ csrf_field() }}--}}
+{{--                            {{ method_field('PUT') }}--}}
+{{--                            <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">--}}
+{{--                            <button type="submit" class="btn btn-primary"> 下一場 </button>--}}
+{{--                        </form>--}}
+
+
                     </div>
                 </div>
                 <form id="result-form" action="{{ URL('admin/result/update') }}" method="POST">
@@ -122,6 +130,9 @@
         });
 
         $(".resultInput").keyup(function(e) {
+            if (e.which == 13) {
+                $("#result-form").submit();
+            }
 
             if ($(this).hasClass('roundOneSecond') || $(this).hasClass('roundTwoSecond')) {
                 if ($(this).val().length == 5) {
@@ -139,10 +150,6 @@
                 if ($(this).val().length == 1) {
                     $(this).parent().parent().next().children().children().eq(0).focus();
                 }
-            }
-
-            if (e.which == 13) {
-                $("#result-form").submit();
             }
         });
     </script>
