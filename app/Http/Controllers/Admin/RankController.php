@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
