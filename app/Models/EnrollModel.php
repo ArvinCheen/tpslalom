@@ -424,7 +424,7 @@ class EnrollModel extends Model
             ->where('final_result', '<>', '無成績')
             ->whereNull('rank')
             ->count();
-
+return true;
         if ($data == 0) {
             return true;
         } else {
