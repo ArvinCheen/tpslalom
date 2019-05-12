@@ -38,7 +38,6 @@ class RankController extends Controller
             $this->processRank($level, $gender, $group, $item, $city = '外縣市');
         }
 
-
         $this->processIntegral($level, $gender, $group, $item);
     }
 
@@ -73,6 +72,14 @@ class RankController extends Controller
         foreach ($enrolls as $key => $enroll) {
             $count--;
 
+            //同成績處理 start
+            if ($key <> 0) {
+                if ($enrolls[$key - 1]->final_result == $enrolls[$key]->final_result) {
+                    $count++;
+                }
+            }
+            //同成績處理 end
+
             $integral = $integrals[$count];
 
             if ($enroll->final_result == '無成績') {
@@ -86,6 +93,7 @@ class RankController extends Controller
 
             EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
         }
+
     }
 
     private function getIntegrals($level)
