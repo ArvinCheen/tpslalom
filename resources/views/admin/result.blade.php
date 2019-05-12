@@ -81,7 +81,7 @@
                         </thead>
                         <tbody>
                         @foreach ($enrolls as $key => $enroll)
-                            <input type="hidden" name="enrollIds[]" value="{{ $enroll->id }}"}>
+
                             <tr>
                                 <td class="text-center"> {{ $enroll->rank }} </td>
                                 <td class="text-center"> {{ $enroll->player_number }} </td>
@@ -93,16 +93,20 @@
                                 {{--<td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
                                 {{--<td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
 
-                                <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
+                                <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
+                                <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
+                                <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
+                                <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> {{ $enroll->final_result }} </td>
                                 <td class="text-center"> {{ $enroll->integral }} </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+
+                    @foreach ($enrolls as $key => $enroll)
+                        <input type="hidden" name="enrollIds[]" value="{{ $enroll->id }}"}>
+                    @endforeach
                 </form>
             </div>
         </div>
@@ -117,7 +121,26 @@
             window.location = "{{ URL('admin/result/') }}/" + scheduleId
         });
 
-        $(".resultInput").keydown(function(e) {
+        $(".resultInput").keyup(function(e) {
+
+            if ($(this).hasClass('roundOneSecond') || $(this).hasClass('roundTwoSecond')) {
+                if ($(this).val().length == 5) {
+                    $(this).parent().next().children().focus();
+                }
+            }
+
+            if ($(this).hasClass('roundOneMissConr')) {
+                if ($(this).val().length == 1) {
+                    $(this).parent().next().children().focus();
+                }
+            }
+
+            if ($(this).hasClass('roundTwoMissConr')) {
+                if ($(this).val().length == 1) {
+                    $(this).parent().parent().next().children().children().eq(0).focus();
+                }
+            }
+
             if (e.which == 13) {
                 $("#result-form").submit();
             }

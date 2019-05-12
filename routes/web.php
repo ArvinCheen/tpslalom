@@ -108,6 +108,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/players', 'Admin\DocController@players');
         Route::get('/medals', 'Admin\DocController@medals');
         Route::get('/checkBill', 'Admin\DocController@checkBill');
+        Route::get('/schedules', 'Admin\DocController@schedules');
     });
 
     Route::group(['prefix' => 'team'], function () {

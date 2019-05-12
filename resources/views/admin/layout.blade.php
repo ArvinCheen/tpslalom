@@ -214,14 +214,22 @@
 						<h4 class="m-menu__section-text"> 資訊類 </h4>
 						<i class="m-menu__section-icon flaticon-more-v3"></i>
 					</li>
-					<li class="m-menu__item " aria-haspopup="true">
-						<a href="{{ URL('admin/doc/all') }}" class="m-menu__link ">
-							<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-								<span></span>
-							</i>
-							<span class="m-menu__link-text"> 總冊 </span>
-						</a>
-					</li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/all') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 總冊 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/schedules') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 賽呈表 </span>
+                        </a>
+                    </li>
 					<li class="m-menu__item " aria-haspopup="true">
 						<a href="{{ URL('admin/doc/groups') }}" class="m-menu__link ">
 							<i class="m-menu__link-bullet m-menu__link-bullet--dot">

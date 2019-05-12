@@ -157,4 +157,12 @@ class DocController extends Controller
 
         return view('admin/doc/players')->with(compact('players'));
     }
+
+    public function schedules()
+    {
+
+        $schedules = app(ScheduleModel::class)->getSchedules();
+
+        return view('admin/doc/schedules')->with(compact('schedules'));
+    }
 }
