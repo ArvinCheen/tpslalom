@@ -31,6 +31,7 @@ class ExportController extends Controller
             ->where('group', $group)
             ->where('item', $item)
             ->where('rank', '<=', 6)
+            ->orderBy('rank')
             ->get();
 
         if ($enrolls->isEmpty()) {
