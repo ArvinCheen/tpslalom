@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
@@ -38,7 +38,7 @@ class RankController extends Controller
             $this->processRank($level, $gender, $group, $item, $city = '外縣市');
         }
 
-//        $this->processIntegral($level, $gender, $group, $item);
+        $this->processIntegral($level, $gender, $group, $item);
     }
 
 
@@ -83,13 +83,11 @@ class RankController extends Controller
             foreach ($enrolls as $key => $enroll) {
                 $count--;
 
-echo $count."<br>";
+//echo $count."<br>";
                 //同成績處理 start
-                if ($key <> 0 ) {
+                if ($key <> 0 && $enroll->final_result <> '無成績') {
                     if ($enrolls[$key - 1]->final_result == $enrolls[$key]->final_result) {
-//                        if ($count <> 6) {
-                            $count++; // todo 這裡寫法可優化
-//                        }
+                        $count++; // todo 這裡寫法可優化
                     }
                 }
 //            同成績處理 end
@@ -97,11 +95,7 @@ echo $count."<br>";
                 $integral = $integrals[$count];
 
                 if ($enroll->final_result == '無成績') {
-
-//                    if ($count <> 6) {
-                        $count++; // todo 這裡寫法可優化
-
-//                    }
+                    $count++; // todo 這裡寫法可優化
                     continue;
                 }
 
@@ -112,9 +106,9 @@ echo $count."<br>";
                 EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
+//            dd($e->getMessage());
         }
-dd();
+//dd();
 
     }
 
