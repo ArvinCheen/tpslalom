@@ -132,6 +132,7 @@
         $(".resultInput").keyup(function(e) {
             if (e.which == 13) {
                 $("#result-form").submit();
+                return;
             }
 
             if ($(this).hasClass('roundOneSecond') || $(this).hasClass('roundTwoSecond')) {
