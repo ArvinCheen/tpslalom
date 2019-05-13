@@ -48,6 +48,7 @@ class ExportController extends Controller
             ->where('enroll.account_id', $accountId)
             ->whereNull('rank')
             ->where('check', 1)
+            ->where('final_result', '<>', '無成績')
             ->get();
 
         if ($enrolls->isEmpty()) {
