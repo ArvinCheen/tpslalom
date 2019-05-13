@@ -13,17 +13,9 @@ class RankController extends Controller
 {
     public function rank(Request $request)
     {
-        $scheuldes = ScheduleModel::where('game_id', 5)->get();
+        $this->processOverGame($request->scheduleId);
 
-        foreach ($scheuldes as $key => $scheulde) {
-            $this->processOverGame($scheulde->id);
-//            echo $key;
-//if ($key == 10) {
-//    exit;
-//}
-//            app(SlackNotify::class)->setMsg($scheulde->order . " 比賽結束")->notify();
-        }
-
+        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
