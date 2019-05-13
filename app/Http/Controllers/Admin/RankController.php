@@ -21,7 +21,7 @@ class RankController extends Controller
 //if ($key == 10) {
 //    exit;
 //}
-            app(SlackNotify::class)->setMsg($scheulde->order . " 比賽結束")->notify();
+//            app(SlackNotify::class)->setMsg($scheulde->order . " 比賽結束")->notify();
         }
 
 
