@@ -8,10 +8,9 @@ use Illuminate\Support\Carbon;
 use Aws\DynamoDb\DynamoDbClient;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\InteractsWithTime;
-use Illuminate\Contracts\Cache\LockProvider;
 use Aws\DynamoDb\Exception\DynamoDbException;
 
-class DynamoDbStore implements Store, LockProvider
+class DynamoDbStore implements Store
 {
     use InteractsWithTime;
 
@@ -151,6 +150,7 @@ class DynamoDbStore implements Store, LockProvider
         $now = Carbon::now();
 
         return array_merge(collect(array_flip($keys))->map(function () {
+            return null;
         })->all(), collect($response['Responses'][$this->table])->mapWithKeys(function ($response) use ($now) {
             if ($this->isExpired($response, $now)) {
                 $value = null;

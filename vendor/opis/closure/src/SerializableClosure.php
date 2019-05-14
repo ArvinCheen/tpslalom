@@ -1,6 +1,6 @@
 <?php
 /* ===========================================================================
- * Copyright (c) 2018-2019 Zindex Software
+ * Copyright (c) 2018 Zindex Software
  *
  * Licensed under the MIT License
  * =========================================================================== */
@@ -203,13 +203,8 @@ class SerializableClosure implements Serializable
 
             $data = $data['closure'];
         } elseif ($data[0] === '@') {
-            $data = json_decode(substr($data, 1), true);
-
-            if (!is_array($data) || !isset($data['closure']) || !isset($data['hash'])) {
-                throw new SecurityException('Invalid signed closure');
-            }
-
-            $data = $data['closure'];
+            throw new SecurityException("The serialized closure is signed. ".
+                "Make sure you use a security provider for both serialization and unserialization.");
         }
 
         $this->code = \unserialize($data);

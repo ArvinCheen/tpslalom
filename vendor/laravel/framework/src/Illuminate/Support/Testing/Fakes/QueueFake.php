@@ -2,7 +2,6 @@
 
 namespace Illuminate\Support\Testing\Fakes;
 
-use BadMethodCallException;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Contracts\Queue\Queue;
 use PHPUnit\Framework\Assert as PHPUnit;
@@ -357,19 +356,5 @@ class QueueFake extends QueueManager implements Queue
     public function setConnectionName($name)
     {
         return $this;
-    }
-
-    /**
-     * Override the QueueManager to prevent circular dependency.
-     *
-     * @param  string  $method
-     * @param  array   $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        throw new BadMethodCallException(sprintf(
-            'Call to undefined method %s::%s()', static::class, $method
-        ));
     }
 }

@@ -196,7 +196,7 @@ abstract class AnnotationClassLoader implements LoaderInterface
                 continue;
             }
             foreach ($paths as $locale => $path) {
-                if (preg_match(sprintf('/\{%s(?:<.*?>)?\}/', preg_quote($param->name)), $path)) {
+                if (false !== strpos($path, sprintf('{%s}', $param->name))) {
                     $defaults[$param->name] = $param->getDefaultValue();
                     break;
                 }

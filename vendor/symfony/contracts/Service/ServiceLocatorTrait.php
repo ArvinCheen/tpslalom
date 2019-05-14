@@ -15,7 +15,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 /**
- * A trait to help implement ServiceProviderInterface.
+ * A trait to help implement PSR-11 service locators.
  *
  * @author Robin Chalas <robin.chalas@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
@@ -23,8 +23,7 @@ use Psr\Container\NotFoundExceptionInterface;
 trait ServiceLocatorTrait
 {
     private $factories;
-    private $loading = [];
-    private $providedTypes;
+    private $loading = array();
 
     /**
      * @param callable[] $factories
@@ -65,28 +64,6 @@ trait ServiceLocatorTrait
         } finally {
             unset($this->loading[$id]);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProvidedServices(): array
-    {
-        if (null === $this->providedTypes) {
-            $this->providedTypes = [];
-
-            foreach ($this->factories as $name => $factory) {
-                if (!\is_callable($factory)) {
-                    $this->providedTypes[$name] = '?';
-                } else {
-                    $type = (new \ReflectionFunction($factory))->getReturnType();
-
-                    $this->providedTypes[$name] = $type ? ($type->allowsNull() ? '?' : '').$type->getName() : '?';
-                }
-            }
-        }
-
-        return $this->providedTypes;
     }
 
     private function createNotFoundException(string $id): NotFoundExceptionInterface

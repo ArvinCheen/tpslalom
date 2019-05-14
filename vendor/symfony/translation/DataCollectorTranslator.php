@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Translation;
 
-use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
@@ -20,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
-class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorInterface, TranslatorBagInterface, WarmableInterface
+class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorInterface, TranslatorBagInterface
 {
     const MESSAGE_DEFINED = 0;
     const MESSAGE_MISSING = 1;
@@ -99,16 +98,6 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
     public function getCatalogue($locale = null)
     {
         return $this->translator->getCatalogue($locale);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function warmUp($cacheDir)
-    {
-        if ($this->translator instanceof WarmableInterface) {
-            $this->translator->warmUp($cacheDir);
-        }
     }
 
     /**

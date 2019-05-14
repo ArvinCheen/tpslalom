@@ -15,7 +15,7 @@ class RankController extends Controller
     {
         $this->processOverGame($request->scheduleId);
 
-//        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
+        app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
 
         return back()->with(['info' => '排名成功']);
     }
@@ -62,7 +62,6 @@ class RankController extends Controller
 
     public function processIntegral($level, $gender, $group, $item)
     {
-
         $enrolls = EnrollModel::select('enroll.id', 'final_result')
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
@@ -74,6 +73,7 @@ class RankController extends Controller
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
+
 
         $integrals = $this->getIntegrals($level);
 

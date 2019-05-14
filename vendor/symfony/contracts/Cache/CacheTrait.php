@@ -13,7 +13,6 @@ namespace Symfony\Contracts\Cache;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 
 /**
  * An implementation of CacheInterface for PSR-6 CacheItemPoolInterface classes.
@@ -38,7 +37,7 @@ trait CacheTrait
         return $this->deleteItem($key);
     }
 
-    private function doGet(CacheItemPoolInterface $pool, string $key, callable $callback, ?float $beta, array &$metadata = null, LoggerInterface $logger = null)
+    private function doGet(CacheItemPoolInterface $pool, string $key, callable $callback, ?float $beta, array &$metadata = null)
     {
         if (0 > $beta = $beta ?? 1.0) {
             throw new class(sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', \get_class($this), $beta)) extends \InvalidArgumentException implements InvalidArgumentException {
@@ -47,19 +46,15 @@ trait CacheTrait
 
         $item = $pool->getItem($key);
         $recompute = !$item->isHit() || INF === $beta;
-        $metadata = $item instanceof ItemInterface ? $item->getMetadata() : [];
+        $metadata = $item instanceof ItemInterface ? $item->getMetadata() : array();
 
         if (!$recompute && $metadata) {
             $expiry = $metadata[ItemInterface::METADATA_EXPIRY] ?? false;
             $ctime = $metadata[ItemInterface::METADATA_CTIME] ?? false;
 
-            if ($recompute = $ctime && $expiry && $expiry <= ($now = microtime(true)) - $ctime / 1000 * $beta * log(random_int(1, PHP_INT_MAX) / PHP_INT_MAX)) {
+            if ($recompute = $ctime && $expiry && $expiry <= microtime(true) - $ctime / 1000 * $beta * log(random_int(1, PHP_INT_MAX) / PHP_INT_MAX)) {
                 // force applying defaultLifetime to expiry
                 $item->expiresAt(null);
-                $this->logger && $this->logger->info('Item "{key}" elected for early recomputation {delta}s before its expiration', [
-                    'key' => $key,
-                    'delta' => sprintf('%.1f', $expiry - $now),
-                ]);
             }
         }
 

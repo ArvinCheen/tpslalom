@@ -520,7 +520,7 @@ class Blueprint
      *
      * @param  string|array  $columns
      * @param  string  $name
-     * @return \Illuminate\Support\Fluent|\Illuminate\Database\Schema\ForeignKeyDefinition
+     * @return \Illuminate\Support\Fluent
      */
     public function foreign($columns, $name = null)
     {
@@ -854,18 +854,6 @@ class Blueprint
     public function enum($column, array $allowed)
     {
         return $this->addColumn('enum', $column, compact('allowed'));
-    }
-
-    /**
-     * Create a new set column on the table.
-     *
-     * @param  string  $column
-     * @param  array  $allowed
-     * @return \Illuminate\Database\Schema\ColumnDefinition
-     */
-    public function set($column, array $allowed)
-    {
-        return $this->addColumn('set', $column, compact('allowed'));
     }
 
     /**
