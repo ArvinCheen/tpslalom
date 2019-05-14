@@ -57,10 +57,10 @@ class DocController extends Controller
         $schedules = app(ScheduleModel::class)->getSchedules();
 
         foreach ($schedules as $schedule) {
-            $level  = $schedule->level;
-            $group  = $schedule->group;
+            $level = $schedule->level;
+            $group = $schedule->group;
             $gender = $schedule->gender;
-            $item   = $schedule->item;
+            $item = $schedule->item;
 
             $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
@@ -104,10 +104,10 @@ class DocController extends Controller
             management,
             sum(fee) AS totalFee
     '))
-        ->leftJoin('account', 'account.id', 'registry_fee.account_id')
-        ->where('game_id', config('app.game_id'))
-        ->groupBy('account.id')
-        ->get();
+            ->leftJoin('account', 'account.id', 'registry_fee.account_id')
+            ->where('game_id', config('app.game_id'))
+            ->groupBy('account.id')
+            ->get();
 
 
         $total = $bills->sum('totalFee');
@@ -121,7 +121,7 @@ class DocController extends Controller
 
         $medalData = $enrollModel->getMedalQuantity();
 
-        $goldTotal   = 0;
+        $goldTotal = 0;
         $silverTotal = 0;
         $copperTotal = 0;
 
@@ -131,11 +131,11 @@ class DocController extends Controller
             } else {
                 $val->city = $val->city == '臺北市' ? '臺北市' : '外縣市';
             }
-            $val->gold   = 1;
+            $val->gold = 1;
             $val->silver = $val->quantity >= 2 ? 1 : 0;
             $val->copper = $val->quantity >= 3 ? 1 : 0;
 
-            $goldTotal   += $val->gold;
+            $goldTotal += $val->gold;
             $silverTotal += $val->silver;
             $copperTotal += $val->copper;
         }
@@ -152,7 +152,7 @@ class DocController extends Controller
         $players = (object)[
             'doubleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進雙足S型'),
             'singleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進單足S型'),
-            'cross'   => app(EnrollModel::class)->getEnrollPlayers($item = '前進交叉型'),
+            'cross' => app(EnrollModel::class)->getEnrollPlayers($item = '前進交叉型'),
         ];
 
         return view('admin/doc/players')->with(compact('players'));
