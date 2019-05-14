@@ -17,10 +17,10 @@ class ExportController extends Controller
     public function certificate($scheduleId)
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
-        $order    = $gameInfo->order;
-        $level    = $gameInfo->level;
-        $group    = $gameInfo->group;
-        $item     = $gameInfo->item;
+        $order = $gameInfo->order;
+        $level = $gameInfo->level;
+        $group = $gameInfo->group;
+        $item = $gameInfo->item;
 
         $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             $query->where('gender', $gameInfo->gender);
@@ -207,7 +207,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A48', function ($cell) use ($enroll) {
-                            $date     = GameModel::where('id', config('app.game_id'))->value('date');
+                            $date = GameModel::where('id', config('app.game_id'))->value('date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
                             $cell->setFontSize(20);
@@ -262,7 +262,6 @@ class ExportController extends Controller
 //            });
 //        })->download('xls');
 //    }
-
 
     public function records()
     {
@@ -378,10 +377,10 @@ class ExportController extends Controller
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level  = $schedule->level;
-                    $group  = $schedule->group;
+                    $level = $schedule->level;
+                    $group = $schedule->group;
                     $gender = $schedule->gender;
-                    $item   = $schedule->item;
+                    $item = $schedule->item;
 
 
                     $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
@@ -417,6 +416,128 @@ class ExportController extends Controller
                     }
                 });
             }
+        })->download('xls');
+    }
+
+    public function result()
+    {
+        $gameInfo = GameModel::where('id', config('app.game_id'))->first();
+        $gameCompleteName = $gameInfo->complete_name;
+        $abridgeName = $gameInfo->abridge_name;
+
+        Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
+            $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
+
+                $sheet->setAllBorders('thin');
+                $sheet->setFontFamily('微軟正黑體');
+                $sheet->setWidth(array(
+                    'A' => 8,
+                    'B' => 5,
+                    'C' => 8,
+                    'D' => 10,
+                    'E' => 10,
+                    'F' => 13,
+                    'G' => 13,
+                    'H' => 18,
+                    'I' => 8,
+                ));
+
+                $sheet->mergeCells('A1:I1');
+
+                $sheet->cell('A', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('B', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('C', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('D', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('E', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('F', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('G', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('H', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('I', function ($cell) {$cell->setAlignment('center');});
+
+                $sheet->cell('A1', function ($cell) use ($gameCompleteName) {
+                    $cell->setAlignment('center');
+                    $cell->setValue($gameCompleteName);
+                });
+
+                $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
+
+                $initIndex = 2;
+                foreach ($schedules as $schedule) {
+                    $resultsWithTaipei = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
+                        ->leftJoin('player', 'player.id', 'enroll.player_id')
+                        ->where('game_id', config('app.game_id'))
+                        ->where('group', $schedule->group)
+                        ->where('level', $schedule->level)
+                        ->where('player.gender', $schedule->gender)
+                        ->where('item', $schedule->item)
+                        ->where('player.city', '臺北市')
+                        ->whereNotNull('rank')
+                        ->limit(6)
+                        ->orderBy('rank')
+                        ->get();
+
+                    $sheet->mergeCells('A' . $initIndex . ':I' . $initIndex);
+                    $sheet->cell('A' . $initIndex, function ($cell) {
+                        $cell->setAlignment('center');
+                        $cell->setValue('臺北市');
+                    });
+                    $initIndex++;
+
+                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '選手組別', '年級組別', '項目', '單位', '成績']);
+                    $initIndex++;
+
+                    if ($resultsWithTaipei->isEmpty()) {
+                        $sheet->row($initIndex, [$schedule->order]);
+                        $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
+                        $sheet->cell('B' . $initIndex, function ($cell) {
+                            $cell->setValue('無資料');
+                        });
+                        $initIndex++;
+                    } else {
+                        foreach ($resultsWithTaipei as $result) {
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->level, $schedule->group, $schedule->item, $result->agency, $result->final_result]);
+                            $initIndex++;
+                        }
+                    }
+
+                    $resultsWithOtherCity = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
+                        ->leftJoin('player', 'player.id', 'enroll.player_id')
+                        ->where('game_id', config('app.game_id'))
+                        ->where('group', $schedule->group)
+                        ->where('level', $schedule->level)
+                        ->where('player.gender', $schedule->gender)
+                        ->where('item', $schedule->item)
+                        ->where('player.city', '<>', '臺北市')
+                        ->whereNotNull('rank')
+                        ->limit(6)
+                        ->orderBy('rank')
+                        ->get();
+
+                    $sheet->mergeCells('A' . $initIndex . ':I' . $initIndex);
+                    $sheet->cell('A' . $initIndex, function ($cell) {
+                        $cell->setAlignment('center');
+                        $cell->setValue('非北市');
+                    });
+                    $initIndex++;
+
+                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '選手組別', '年級組別', '項目', '單位', '成績']);
+                    $initIndex++;
+
+                    if ($resultsWithOtherCity->isEmpty()) {
+                        $sheet->row($initIndex, [$schedule->order]);
+                        $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
+                        $sheet->cell('B' . $initIndex, function ($cell) {
+                            $cell->setValue('無資料');
+                        });
+                        $initIndex++;
+                    } else {
+                        foreach ($resultsWithOtherCity as $result) {
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->level, $schedule->group, $schedule->item, $result->agency, $result->final_result]);
+                            $initIndex++;
+                        }
+                    }
+                }
+            });
         })->download('xls');
     }
 }
