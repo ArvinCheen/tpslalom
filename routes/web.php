@@ -80,6 +80,8 @@ Route::group(['prefix' => '/'], function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', ["as" => "admin.login", 'uses' => 'Admin\Auth\LoginController@index']);
     Route::post('/login', 'Admin\Auth\LoginController@login');
+
+    Route::post('/game', 'Admin\DashboardController@game');
     Route::get('/logout', 'Admin\Auth\LoginController@logout');
 });
 
@@ -137,3 +139,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
  * Route::group(['prefix' => '/'], function () {
  * });
  */
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

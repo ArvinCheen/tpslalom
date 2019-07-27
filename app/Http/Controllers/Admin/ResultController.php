@@ -15,6 +15,7 @@ class ResultController extends Controller
 {
     public function index($scheduleId = null)
     {
+        dd(11);
         $schedules = app(ScheduleModel::class)->getSchedules();
 
         if (is_null($scheduleId)) {

@@ -11,6 +11,10 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
+//    protected $guard = 'admin';
+
+//    protected $redirectTo = '/admin/login';
+
     public function index()
     {
         return view('/admin/login');
@@ -21,13 +25,15 @@ class LoginController extends Controller
         $account = $request->account;
         $password  = $request->password;
 
-        if (\Auth::attempt(['account' => $account, 'password' => $password], true)) {
+        if (auth()->guard('admin')->attempt(['account' => $account, 'password' => $password], true)) {
+
             app('request')->session()->flash('success', '登入成功');
 
             session(['game_id' => config('app.game_id')]);
 
             return redirect('/admin');
         } else {
+            dd(2);
             $request->session()->flash('error', '帳號密碼錯誤');
             return redirect('/admin/login')->withInput();
         }
@@ -35,6 +41,7 @@ class LoginController extends Controller
 
     public function logout()
     {
+//        dd('logout');
         \Auth::logout();
         app('request')->session()->flash('success', '登出成功');
         return redirect('admin/login');

@@ -32,7 +32,7 @@
                     </div>
                     <div class="ml-2">
                         <form action="{{ route('admin.rank') }}" method="POST">
-                            {{ csrf_field() }}
+                            {{ csrf_field() }}/Users/jafar/Documents/Project/tpslalom/tests/Feature/CreateGameTest.php
                             {{ method_field('PUT') }}
                             <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">
                             <button type="submit" class="btn btn-primary"> 排名 </button>

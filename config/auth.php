@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\AccountModel;
+use App\Models\AdminModel;
+
 return [
 
     /*
@@ -41,6 +44,11 @@ return [
             'provider' => 'users',
         ],
 
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -70,6 +78,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\AccountModel::class,
         ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminModel::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -94,6 +106,11 @@ return [
 
     'passwords' => [
         'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admins' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,

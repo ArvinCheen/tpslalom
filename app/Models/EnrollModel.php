@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\EnrollModel
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EnrollModel query()
- * @mixin \Eloquent
- */
 class EnrollModel extends Model
 {
     protected $table = 'enroll';
 
 
-    protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'level', 'group', 'item',
-        'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
-        'rank', 'integral', 'check', 'check_in_time'];
+    protected $fillable = [
+        'game_id',
+        'player_id',
+        'player_number',
+        'account_id',
+        'level_id',
+        'group_id',
+        'item_id',
+        'check',
+        'check_in_time'
+    ];
 
     public function player()
     {
@@ -247,16 +247,16 @@ class EnrollModel extends Model
     public function getResults($level, $gender, $group, $item, $city)
     {
         return $this::whereHas('player', function ($query) use ($gender, $city) {
-                $query->where('gender', $gender);
+            $query->where('gender', $gender);
 
-                if (! is_null($city)) {
-                    if ($city == '臺北市') {
-                        $query->where('city', '臺北市');
-                    } else {
-                        $query->where('city', '<>', '臺北市');
-                    }
+            if (! is_null($city)) {
+                if ($city == '臺北市') {
+                    $query->where('city', '臺北市');
+                } else {
+                    $query->where('city', '<>', '臺北市');
                 }
-            })
+            }
+        })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('group', $group)
@@ -423,7 +423,7 @@ class EnrollModel extends Model
             ->where('final_result', '<>', '無成績')
             ->whereNull('rank')
             ->count();
-return true; // todo 這裡有換個方式呈現成績
+        return true; // todo 這裡有換個方式呈現成績
         if ($data == 0) {
             return true;
         } else {

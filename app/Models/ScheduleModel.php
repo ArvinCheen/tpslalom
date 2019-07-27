@@ -17,7 +17,15 @@ class ScheduleModel extends Model
 {
     protected $table = 'schedule';
 
-    protected $fillable = ['game_id', 'order', 'level', 'group', 'gender', 'item', 'number_of_player',];
+    protected $fillable = [
+        'game_id',
+        'order',
+        'level_id',
+        'group_id',
+        'item_id',
+        'gender',
+        'number_of_player'
+    ];
 
     public function getSchedules()
     {
