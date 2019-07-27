@@ -94,6 +94,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/game', 'Admin\DashboardController@game');
     });
 
+
+    Route::group(['prefix' => 'setting'], function () {
+        Route::get('/', ['as' => '/', 'uses' => 'SettingController@index']);
+        Route::put('update', ['as' => 'setting.update', 'uses' => 'SettingController@update']);
+    });
+
+
     Route::get('/grouping', 'Admin\GroupingController@grouping');  // 場次編組
 
     Route::group(['prefix' => 'checkIn'], function () {

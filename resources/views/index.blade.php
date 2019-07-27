@@ -8,15 +8,15 @@
 <div class="mh mb-5">
     <div class="container">
         <div class="mt-5 mb-5 text-center">
-        <h2>108年臺北市第三十六屆青年盃自由式溜冰錦標賽</h2>
+        <h2>{{ $gameInfo->complete_name }}</h2>
     </div>
 
         <p class="lead">宗旨：為倡導全民運動、發展滑輪溜冰運動、提高技術水準</p>
-        <p class="lead">指導單位：臺北市政府體育局</p>
-        <p class="lead">主辦單位：臺北市體育總會</p>
-        <p class="lead">承辦單位：臺北市體育總會滑輪溜冰協會</p>
-        <p class="lead">比賽地點：迎風溜冰場</p>
-        <p class="lead">比賽日期：108年05月12日(日) 上午八點</p>
+        <p class="lead">承辦單位：{{ $gameInfo->agency }}</p>
+        <p class="lead">比賽地點：{{ $gameInfo->game_address }}</p>
+        <p class="lead">報名日期：{{ $gameInfo->enroll_start_time }} ~ {{ $gameInfo->enroll_close_time }}</p>
+        <p class="lead">勘誤日期：{{ $gameInfo->enroll_close_time }} ~ {{ $gameInfo->errata_close_time }}</p>
+        <p class="lead">比賽日期：{{ $gameInfo->game_date}}</p>
         <hr class="mb-4">
         <div class="row">
             <div class="col-12 col-sm-6 col-md-4">

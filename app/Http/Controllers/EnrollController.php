@@ -6,6 +6,7 @@ use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\AccountModel;
 use App\Models\EnrollModel;
+use App\Models\GameModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
 use App\Services\RegistryFeeService;
@@ -22,7 +23,17 @@ class EnrollController extends Controller
     {
         $players = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
 
-        return view('enroll/index', compact('players'));
+        $gameInfo = GameModel::find(config('app.game_id'));
+
+        $now = strtotime(date('Y/m/d H:i:s'));
+        if ($now >= strtotime($gameInfo->enroll_start_time) && $now <= strtotime($gameInfo->enroll_close_time)) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+
+
+        return view('enroll/index', compact('players', 'status'));
     }
 
     public function enroll(Request $request)
@@ -45,6 +56,7 @@ class EnrollController extends Controller
 
     private function store($request)
     {
+
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
         $agency     = $request->agency;
@@ -53,7 +65,6 @@ class EnrollController extends Controller
         $group      = $request->group;
         $level      = $request->level;
         $enrollItem = $request->enrollItem;
-
         if (is_null($enrollItem)) {
             Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
             $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');
@@ -117,14 +128,24 @@ class EnrollController extends Controller
 
     public function edit($playerId)
     {
-        $player               = PlayerModel::find($playerId);
-        $player->doubleS      = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S型');
-        $player->singleS      = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S型');
-        $player->cross        = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
-        $player->group        = app(EnrollModel::class)->getGroup($playerId);
-        $player->level        = app(EnrollModel::class)->getLevel($playerId);
+        $player          = PlayerModel::find($playerId);
+        $player->doubleS = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S型');
+        $player->singleS = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S型');
+        $player->cross   = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
+        $player->group   = app(EnrollModel::class)->getGroup($playerId);
+        $player->level   = app(EnrollModel::class)->getLevel($playerId);
 
-        return view('enroll/edit')->with(compact('player'));
+
+        $gameInfo = GameModel::find(config('app.game_id'));
+
+        $now = strtotime(date('Y/m/d H:i:s'));
+        if ($now >= strtotime($gameInfo->enroll_start_time) && $now <= strtotime($gameInfo->errata_close_time)) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+
+        return view('enroll/edit')->with(compact('player','status'));
     }
 
     public function cancel(Request $request)

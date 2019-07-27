@@ -15,7 +15,7 @@ class GameModel extends Model
 {
     protected $table = 'game';
 
-    protected $fillable = ['abridge_name', 'complete_name', 'letter'];
+    protected $guarded = ['id'];
 
     public function getAll()
     {

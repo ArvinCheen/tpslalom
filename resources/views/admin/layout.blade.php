@@ -184,7 +184,14 @@
                         <h4 class="m-menu__section-text"> 操作類 </h4>
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
-
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/setting') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 比賽設定 </span>
+                        </a>
+                    </li>
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/result') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">

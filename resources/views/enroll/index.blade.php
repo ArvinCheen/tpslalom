@@ -136,7 +136,7 @@
                         </li>
                     </ul>
 
-                    @if (config('app.enroll'))
+                    @if ($status)
                         <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
                     @else
                         <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
@@ -161,7 +161,7 @@
                 break;
             case '新人組':
                 $('#doubleS').attr('disabled', false).prop('checked', false);
-                $('#singleS').attr('disabled', false).prop('checked', false);
+                $('#singleS').attr('disabled', true).prop('checked', false);
                 $('#cross').attr('disabled', false).prop('checked', false);
                 break;
             case '選手組':
@@ -171,43 +171,6 @@
                 break;
         }
     });
-
-    $('#doubleS').change(function() {
-        lockLevelSelectBar();
-    });
-
-    $('#singleS').change(function() {
-        lockLevelSelectBar();
-    });
-
-    $('#cross').change(function() {
-        lockLevelSelectBar();
-    });
-
-    function lockLevelSelectBar() {
-        if ($("#levelSelectBar").val() === '新人組') {
-            if ($('#doubleS:checked').val() === '前進雙足S型' && $('#singleS:checked').val() === '前進單足S型') {
-                console.log(1);
-                $('#cross').attr('disabled', true);
-            } else {
-                $('#cross').attr('disabled', false);
-            }
-
-            if ($('#singleS:checked').val() === '前進單足S型' && $('#cross:checked').val() === '前進交叉型') {
-                console.log(2);
-                $('#doubleS').attr('disabled', true);
-            } else {
-                $('#doubleS').attr('disabled', false);
-            }
-
-            if ($('#cross:checked').val() === '前進交叉型' && $('#doubleS:checked').val() === '前進雙足S型') {
-                console.log(3);
-                $('#singleS').attr('disabled', true);
-            } else {
-                $('#singleS').attr('disabled', false);
-            }
-        }
-    }
 
     $("select[name='playerId']").change(function() {
         var playerId = $(this).val();
