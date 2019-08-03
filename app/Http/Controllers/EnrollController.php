@@ -101,7 +101,7 @@ class EnrollController extends Controller
 
             app(RegistryFeeModel::class)::updateOrCreate(
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
-                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 500 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 600 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
             );
 
             $account = AccountModel::find(auth()->user()->id)->team_name;
