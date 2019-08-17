@@ -9,7 +9,6 @@
 <div class="mh mb-5">
     <div class="container">
         <div class="mt-5 mb-5 text-center">
-            <h2 class="mb-3">108年青年盃 報名</h2>
             <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>
             <p>相關組別報名注意事項，請參閱簡章</p>
         </div>
