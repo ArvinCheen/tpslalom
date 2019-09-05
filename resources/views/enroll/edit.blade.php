@@ -125,11 +125,16 @@
                             </div>
                         </li>
                     </ul>
-                    @if ($status)
+                    @if ($enrollStatus)
                         <button class="btn btn-primary btn-lg btn-block mb-3" type="submit">修改</button>
                         <input type="button" class="btn btn-danger btn-lg btn-block" onclick="cancelEnroll()" value="取消報名">
                     @else
-                        <button class="btn btn-lg btn-block" type="button" disabled>勘誤時間已過，無法修改</button>
+                        @if ($errataStatus)
+                            <button class="btn btn-primary btn-lg btn-block mb-3" type="submit">修改</button>
+                        @else
+                            <button class="btn btn-lg btn-block" type="button" disabled>勘誤時間已過，無法修改</button>
+                        @endif
+
                     @endif
                 </div>
 
