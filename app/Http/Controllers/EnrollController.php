@@ -138,13 +138,14 @@ class EnrollController extends Controller
 
         $gameInfo = GameModel::find(config('app.game_id'));
 
-        $now = strtotime(date('Y/m/d H:i:s'));
-        if ($now >= strtotime($gameInfo->enroll_start_time) && $now <= strtotime($gameInfo->enroll_close_time)) {
+        $now          = strtotime(date('Y/m/d H:i:s'));
+        $errataStatus = true;
+        $enrollStatus = false;
+
+        if ($now > strtotime($gameInfo->enroll_start_time) && $now < strtotime($gameInfo->enroll_close_time)) {
             $enrollStatus = true;
             $errataStatus = true;
         } else {
-            $enrollStatus = false;
-
             if ($now >= strtotime($gameInfo->errata_close_time)) {
                 $errataStatus = false;
             }
