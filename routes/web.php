@@ -92,6 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
     Route::group(['prefix' => 'drawLots'], function () {
         Route::get('/', 'Admin\DrawLotsController@drawLots');
         Route::get('/clear', 'Admin\DrawLotsController@clear');
+        Route::get('/import', 'Admin\DrawLotsController@import');
     });
 
     Route::group(['prefix' => 'dashboard'], function () {
