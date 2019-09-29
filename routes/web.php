@@ -10,7 +10,7 @@
 
 
 Route::group(['prefix' => '/'], function () {
-    Route::get('/', ['as' => '/', 'uses' => 'IndexController@index']);
+    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@schedules']);
 
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@index']);
@@ -60,7 +60,7 @@ Route::group(['prefix' => '/'], function () {
 
     Route::group(['prefix' => 'search'], function () {
         Route::get('/players', 'SearchController@players');
-        Route::get('/result/{scheduleSn?}', 'SearchController@result');
+        Route::get('/result/{scheduleId?}', 'SearchController@result');
         Route::get('/integral', 'SearchController@integral');
     });
 
@@ -69,6 +69,7 @@ Route::group(['prefix' => '/'], function () {
     });
 
     Route::group(['prefix' => 'gameInfo'], function () {
+        Route::get('/getAppearance/{scheduleSn?}', 'GameInfoController@getAppearance');
         Route::get('/schedules', 'GameInfoController@schedules');
         Route::get('/groups', 'GameInfoController@groups');
         Route::get('/teams', 'GameInfoController@teams');
@@ -88,6 +89,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
 
     Route::get('/', 'Admin\ResultController@index');
 
+    Route::group(['prefix' => 'drawLots'], function () {
+        Route::get('/', 'Admin\DrawLotsController@drawLots');
+        Route::get('/clear', 'Admin\DrawLotsController@clear');
+    });
 
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', 'Admin\DashboardController@index');

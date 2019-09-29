@@ -184,14 +184,14 @@
                         <h4 class="m-menu__section-text"> 操作類 </h4>
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/setting') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 比賽設定 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/setting') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 比賽設定 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/result') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -209,87 +209,95 @@
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/grouping') }}" class="m-menu__link ">
+                        <a href="{{ URL('admin/drawLots') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 場次編組 </span>
+                            <span class="m-menu__link-text"> 出場序抽籤 </span>
                         </a>
                     </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/grouping') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 場次編組 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
-                    <li class="m-menu__section">
-                        <h4 class="m-menu__section-text"> 資訊類 </h4>
-                        <i class="m-menu__section-icon flaticon-more-v3"></i>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/all') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 總冊 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/schedules') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 賽呈表 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/groups') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 分組名冊 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/teams') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 隊伍名冊 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 選手名冊 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 獎牌數量 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 對帳單 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__section">--}}
+{{--                        <h4 class="m-menu__section-text"> 資訊類 </h4>--}}
+{{--                        <i class="m-menu__section-icon flaticon-more-v3"></i>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/all') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 總冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/schedules') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 賽呈表 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/groups') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 分組名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/teams') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 隊伍名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 選手名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 獎牌數量 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 對帳單 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li class="m-menu__section">
                         <h4 class="m-menu__section-text"> 匯出類 </h4>
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('/admin/export/records') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 紀錄手寫單 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('/admin/export/records') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 紀錄手寫單 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/export/result') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">

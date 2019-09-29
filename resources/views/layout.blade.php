@@ -35,19 +35,19 @@
                 <div class="navbar-left">
                     <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
                     <a href="{{ URL('') }}" class="logo mb-1">
-                        <img class="" src="{{ URL::asset('front/logo.png') }}" alt="直排輪競賽" style="">
+{{--                        <img class="" src="{{ URL::asset('front/logo.png') }}" alt="直排輪競賽" style="">--}}
                     </a>
                     <nav class="nav">
                         <ul>
-                            <li>
-                                <a href="{{ URL('') }}"> 首頁 </a>
-                            </li>
-                            <li>
-                                <a href="{{ URL('enroll') }}"> 報名 </a>
-                            </li>
-                            <li>
-                                <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('') }}"> 首頁 </a>--}}
+{{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('enroll') }}"> 報名 </a>--}}
+{{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>--}}
+{{--                            </li>--}}
 
                             <li class="has-dropdown">
                                 <a href="#">成績公告</a>
@@ -68,46 +68,51 @@
                                         <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
+                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序 </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
-                                    </li>
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>--}}
+{{--                                    </li>--}}
                                 </ul>
                             </li>
 
-                            <li>
-                                <a href="{{ URL('about') }}"> 關於我們 </a>
-                            </li>
-                            <li class="d-lg-none">
-                                <a href="{{ URL('account') }}"> 帳號 </a>
-                            </li>
-                            <li class="d-lg-none">
-                                <a href="{{ URL('logout') }}"> 登出 </a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('about') }}"> 關於我們 </a>--}}
+{{--                            </li>--}}
+                            {{--                全國暫時不走登入制，因為不在我們這註冊--}}
+{{--                            <li class="d-lg-none">--}}
+{{--                                <a href="{{ URL('account') }}"> 帳號 </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="d-lg-none">--}}
+{{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
+{{--                            </li>--}}
                         </ul>
                     </nav>
                 </div>
-                <div class="nav navbar-right">
-                    <ul>
-                        <li class="d-none d-lg-block">
-                            <a href="{{ URL('account') }}"> 帳號 </a>
-                            @if (auth()->user())
-                                <a href="{{ URL('logout') }}"> 登出 </a>
-                            @else
-                                <a href="{{ URL('login') }}"> 登入 </a>
-                            @endif
-                            <a data-toggle="search"><i class="fa fa-search"></i></a>
-                        </li>
+{{--                全國暫時不走登入制，因為不在我們這註冊--}}
+{{--                <div class="nav navbar-right">--}}
+{{--                    <ul>--}}
+{{--                        <li class="d-none d-lg-block">--}}
+{{--                            <a href="{{ URL('account') }}"> 帳號 </a>--}}
+{{--                            @if (auth()->user())--}}
+{{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
+{{--                            @else--}}
+{{--                                <a href="{{ URL('login') }}"> 登入 </a>--}}
+{{--                            @endif--}}
+{{--                            <a data-toggle="search"><i class="fa fa-search"></i></a>--}}
+{{--                        </li>--}}
 
-                        <li class="d-lg-none">
-                            <a data-toggle="search" class="fa fa-search"></a>
-                        </li>
-                    </ul>
-                </div>
+{{--                        <li class="d-lg-none">--}}
+{{--                            <a data-toggle="search" class="fa fa-search"></a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
             </div>
         </div>
         <div class="navbar-search">

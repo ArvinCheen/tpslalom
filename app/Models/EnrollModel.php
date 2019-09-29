@@ -19,7 +19,7 @@ class EnrollModel extends Model
 
     protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'level', 'group', 'item',
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
-        'rank', 'integral', 'check', 'check_in_time'];
+        'rank', 'integral', 'check', 'check_in_time','appearance'];
 
     public function player()
     {

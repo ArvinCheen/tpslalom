@@ -10,6 +10,43 @@ use App\Services\GameInfoService;
 
 class GameInfoController extends Controller
 {
+    public function getAppearance($scheduleId = null)
+    {
+        if (is_null($scheduleId)) {
+            $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
+        }
+
+        $enrolls = [];
+        $schedules = app(ScheduleModel::class)->getSchedules();
+        $numberOfAppearance = app(EnrollModel::class)->where('game_id', config('app.game_id'))->whereNull('appearance')->count();
+
+        if ($numberOfAppearance > 0) {
+            $isView = false;
+        } else {
+            $isView = true;
+
+            $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
+
+            $enrolls = EnrollModel::where('game_id', config('app.game_id'))
+                ->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('level', $gameInfo->level)
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->orderBy('appearance')
+                ->get();
+        }
+
+
+        return view('gameInfo/appearance')->with(compact(
+            'schedules',
+            'scheduleId',
+            'enrolls',
+            'isView'
+        ));
+    }
+
     public function schedules()
     {
         $schedules = app(ScheduleModel::class)->getSchedules();

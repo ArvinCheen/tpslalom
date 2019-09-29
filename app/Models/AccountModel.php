@@ -20,9 +20,7 @@ class AccountModel extends Authenticatable
 
     protected $table = 'account';
 
-    protected $guarded = 'id';
-
-    protected $fillable = ['id', 'account', 'password', 'email', 'team_name', 'phone', 'address', 'coach', 'leader'];
+    protected $guarded = ['id'];
 
     protected $hidden = ['password', 'remember_token'];
 
