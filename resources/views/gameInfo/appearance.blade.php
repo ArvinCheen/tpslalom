@@ -19,7 +19,7 @@
     <div class="mh mb-5">
         <div class="container">
             <div class="mt-5 mb-5 text-center">
-                <h2> 出場序查詢 </h2>
+                <h2> 分組名單 </h2>
             </div>
             <div class="col-md-12">
                 <select class="form-control" id="m_select2_1" name="scheduleId">

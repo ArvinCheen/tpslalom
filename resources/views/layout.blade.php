@@ -68,7 +68,7 @@
                                         <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序 </a>
+                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 分組名單 </a>
                                     </li>
 {{--                                    <li>--}}
 {{--                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
