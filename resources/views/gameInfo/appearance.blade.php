@@ -46,42 +46,42 @@
                                 <th class="text-center"> 1 </th>
                                 <th class="text-center"> 180 </th>
                                 <th class="text-center"> 鐘晨恩 </th>
-                                <th class="text-center"> 0020 </th>
+                                <th class="text-center"> 020 </th>
                                 <th class="text-center"> 鐘晨芸 </th>
                             </tr>
                             <tr>
                                 <th class="text-center"> 2 </th>
-                                <th class="text-center"> 50 </th>
+                                <th class="text-center"> 050 </th>
                                 <th class="text-center"> 侯安伃 </th>
-                                <th class="text-center"> 0161 </th>
+                                <th class="text-center"> 161 </th>
                                 <th class="text-center"> 劉以琳 </th>
                             </tr>
                             <tr>
                                 <th class="text-center"> 3 </th>
-                                <th class="text-center"> 2 </th>
+                                <th class="text-center"> 002 </th>
                                 <th class="text-center"> 范予僖 </th>
-                                <th class="text-center"> 0026 </th>
+                                <th class="text-center"> 026 </th>
                                 <th class="text-center"> 黃淇宣 </th>
                             </tr>
                             <tr>
                                 <th class="text-center"> 4 </th>
-                                <th class="text-center"> 42 </th>
+                                <th class="text-center"> 042 </th>
                                 <th class="text-center"> 周柏崴 </th>
-                                <th class="text-center"> 0083 </th>
+                                <th class="text-center"> 083 </th>
                                 <th class="text-center"> 周柏諦 </th>
                             </tr>
                             <tr>
                                 <th class="text-center"> 5 </th>
-                                <th class="text-center"> 85 </th>
+                                <th class="text-center"> 085 </th>
                                 <th class="text-center"> 侯鈞諺 </th>
-                                <th class="text-center"> 0126 </th>
+                                <th class="text-center"> 126 </th>
                                 <th class="text-center"> 陳建廷 </th>
                             </tr>
                             <tr>
                                 <th class="text-center"> 6 </th>
-                                <th class="text-center"> 84 </th>
+                                <th class="text-center"> 084 </th>
                                 <th class="text-center"> 倪詣超 </th>
-                                <th class="text-center"> 0092 </th>
+                                <th class="text-center"> 092 </th>
                                 <th class="text-center"> 倪采彤 </th>
                             </tr>
                             <tr>
@@ -95,7 +95,7 @@
                                 <th class="text-center"> 8 </th>
                                 <th class="text-center"> 342 </th>
                                 <th class="text-center"> 周祈佑 </th>
-                                <th class="text-center"> 0311 </th>
+                                <th class="text-center"> 311 </th>
                                 <th class="text-center"> 賴徐捷 </th>
                             </tr>
                         @else
