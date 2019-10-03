@@ -88,7 +88,7 @@
                                 <th class="text-center"> 7 </th>
                                 <th class="text-center"> 268 </th>
                                 <th class="text-center"> 邱映瑄 </th>
-                                <th class="text-center"> 0132 </th>
+                                <th class="text-center"> 132 </th>
                                 <th class="text-center"> 邱宇廷 </th>
                             </tr>
                             <tr>
