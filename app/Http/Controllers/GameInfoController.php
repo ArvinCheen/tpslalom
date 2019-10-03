@@ -26,7 +26,7 @@ class GameInfoController extends Controller
             $isView = true;
 
             $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
-//dd($gameInfo);
+
             $enrolls = EnrollModel::where('game_id', config('app.game_id'))
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
