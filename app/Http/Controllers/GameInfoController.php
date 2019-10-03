@@ -26,16 +26,19 @@ class GameInfoController extends Controller
             $isView = true;
 
             $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
-
+//dd($gameInfo);
             $enrolls = EnrollModel::where('game_id', config('app.game_id'))
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
                 ->where('level', $gameInfo->level)
                 ->where('group', $gameInfo->group)
-                ->where('item', $gameInfo->item)
-                ->where('gender', $gameInfo->gender)
-                ->orderBy('appearance')
-                ->get();
+                ->where('item', $gameInfo->item);
+
+            if ($gameInfo->gender <> '不分組') {
+                $enrolls->where('gender', $gameInfo->gender);
+            }
+
+            $enrolls = $enrolls->orderBy('appearance')->get();
         }
 
 
