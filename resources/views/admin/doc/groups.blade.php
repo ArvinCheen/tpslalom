@@ -20,7 +20,7 @@
                         <table class="table mb-0">
                             <tr>
                                 <td>{{ $group->order }} </td>
-                                <td class="text-center">【{{ $group->level }}】{{ $group->group }} {{ $group->gender }}子組 {{ $group->item }}</td>
+                                <td class="text-center">{{ $group->group }} {{ $group->gender }}子組 {{ $group->item }}</td>
                                 <td class="text-right">共 {{ $group->number_of_player }} 人</td>
                             </tr>
                         </table>
