@@ -6577,6 +6577,10 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
     clip-path: none
 }
 
+.w-20 {
+    width: 20% !important
+}
+
 .w-25 {
     width: 25% !important
 }

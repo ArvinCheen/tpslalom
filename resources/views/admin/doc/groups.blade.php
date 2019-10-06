@@ -30,29 +30,34 @@
                             @endphp
                             @while($i < count($group->players))
                                 <tr>
-                                    <td class="w-25">
+                                    <td class="w-20">
                                         @if (isset($group->players[$i]))
                                             {{ $group->players[$i]->player_number }} {{ $group->players[$i]->name }} ({{ $group->players[$i]->agency }})
                                         @endif
                                     </td>
-                                    <td class="w-25">
+                                    <td class="w-20">
                                         @if (isset($group->players[$i + 1]))
                                             {{ $group->players[$i + 1]->player_number }} {{ $group->players[$i + 1]->name }} ({{ $group->players[$i + 1]->agency }})
                                         @endif
                                     </td>
-                                    <td class="w-25">
+                                    <td class="w-20">
                                         @if (isset($group->players[$i + 2]))
                                             {{ $group->players[$i + 2]->player_number }} {{ $group->players[$i + 2]->name }} ({{ $group->players[$i + 2]->agency }})
                                         @endif
                                     </td>
-                                    <td class="w-25">
+                                    <td class="w-20">
                                         @if (isset($group->players[$i + 3]))
                                             {{ $group->players[$i + 3]->player_number }} {{ $group->players[$i + 3]->name }} ({{ $group->players[$i + 3]->agency }})
                                         @endif
                                     </td>
+                                    <td class="w-20">
+                                        @if (isset($group->players[$i + 4]))
+                                            {{ $group->players[$i + 4]->player_number }} {{ $group->players[$i + 4]->name }} ({{ $group->players[$i + 4]->agency }})
+                                        @endif
+                                    </td>
                                 </tr>
                                 @php
-                                    $i += 4
+                                    $i += 5
                                 @endphp
                             @endwhile
                         </table>
