@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group m-form__group row">
-                    <div class="col-md-9 ">
+                    <div class="col-md-6">
                         <select class="form-control m-select2" id="m_select2_1" name="scheduleSn">
                             @foreach ($schedules as $schedule)
                                 <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}  {{ $schedule->item }} {{ $schedule->number_of_player }}人</option>
@@ -33,20 +33,22 @@
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
-                            <th> 號碼 </th>
-                            <th> 名稱 </th>
-                            <th> 單位 </th>
-                            <th> 檢錄 </th>
-                            <th> 檢錄時間 </th>
+                            <th class="text-center"> 順序 </th>
+                            <th class="text-center"> 號碼 </th>
+                            <th class="text-center"> 名稱 </th>
+                            <th class="text-center"> 單位 </th>
+                            <th class="text-center"> 檢錄 </th>
+                            <th class="text-center"> 檢錄時間 </th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($enrolls as $enroll)
                             <tr>
-                                <td> {{ $enroll->player_number }} </td>
-                                <td> {{ $enroll->player->name }} </td>
-                                <td> {{ $enroll->player->agency }} </td>
-                                <td>
+                                <td class="text-center"> {{ $enroll->appearance }} </td>
+                                <td class="text-center"> {{ $enroll->player_number }} </td>
+                                <td class="text-center"> {{ $enroll->player->name }} </td>
+                                <td class="text-center"> {{ $enroll->player->agency }} </td>
+                                <td class="text-center">
                                     <span class="m-switch m-switch--sm m-switch--icon m-switch--warning">
                                         <label class="m-0">
                                             <input type="checkbox" name="checkInIds[]" {{ $enroll->check ? 'checked' : null }} value="{{ $enroll->id }}">
@@ -55,7 +57,7 @@
                                         </label>
                                     </span>
                                 </td>
-                                <td class="w-25"> {{ $enroll->check_in_time }} </td>
+                                <td class="text-center w-25"> {{ $enroll->check_in_time }} </td>
                             </tr>
                         @endforeach
                         </tbody>

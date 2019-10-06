@@ -14,7 +14,22 @@ class CheckInController extends Controller
 {
     public function index($scheduleId = null)
     {
-        $enrolls   = $this->getEnrolls($scheduleId);
+        if (is_null($scheduleId)) {
+            $schedule = ScheduleModel::where('game_id', config('app.game_id'))->first();
+        } else {
+            $schedule = ScheduleModel::where('id', $scheduleId)->first();
+        }
+
+        $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
+            $query->where('gender', $schedule->gender);
+        })
+            ->where('game_id', config('app.game_id'))
+            ->where('level', $schedule->level)
+            ->where('group', $schedule->group)
+            ->where('item', $schedule->item)
+            ->orderBy('appearance')
+            ->get();
+
         $schedules = app(ScheduleModel::class)->getSchedules();
 
         if (is_null($scheduleId)) {
@@ -42,27 +57,5 @@ class CheckInController extends Controller
         app('request')->session()->flash('success', '檢錄成功');
 
         return back();
-    }
-
-    public function getEnrolls($scheduleId)
-    {
-        if (is_null($scheduleId)) {
-            $schedule = ScheduleModel::where('game_id', config('app.game_id'))->first();
-        } else {
-            $schedule = ScheduleModel::where('id', $scheduleId)->first();
-        }
-
-        if (is_null($schedule)) {
-            return [];
-        } else {
-            return EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                $query->where('gender', $schedule->gender);
-            })
-                ->where('game_id', config('app.game_id'))
-                ->where('level', $schedule->level)
-                ->where('group', $schedule->group)
-                ->where('item', $schedule->item)
-                ->get();
-        }
     }
 }

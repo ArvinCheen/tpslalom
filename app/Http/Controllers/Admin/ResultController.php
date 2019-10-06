@@ -32,7 +32,7 @@ class ResultController extends Controller
                 ->where('level', $gameInfo->level)
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item)
-                ->orderBy('player_number')
+                ->orderBy('appearance')
                 ->get();
         }
 

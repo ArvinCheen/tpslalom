@@ -47,7 +47,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">
-                                <i class=""></i> 名次
+                                <i class=""></i> 順序
                             </th>
                             <th class="text-center">
                                 <i class=""></i> 號碼
@@ -79,13 +79,16 @@
                             <th class="text-center">
                                 <i class=""></i> 積分
                             </th>
+                            <th class="text-center">
+                                <i class=""></i> 名次
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($enrolls as $key => $enroll)
 
                             <tr>
-                                <td class="text-center"> {{ $enroll->rank }} </td>
+                                <td class="text-center"> {{ $enroll->appearance }} </td>
                                 <td class="text-center"> {{ $enroll->player_number }} </td>
                                 <td class="text-center"> {{ $enroll->player->name }} </td>
                                 <td class="text-center"> {{ $enroll->player->city }} </td>
@@ -101,6 +104,7 @@
                                 <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> {{ $enroll->final_result }} </td>
                                 <td class="text-center"> {{ $enroll->integral }} </td>
+                                <td class="text-center"> {{ $enroll->rank }} </td>
                             </tr>
                         @endforeach
                         </tbody>
