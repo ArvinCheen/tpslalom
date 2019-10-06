@@ -85,7 +85,7 @@ class ExportController extends Controller
                         $sheet->mergeCells('F25:K25');
                         $sheet->mergeCells('C27:E27');
                         $sheet->mergeCells('F27:J27');
-                        $sheet->mergeCells('A48:K48');
+                        $sheet->mergeCells('A46:K46');
                         $sheet->cell('A9', function ($cell) use ($enroll, $type) {
                             if ($type == 'certificate') {
                                 $cell->setValue('獎　　　狀');
@@ -206,7 +206,7 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A48', function ($cell) use ($enroll) {
+                        $sheet->cell('A46', function ($cell) use ($enroll) {
                             $date = GameModel::where('id', config('app.game_id'))->value('game_date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
