@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\EnrollModel;
 use App\Services\ResultService;
 use App\Services\CheckInService;
+use Illuminate\Support\Facades\DB;
 
 class ResultController extends Controller
 {
@@ -62,62 +63,67 @@ class ResultController extends Controller
 
     public function calculationResult($enrollId, $roundOneSecond, $roundOneMissConr, $roundTwoSecond, $roundTwoMissConr)
     {
-        if (! empty($roundOneSecond) || ! empty($roundOneMissConr) || ! empty($roundTwoSecond) || ! empty($roundTwoMissConr)) {
+        try {
+            if (! empty($roundOneSecond) || ! empty($roundOneMissConr) || ! empty($roundTwoSecond) || ! empty($roundTwoMissConr)) {
 
-            $resultRoundOne = null;
-            $resultRoundTwo = null;
+                $resultRoundOne = null;
+                $resultRoundTwo = null;
 
-            if ($roundOneMissConr > 4) {
-                $roundOneMissConr = 99;
-            } else {
-                if (! is_null($roundOneSecond)) {
-                    $resultRoundOne = $roundOneSecond + ($roundOneMissConr * 0.2);
+                if ($roundOneMissConr > 4) {
+                    $roundOneMissConr = 99;
+                } else {
+                    if (! is_null($roundOneSecond)) {
+                        $resultRoundOne = $roundOneSecond + ($roundOneMissConr * 0.2);
+                    }
                 }
-            }
 
-            if ($roundTwoMissConr > 4) {
-                $roundTwoMissConr = 99;
-            } else {
-                if (! is_null($roundTwoSecond)) {
-                    $resultRoundTwo = $roundTwoSecond + ($roundTwoMissConr * 0.2);
+                if ($roundTwoMissConr > 4) {
+                    $roundTwoMissConr = 99;
+                } else {
+                    if (! is_null($roundTwoSecond)) {
+                        $resultRoundTwo = $roundTwoSecond + ($roundTwoMissConr * 0.2);
+                    }
                 }
-            }
 
-            if (! is_null($resultRoundOne) && ! is_null($resultRoundTwo)) {
-                $resultRoundFinal = $resultRoundOne < $resultRoundTwo ? $resultRoundOne : $resultRoundTwo;
+                if (! is_null($resultRoundOne) && ! is_null($resultRoundTwo)) {
+                    $resultRoundFinal = $resultRoundOne < $resultRoundTwo ? $resultRoundOne : $resultRoundTwo;
 
-                if (is_null($roundOneMissConr)) {
-                    $roundOneMissConr = 0;
-                }
-                if (is_null($roundTwoMissConr)) {
-                    $roundTwoMissConr = 0;
-                }
-            } elseif (is_null($resultRoundOne) && is_null($resultRoundTwo)) {
-                $resultRoundFinal = '無成績';
-            } else {
-                if (! is_null($resultRoundOne)) {
-                    $resultRoundFinal = $resultRoundOne;
-                    if (! is_null($roundOneSecond) && is_null($roundOneMissConr)) {
+                    if (is_null($roundOneMissConr)) {
                         $roundOneMissConr = 0;
                     }
-                }
-                if (! is_null($resultRoundTwo)) {
-                    $resultRoundFinal = $resultRoundTwo;
-                    if (! is_null($roundTwoSecond) && is_null($roundTwoMissConr)) {
+                    if (is_null($roundTwoMissConr)) {
                         $roundTwoMissConr = 0;
                     }
+                } elseif (is_null($resultRoundOne) && is_null($resultRoundTwo)) {
+                    $resultRoundFinal = '無成績';
+                } else {
+                    if (! is_null($resultRoundOne)) {
+                        $resultRoundFinal = $resultRoundOne;
+                        if (! is_null($roundOneSecond) && is_null($roundOneMissConr)) {
+                            $roundOneMissConr = 0;
+                        }
+                    }
+                    if (! is_null($resultRoundTwo)) {
+                        $resultRoundFinal = $resultRoundTwo;
+                        if (! is_null($roundTwoSecond) && is_null($roundTwoMissConr)) {
+                            $roundTwoMissConr = 0;
+                        }
+                    }
                 }
+
+                EnrollModel::where('id', $enrollId)->update([
+                    'round_one_second'    => $roundOneSecond,
+                    'round_one_miss_conr' => $roundOneMissConr,
+                    'round_two_second'    => $roundTwoSecond,
+                    'round_two_miss_conr' => $roundTwoMissConr,
+                    'final_result'        => $resultRoundFinal,
+                    'integral'            => null,
+                    'rank'                => null,
+                ]);
             }
 
-            EnrollModel::where('id', $enrollId)->update([
-                'round_one_second'    => $roundOneSecond,
-                'round_one_miss_conr' => $roundOneMissConr,
-                'round_two_second'    => $roundTwoSecond,
-                'round_two_miss_conr' => $roundTwoMissConr,
-                'final_result'        => $resultRoundFinal,
-                'integral'            => null,
-                'rank'                => null,
-            ]);
+        } catch (\Exception $e) {
+            app()->make(SlackNotify::class)->setMsg('[ReultController@calculationResult] Error ' . $e->getMessage())->notify();
         }
     }
 
