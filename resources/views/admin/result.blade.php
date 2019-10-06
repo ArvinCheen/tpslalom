@@ -38,6 +38,10 @@
                             <button type="submit" class="btn btn-primary"> 排名 </button>
                         </form>
                     </div>
+                    <div class="ml-2">
+                        <button type="submit" class="btn btn-primary" onclick="enterResult()"> 輸入成績 </button>
+                    </div>
+
                 </div>
                 <form id="result-form" action="{{ URL('admin/result/update') }}" method="POST">
                     {{ csrf_field() }}
@@ -122,6 +126,10 @@
             var scheduleId = $(this).val();
             window.location = "{{ URL('admin/result/') }}/" + scheduleId
         });
+
+        function enterResult() {
+            $("#result-form").submit();
+        }
 
         $(".resultInput").keyup(function(e) {
             if (e.which == 13) {
