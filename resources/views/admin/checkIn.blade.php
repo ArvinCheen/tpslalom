@@ -61,6 +61,10 @@
                         </tbody>
                     </table>
                 </form>
+
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="checkIn()"> 檢錄 </button>
+                </div>
             </div>
         </div>
     </div>
