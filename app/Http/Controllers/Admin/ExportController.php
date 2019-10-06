@@ -101,7 +101,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('A12', function ($cell) use ($enroll) {
                             $cell->setValue(GameModel::where('id', config('app.game_id'))->value('complete_name'));
-                            $cell->setFontSize(22);
+                            $cell->setFontSize(28);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -210,7 +210,7 @@ class ExportController extends Controller
                             $date = GameModel::where('id', config('app.game_id'))->value('game_date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
