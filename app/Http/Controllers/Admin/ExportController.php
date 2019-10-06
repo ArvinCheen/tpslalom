@@ -207,7 +207,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A48', function ($cell) use ($enroll) {
-                            $date = GameModel::where('id', config('app.game_id'))->value('date');
+                            $date = GameModel::where('id', config('app.game_id'))->value('game_date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
                             $cell->setFontSize(20);
