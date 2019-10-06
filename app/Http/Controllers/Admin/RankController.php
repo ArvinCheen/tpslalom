@@ -24,10 +24,10 @@ class RankController extends Controller
     private function processOverGame($scheduleId)
     {
         $gameInfo = ScheduleModel::find($scheduleId);
-        $level = $gameInfo->level;
-        $gender = $gameInfo->gender;
-        $group = $gameInfo->group;
-        $item = $gameInfo->item;
+        $level    = $gameInfo->level;
+        $gender   = $gameInfo->gender;
+        $group    = $gameInfo->group;
+        $item     = $gameInfo->item;
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
@@ -70,6 +70,7 @@ class RankController extends Controller
             ->where('group', $group)
             ->where('item', $item)
             ->where('check', 1)
+            ->where('final_result', '<>', '無成績')
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
@@ -80,10 +81,6 @@ class RankController extends Controller
         $count = count($enrolls) - 1;
         foreach ($enrolls as $enroll) {
             $integral = $integrals[$count];
-
-            if ($enroll->final_result == '無成績') {
-                continue;
-            }
 
             if ($item == '前進單足S型') {
                 $integral++;
