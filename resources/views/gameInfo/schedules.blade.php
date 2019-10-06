@@ -10,25 +10,49 @@
         <div class="container">
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
+                <h3> 第一天 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
                     <tr>
                         <td> 場次</td>
-                        <td> 級別</td>
                         <td> 組別</td>
                         <td> 性別</td>
                         <td> 項目</td>
                         <td> 人數</td>
                     </tr>
-                    @foreach($schedules as $schedule)
+                    @foreach($schedulesFirstDay as $scheduleFD)
                         <tr>
-                            <td> {{ $schedule->order }} </td>
-                            <td> {{ $schedule->level }} </td>
-                            <td> {{ $schedule->group }} </td>
-                            <td> {{ $schedule->gender }} </td>
-                            <td> {{ $schedule->item }} </td>
-                            <td> {{ $schedule->number_of_player }} </td>
+                            <td> {{ $scheduleFD->order }} </td>
+                            <td> {{ $scheduleFD->group }} </td>
+                            <td> {{ $scheduleFD->gender }} </td>
+                            <td> {{ $scheduleFD->item }} </td>
+                            <td> {{ $scheduleFD->number_of_player }} </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+
+            <div class="mt-5 mb-5 text-center">
+                <h2> 賽程表 </h2>
+                <h3> 第二天 </h3>
+            </div>
+            <div class="col-md-12">
+                <table class="col-md-12 table table-striped table-dark">
+                    <tr>
+                        <td> 場次</td>
+                        <td> 組別</td>
+                        <td> 性別</td>
+                        <td> 項目</td>
+                        <td> 人數</td>
+                    </tr>
+                    @foreach($schedulesSecondDay as $scheduleSD)
+                        <tr>
+                            <td> {{ $scheduleSD->order }} </td>
+                            <td> {{ $scheduleSD->group }} </td>
+                            <td> {{ $scheduleSD->gender }} </td>
+                            <td> {{ $scheduleSD->item }} </td>
+                            <td> {{ $scheduleSD->number_of_player }} </td>
                         </tr>
                     @endforeach
                 </table>

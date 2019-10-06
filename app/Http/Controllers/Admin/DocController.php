@@ -104,10 +104,10 @@ class DocController extends Controller
             management,
             sum(fee) AS totalFee
     '))
-        ->leftJoin('account', 'account.id', 'registry_fee.account_id')
-        ->where('game_id', config('app.game_id'))
-        ->groupBy('account.id')
-        ->get();
+            ->leftJoin('account', 'account.id', 'registry_fee.account_id')
+            ->where('game_id', config('app.game_id'))
+            ->groupBy('account.id')
+            ->get();
 
 
         $total = $bills->sum('totalFee');
@@ -150,9 +150,13 @@ class DocController extends Controller
     public function players()
     {
         $players = (object)[
-            'doubleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進雙足S型'),
-            'singleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進單足S型'),
-            'cross'   => app(EnrollModel::class)->getEnrollPlayers($item = '前進交叉型'),
+            '花式煞停'              => app(EnrollModel::class)->getEnrollPlayers($item = '花式煞停'),
+            '花式繞樁'              => app(EnrollModel::class)->getEnrollPlayers($item = '花式繞樁'),
+            '雙人花式繞樁'            => app(EnrollModel::class)->getEnrollPlayers($item = '雙人花式繞樁'),
+            '速度過樁-前溜交叉形'        => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜交叉形'),
+            '速度過樁-前溜雙足S形'       => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜雙足S形'),
+            '速度過樁-前溜單足S形'       => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜單足S形'),
+            '【國選積分】速度過樁-前溜單足S形' => app(EnrollModel::class)->getEnrollPlayers($item = '【國選積分】速度過樁-前溜單足S形'),
         ];
 
         return view('admin/doc/players')->with(compact('players'));

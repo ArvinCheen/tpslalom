@@ -16,8 +16,8 @@ class GameInfoController extends Controller
             $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
         }
 
-        $enrolls = [];
-        $schedules = app(ScheduleModel::class)->getSchedules();
+        $enrolls            = [];
+        $schedules          = app(ScheduleModel::class)->getSchedules();
         $numberOfAppearance = app(EnrollModel::class)->where('game_id', config('app.game_id'))->whereNull('appearance')->count();
 
         if ($numberOfAppearance > 0) {
@@ -52,9 +52,10 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        $schedules = app(ScheduleModel::class)->getSchedules();
+        $schedulesFirstDay   = app(ScheduleModel::class)->where('id', '<=', 22)->get();
+        $schedulesSecondDay = app(ScheduleModel::class)->where('id', '>', 22)->get();
 
-        return view('gameInfo/schedules')->with(compact('schedules'));
+        return view('gameInfo/schedules')->with(compact('schedulesFirstDay', 'schedulesSecondDay'));
     }
 
     public function groups()
