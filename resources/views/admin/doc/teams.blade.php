@@ -34,27 +34,27 @@
                                 <tr>
                                     <td class="w-20">
                                         @if (isset($team->players[$i]))
-                                            {{ $team->players[$i]->player_number }} {{ $team->players[$i]->player->name }} ({{ $team->players[$i]->player->city . $team->players[$i]->player->agency }})
+                                            {{ $team->players[$i]->player_number }} {{ $team->players[$i]->player->name }}
                                         @endif
                                     </td>
                                     <td class="w-20">
                                         @if (isset($team->players[$i + 1]))
-                                            {{ $team->players[$i + 1]->player_number }} {{ $team->players[$i + 1]->player->name }} ({{ $team->players[$i + 1]->player->city . $team->players[$i + 1]->player->agency }})
+                                            {{ $team->players[$i + 1]->player_number }} {{ $team->players[$i + 1]->player->name }}
                                         @endif
                                     </td>
                                     <td class="w-20">
                                         @if (isset($team->players[$i + 2]))
-                                            {{ $team->players[$i + 2]->player_number }} {{ $team->players[$i + 2]->player->name }} ({{ $team->players[$i + 2]->player->city . $team->players[$i + 2]->player->agency }})
+                                            {{ $team->players[$i + 2]->player_number }} {{ $team->players[$i + 2]->player->name }}
                                         @endif
                                     </td>
                                     <td class="w-20">
                                         @if (isset($team->players[$i + 3]))
-                                            {{ $team->players[$i + 3]->player_number }} {{ $team->players[$i + 3]->player->name }} ({{ $team->players[$i + 3]->player->city . $team->players[$i + 3]->player->agency }})
+                                            {{ $team->players[$i + 3]->player_number }} {{ $team->players[$i + 3]->player->name }}
                                         @endif
                                     </td>
                                     <td class="w-20">
                                         @if (isset($team->players[$i + 4]))
-                                            {{ $team->players[$i + 4]->player_number }} {{ $team->players[$i + 4]->player->name }} ({{ $team->players[$i + 4]->player->city . $team->players[$i + 3]->player->agency }})
+                                            {{ $team->players[$i + 4]->player_number }} {{ $team->players[$i + 4]->player->name }}
                                         @endif
                                     </td>
                                 </tr>
