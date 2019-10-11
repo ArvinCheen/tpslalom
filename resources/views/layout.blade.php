@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>直排輪體育賽事</title>
-    <link rel="icon" href="{{ URL::asset('front/logo.png') }}" sizes="32x32"/>
+    <link rel="icon" href="{{ URL::asset('img/icon-hs.png') }}" sizes="32x32"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -35,7 +35,7 @@
                 <div class="navbar-left">
                     <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
                     <a href="{{ URL('') }}" class="logo mb-1">
-                        <img class="" src="{{ URL::asset('front/logo.png') }}" alt="直排輪競賽" style="">
+                        <img class="" src="{{ URL::asset('img/icon-hs.png') }}" alt="直排輪競賽" style="width:32px">
                     </a>
                     <nav class="nav">
                         <ul>
@@ -100,24 +100,24 @@
                             @else
                                 <a href="{{ URL('login') }}"> 登入 </a>
                             @endif
-                            <a data-toggle="search"><i class="fa fa-search"></i></a>
+{{--                            <a data-toggle="search"><i class="fa fa-search"></i></a>--}}
                         </li>
 
-                        <li class="d-lg-none">
-                            <a data-toggle="search" class="fa fa-search"></a>
-                        </li>
+{{--                        <li class="d-lg-none">--}}
+{{--                            <a data-toggle="search" class="fa fa-search"></a>--}}
+{{--                        </li>--}}
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="navbar-search">
-            <div class="container">
-                <form action="" method="get" disabled="true">
-                    <input type="text" name="playerName" class="form-control" placeholder="搜尋選手">
-                    <i class="fa fa-times close"></i>
-                </form>
-            </div>
-        </div>
+{{--        <div class="navbar-search">--}}
+{{--            <div class="container">--}}
+{{--                <form action="" method="get" disabled="true">--}}
+{{--                    <input type="text" name="playerName" class="form-control" placeholder="搜尋選手">--}}
+{{--                    <i class="fa fa-times close"></i>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </header>
 

@@ -5,11 +5,9 @@
 @endsection
 
 @section('content')
-
 <div class="mh mb-5">
     <div class="container">
         <div class="mt-5 mb-5 text-center">
-            {{--            <p>相關組別報名注意事項，請參閱簡章</p>--}}
             <img style="width:100%;" src="{{ URL::asset('img/enrollBanner7.png') }}">
             <h1 class="mt-5">比賽報名</h1>
         </div>
@@ -103,7 +101,7 @@
                             </div>
                             <div class="">
                                 <select class="form-control" name="level" id="自由級別" disabled>
-                                    <option value=''> -- 選擇級別 -- </option>
+                                    <option value='' id="自由預設"> -- 選擇級別 -- </option>
                                     <option value="初級組" id="初級組">初級組</option>
                                     <option value="選手組" id="選手組">選手組</option>
                                 </select>
@@ -134,7 +132,7 @@
                             </div>
                             <div class="">
                                 <select class="form-control" name="level" id="競速級別" disabled>
-                                    <option value=''> -- 選擇級別 -- </option>
+                                    <option value='' id="競速預設"> -- 選擇級別 -- </option>
                                     <option value="休閒組" id="休閒組">休閒組</option>
                                     <option value="競速組" id="競速組">競速組</option>
                                 </select>
@@ -169,11 +167,11 @@
                 </div>
 
 
-                @if ($status)
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
-                @else
+{{--                @if ($status)--}}
+{{--                    <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>--}}
+{{--                @else--}}
                     <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
-                @endif
+{{--                @endif--}}
 
             </div>
 
@@ -185,15 +183,19 @@
 
 @section('js')
 <script>
+
     function init() {
-        $('#競速級別').prop('disabled', false);
         $('#自由級別').prop('disabled', false);
+        $('#自由預設').prop('disabled', false).prop('selected', true);
         $('#初級組').prop('disabled', false);
         $('#選手組').prop('disabled', false);
-        $('#休閒組').prop('disabled', false);
-        $('#競速組').prop('disabled', false);
         $('#前進雙足S型').prop('disabled', true).prop('checked', false);
         $('#前進單足S型').prop('disabled', true).prop('checked', false);
+
+        $('#競速級別').prop('disabled', false);
+        $('#競速預設').prop('disabled', false).prop('selected', true);
+        $('#休閒組').prop('disabled', false);
+        $('#競速組').prop('disabled', false);
         $('#150公尺計時賽').prop('disabled', true).prop('checked', false);
         $('#300公尺計時賽').prop('disabled', true).prop('checked', false);
         $('#450公尺計時賽').prop('disabled', true).prop('checked', false);
@@ -230,42 +232,47 @@
     }
 
 
+
+    $("#自由級別").change(function() {
+        $('#前進雙足S型').prop('disabled', false).prop('checked', false);
+        $('#前進單足S型').prop('disabled', false).prop('checked', false);
+        switch ($(this).val()) {
+            case '初級組':
+                $('#前進單足S型').prop('disabled', true);
+                break;
+            case '選手組':
+                $('#前進單足S型').prop('disabled', false);
+                break;
+        }
+
+    });
+
+    $("#競速級別").change(function() {
+        $('#150公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#300公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#450公尺計時賽').prop('disabled', false).prop('checked', false);
+
+        switch ($(this).val()) {
+            case '休閒組':
+                $('#450公尺計時賽').prop('disabled', true);
+                break;
+            case '競速組':
+                $('#150公尺計時賽').prop('disabled', true);
+                break;
+        }
+    });
+
     $("#組別").change(function() {
-// ### 級別
-// 1. 初級組（初級組只有幼稚園到國小選項）
-// 2. 選手組（無限制）
-
-// ### 初級組項目
-// 1. 前進雙足S型
-//
-// ### 選手組項目
-// 1. 前進雙足S型
-// 2. 前進單足S型
-
-// ### 級別
-// 1. 休閒組（無限制）
-// 2. 競速組（競速組別只有國小到高中組的選項）
-
-// ### 休閒組項目
-// 1. 150公尺計時賽
-// 2. 300公尺計時賽
-//
-// ### 競速組項目
-// 1. 300公尺計時賽
-// 2. 450公尺計時賽
+        init();
         switch ($(this).val()) {
             case '小班幼童組':
-                init();
-                初級組();
-                選手組();
-                休閒組();
-                競速組();
-                初級關閉();
-                競速關閉();
+                競速關閉()
                 break;
             case '中班幼童組':
+                競速關閉()
                 break;
             case '大班幼童組':
+                競速關閉()
                 break;
             case '國小一年級組':
                 break;
@@ -280,10 +287,14 @@
             case '國小六年級組':
                 break;
             case '國中組':
+                初級關閉()
                 break;
             case '高中組':
+                初級關閉()
                 break;
             case '社會組':
+                競速關閉()
+                初級關閉()
                 break;
         }
     });
