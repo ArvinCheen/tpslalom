@@ -22,9 +22,10 @@
                     <small>2018年全民運動會-競速裁判</small><br>
                     <small>2018年全國大專運動會-競速裁判</small><br>
                     <small>2017世界大學運動會試辦賽-裁判</small><br>
-                    <small>2017世界大學運動會-計時裁判組組長105年全民運動會競速裁判</small><br>
+                    <small>2017世界大學運動會-計時裁判組組長</small><br>
                     <small>2017世界大學運動會試辦賽-裁判</small><br>
-                    <small>2017世界大學運動會-計時裁判組組長2016年全民運動會競速裁判</small>
+                    <small>2017世界大學運動會-計時裁判組組長</small><br>
+                    <small>2016年全民運動會競速裁判</small>
                 </div>
                 <div class="col-md-4 mb-5 text-center">
                     <img class="rounded-circle border" src="{{ URL::asset('img/裁判/杜澄文.png') }}" style="width:200px;">
