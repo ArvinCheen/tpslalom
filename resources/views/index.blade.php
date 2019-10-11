@@ -11,54 +11,54 @@
         <h2>{{ $gameInfo->complete_name }}</h2>
     </div>
 
-        <p class="lead">宗旨：為倡導全民運動、發展滑輪溜冰運動、提高技術水準</p>
+        <p class="lead">宗旨：為推展青少年體育，落實體育向下紮根之政策，提倡正當休閒活動提升溜冰技術水準，特舉辦主委盃溜冰錦標賽，並作為中等以上學校運動成績優良學生升學輔導之依據。</p>
         <p class="lead">承辦單位：{{ $gameInfo->agency }}</p>
         <p class="lead">比賽地點：{{ $gameInfo->game_address }}</p>
         <p class="lead">報名日期：{{ $gameInfo->enroll_start_time }} ~ {{ $gameInfo->enroll_close_time }}</p>
         <p class="lead">勘誤日期：{{ $gameInfo->enroll_close_time }} ~ {{ $gameInfo->errata_close_time }}</p>
         <p class="lead">比賽日期：{{ $gameInfo->game_date}}</p>
-        <hr class="mb-4">
-        <div class="row">
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card card-lg h-100">
-                    <div class="card-img">
-                        <img src="{{ URL::asset('front/doubleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
-                    </div>
-                    <div class="card-block">
-                        <h4 class="card-title mb-3">
-                            <a >前進雙足S型</a>
-                        </h4>
-                        <p class="card-text">前進雙足S型起跑距離為8米，擺放17個角椎，各角錐間距為(初級組：160公分、新人組以上皆為120公分)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card card-lg h-100">
-                    <div class="card-img">
-                        <img src="{{ URL::asset('front/singleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
-                    </div>
-                    <div class="card-block">
-                        <h4 class="card-title mb-3">
-                            <a >前進單足S型</a>
-                        </h4>
-                        <p class="card-text">前進單足S型起跑距離為12米，擺放20個角椎，各角錐間距為80公分</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card card-lg h-100">
-                    <div class="card-img">
-                        <img src="{{ URL::asset('front/cross.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">
-                    </div>
-                    <div class="card-block">
-                        <h4 class="card-title mb-3">
-                            <a >前進交叉型</a>
-                        </h4>
-                        <p class="card-text">前進交叉型起跑距離為8米，擺放17個角椎，各角錐間距為120公分</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <hr class="mb-4">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-12 col-sm-6 col-md-4">--}}
+{{--                <div class="card card-lg h-100">--}}
+{{--                    <div class="card-img">--}}
+{{--                        <img src="{{ URL::asset('front/doubleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
+{{--                    </div>--}}
+{{--                    <div class="card-block">--}}
+{{--                        <h4 class="card-title mb-3">--}}
+{{--                            <a >前進雙足S型</a>--}}
+{{--                        </h4>--}}
+{{--                        <p class="card-text">前進雙足S型起跑距離為8米，擺放17個角椎，各角錐間距為(初級組：160公分、新人組以上皆為120公分)</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-12 col-sm-6 col-md-4">--}}
+{{--                <div class="card card-lg h-100">--}}
+{{--                    <div class="card-img">--}}
+{{--                        <img src="{{ URL::asset('front/singleS.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
+{{--                    </div>--}}
+{{--                    <div class="card-block">--}}
+{{--                        <h4 class="card-title mb-3">--}}
+{{--                            <a >前進單足S型</a>--}}
+{{--                        </h4>--}}
+{{--                        <p class="card-text">前進單足S型起跑距離為12米，擺放20個角椎，各角錐間距為80公分</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-12 col-sm-6 col-md-4">--}}
+{{--                <div class="card card-lg h-100">--}}
+{{--                    <div class="card-img">--}}
+{{--                        <img src="{{ URL::asset('front/cross.jpg') }}" class="card-img-top" alt="Assassin's Creed Syndicate">--}}
+{{--                    </div>--}}
+{{--                    <div class="card-block">--}}
+{{--                        <h4 class="card-title mb-3">--}}
+{{--                            <a >前進交叉型</a>--}}
+{{--                        </h4>--}}
+{{--                        <p class="card-text">前進交叉型起跑距離為8米，擺放17個角椎，各角錐間距為120公分</p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <hr class="mb-4">
         <h4>競賽內容：</h4>
        <p> (1) 單足S形為二回合計時賽，二輪成績擇優排名。</p>
@@ -70,12 +70,7 @@
        <p> (7) 新人組選手使用之輪鞋，輪徑不可超過80mm(含)，違者得以取消資格，不得要求退還報名費。</p>
         <hr>
         <h4>注意事項</h4>
-        <p>
-            曾獲得當年度之全國中正盃或總統盃獎項者不得報新人組，違者得以取消資格，不得要求退還報名費
-        </p>
-        <p>
-            輪徑超過90mm(含)以上，皆列為選手組，違者得以取消資格，不得要求退還報名費。
-        </p>
+        <p>本賽會報名截止日翌日，不再接受任何補報名，請勿自誤。</p>
         <a href="{{ URL('enroll') }}" class="btn btn-primary btn-block"> 立即報名 </a>
         <hr>
         <h4 class="mt-3">比賽地點</h4>
