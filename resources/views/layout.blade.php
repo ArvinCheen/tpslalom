@@ -48,33 +48,28 @@
                             <li>
                                 <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>
                             </li>
-
-                            <li class="has-dropdown">
-                                <a href="#">成績公告</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ URL('search/result') }}"> 成績查詢 </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL('search/integral') }}"> 積分查詢 </a>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="{{ URL('search/result') }}"> 成績公告 </a>
                             </li>
 
-                            <li class="has-dropdown">
-                                <a href="#">比賽資訊</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
-                                    </li>
-                                </ul>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
+{{--                            </li>--}}
+
+{{--                            <li class="has-dropdown">--}}
+{{--                                <a href="#">比賽資訊</a>--}}
+{{--                                <ul>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
 
                             <li>
                                 <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
