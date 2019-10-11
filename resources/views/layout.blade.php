@@ -73,12 +73,12 @@
                                     <li>
                                         <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
-                                    </li>
                                 </ul>
                             </li>
 
+                            <li>
+                                <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>
+                            </li>
                             <li>
                                 <a href="{{ URL('about') }}"> 關於我們 </a>
                             </li>
