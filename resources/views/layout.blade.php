@@ -133,10 +133,10 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-social">
-                <a href="https://www.facebook.com/tpslalom/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>
-                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>
+{{--                <a href="https://www.facebook.com/tpslalom/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
+{{--                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>--}}
             </div>
-            <p>Copyright © 2019 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>
+            <p>Copyright © 2019 宇犬科技. All rights reserved.</p>
 
         </div>
     </div>
