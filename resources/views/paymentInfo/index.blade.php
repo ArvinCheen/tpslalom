@@ -9,9 +9,10 @@
         <div class="container">
             <div class="mt-5 mb-5 text-center">
                 <h2 class="mb-3">繳費資訊</h2>
-                <p> 報名費請於報名截止日前匯款至 </p>
-                <p> 王道銀行營業部 (048) 0100-0051-3275-88 </p>
-                <p> 戶名： 曾大宇 </p>
+                <p>新竹第一信用合作社</p>
+                <p>單位：東南分社　帳號：002-001-00006960</p>
+                <p>戶名：新竹市體育會滑輪溜冰委員會</p>
+                <p>未於期限內繳交則視作報名未完成，匯款後請填寫匯款回報資料表。</p>
             </div>
             <div class="row justify-content-center col-md-12">
                 <div class="col-md-8  px-4">
