@@ -9,13 +9,14 @@
 <div class="mh mb-5">
     <div class="container">
         <div class="mt-5 mb-5 text-center">
-            <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>
-            <p>相關組別報名注意事項，請參閱簡章</p>
+            {{--            <p>相關組別報名注意事項，請參閱簡章</p>--}}
+            <img style="width:100%;" src="{{ URL::asset('img/enrollBanner7.png') }}">
+            <h1 class="mt-5">比賽報名</h1>
         </div>
         <form action='{{ URL('enroll/enroll') }}' method="post">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-8 mb-5">
+                <div class="col-md-12 mb-5">
                     <h4 class="mb-3">選手資訊</h4>
                     <div class="mb-3">
                         <label>出賽選手</label>
@@ -75,73 +76,108 @@
                     </div>
                     <div class="mb-3">
                         <label>組別</label>
-                        <select class="form-control" name="group" required disabled>
+                        <select class="form-control" name="group" id="組別" required disabled>
                             <option value=''> -- 請選擇 -- </option>
-                            <option value="幼童">幼童</option>
-                            <option value="國小一年級">國小一年級</option>
-                            <option value="國小二年級">國小二年級</option>
-                            <option value="國小三年級">國小三年級</option>
-                            <option value="國小四年級">國小四年級</option>
-                            <option value="國小五年級">國小五年級</option>
-                            <option value="國小六年級">國小六年級</option>
-                            <option value="國中">國中</option>
-                            <option value="高中">高中</option>
-                            <option value="大專">大專</option>
-                            <option value="社會">社會</option>
+                            <option value="小班幼童組">小班幼童組</option>
+                            <option value="中班幼童組">中班幼童組</option>
+                            <option value="大班幼童組">大班幼童組</option>
+                            <option value="國小一年級組">國小一年級組</option>
+                            <option value="國小二年級組">國小二年級組</option>
+                            <option value="國小三年級組">國小三年級組</option>
+                            <option value="國小四年級組">國小四年級組</option>
+                            <option value="國小五年級組">國小五年級組</option>
+                            <option value="國小六年級組">國小六年級組</option>
+                            <option value="國中組">國中組</option>
+                            <option value="高中組">高中組</option>
+                            <option value="社會組">社會組</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col-md-4 mb-4">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">報名項目</span>
-                    </h4>
-                    <ul class="list-group mb-3">
+                <div class="col-md-12 mb-5">
+                    <h4 class="mb-3">參賽項目</h4>
+                    <ul class="list-group mb-3" style="float:left;width:49%">
                         <li class="list-group-item mb-3">
                             <div>
-                                <h6>選擇級別</h6>
+                                <h6>自由式速椿</h6>
                             </div>
                             <div class="">
-                                <select class="form-control" name="level" id="levelSelectBar" required>
+                                <select class="form-control" name="level" id="自由級別" disabled>
                                     <option value=''> -- 選擇級別 -- </option>
-                                    <option value="初級組">初級組</option>
-                                    <option value="新人組">新人組</option>
-                                    <option value="選手組">選手組</option>
+                                    <option value="初級組" id="初級組">初級組</option>
+                                    <option value="選手組" id="選手組">選手組</option>
                                 </select>
                             </div>
-                        </li>
-                        <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">
-                            <div>
-                                <h6>選擇參賽項目</h6>
-                            </div>
-                            <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S型" id="doubleS" >
-                                <label class="form-check-label" for="defaultCheck1">
+                            <div class="form-check mt-3" style="">
+                                <input class="form-check-input" name="enrollFreeItem[]" type="checkbox" value="前進雙足S型" id="前進雙足S型" disabled>
+                                <label class="form-check-label" for="前進雙足S型">
                                     前進雙足S型
                                 </label>
                             </div>
-                            <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S型" id="singleS" >
-                                <label class="form-check-label" for="defaultCheck1">
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" name="enrollFreeItem[]" type="checkbox" value="前進單足S型" id="前進單足S型" disabled>
+                                <label class="form-check-label" for="前進單足S型">
                                     前進單足S型
                                 </label>
                             </div>
-                            <div class="form-check" style="margin-top:10px">
-                                <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉型" id="cross" >
-                                <label class="form-check-label" for="defaultCheck1">
-                                    前進交叉型
+                        </li>
+                        {{--                    <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">--}}
+                        {{--                        <div>--}}
+                        {{--                            <h6>選擇參賽項目</h6>--}}
+                        {{--                        </div>--}}
+                        {{--                    </li>--}}
+                    </ul>
+                    <ul class="list-group mb-3 " style="float:right;width:49%">
+                        <li class="list-group-item mb-3">
+                            <div>
+                                <h6>競速</h6>
+                            </div>
+                            <div class="">
+                                <select class="form-control" name="level" id="競速級別" disabled>
+                                    <option value=''> -- 選擇級別 -- </option>
+                                    <option value="休閒組" id="休閒組">休閒組</option>
+                                    <option value="競速組" id="競速組">競速組</option>
+                                </select>
+                            </div>
+
+                            <div class="form-check mt-3" style="">
+
+                                <input class="form-check-input" name="" type="checkbox" value="150公尺計時賽" id="150公尺計時賽" disabled>
+                                <label class="form-check-label" for="150公尺計時賽">
+                                    150公尺計時賽
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" name="enrollSpeedItem[]" type="checkbox" value="300公尺計時賽" id="300公尺計時賽" disabled>
+                                <label class="form-check-label" for="300公尺計時賽">
+                                    300公尺計時賽
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" name="enrollSpeedItem[]" type="checkbox" value="450公尺計時賽" id="450公尺計時賽" disabled>
+                                <label class="form-check-label" for="450公尺計時賽">
+                                    450公尺計時賽
                                 </label>
                             </div>
                         </li>
+                        {{--                    <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">--}}
+                        {{--                        <div>--}}
+                        {{--                            <h6>選擇參賽項目</h6>--}}
+                        {{--                        </div>--}}
+                        {{--                    </li>--}}
                     </ul>
-
-                    @if ($status)
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
-                    @else
-                        <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
-                    @endif
                 </div>
+
+
+                @if ($status)
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
+                @else
+                    <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
+                @endif
+
             </div>
+
+            <div class="row"></div>
         </form>
     </div>
 </div>
@@ -149,24 +185,105 @@
 
 @section('js')
 <script>
-    $("#levelSelectBar").change(function() {
-        $("#enrollItemSelectBar").show();
+    function init() {
+        $('#競速級別').prop('disabled', false);
+        $('#自由級別').prop('disabled', false);
+        $('#初級組').prop('disabled', false);
+        $('#選手組').prop('disabled', false);
+        $('#休閒組').prop('disabled', false);
+        $('#競速組').prop('disabled', false);
+        $('#前進雙足S型').prop('disabled', true).prop('checked', false);
+        $('#前進單足S型').prop('disabled', true).prop('checked', false);
+        $('#150公尺計時賽').prop('disabled', true).prop('checked', false);
+        $('#300公尺計時賽').prop('disabled', true).prop('checked', false);
+        $('#450公尺計時賽').prop('disabled', true).prop('checked', false);
+    }
 
+    function 初級組() {
+        $('#前進雙足S型').prop('disabled', false).prop('checked', false);
+        $('#前進單足S型').prop('disabled', true).prop('checked', false);
+    }
+
+    function 選手組() {
+        $('#前進雙足S型').prop('disabled', false).prop('checked', false);
+        $('#前進單足S型').prop('disabled', false).prop('checked', false);
+    }
+
+    function 休閒組() {
+        $('#150公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#300公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#450公尺計時賽').prop('disabled', true).prop('checked', false);
+    }
+
+    function 競速組() {
+        $('#150公尺計時賽').prop('disabled', true).prop('checked', false);
+        $('#300公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#450公尺計時賽').prop('disabled', false).prop('checked', false);
+    }
+
+    function 初級關閉() {
+        $('#初級組').prop('disabled', true);
+    }
+
+    function 競速關閉() {
+        $('#競速組').prop('disabled', true);
+    }
+
+
+    $("#組別").change(function() {
+// ### 級別
+// 1. 初級組（初級組只有幼稚園到國小選項）
+// 2. 選手組（無限制）
+
+// ### 初級組項目
+// 1. 前進雙足S型
+//
+// ### 選手組項目
+// 1. 前進雙足S型
+// 2. 前進單足S型
+
+// ### 級別
+// 1. 休閒組（無限制）
+// 2. 競速組（競速組別只有國小到高中組的選項）
+
+// ### 休閒組項目
+// 1. 150公尺計時賽
+// 2. 300公尺計時賽
+//
+// ### 競速組項目
+// 1. 300公尺計時賽
+// 2. 450公尺計時賽
         switch ($(this).val()) {
-            case '初級組':
-                $('#doubleS').prop('disabled', false).prop('checked', false);
-                $('#singleS').prop('disabled', true).prop('checked', false);
-                $('#cross').prop('disabled', true).prop('checked', false);
+            case '小班幼童組':
+                init();
+                初級組();
+                選手組();
+                休閒組();
+                競速組();
+                初級關閉();
+                競速關閉();
                 break;
-            case '新人組':
-                $('#doubleS').attr('disabled', false).prop('checked', false);
-                $('#singleS').attr('disabled', true).prop('checked', false);
-                $('#cross').attr('disabled', false).prop('checked', false);
+            case '中班幼童組':
                 break;
-            case '選手組':
-                $('#doubleS').attr('disabled', false).prop('checked', false);
-                $('#singleS').attr('disabled', false).prop('checked', false);
-                $('#cross').attr('disabled', false).prop('checked', false);
+            case '大班幼童組':
+                break;
+            case '國小一年級組':
+                break;
+            case '國小二年級組':
+                break;
+            case '國小三年級組':
+                break;
+            case '國小四年級組':
+                break;
+            case '國小五年級組':
+                break;
+            case '國小六年級組':
+                break;
+            case '國中組':
+                break;
+            case '高中組':
+                break;
+            case '社會組':
                 break;
         }
     });

@@ -2,7 +2,7 @@
 
 return [
 
-    'game_id' => 6,
+    'game_id' => 7,
 
     'enroll' => 0,
 
