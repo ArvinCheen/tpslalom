@@ -48,9 +48,9 @@
                             <li>
                                 <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>
                             </li>
-                            <li>
-                                <a href="{{ URL('search/result') }}"> 成績公告 </a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('search/result') }}"> 成績公告 </a>--}}
+{{--                            </li>--}}
 
 {{--                            <li>--}}
 {{--                                <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
