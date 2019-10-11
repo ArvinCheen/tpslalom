@@ -17,7 +17,7 @@
                     <h2 class="mt-4"> 曾大宇 </h2>
                     <h5>競速裁判長</h5>
                     <small>中華民國滑輪溜冰協會-競速A級裁判</small><br>
-                    <small>2019年全國總統盃溜冰錦標賽競速裁判</small>
+                    <small>2019年全國總統盃溜冰錦標賽競速裁判</small><br>
                     <small>2019年全民運動會-競速裁判</small><br>
                     <small>2019年全國中等學校運動會-競速裁判</small><br>
                     <small>2018年全民運動會-競速裁判</small><br>
