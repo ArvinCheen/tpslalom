@@ -62,9 +62,14 @@ class RegistryFeeModel extends Model
             ->get();
     }
 
-    public function getTotal()
+    public function getTeamTotal()
     {
         return $this->where('account_id', auth()->user()->id)->where('game_id', config('app.game_id'))->sum('fee');
+    }
+
+    public function getTotal()
+    {
+        return $this->where('game_id', config('app.game_id'))->sum('fee');
     }
 
 //    public function getBills()

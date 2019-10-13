@@ -57,6 +57,10 @@ class SlackNotify
      */
     public function getMsg()
     {
+        if (env('ENV') == 'dev') {
+            $this->msg = '`開發環境，這是假的` ' . $this->msg;
+        }
+
         return $this->msg;
     }
 
@@ -67,6 +71,7 @@ class SlackNotify
     public function setChannel($channel)
     {
         $this->channel = $channel;
+
         return $this;
     }
 

@@ -75,9 +75,7 @@ class EnrollModel extends Model
 
     public function getGroup($playerId)
     {
-        return $this->where('game_id', config('app.game_id'))
-            ->where('player_id', $playerId)
-            ->value('group');
+        return $this->where('game_id', config('app.game_id'))->where('player_id', $playerId)->value('group');
     }
 
     public function getLevel($playerId)

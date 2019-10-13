@@ -15,7 +15,7 @@ class PaymentController extends Controller
             $payment->item = $this->assembleItem($payment->player_number);
         }
 
-        $total = number_format(app(RegistryFeeModel::class)->getTotal());
+        $total = number_format(app(RegistryFeeModel::class)->getTeamTotal());
 
         return  view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
     }

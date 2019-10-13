@@ -44,14 +44,14 @@ class EnrollController extends Controller
         $gender          = $request->gender;
         $city            = $request->city;
         $group           = $request->group;
-        $level           = $request->level;
-        $enrollSpeedItem = $request->input('enrollSpeedItem', []);
+        $freeLevel       = $request->freeLevel;
+        $speedLevel      = $request->speedLevel;
         $enrollFreeItem  = $request->input('enrollFreeItem', []);
-        $enrollItem = array_merge($enrollFreeItem,$enrollSpeedItem);
+        $enrollSpeedItem = $request->input('enrollSpeedItem', []);
 
-        if (is_null($enrollSpeedItem) && is_null($enrollFreeItem)) {
+        if (empty($enrollFreeItem) & empty($enrollSpeedItem)) {
             Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
-            return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
+            return back()->with(['error' => '報名失敗，請選擇報名項目']);
         }
 
         try {
@@ -70,15 +70,27 @@ class EnrollController extends Controller
 
             $playerNumber = $this->getPlayerNumber($playerId);
 
-            foreach ($enrollItem as $Item) {
+            foreach ($enrollFreeItem as $freeItem) {
                 EnrollModel::updateOrCreate([
                     'player_id'     => $playerId,
                     'game_id'       => config('app.game_id'),
                     'player_number' => $playerNumber,
                     'account_id'    => auth()->user()->id,
-                    'level'         => $level,
+                    'level'         => $freeLevel,
                     'group'         => $group,
-                    'item'          => $Item,
+                    'item'          => $freeItem,
+                ]);
+            }
+
+            foreach ($enrollSpeedItem as $speedItem) {
+                EnrollModel::updateOrCreate([
+                    'player_id'     => $playerId,
+                    'game_id'       => config('app.game_id'),
+                    'player_number' => $playerNumber,
+                    'account_id'    => auth()->user()->id,
+                    'level'         => $speedLevel,
+                    'group'         => $group,
+                    'item'          => $speedItem,
                 ]);
             }
 
@@ -97,8 +109,11 @@ class EnrollController extends Controller
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $enrollFee]
             );
 
-            $account = AccountModel::find(auth()->user()->id)->team_name;
-            app(SlackNotify::class)->setMsg("```選手號碼：{$playerNumber} {$name}（{$account}） 報名成功```")->notify();
+            $account  = AccountModel::find(auth()->user()->id)->team_name;
+            $totalFee = app(RegistryFeeModel::class)->getTotal();
+
+            $enrollItem = array_merge($enrollFreeItem, $enrollSpeedItem);
+            app(SlackNotify::class)->setMsg("```選手號碼：{$playerNumber} {$name} - {$account} 參賽\n比賽項目：" . implode(", ", $enrollItem) . " \n目前比賽經費：" . number_format($totalFee) . "元```")->notify();
             DB::commit();
 
             return back()->with(['success' => '報名成功']);

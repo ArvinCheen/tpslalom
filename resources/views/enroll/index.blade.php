@@ -100,7 +100,7 @@
                                 <h6>自由式速椿</h6>
                             </div>
                             <div class="">
-                                <select class="form-control" name="level" id="自由級別" disabled>
+                                <select class="form-control" name="freeLevel" id="自由級別" disabled>
                                     <option value='' id="自由預設"> -- 選擇級別 -- </option>
                                     <option value="初級組" id="初級組">初級組</option>
                                     <option value="選手組" id="選手組">選手組</option>
@@ -131,7 +131,7 @@
                                 <h6>競速</h6>
                             </div>
                             <div class="">
-                                <select class="form-control" name="level" id="競速級別" disabled>
+                                <select class="form-control" name="speedLevel" id="競速級別" disabled>
                                     <option value='' id="競速預設"> -- 選擇級別 -- </option>
                                     <option value="休閒組" id="休閒組">休閒組</option>
                                     <option value="競速組" id="競速組">競速組</option>
@@ -230,8 +230,6 @@
         $('#競速組').prop('disabled', true);
     }
 
-
-
     $("#自由級別").change(function() {
         $('#前進雙足S型').prop('disabled', false).prop('checked', false);
         $('#前進單足S型').prop('disabled', false).prop('checked', false);
@@ -262,8 +260,12 @@
     });
 
     $("#組別").change(function() {
+        groupController($(this).val());
+    });
+
+    function groupController(val) {
         init();
-        switch ($(this).val()) {
+        switch (val) {
             case '小班幼童組':
                 競速關閉()
                 break;
@@ -296,7 +298,7 @@
                 初級關閉()
                 break;
         }
-    });
+    }
 
     $("select[name='playerId']").change(function() {
         var playerId = $(this).val();
@@ -336,40 +338,27 @@
     }
 
     function getPlayer(playerId) {
-        console.log(playerId);
         $.ajax({
             url: "player/ajaxGetPlayer/" + playerId,
             dateType: "JSON",
             success: function (msg) {
                 console.log(msg);
-                $("input[name='name']").val(msg.name);
-                $("input[name='agency']").val(msg.agency);
-                $("select[name='gender'] option[value=" + msg.gender + "]").prop('selected', true);
-                $("select[name='city'] option[value=" + msg.city + "]").prop('selected', true);
+                $("input[name='name']").val(msg.player.name);
+                $("input[name='agency']").val(msg.player.agency);
+                $("select[name='gender'] option[value=" + msg.player.gender + "]").prop('selected', true);
+                $("select[name='city'] option[value=" + msg.player.city + "]").prop('selected', true);
 
-                if (!msg.group) {
+                if (!msg.enrolls[0].group) {
                     $("select[name='group']").prop("selectedIndex", 0);
                 } else {
-                    $("select[name='group'] option[value=" + msg.group + "]").prop('selected', true);
+                    groupController(msg.enrolls[0].group)
+                    $("select[name='group'] option[value=" + msg.enrolls[0].group + "]").prop('selected', true);
                 }
 
-                if (!msg.doubleS) {
-                    $("select[name='doubleS']").prop("selectedIndex", 0);
-                } else {
-                    $("select[name='doubleS'] option[value=" + msg.doubleS + "]").prop('selected', true);
-                }
-
-                if (!msg.singleS) {
-                    $("select[name='singleS']").prop("selectedIndex", 0);
-                } else {
-                    $("select[name='singleS'] option[value=" + msg.singleS + "]").prop('selected', true);
-                }
-
-                if (!msg.cross) {
-                    $("select[name='cross']").prop("selectedIndex", 0);
-                } else {
-                    $("select[name='cross'] option[value=" + msg.cross + "]").prop('selected', true);
-                }
+                msg.enrolls.forEach(function(enroll) {
+                    $('#' + enroll.level).prop('disabled', false).prop('selected', true);
+                    $('#' + enroll.item).prop('disabled', false).prop('checked', true);
+                });
             },
             error: function (err) {
                 console.log(err);
