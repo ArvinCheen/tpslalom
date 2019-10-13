@@ -38,11 +38,75 @@ class EnrollController extends Controller
 
     public function enroll(Request $request)
     {
-        if (! $this->store($request)) {
+        $playerId        = $request->playerId == 'newPlayer' ? null : $request->playerId;
+        $name            = $request->name;
+        $agency          = $request->agency;
+        $gender          = $request->gender;
+        $city            = $request->city;
+        $group           = $request->group;
+        $level           = $request->level;
+        $enrollSpeedItem = $request->input('enrollSpeedItem', []);
+        $enrollFreeItem  = $request->input('enrollFreeItem', []);
+        $enrollItem = array_merge($enrollFreeItem,$enrollSpeedItem);
+
+        if (is_null($enrollSpeedItem) && is_null($enrollFreeItem)) {
+            Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
             return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
         }
 
-        return back()->with(['success' => '報名成功']);
+        try {
+            DB::beginTransaction();
+
+            $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
+                'account_id' => auth()->user()->id,
+                'name'       => $name,
+                'gender'     => $gender,
+                'city'       => $city,
+                'agency'     => $agency,
+            ])->id;
+
+//            這裡應該是直接帶入，不取消，用更新的方式，或許可以共同修改報名功能
+            app(EnrollModel::class)->cancel($playerId);
+
+            $playerNumber = $this->getPlayerNumber($playerId);
+
+            foreach ($enrollItem as $Item) {
+                EnrollModel::updateOrCreate([
+                    'player_id'     => $playerId,
+                    'game_id'       => config('app.game_id'),
+                    'player_number' => $playerNumber,
+                    'account_id'    => auth()->user()->id,
+                    'level'         => $level,
+                    'group'         => $group,
+                    'item'          => $Item,
+                ]);
+            }
+
+            $enrollFee = 0;
+
+            if (count($enrollSpeedItem) <> 0) {
+                $enrollFee += 300 + ((count($enrollSpeedItem) - 1) * 100);
+            }
+
+            if (count($enrollFreeItem) <> 0) {
+                $enrollFee += 300 + ((count($enrollFreeItem) - 1) * 100);
+            }
+
+            app(RegistryFeeModel::class)::updateOrCreate(
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $enrollFee]
+            );
+
+            $account = AccountModel::find(auth()->user()->id)->team_name;
+            app(SlackNotify::class)->setMsg("```選手號碼：{$playerNumber} {$name}（{$account}） 報名成功```")->notify();
+            DB::commit();
+
+            return back()->with(['success' => '報名成功']);
+        } catch (\Exception $e) {
+            app()->make(SlackNotify::class)->setMsg('[EnrollController@store] Error ' . $e->getMessage())->notify();
+            DB::rollback();
+            return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢，如還是無法報名，請聯絡承辦人']);
+        }
     }
 
     public function update(Request $request)
@@ -114,6 +178,7 @@ class EnrollController extends Controller
         $group      = $request->group;
         $level      = $request->level;
         $enrollItem = $request->enrollItem;
+
         if (is_null($enrollItem)) {
             Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
             $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');

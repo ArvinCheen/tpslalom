@@ -138,9 +138,8 @@
                                 </select>
                             </div>
 
-                            <div class="form-check mt-3" style="">
-
-                                <input class="form-check-input" name="" type="checkbox" value="150公尺計時賽" id="150公尺計時賽" disabled>
+                            <div class="form-check mt-3 " style="">
+                                <input class="form-check-input" name="enrollSpeedItem[]" type="checkbox" value="150公尺計時賽" id="150公尺計時賽" disabled>
                                 <label class="form-check-label" for="150公尺計時賽">
                                     150公尺計時賽
                                 </label>
@@ -167,11 +166,11 @@
                 </div>
 
 
-{{--                @if ($status)--}}
-{{--                    <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>--}}
-{{--                @else--}}
+                @if ($status)
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
+                @else
                     <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
-{{--                @endif--}}
+                @endif
 
             </div>
 

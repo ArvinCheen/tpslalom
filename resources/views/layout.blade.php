@@ -10,7 +10,7 @@
     <title>直排輪體育賽事</title>
     <link rel="icon" href="{{ URL::asset('img/icon-hs.png') }}" sizes="32x32"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--}}
 
     <!-- 由後台提供的plugins調整bootstrap元素 Start -->
     <link href="{{ URL::asset('global/css/plugins.min.css') }}" rel="stylesheet" type="text/css"/>
