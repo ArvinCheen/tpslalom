@@ -34,7 +34,7 @@
                     <h5>速樁裁判長</h5>
                     <small>中華民國溜冰協會-自由式A級裁判</small><br>
                     <small>新竹市2019年市長盃滑輪溜冰錦標賽 裁判長</small><br>
-                    <small>2016年全國會長盃自由式滑輪錦標賽裁判</small>
+                    <small>2016年全國會長盃滑輪溜冰錦標賽-自由式裁判</small>
                 </div>
                 <div class="col-md-4 mb-5 text-center">
                     <img class="rounded-circle border" src="{{ URL::asset('img/裁判/裁判.png') }}" style="width:200px;">
