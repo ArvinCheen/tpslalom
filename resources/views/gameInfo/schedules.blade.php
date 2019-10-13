@@ -61,8 +61,8 @@
                             <td> {{ $scheduleSD->group }} </td>
                             <td> {{ $scheduleSD->gender }} </td>
                             <td> {{ $scheduleSD->item }} </td>
-                            <td> {{ $scheduleFD->game_type }} </td>
-                            <td> {{ $scheduleFD->remark }} </td>
+                            <td> {{ $scheduleSD->game_type }} </td>
+                            <td> {{ $scheduleSD->remark }} </td>
                             <td> {{ $scheduleSD->number_of_player }} </td>
                         </tr>
                     @endforeach
