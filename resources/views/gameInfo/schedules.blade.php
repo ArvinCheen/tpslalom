@@ -29,9 +29,9 @@
                             <td> {{ $scheduleFD->item }} </td>
                             <td> {{ $scheduleFD->number_of_player }} </td>
                         </tr>
-                        <tr >
-                            <td colspan="5 text-center"> 檢錄．完賽排名．獎狀列印 </td>
-                        </tr>
+{{--                        <tr >--}}
+{{--                            <td colspan="5 text-center"> 檢錄．完賽排名．獎狀列印 </td>--}}
+{{--                        </tr>--}}
                     @endforeach
                 </table>
             </div>
