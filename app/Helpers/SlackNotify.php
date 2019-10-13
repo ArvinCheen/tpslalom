@@ -21,7 +21,7 @@ class SlackNotify
 
     public function notify()
     {
-        $url = 'https://hooks.slack.com/services/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';
+        $url = 'https://hooks.slack.com/services/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';
 
         $array = [
             'channel'  => $this->getChannel(),
