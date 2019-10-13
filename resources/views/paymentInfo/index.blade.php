@@ -9,9 +9,8 @@
         <div class="container">
             <div class="mt-5 mb-5 text-center">
                 <h2 class="mb-3">繳費資訊</h2>
-                <p>新竹第一信用合作社</p>
-                <p>單位：東南分社　帳號：002-001-00006960</p>
-                <p>戶名：新竹市體育會滑輪溜冰委員會</p>
+                <p>中華郵政分局(700)　單位：新竹武昌街郵局　帳號：0061-0041-9045-57</p>
+                <p>戶名：朱啟維</p>
                 <p>未於期限內繳交則視作報名未完成，匯款後請填寫匯款回報資料表。</p>
             </div>
             <div class="row justify-content-center col-md-12">
