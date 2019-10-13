@@ -14,6 +14,8 @@ class SlackNotify
 
     private $msg = 'Hello World';
 
+    private $url = 'https://hooks.slack.com/services/';
+
     public function __construct()
     {
         $this->client = new Client();
@@ -21,15 +23,13 @@ class SlackNotify
 
     public function notify()
     {
-        $url = 'https://hooks.slack.com/services/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';
-
         $array = [
             'channel'  => $this->getChannel(),
             'username' => $this->getUsername(),
             'text'     => $this->getMsg()
         ];
 
-        $this->client->post($url, [
+        $this->client->post($this->url . env('SLACK', 'TH74P8D8E/BNYRD95TL/PSsMj6vuugwhsabb5zLX57X3'), [
             'form_params' => [
                 'payload' => json_encode($array)
             ]
