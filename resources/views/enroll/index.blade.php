@@ -13,6 +13,7 @@
         </div>
         <form action='{{ URL('enroll/enroll') }}' method="post">
             {{ csrf_field() }}
+            <input type="hidden" name="action" value="參賽"/>
             <div class="row">
                 <div class="col-md-12 mb-5">
                     <h4 class="mb-3">選手資訊</h4>
@@ -119,11 +120,6 @@
                                 </label>
                             </div>
                         </li>
-                        {{--                    <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">--}}
-                        {{--                        <div>--}}
-                        {{--                            <h6>選擇參賽項目</h6>--}}
-                        {{--                        </div>--}}
-                        {{--                    </li>--}}
                     </ul>
                     <ul class="list-group mb-3 " style="float:right;width:49%">
                         <li class="list-group-item mb-3">
@@ -157,11 +153,6 @@
                                 </label>
                             </div>
                         </li>
-                        {{--                    <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">--}}
-                        {{--                        <div>--}}
-                        {{--                            <h6>選擇參賽項目</h6>--}}
-                        {{--                        </div>--}}
-                        {{--                    </li>--}}
                     </ul>
                 </div>
 
@@ -231,37 +222,46 @@
     }
 
     $("#自由級別").change(function() {
-        $('#前進雙足S型').prop('disabled', false).prop('checked', false);
-        $('#前進單足S型').prop('disabled', false).prop('checked', false);
-        switch ($(this).val()) {
-            case '初級組':
-                $('#前進單足S型').prop('disabled', true);
-                break;
-            case '選手組':
-                $('#前進單足S型').prop('disabled', false);
-                break;
-        }
+        $('#前進雙足S型').prop('checked', false);
+        $('#前進單足S型').prop('checked', false);
 
+        levelController ($(this).val());
     });
 
     $("#競速級別").change(function() {
-        $('#150公尺計時賽').prop('disabled', false).prop('checked', false);
-        $('#300公尺計時賽').prop('disabled', false).prop('checked', false);
-        $('#450公尺計時賽').prop('disabled', false).prop('checked', false);
+        $('#150公尺計時賽').prop('checked', false);
+        $('#300公尺計時賽').prop('checked', false);
+        $('#450公尺計時賽').prop('checked', false);
 
-        switch ($(this).val()) {
-            case '休閒組':
-                $('#450公尺計時賽').prop('disabled', true);
-                break;
-            case '競速組':
-                $('#150公尺計時賽').prop('disabled', true);
-                break;
-        }
+        levelController ($(this).val());
     });
 
     $("#組別").change(function() {
         groupController($(this).val());
     });
+
+    function levelController(val) {
+        switch (val) {
+            case '初級組':
+                $('#前進雙足S型').prop('disabled', false);
+                $('#前進單足S型').prop('disabled', true);
+                break;
+            case '選手組':
+                $('#前進雙足S型').prop('disabled', false);
+                $('#前進單足S型').prop('disabled', false);
+                break;
+            case '休閒組':
+                $('#150公尺計時賽').prop('disabled', false);
+                $('#300公尺計時賽').prop('disabled', false);
+                $('#450公尺計時賽').prop('disabled', true);
+                break;
+            case '競速組':
+                $('#150公尺計時賽').prop('disabled', true);
+                $('#300公尺計時賽').prop('disabled', false);
+                $('#450公尺計時賽').prop('disabled', false);
+                break;
+        }
+    }
 
     function groupController(val) {
         init();
@@ -342,7 +342,6 @@
             url: "player/ajaxGetPlayer/" + playerId,
             dateType: "JSON",
             success: function (msg) {
-                console.log(msg);
                 $("input[name='name']").val(msg.player.name);
                 $("input[name='agency']").val(msg.player.agency);
                 $("select[name='gender'] option[value=" + msg.player.gender + "]").prop('selected', true);

@@ -60,9 +60,7 @@ class EnrollModel extends Model
 
     public function cancel($playerId)
     {
-        return $this->where('player_id', $playerId)
-            ->where('game_id', config('app.game_id'))
-            ->delete();
+        return $this->where('player_id', $playerId)->where('game_id', config('app.game_id'))->delete();
     }
 
     public function getItemLevel($playerId, $item)
