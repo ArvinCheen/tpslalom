@@ -37,6 +37,20 @@
                     <small>2016年全國會長盃滑輪溜冰錦標賽-自由式裁判</small>
                 </div>
                 <div class="col-md-4 mb-5 text-center">
+                    <img class="rounded-circle border" src="{{ URL::asset('img/裁判/陳穎立.png') }}" style="width:200px;">
+                    <h2 class="mt-4"> 陳穎立 </h2>
+                    <h5>裁判</h5>
+                    <small>中華民國滑溜溜冰協會-競速滑輪B級裁判</small><br>
+                    <small>新竹市2016年市長盃滑輪溜冰錦標賽 裁判</small>
+                </div>
+                <div class="col-md-4 mb-5 text-center">
+                    <img class="rounded-circle border" src="{{ URL::asset('img/裁判/梁暄旼.png') }}" style="width:200px;">
+                    <h2 class="mt-4"> 梁暄旼 </h2>
+                    <h5>裁判</h5>
+                    <small>中華民國滑輪溜冰協會-自由式滑輪C級裁判</small><br>
+                    <small>新竹市2016年市長盃滑輪溜冰錦標賽 裁判</small>
+                </div>
+                <div class="col-md-4 mb-5 text-center">
                     <img class="rounded-circle border" src="{{ URL::asset('img/裁判/裁判.png') }}" style="width:200px;">
                     <h2 class="mt-4">想成為裁判？</h2>
                     <h5>快點聯絡我們！</h5>
