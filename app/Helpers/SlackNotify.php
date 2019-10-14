@@ -14,6 +14,8 @@ class SlackNotify
 
     private $msg = 'Hello World';
 
+    private $url = 'https://hooks.slack.com/services/';
+
     public function __construct()
     {
         $this->client = new Client();
@@ -21,15 +23,13 @@ class SlackNotify
 
     public function notify()
     {
-        $url = 'https://hooks.slack.com/services/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';
-
         $array = [
             'channel'  => $this->getChannel(),
             'username' => $this->getUsername(),
             'text'     => $this->getMsg()
         ];
 
-        $this->client->post($url, [
+        $this->client->post($this->url . env('SLACK', 'TH74P8D8E/BNYRD95TL/PSsMj6vuugwhsabb5zLX57X3'), [
             'form_params' => [
                 'payload' => json_encode($array)
             ]
@@ -57,6 +57,10 @@ class SlackNotify
      */
     public function getMsg()
     {
+        if (env('ENV') == 'dev') {
+            $this->msg = '`開發環境，這是假的` ' . $this->msg;
+        }
+
         return $this->msg;
     }
 
@@ -67,6 +71,7 @@ class SlackNotify
     public function setChannel($channel)
     {
         $this->channel = $channel;
+
         return $this;
     }
 
