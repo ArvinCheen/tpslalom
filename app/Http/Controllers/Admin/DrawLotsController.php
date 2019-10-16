@@ -130,9 +130,9 @@ class DrawLotsController extends Controller
         ScheduleModel::create(['game_id' => 1, 'order' => '場次18', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '青年', 'gender' => '男', 'number_of_player' => 0]);
         ScheduleModel::create(['game_id' => 1, 'order' => '場次19', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '青年', 'gender' => '女', 'number_of_player' => 0]);
         ScheduleModel::create(['game_id' => 1, 'order' => '場次20', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '成年', 'gender' => '男', 'number_of_player' => 0]);
-        ScheduleModel::create(['game_id' => 1, 'order' => '場次20', 'item' => '雙人花式繞樁', 'group' => '不分組', 'gender' => '不分組', 'number_of_player' => 0]);
-        ScheduleModel::create(['game_id' => 1, 'order' => '場次21', 'item' => '花式煞停', 'group' => '', 'gender' => '男', 'number_of_player' => 0]);
-        ScheduleModel::create(['game_id' => 1, 'order' => '場次22', 'item' => '花式煞停', 'group' => '', 'gender' => '女', 'number_of_player' => 0]);
+        ScheduleModel::create(['game_id' => 1, 'order' => '場次21', 'item' => '雙人花式繞樁', 'group' => '不分組', 'gender' => '不分組', 'number_of_player' => 0]);
+        ScheduleModel::create(['game_id' => 1, 'order' => '場次22', 'item' => '花式煞停', 'group' => '', 'gender' => '男', 'number_of_player' => 0]);
+        ScheduleModel::create(['game_id' => 1, 'order' => '場次23', 'item' => '花式煞停', 'group' => '', 'gender' => '女', 'number_of_player' => 0]);
         ScheduleModel::create(['game_id' => 1, 'order' => '場次24', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '青年', 'gender' => '男', 'number_of_player' => 0]);
         ScheduleModel::create(['game_id' => 1, 'order' => '場次25', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '青年', 'gender' => '女', 'number_of_player' => 0]);
         ScheduleModel::create(['game_id' => 1, 'order' => '場次26', 'item' => '【國選積分】速度過樁-前溜單足S形', 'group' => '成年', 'gender' => '男', 'number_of_player' => 0]);
