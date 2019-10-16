@@ -52,8 +52,8 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        $schedulesFirstDay   = app(ScheduleModel::class)->where('id', '<=', 22)->get();
-        $schedulesSecondDay = app(ScheduleModel::class)->where('id', '>', 22)->get();
+        $schedulesFirstDay   = app(ScheduleModel::class)->where('id', '<=', 23)->get();
+        $schedulesSecondDay = app(ScheduleModel::class)->where('id', '>=', 24)->get();
 
         return view('gameInfo/schedules')->with(compact('schedulesFirstDay', 'schedulesSecondDay'));
     }

@@ -28,7 +28,7 @@
                     @endforeach
                 </select>
             </div>
-            @if ($scheduleId == 20)
+            @if ($scheduleId == 21)
                 <div class="col-md-12 mt-3">
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
