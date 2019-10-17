@@ -35,12 +35,66 @@ class ExportController extends Controller
             ->get();
 
         if ($enrolls->isEmpty()) {
+
             return back()->with(['error' => '無獎狀資料']);
         }
 
         $this->exportExcel($order, $enrolls, 'certificate');
     }
 
+    /**
+     * 分組名冊
+     */
+    public function groups()
+    {
+        $schedules = ScheduleModel::get();
+        Excel::create('分組名冊', function ($excel) use ($schedules) {
+            foreach ($schedules as $schedule) {
+                $excel->sheet($schedule->order,
+                    function ($sheet) use ($schedule) {
+                        $sheet->setFontFamily('微軟正黑體');
+                        $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
+                            $query->where('gender', $schedule->gender);
+                        })
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->orderBy('appearance')
+                            ->get();
+
+                        foreach ($enrolls as $key => $enroll) {
+                            $local = $key + 2;
+
+                            $sheet->cell('A1', function ($cell) use ($enroll) {
+                                $cell->setValue('出場序');
+                            });
+                            $sheet->cell('B1', function ($cell) use ($enroll) {
+                                $cell->setValue('選手編號');
+                            });
+                            $sheet->cell('C1', function ($cell) use ($enroll) {
+                                $cell->setValue('選手姓名');
+                            });
+                            $sheet->cell('D1', function ($cell) use ($enroll) {
+                                $cell->setValue('單位');
+                            });
+
+                            $sheet->cell('A' . ($local), function ($cell) use ($enroll) {
+                                $cell->setValue($enroll->appearance);
+                            });
+                            $sheet->cell('B' . ($local), function ($cell) use ($enroll) {
+                                $cell->setValue($enroll->player_number);
+                            });
+                            $sheet->cell('C' . ($local), function ($cell) use ($enroll) {
+                                $cell->setValue($enroll->player->name);
+                            });
+                            $sheet->cell('D' . ($local), function ($cell) use ($enroll) {
+                                $cell->setValue($enroll->player->agency);
+                            });
+                        }
+                    });
+            }
+        })->download('xls');
+    }
+    
     public function completion($accountId)
     {
         $enrolls = EnrollModel::with('player')

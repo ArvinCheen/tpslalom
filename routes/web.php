@@ -144,6 +144,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/records', 'Admin\ExportController@records');  // 紀錄手寫單
         Route::get('/teamCheckIn', 'Admin\ExportController@teamCheckIn');  // 隊伍簽到表
         Route::get('/result', 'Admin\ExportController@result'); // 賽後成績
+        Route::get('/groups', 'Admin\ExportController@groups'); // 賽後成績
+
     });
 });
 
