@@ -360,14 +360,14 @@ class ExportController extends Controller
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('B1', function ($cell) use ($schedule) {
-                        $cell->setFontSize(16);
-                        $cell->setValue($schedule->item);
-                        $cell->setAlignment('center');
-                        $cell->setValignment('center');
-                    });
+//                    $sheet->cell('B1', function ($cell) use ($schedule) { 這個好像是多的
+//                        $cell->setFontSize(16);
+//                        $cell->setValue($schedule->item);
+//                        $cell->setAlignment('center');
+//                        $cell->setValignment('center');
+//                    });
                     $sheet->cell('A3', function ($cell) use ($schedule) {
-                        $cell->setFontSize(16);
+                        $cell->setFontSize(12);
                         $cell->setValue($schedule->item . '　' . $schedule->level . ' ' . $schedule->group . $schedule->gender . '子組');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -463,7 +463,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->agency);
+                            $cell->setValue($enroll->player->agency_all);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
