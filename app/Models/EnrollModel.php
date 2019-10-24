@@ -244,25 +244,18 @@ class EnrollModel extends Model
             ->update($updateData);
     }
 
-    public function getResults($level, $gender, $group, $item, $city)
+    public function getResults($level, $gender, $group, $item, $rankLimit)
     {
-        return $this::whereHas('player', function ($query) use ($gender, $city) {
+        return $this::whereHas('player', function ($query) use ($gender) {
                 $query->where('gender', $gender);
-
-                if (! is_null($city)) {
-                    if ($city == '臺北市') {
-                        $query->where('city', '臺北市');
-                    } else {
-                        $query->where('city', '<>', '臺北市');
-                    }
-                }
             })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('group', $group)
             ->where('item', $item)
             ->where('final_result', '<>', '無成績')
-            ->limit(6)
+            ->where('final_result', '<>', '')
+            ->limit($rankLimit)
             ->orderBy(\DB::raw("final_result * 1"))
             ->get();
     }

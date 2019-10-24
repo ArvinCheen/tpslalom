@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\Level;
 use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
+use App\Models\AccountModel;
+use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
 use Illuminate\Http\Request;
 use App\Models\EnrollModel;
@@ -13,6 +15,22 @@ class RankController extends Controller
 {
     public function rank(Request $request)
     {
+        $accounts = AccountModel::whereNotNull('coach')->groupBy('coach')->get();
+
+        foreach ($accounts as $account) {
+//            dd($account->coach);
+            $accountKeys = AccountModel::select('id')->where('coach', $account->coach)->get()->map(function ($query) {
+                return $query->id;
+            });
+
+            $players = PlayerModel::whereIn('account_id', $accountKeys)->get();
+
+            foreach ($players as $player) {
+                echo $player->id.','.$player->name . ',' . $player->agency . ',' . $account->coach."<br>";
+            }
+
+        }
+        dd();
         $this->processOverGame($request->scheduleId);
 
         app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
@@ -24,27 +42,37 @@ class RankController extends Controller
     private function processOverGame($scheduleId)
     {
         $gameInfo = ScheduleModel::find($scheduleId);
-        $level = $gameInfo->level;
-        $gender = $gameInfo->gender;
-        $group = $gameInfo->group;
-        $item = $gameInfo->item;
+        $level    = $gameInfo->level;
+        $gender   = $gameInfo->gender;
+        $group    = $gameInfo->group;
+        $item     = $gameInfo->item;
+        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+        $rankLimit = floor($numberOfPlayer/2);
+
+        if ($rankLimit > 8) {
+            $rankLimit = 8;
+        }
+
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
-        if ($level == '選手組') {
-            $this->processRank($level, $gender, $group, $item);
-        } else {
-            $this->processRank($level, $gender, $group, $item, $city = '臺北市');
-            $this->processRank($level, $gender, $group, $item, $city = '外縣市');
-        }
+        $this->processRank($level, $gender, $group, $item, $rankLimit);
 
-        $this->processIntegral($level, $gender, $group, $item);
+//        全國賽不使用以下的判斷
+//        if ($level == '選手組') {
+//        $this->processRank($level, $gender, $group, $item, );
+//        } else {
+//            $this->processRank($level, $gender, $group, $item, $city = '臺北市');
+//            $this->processRank($level, $gender, $group, $item, $city = '外縣市');
+//        }
+
+//        $this->processIntegral($level, $gender, $group, $item);
     }
 
 
-    public function processRank($level, $gender, $group, $item, $city = null)
+    public function processRank($level, $gender, $group, $item, $rankLimit)
     {
-        $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $city);
+        $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit);
 
         foreach ($results as $key => $result) {
             if ($key <> 0) {
