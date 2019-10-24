@@ -24,8 +24,7 @@ class ResultController extends Controller
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo)
-            {
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
                 $query->where('gender', $gameInfo->gender);
             })
                 ->where('game_id', config('app.game_id'))
@@ -46,15 +45,28 @@ class ResultController extends Controller
         $roundOneMissConr = $request->roundOneMissConr;
         $roundTwoSecond   = $request->roundTwoSecond;
         $roundTwoMissConr = $request->roundTwoMissConr;
+        $scheduleId       = $request->scheduleId;
+        $rank             = $request->rank;
 
         if (! $this->validateInt($request)) {
             app('request')->session()->flash('error', '秒數請輸入數字');
             return back()->withInput();
         }
 
-        foreach ($enrollIds as $key => $enrollId) {
-            $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
+
+            foreach ($enrollIds as $key => $enrollId) {
+                $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+            }
+        } else {
+
+            foreach ($enrollIds as $key => $enrollId) {
+                EnrollModel::where('id', $enrollId)->update([
+                    'rank' => $rank[$key],
+                ]);
+            }
         }
+
 
         return back()->with(['success' => '更新選手成績成功']);
     }

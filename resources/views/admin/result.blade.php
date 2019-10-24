@@ -30,6 +30,7 @@
                     <div class="ml-2">
                         <a href="{{ URL('admin/export/certificate') }}/{{$scheduleId}}"><button type="button" class="btn btn-primary"> 匯出獎狀 </button></a>
                     </div>
+                    @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
                     <div class="ml-2">
                         <form action="{{ route('admin.rank') }}" method="POST">
                             {{ csrf_field() }}
@@ -38,11 +39,16 @@
                             <button type="submit" class="btn btn-primary"> 排名 </button>
                         </form>
                     </div>
+                    @endif
+                    <div  class="ml-2">
+                        <button type="submit" class="btn btn-primary" onclick="submit()"> 送出 </button>
+                    </div>
                 </div>
+
                 <form id="result-form" action="{{ URL('admin/result/update') }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
-                    <input type="hidden" name="scheduleSn" value="{{ $scheduleId }}">
+                    <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
@@ -61,6 +67,7 @@
                             <th class="text-center">
                                 <i class=""></i> 單位
                             </th>
+                            @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
                             <th class="text-center">
                                 <i class=""></i> 一回/秒數
                             </th>
@@ -77,11 +84,13 @@
                                 <i class=""></i> 成績
                             </th>
                             <th class="text-center">
-                                <i class=""></i> 積分
-                            </th>
-                            <th class="text-center">
                                 <i class=""></i> 名次
                             </th>
+                            @else
+                                <th class="text-center">
+                                    <i class=""></i> 名次
+                                </th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -93,18 +102,23 @@
                                 <td class="text-center"> {{ $enroll->player->name }} </td>
                                 <td class="text-center"> {{ $enroll->player->city }} </td>
                                 <td class="text-center"> {{ $enroll->player->agency }} </td>
-                                {{--<td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                {{--<td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
-                                {{--<td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                {{--<td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
+
+                                @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
+
+                                    {{--<td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
+                                    {{--<td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
+                                    {{--<td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
+                                    {{--<td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
 
                                 <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> {{ $enroll->final_result }} </td>
-                                <td class="text-center"> {{ $enroll->integral }} </td>
                                 <td class="text-center"> {{ $enroll->rank }} </td>
+                                @else
+                                    <td class="text-center"> <input name="rank[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->rank }}" autocomplete="off" > </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -126,6 +140,10 @@
             var scheduleId = $(this).val();
             window.location = "{{ URL('admin/result/') }}/" + scheduleId
         });
+
+        function submit() {
+            $("#result-form").submit();
+        }
 
         $(".resultInput").keyup(function(e) {
             if (e.which == 13) {
