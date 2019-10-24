@@ -328,23 +328,24 @@ class ExportController extends Controller
                     $sheet->setAllBorders('thin');
                     $sheet->setFontFamily('微軟正黑體');
 
-                    $sheet->mergeCells('A1:G1');
+                    $sheet->mergeCells('A1:E1');
                     $sheet->mergeCells('A2:G2');
                     $sheet->mergeCells('A3:C3');
-                    $sheet->mergeCells('D3:E3');
-                    $sheet->mergeCells('F3:G3');
+//                    $sheet->mergeCells('D3:E3');
+//                    $sheet->mergeCells('F3:G3');
                     $sheet->mergeCells('A4:G4');
                     $sheet->mergeCells('A5:A6');
                     $sheet->mergeCells('B5:B6');
                     $sheet->mergeCells('C5:C6');
-                    $sheet->mergeCells('D5:E5');
-                    $sheet->mergeCells('F5:G5');
+                    $sheet->mergeCells('D5:D6');
+                    $sheet->mergeCells('E5:E6');
+//                    $sheet->mergeCells('F5:G5');
                     $sheet->setWidth([
                         'A' => 9.5,
                         'B' => 9.5,
                         'C' => 30,
                         'D' => 9.5,
-                        'E' => 9.5,
+                        'E' => 30,
                         'F' => 9.5,
                         'G' => 9.5,
                         'H' => 9.5,
@@ -393,40 +394,40 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
                     $sheet->cell('D5', function ($cell) {
-                        $cell->setValue('第一回合');
+                        $cell->setValue('檢錄');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('F5', function ($cell) {
-                        $cell->setValue('第二回合');
-                        $cell->setAlignment('center');
-                        $cell->setValignment('center');
-                    });
+//                    $sheet->cell('F5', function ($cell) {
+//                        $cell->setValue('第二回合');
+//                        $cell->setAlignment('center');
+//                        $cell->setValignment('center');
+//                    });
                     $sheet->cell('C6', function ($cell) {
                         $cell->setValue('學校單位');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('D6', function ($cell) {
+                    $sheet->cell('E5', function ($cell) {
                         $cell->setValue('成績');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('E6', function ($cell) {
-                        $cell->setValue('誤樁');
-                        $cell->setAlignment('center');
-                        $cell->setValignment('center');
-                    });
-                    $sheet->cell('F6', function ($cell) {
-                        $cell->setValue('成績');
-                        $cell->setAlignment('center');
-                        $cell->setValignment('center');
-                    });
-                    $sheet->cell('G6', function ($cell) {
-                        $cell->setValue('誤樁');
-                        $cell->setAlignment('center');
-                        $cell->setValignment('center');
-                    });
+//                    $sheet->cell('E6', function ($cell) {
+//                        $cell->setValue('誤樁');
+//                        $cell->setAlignment('center');
+//                        $cell->setValignment('center');
+//                    });
+//                    $sheet->cell('F6', function ($cell) {
+//                        $cell->setValue('成績');
+//                        $cell->setAlignment('center');
+//                        $cell->setValignment('center');
+//                    });
+//                    $sheet->cell('G6', function ($cell) {
+//                        $cell->setValue('誤樁');
+//                        $cell->setAlignment('center');
+//                        $cell->setValignment('center');
+//                    });
 
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
@@ -444,7 +445,7 @@ class ExportController extends Controller
                         ->where('level', $level)
                         ->where('group', $group)
                         ->where('item', $item)
-                        ->orderBy('player_number')
+                        ->orderBy('player_number')->limit(2)
                         ->get();
 
                     $location = 6;
