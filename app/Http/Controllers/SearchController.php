@@ -34,16 +34,15 @@ class SearchController extends Controller
             }
         }
 
-        $isGameOver      = $resultService->isGameOver($scheduleId);
-        $taipeiResult    = $searchService->getResult($scheduleId, 'taipei');
-        $otherCityResult = $searchService->getResult($scheduleId, 'otherCity');
+
+//        $isGameOver      = $resultService->isGameOver($scheduleId);
+        $result    = $searchService->getResult($scheduleId);
+//        $otherCityResult = $searchService->getResult($scheduleId, 'otherCity');
 
         return view('search/result')->with(compact(
             'scheduleId',
             'schedules',
-            'isGameOver',
-            'taipeiResult',
-            'otherCityResult'
+            'result'
         ));
     }
 

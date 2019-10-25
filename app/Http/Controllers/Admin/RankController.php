@@ -15,22 +15,6 @@ class RankController extends Controller
 {
     public function rank(Request $request)
     {
-        $accounts = AccountModel::whereNotNull('coach')->groupBy('coach')->get();
-
-        foreach ($accounts as $account) {
-//            dd($account->coach);
-            $accountKeys = AccountModel::select('id')->where('coach', $account->coach)->get()->map(function ($query) {
-                return $query->id;
-            });
-
-            $players = PlayerModel::whereIn('account_id', $accountKeys)->get();
-
-            foreach ($players as $player) {
-                echo $player->id.','.$player->name . ',' . $player->agency . ',' . $account->coach."<br>";
-            }
-
-        }
-        dd();
         $this->processOverGame($request->scheduleId);
 
         app(SlackNotify::class)->setMsg(ScheduleModel::find($request->scheduleId)->order . " 比賽結束")->notify();
@@ -75,6 +59,7 @@ class RankController extends Controller
         $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit);
 
         foreach ($results as $key => $result) {
+            echo $key;
             if ($key <> 0) {
                 if ($results[$key - 1]->final_result == $results[$key]->final_result) { //同成績處理 start
                     $前一個選手的名次 = EnrollModel::where('id', $results[$key - 1]->id)->first()->rank; // todo 這裡的命名要改

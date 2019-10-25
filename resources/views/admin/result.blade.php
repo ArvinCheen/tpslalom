@@ -104,18 +104,19 @@
                                 <td class="text-center"> {{ $enroll->player->agency }} </td>
 
                                 @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
-
-                                    {{--<td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                    {{--<td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
-                                    {{--<td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                    {{--<td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
-
-                                <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
-                                <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
-                                <td class="text-center"> {{ $enroll->final_result }} </td>
-                                <td class="text-center"> {{ $enroll->rank }} </td>
+                                    @if (0 == true)
+                                        <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>
+                                        <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>
+                                        <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>
+                                        <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>
+                                    @else
+                                        <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
+                                        <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
+                                        <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
+                                        <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
+                                    @endif
+                                    <td class="text-center"> {{ $enroll->final_result }} </td>
+                                    <td class="text-center"> {{ $enroll->rank }} </td>
                                 @else
                                     <td class="text-center"> <input name="rank[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->rank }}" autocomplete="off" > </td>
                                 @endif

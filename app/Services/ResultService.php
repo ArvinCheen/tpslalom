@@ -12,7 +12,6 @@ class ResultService
         $enrollModel = new EnrollModel();
         $gameInfo    = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
-        $level  = $gameInfo->level;
         $gender = $gameInfo->gender;
         $group  = $gameInfo->group;
         $item   = $gameInfo->item;

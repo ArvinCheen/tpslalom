@@ -18,24 +18,20 @@ class ExportController extends Controller
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
         $order = $gameInfo->order;
-        $level = $gameInfo->level;
         $group = $gameInfo->group;
         $item = $gameInfo->item;
 
         $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             $query->where('gender', $gameInfo->gender);
-            $query->orderBy('city');
         })
             ->where('game_id', config('app.game_id'))
-            ->where('level', $level)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('rank', '<=', 6)
+            ->whereNotNull('rank')
             ->orderBy('rank')
             ->get();
 
         if ($enrolls->isEmpty()) {
-
             return back()->with(['error' => '無獎狀資料']);
         }
 
@@ -261,9 +257,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A48', function ($cell) use ($enroll) {
-                            $date = GameModel::where('id', config('app.game_id'))->value('date');
-                            $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
-                            $cell->setValue('中　華　民　國　' . $setValue);
+                            $cell->setValue('中　華　民　國　2019 年 10 月 26 號');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');

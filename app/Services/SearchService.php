@@ -35,27 +35,19 @@ class SearchService
         return $players;
     }
 
-    public function getResult($scheduleId, $city)
+    public function getResult($scheduleId)
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
-        $query = EnrollModel::where('game_id', config('app.game_id'))
+        $data = EnrollModel::where('game_id', config('app.game_id'))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('level', $gameInfo->level)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
-            ->where('final_result', '<>','無成績')
-            ->whereNotNull('final_result');
-
-        if ($city == 'taipei') {
-            $query->where('city', '臺北市');
-        } else {
-            $query->where('city', '<>','臺北市');
-        }
-
-        $data = $query->orderBy(\DB::raw('final_result * 1'))->get();
+            ->whereNotNull('rank')
+            ->orderBy('rank')
+            ->get();
 
         return $this->translationResult($data);
     }
