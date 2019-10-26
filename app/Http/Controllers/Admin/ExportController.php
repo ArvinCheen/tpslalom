@@ -90,37 +90,41 @@ class ExportController extends Controller
             }
         })->download('xls');
     }
-    
-    public function completion($accountId)
+
+    // 全國沒有完賽證明
+//    public function completion($accountId)
+//    {
+//        $enrolls = EnrollModel::with('player')
+//            ->where('game_id', config('app.game_id'))
+//            ->where('enroll.account_id', $accountId)
+//            ->whereNull('rank')
+//            ->where('check', 1)
+//            ->where('final_result', '<>', '無成績')
+//            ->get();
+//
+//        if ($enrolls->isEmpty()) {
+//            app('request')->session()->flash('error', '該隊伍無第六名以後的選手資料');
+//            return back();
+//        }
+//
+//        $teamName = AccountModel::where('id', $accountId)->value('team_name');
+//
+//        $this->exportExcel($teamName, $enrolls, 'completion');
+//    }
+
+    private function exportExcel($fileName, $enrolls)
     {
-        $enrolls = EnrollModel::with('player')
-            ->where('game_id', config('app.game_id'))
-            ->where('enroll.account_id', $accountId)
-            ->whereNull('rank')
-            ->where('check', 1)
-            ->where('final_result', '<>', '無成績')
-            ->get();
+        $scheduleId = substr($fileName,6);
 
-        if ($enrolls->isEmpty()) {
-            app('request')->session()->flash('error', '該隊伍無第六名以後的選手資料');
-            return back();
-        }
-
-        $teamName = AccountModel::where('id', $accountId)->value('team_name');
-
-        $this->exportExcel($teamName, $enrolls, 'completion');
-    }
-
-    private function exportExcel($fileName, $enrolls, $type)
-    {
-        Excel::create($fileName, function ($excel) use ($enrolls, $type) {
+        Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
-                    function ($sheet) use ($enroll, $type) {
+                    function ($sheet) use ($enroll,$scheduleId) {
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
                         $sheet->mergeCells('H13:K13');
+                        $sheet->mergeCells('H14:K14');
                         $sheet->mergeCells('C15:E15');
                         $sheet->mergeCells('F15:K15');
                         $sheet->mergeCells('C17:E17');
@@ -135,29 +139,31 @@ class ExportController extends Controller
                         $sheet->mergeCells('F25:K25');
                         $sheet->mergeCells('C27:E27');
                         $sheet->mergeCells('F27:J27');
-                        $sheet->mergeCells('A48:K48');
-                        $sheet->cell('A9', function ($cell) use ($enroll, $type) {
-                            if ($type == 'certificate') {
-                                $cell->setValue('獎　　　狀');
-                            }
-                            if ($type == 'completion') {
-                                $cell->setValue('完 賽 證 明');
-                            }
+                        $sheet->mergeCells('A48:L48');
+                        $sheet->cell('A9', function ($cell) use ($enroll) {
+                            $cell->setValue('獎　　　狀');
                             $cell->setFontFamily('標楷體');
                             $cell->setFontSize(60);
+$cell->fnSetRowHeight(100);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A12', function ($cell) use ($enroll) {
-                            $cell->setValue(GameModel::where('id', config('app.game_id'))->value('complete_name'));
+                            $cell->setValue('108學年度第41屆中正盃全國溜冰錦標賽競賽');
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('H13', function ($cell) use ($enroll) {
-                            $cell->setValue(GameModel::where('id', config('app.game_id'))->value('letter') . '　');
+                            $cell->setValue('臺教授體字第1080032071號函');
+                            $cell->setFontSize(12);
+                            $cell->setAlignment('right');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('H14', function ($cell) use ($enroll) {
+                            $cell->setValue('臺教體署競(二)字第1080034332號函');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -217,47 +223,45 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C23', function ($cell) use ($enroll) {
-                            $cell->setValue('成　　　績：');
-                            $cell->setFontSize(24);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('F23', function ($cell) use ($enroll) {
-                            $explodeSecond = explode(".", $enroll->final_result);
-                            if ($explodeSecond[0] >= 60) {
-                                $result = gmdate("i分s秒", $explodeSecond[0]);
-                            } else {
-                                $result = gmdate("s秒", $explodeSecond[0]);
-                            }
-
-                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
-                                $result .= $explodeSecond[1];
-                            }
-
-                            $cell->setValue($result);
-                            $cell->setFontSize(24);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('C25', function ($cell) use ($enroll) {
                             $cell->setValue('名　　　次：');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('F25', function ($cell) use ($enroll, $type) {
-                            if ($type == 'certificate') {
-                                $cell->setValue('第 ' . $enroll->rank . ' 名');
-                            }
-                            if ($type == 'completion') {
-                                $cell->setValue('優      勝');
-                            }
+                        $sheet->cell('F23', function ($cell) use ($enroll) {
+                            $cell->setValue('第 ' . $enroll->rank . ' 名');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
+
+                        $sheet->cell('C25', function ($cell) use ($enroll) {
+                            $cell->setValue('成　　　績：');
+                            $cell->setFontSize(24);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 )) {
+                            $sheet->cell('F25', function ($cell) use ($enroll) {
+                                $explodeSecond = explode(".", $enroll->final_result);
+                                if ($explodeSecond[0] >= 60) {
+                                    $result = gmdate("i分s秒", $explodeSecond[0]);
+                                } else {
+                                    $result = gmdate("s秒", $explodeSecond[0]);
+                                }
+
+                                if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
+                                    $result .= $explodeSecond[1];
+                                }
+
+                                $cell->setValue($result);
+                                $cell->setFontSize(24);
+                                $cell->setAlignment('center');
+                                $cell->setValignment('center');
+                            });
+                        }
                         $sheet->cell('A48', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　2019 年 10 月 26 號');
+                            $cell->setValue('中　華　民　國　一　百　零　八　年　十　月　二　十　六　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
