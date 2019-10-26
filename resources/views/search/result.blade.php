@@ -74,7 +74,7 @@
                     </thead>
                     <tbody>
                     @if (count($result) == 0)
-                        <th class="text-center" colspan="10"> -- 無資料 -- </th>
+                        <th class="text-center" colspan="20"> -- 無資料 -- </th>
                     @endif
                     @foreach ($result as $val)
                         <tr>
