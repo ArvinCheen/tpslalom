@@ -34,7 +34,13 @@
                 <table class="table table-striped table-bordered table-advance table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="10"> 成績公告時間：10:35 </th>
+                        <th class="text-center" colspan="10">
+                            @if ($result->count() == 0)
+                                成績公告時間：尚未公告
+                            @else
+                                成績公告時間：10:35
+                            @endif
+                        </th>
                     </tr>
                     <tr>
                         <th class="text-center"> 名次 </th>
