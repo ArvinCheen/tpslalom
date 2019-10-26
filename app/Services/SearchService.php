@@ -41,14 +41,39 @@ class SearchService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
 
-        $data = EnrollModel::where('game_id', config('app.game_id'))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->where('group', $gameInfo->group)
-            ->where('item', $gameInfo->item)
-            ->where('gender', $gameInfo->gender)
-            ->orderByDesc(\DB::raw("-`rank`"))
-            ->get();
+        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
+            $data = EnrollModel::where('game_id', config('app.game_id'))
+                ->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->where('final_result','<>', '')
+                ->where('final_result','<>', '無成績')
+                ->orderByRaw("`final_result` * 1")
+                ->get();
+
+            $data無成績 = EnrollModel::where('game_id', config('app.game_id'))
+                ->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->where('final_result', '無成績')
+                ->get();
+
+            $data = $data->merge($data無成績);
+        } else {
+            $data = EnrollModel::where('game_id', config('app.game_id'))
+                ->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->orderByDesc(\DB::raw("-`rank`"))
+                ->get();
+        }
+
 
         return $this->translationResult($data);
     }
