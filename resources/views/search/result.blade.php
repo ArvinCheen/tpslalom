@@ -34,7 +34,7 @@
                 <table class="table table-striped table-bordered table-advance table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="10">
+                        <th class="text-center" colspan="20">
                             @if (is_null($openResultTime))
                                 成績公告時間：尚未公告
                             @else
@@ -52,6 +52,23 @@
                             <th class="text-center"> 二回 </th>
                             <th class="text-center"> 誤椿 </th>
                             <th class="text-center"> 成績 </th>
+                            @else
+                            <th class="text-center"> 技術一 </th>
+                            <th class="text-center"> 藝術一 </th>
+                            <th class="text-center"> 總分一 </th>
+                            <th class="text-center"> 技術二 </th>
+                            <th class="text-center"> 藝術二 </th>
+                            <th class="text-center"> 總分二 </th>
+                            <th class="text-center"> 技術三 </th>
+                            <th class="text-center"> 藝術三 </th>
+                            <th class="text-center"> 總分三 </th>
+                            <th class="text-center"> 技術四 </th>
+                            <th class="text-center"> 藝術四 </th>
+                            <th class="text-center"> 總分四 </th>
+                            <th class="text-center"> 技術五 </th>
+                            <th class="text-center"> 藝術五 </th>
+                            <th class="text-center"> 總分五 </th>
+                            <th class="text-center"> 罰分 </th>
                         @endif
                     </tr>
                     </thead>
@@ -70,6 +87,23 @@
                                 <td class="text-center"> {{ $val->round_two_second }}</td>
                                 <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }}</td>
                                 <td class="text-center"> {{ $val->final_result }}</td>
+                            @else
+                                <td class="text-center"> {{ $val->skill_1 }}</td>
+                                <td class="text-center"> {{ $val->art_1 }}</td>
+                                <td class="text-center"> {{ $val->score_1 }}</td>
+                                <td class="text-center"> {{ $val->skill_2 }}</td>
+                                <td class="text-center"> {{ $val->art_2 }}</td>
+                                <td class="text-center"> {{ $val->score_2 }}</td>
+                                <td class="text-center"> {{ $val->skill_3 }}</td>
+                                <td class="text-center"> {{ $val->art_3 }}</td>
+                                <td class="text-center"> {{ $val->score_3 }}</td>
+                                <td class="text-center"> {{ $val->skill_4 }}</td>
+                                <td class="text-center"> {{ $val->art_4 }}</td>
+                                <td class="text-center"> {{ $val->score_4 }}</td>
+                                <td class="text-center"> {{ $val->skill_5 }}</td>
+                                <td class="text-center"> {{ $val->art_5 }}</td>
+                                <td class="text-center"> {{ $val->score_5 }}</td>
+                                <td class="text-center"> {{ $val->punish }}</td>
                             @endif
                         </tr>
                     @endforeach
