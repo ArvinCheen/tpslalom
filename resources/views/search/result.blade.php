@@ -79,9 +79,9 @@
                     @foreach ($result as $key => $val)
                         <tr>
                             <td class="text-center">
-{{--                                @if ($rankLimit >= ($key+1))--}}
+                                @if ($rankLimit >= ($key+1))
                                     {{ $val->rank }}
-{{--                                @endif--}}
+                                @endif
                             </td>
                             <td class="text-center"> {{ $val->player_number }}</td>
                             <td class="text-center"> {{ $val->name }}</td>
