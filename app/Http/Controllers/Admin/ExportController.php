@@ -340,24 +340,23 @@ class ExportController extends Controller
                     $sheet->setAllBorders('thin');
                     $sheet->setFontFamily('微軟正黑體');
 
-                    $sheet->mergeCells('A1:E1');
+                    $sheet->mergeCells('A1:G1');
                     $sheet->mergeCells('A2:G2');
                     $sheet->mergeCells('A3:C3');
-//                    $sheet->mergeCells('D3:E3');
-//                    $sheet->mergeCells('F3:G3');
+                    $sheet->mergeCells('D3:E3');
+                    $sheet->mergeCells('F3:G3');
                     $sheet->mergeCells('A4:G4');
                     $sheet->mergeCells('A5:A6');
                     $sheet->mergeCells('B5:B6');
                     $sheet->mergeCells('C5:C6');
-                    $sheet->mergeCells('D5:D6');
-                    $sheet->mergeCells('E5:E6');
-//                    $sheet->mergeCells('F5:G5');
+                    $sheet->mergeCells('D5:E5');
+                    $sheet->mergeCells('F5:G5');
                     $sheet->setWidth([
                         'A' => 9.5,
                         'B' => 9.5,
                         'C' => 30,
                         'D' => 9.5,
-                        'E' => 30,
+                        'E' => 9.5,
                         'F' => 9.5,
                         'G' => 9.5,
                         'H' => 9.5,
@@ -373,14 +372,14 @@ class ExportController extends Controller
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-//                    $sheet->cell('B1', function ($cell) use ($schedule) { 這個好像是多的
-//                        $cell->setFontSize(16);
-//                        $cell->setValue($schedule->item);
-//                        $cell->setAlignment('center');
-//                        $cell->setValignment('center');
-//                    });
+                    $sheet->cell('B1', function ($cell) use ($schedule) {
+                        $cell->setFontSize(16);
+                        $cell->setValue($schedule->item);
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
                     $sheet->cell('A3', function ($cell) use ($schedule) {
-                        $cell->setFontSize(12);
+                        $cell->setFontSize(16);
                         $cell->setValue($schedule->item . '　' . $schedule->level . ' ' . $schedule->group . $schedule->gender . '子組');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -406,48 +405,48 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
                     $sheet->cell('D5', function ($cell) {
-                        $cell->setValue('檢錄');
+                        $cell->setValue('第一回合');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-//                    $sheet->cell('F5', function ($cell) {
-//                        $cell->setValue('第二回合');
-//                        $cell->setAlignment('center');
-//                        $cell->setValignment('center');
-//                    });
+                    $sheet->cell('F5', function ($cell) {
+                        $cell->setValue('第二回合');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
                     $sheet->cell('C6', function ($cell) {
                         $cell->setValue('學校單位');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('E5', function ($cell) {
+                    $sheet->cell('D6', function ($cell) {
                         $cell->setValue('成績');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-//                    $sheet->cell('E6', function ($cell) {
-//                        $cell->setValue('誤樁');
-//                        $cell->setAlignment('center');
-//                        $cell->setValignment('center');
-//                    });
-//                    $sheet->cell('F6', function ($cell) {
-//                        $cell->setValue('成績');
-//                        $cell->setAlignment('center');
-//                        $cell->setValignment('center');
-//                    });
-//                    $sheet->cell('G6', function ($cell) {
-//                        $cell->setValue('誤樁');
-//                        $cell->setAlignment('center');
-//                        $cell->setValignment('center');
-//                    });
+                    $sheet->cell('E6', function ($cell) {
+                        $cell->setValue('誤樁');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('F6', function ($cell) {
+                        $cell->setValue('成績');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('G6', function ($cell) {
+                        $cell->setValue('誤樁');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
 
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level  = $schedule->level;
-                    $group  = $schedule->group;
+                    $level = $schedule->level;
+                    $group = $schedule->group;
                     $gender = $schedule->gender;
-                    $item   = $schedule->item;
+                    $item = $schedule->item;
 
 
                     $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
@@ -476,7 +475,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->agency_all);
+                            $cell->setValue($enroll->player->agency);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
