@@ -192,9 +192,9 @@ class ExportController extends Controller
                             $cell->setValue($enroll->player->city . " " . $enroll->player->agency_all);
 
                             if (mb_strlen($enroll->player->agency) >= 10) {
-                                $cell->setFontSize(16);
+                                $cell->setFontSize(14);
                             } else {
-                                $cell->setFontSize(20);
+                                $cell->setFontSize(18);
                             }
 
                             $cell->setAlignment('center');
