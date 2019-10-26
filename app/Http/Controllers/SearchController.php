@@ -24,8 +24,8 @@ class SearchController extends Controller
 
     public function result($scheduleId = null)
     {
-        $resultService   = new ResultService();
-        $searchService   = new SearchService();
+        $resultService = new ResultService();
+        $searchService = new SearchService();
 
         $schedules = app(ScheduleModel::class)->getSchedules();
 
@@ -38,15 +38,28 @@ class SearchController extends Controller
         if (is_null($openResultTime = ScheduleModel::find($scheduleId)->open_result_time)) {
             $result = [];
         } else {
-            $result    = $searchService->getResult($scheduleId);
+            $result = $searchService->getResult($scheduleId);
         }
 
-        app(SlackNotify::class)->setMsg('有人正在觀看 `場次'.$scheduleId.'` 的成績公告')->notify();
+        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+
+        if ($numberOfPlayer == 1) {
+            $rankLimit = 1;
+        } else {
+            $rankLimit = floor($numberOfPlayer / 2);
+
+            if ($rankLimit > 8) {
+                $rankLimit = 8;
+            }
+        }
+
+        app(SlackNotify::class)->setMsg('有人正在觀看 `場次' . $scheduleId . '` 的成績公告')->notify();
         return view('search/result')->with(compact(
             'openResultTime',
             'scheduleId',
             'schedules',
-            'result'
+            'result',
+            'rankLimit'
         ));
     }
 

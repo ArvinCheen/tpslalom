@@ -40,17 +40,6 @@ class SearchService
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
-        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-
-        if ($numberOfPlayer == 1) {
-            $rankLimit = 1;
-        } else {
-            $rankLimit = floor($numberOfPlayer / 2);
-
-            if ($rankLimit > 8) {
-                $rankLimit = 8;
-            }
-        }
 
         $data = EnrollModel::where('game_id', config('app.game_id'))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
@@ -58,10 +47,7 @@ class SearchService
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
-            ->where('rank', '<>', 0)
-            ->whereNotNull('rank')
-            ->orderBy('rank')
-            ->limit($rankLimit)
+            ->orderByDesc(\DB::raw("-`rank`"))
             ->get();
 
         return $this->translationResult($data);

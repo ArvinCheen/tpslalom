@@ -76,9 +76,13 @@
                     @if (count($result) == 0)
                         <th class="text-center" colspan="20"> -- 無資料 -- </th>
                     @endif
-                    @foreach ($result as $val)
+                    @foreach ($result as $key => $val)
                         <tr>
-                            <td class="text-center"> {{ $val->rank }}</td>
+                            <td class="text-center">
+{{--                                @if ($rankLimit >= ($key+1))--}}
+                                    {{ $val->rank }}
+{{--                                @endif--}}
+                            </td>
                             <td class="text-center"> {{ $val->player_number }}</td>
                             <td class="text-center"> {{ $val->name }}</td>
                             @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
