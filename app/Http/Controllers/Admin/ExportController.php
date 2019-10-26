@@ -33,17 +33,29 @@ class ExportController extends Controller
             }
         }
 
-        $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-            $query->where('gender', $gameInfo->gender);
-        })
-            ->where('game_id', config('app.game_id'))
-            ->where('group', $group)
-            ->where('item', $item)
-            ->whereNotNull('rank')
-            ->where('rank','<>', 0)
-            ->orderBy('rank')
-            ->limit($rankLimit)
-            ->get();
+
+        if ($scheduleId == 21) {
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
+            })
+                ->where('game_id', config('app.game_id'))
+                ->where('item', $item)
+                ->whereNotNull('rank')
+                ->where('rank','<>', 0)
+                ->orderBy('rank')
+                ->get();
+        } else {
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
+                $query->where('gender', $gameInfo->gender);
+            })
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $group)
+                ->where('item', $item)
+                ->whereNotNull('rank')
+                ->where('rank','<>', 0)
+                ->orderBy('rank')
+                ->limit($rankLimit)
+                ->get();
+        }
 
         if ($enrolls->isEmpty()) {
             return back()->with(['error' => '無獎狀資料']);
@@ -290,6 +302,7 @@ class ExportController extends Controller
 
     private function exportExcel($fileName, $enrolls)
     {
+
         $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {

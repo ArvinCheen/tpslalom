@@ -41,7 +41,7 @@ class SearchService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
 
-        if ($scheduleId = 21) {
+        if ($scheduleId == 21) {
             $data = EnrollModel::where('game_id', config('app.game_id'))
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
@@ -49,6 +49,7 @@ class SearchService
                 ->orderByDesc(\DB::raw("-`rank`"))
                 ->get();
         } else {
+
             if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
                 $data = EnrollModel::where('game_id', config('app.game_id'))
                     ->leftJoin('player', 'player.id', 'enroll.player_id')
