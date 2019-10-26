@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\PlayerModel;
@@ -44,7 +45,7 @@ class SearchService
         if ($numberOfPlayer == 1) {
             $rankLimit = 1;
         } else {
-            $rankLimit = floor($numberOfPlayer/2);
+            $rankLimit = floor($numberOfPlayer / 2);
 
             if ($rankLimit > 8) {
                 $rankLimit = 8;
@@ -57,6 +58,7 @@ class SearchService
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
+            ->where('rank', '<>', 0)
             ->whereNotNull('rank')
             ->orderBy('rank')
             ->limit($rankLimit)
@@ -74,7 +76,7 @@ class SearchService
     private function translationResult($data)
     {
         foreach ($data as $val) {
-            if (!is_null($val->finalResult)) {
+            if (! is_null($val->finalResult)) {
                 $explodeSecond = explode(".", $val->finalResult);
                 if ($explodeSecond[0] <> '無成績') {
 
