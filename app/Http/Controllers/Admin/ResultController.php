@@ -46,6 +46,22 @@ class ResultController extends Controller
         $roundTwoSecond   = $request->roundTwoSecond;
         $roundTwoMissConr = $request->roundTwoMissConr;
         $scheduleId       = $request->scheduleId;
+        $skill_1           = $request->skill_1;
+        $art_1             = $request->art_1;
+        $score_1           = $request->score_1;
+        $skill_2           = $request->skill_2;
+        $art_2             = $request->art_2;
+        $score_2           = $request->score_2;
+        $skill_3           = $request->skill_3;
+        $art_3             = $request->art_3;
+        $score_3           = $request->score_3;
+        $skill_4           = $request->skill_4;
+        $art_4             = $request->art_4;
+        $score_4           = $request->score_4;
+        $skill_5           = $request->skill_5;
+        $art_5             = $request->art_5;
+        $score_5           = $request->score_5;
+        $punish           = $request->punish;
         $rank             = $request->rank;
 
         if (! $this->validateInt($request)) {
@@ -62,7 +78,23 @@ class ResultController extends Controller
 
             foreach ($enrollIds as $key => $enrollId) {
                 EnrollModel::where('id', $enrollId)->update([
-                    'rank' => $rank[$key],
+                    'skill_1' => $skill_1[$key],
+                    'art_1'   => $art_1[$key],
+                    'score_1' => $score_1[$key],
+                    'skill_2' => $skill_2[$key],
+                    'art_2'   => $art_2[$key],
+                    'score_2' => $score_2[$key],
+                    'skill_3' => $skill_3[$key],
+                    'art_3'   => $art_3[$key],
+                    'score_3' => $score_3[$key],
+                    'skill_4' => $skill_4[$key],
+                    'art_4'   => $art_4[$key],
+                    'score_4' => $score_4[$key],
+                    'skill_5' => $skill_5[$key],
+                    'art_5'   => $art_5[$key],
+                    'score_5' => $score_5[$key],
+                    'punish' => $punish[$key],
+                    'rank'   => $rank[$key],
                 ]);
             }
         }

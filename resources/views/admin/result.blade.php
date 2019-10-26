@@ -52,21 +52,21 @@
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
-                            <th class="text-center">
-                                <i class=""></i> 順序
-                            </th>
+{{--                            <th class="text-center">--}}
+{{--                                <i class=""></i> 順序--}}
+{{--                            </th>--}}
                             <th class="text-center">
                                 <i class=""></i> 號碼
                             </th>
                             <th class="text-center">
                                 <i class=""></i> 姓名
                             </th>
-                            <th class="text-center">
-                                <i class=""></i> 地區
-                            </th>
-                            <th class="text-center">
-                                <i class=""></i> 單位
-                            </th>
+{{--                            <th class="text-center">--}}
+{{--                                <i class=""></i> 地區--}}
+{{--                            </th>--}}
+{{--                            <th class="text-center">--}}
+{{--                                <i class=""></i> 單位--}}
+{{--                            </th>--}}
                             @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
                             <th class="text-center">
                                 <i class=""></i> 一回/秒數
@@ -87,6 +87,55 @@
                                 <i class=""></i> 名次
                             </th>
                             @else
+
+                                <th class="text-center">
+                                    <i class=""></i> 技術1
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 藝術1
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 總分1
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 技術2
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 藝術2
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 總分2
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 技術3
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 藝術3
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 總分3
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 技術4
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 藝術4
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 總分4
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 技術5
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 藝術5
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 總分5
+                                </th>
+                                <th class="text-center">
+                                    <i class=""></i> 罰分
+                                </th>
                                 <th class="text-center">
                                     <i class=""></i> 名次
                                 </th>
@@ -97,11 +146,11 @@
                         @foreach ($enrolls as $key => $enroll)
 
                             <tr>
-                                <td class="text-center"> {{ $enroll->appearance }} </td>
+{{--                                <td class="text-center"> {{ $enroll->appearance }} </td>--}}
                                 <td class="text-center"> {{ $enroll->player_number }} </td>
                                 <td class="text-center"> {{ $enroll->player->name }} </td>
-                                <td class="text-center"> {{ $enroll->player->city }} </td>
-                                <td class="text-center"> {{ $enroll->player->agency }} </td>
+{{--                                <td class="text-center"> {{ $enroll->player->city }} </td>--}}
+{{--                                <td class="text-center"> {{ $enroll->player->agency }} </td>--}}
 
                                 @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
                                     @if (0 == true)
@@ -118,6 +167,22 @@
                                     <td class="text-center"> {{ $enroll->final_result }} </td>
                                     <td class="text-center"> {{ $enroll->rank }} </td>
                                 @else
+                                    <td class="text-center"> <input name="skill_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_1 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="art_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_1 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="score_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_1 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="skill_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_2 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="art_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_2 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="score_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_2 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="score_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_3 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="score_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_4 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="punish[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->punish }}" autocomplete="off" > </td>
                                     <td class="text-center"> <input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off" > </td>
                                 @endif
                             </tr>

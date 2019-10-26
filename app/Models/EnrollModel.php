@@ -19,7 +19,8 @@ class EnrollModel extends Model
 
     protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'level', 'group', 'item',
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
-        'rank', 'integral', 'check', 'check_in_time','appearance'];
+        'skill1', 'art1', 'score1', 'skill2', 'art2', 'score2', 'skill3', 'art3', 'score3', 'skill4', 'art4', 'score4', 'skill5', 'art5', 'score5', 'punish',
+        'rank', 'integral', 'check', 'check_in_time', 'appearance'];
 
     public function player()
     {
@@ -247,8 +248,8 @@ class EnrollModel extends Model
     public function getResults($level, $gender, $group, $item, $rankLimit)
     {
         return $this::whereHas('player', function ($query) use ($gender) {
-                $query->where('gender', $gender);
-            })
+            $query->where('gender', $gender);
+        })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('group', $group)
@@ -416,7 +417,7 @@ class EnrollModel extends Model
             ->where('final_result', '<>', '無成績')
             ->whereNull('rank')
             ->count();
-return true; // todo 這裡有換個方式呈現成績
+        return true; // todo 這裡有換個方式呈現成績
         if ($data == 0) {
             return true;
         } else {
