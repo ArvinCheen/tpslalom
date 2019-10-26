@@ -184,7 +184,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->city . " " . $enroll->player->agency);
+                            $cell->setValue($enroll->player->city . " " . $enroll->player->agency_all);
 
                             if (mb_strlen($enroll->player->agency) >= 10) {
                                 $cell->setFontSize(16);
