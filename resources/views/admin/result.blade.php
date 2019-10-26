@@ -118,7 +118,7 @@
                                     <td class="text-center"> {{ $enroll->final_result }} </td>
                                     <td class="text-center"> {{ $enroll->rank }} </td>
                                 @else
-                                    <td class="text-center"> <input name="rank[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->rank }}" autocomplete="off" > </td>
+                                    <td class="text-center"> <input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off" > </td>
                                 @endif
                             </tr>
                         @endforeach

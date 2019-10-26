@@ -21,6 +21,14 @@ class ExportController extends Controller
         $group = $gameInfo->group;
         $item = $gameInfo->item;
 
+        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+        $rankLimit = floor($numberOfPlayer/2);
+
+        if ($rankLimit > 8) {
+            $rankLimit = 8;
+        }
+
+
         $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             $query->where('gender', $gameInfo->gender);
         })
@@ -29,6 +37,7 @@ class ExportController extends Controller
             ->where('item', $item)
             ->whereNotNull('rank')
             ->orderBy('rank')
+            ->limit($rankLimit)
             ->get();
 
         if ($enrolls->isEmpty()) {
@@ -139,12 +148,12 @@ class ExportController extends Controller
                         $sheet->mergeCells('F25:K25');
                         $sheet->mergeCells('C27:E27');
                         $sheet->mergeCells('F27:J27');
-                        $sheet->mergeCells('A48:L48');
+                        $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
-                            $cell->setValue('獎　　　狀');
+                            $cell->setValue('    ');
                             $cell->setFontFamily('標楷體');
                             $cell->setFontSize(60);
-$cell->fnSetRowHeight(100);
+
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -260,7 +269,7 @@ $cell->fnSetRowHeight(100);
                                 $cell->setValignment('center');
                             });
                         }
-                        $sheet->cell('A48', function ($cell) use ($enroll) {
+                        $sheet->cell('A41', function ($cell) use ($enroll) {
                             $cell->setValue('中　華　民　國　一　百　零　八　年　十　月　二　十　六　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
