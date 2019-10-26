@@ -52,7 +52,7 @@
                             <th class="text-center"> 二回 </th>
                             <th class="text-center"> 誤椿 </th>
                             <th class="text-center"> 成績 </th>
-                            @else
+                        @else
                             <th class="text-center"> 技術一 </th>
                             <th class="text-center"> 藝術一 </th>
                             <th class="text-center"> 總分一 </th>
