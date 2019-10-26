@@ -34,12 +34,15 @@ class SearchController extends Controller
             }
         }
 
+        if (is_null($openResultTime = ScheduleModel::find($scheduleId)->open_result_time)) {
+            $result = [];
+        } else {
+            $result    = $searchService->getResult($scheduleId);
+        }
 
-//        $isGameOver      = $resultService->isGameOver($scheduleId);
-        $result    = $searchService->getResult($scheduleId);
-//        $otherCityResult = $searchService->getResult($scheduleId, 'otherCity');
 
         return view('search/result')->with(compact(
+            'openResultTime',
             'scheduleId',
             'schedules',
             'result'

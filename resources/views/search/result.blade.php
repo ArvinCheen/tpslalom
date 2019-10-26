@@ -35,10 +35,10 @@
                     <thead>
                     <tr>
                         <th class="text-center" colspan="10">
-                            @if ($result->count() == 0)
+                            @if (is_null($openResultTime))
                                 成績公告時間：尚未公告
                             @else
-                                成績公告時間：10:35
+                                成績公告時間：{{ $openResultTime }}
                             @endif
                         </th>
                     </tr>
@@ -56,7 +56,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if ($result->count() == 0)
+                    @if (count($result) == 0)
                         <th class="text-center" colspan="10"> -- 無資料 -- </th>
                     @endif
                     @foreach ($result as $val)
