@@ -30,7 +30,6 @@ class GameInfoController extends Controller
             $enrolls = EnrollModel::where('game_id', config('app.game_id'))
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
-                ->where('level', $gameInfo->level)
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item);
 
