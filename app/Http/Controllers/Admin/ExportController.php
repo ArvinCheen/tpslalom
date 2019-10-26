@@ -250,8 +250,9 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 )) {
-                            $sheet->cell('F25', function ($cell) use ($enroll) {
+
+                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
+                            if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 )) {
                                 $explodeSecond = explode(".", $enroll->final_result);
                                 if ($explodeSecond[0] >= 60) {
                                     $result = gmdate("i分s秒", $explodeSecond[0]);
@@ -264,11 +265,12 @@ class ExportController extends Controller
                                 }
 
                                 $cell->setValue($result);
-                                $cell->setFontSize(24);
-                                $cell->setAlignment('center');
-                                $cell->setValignment('center');
-                            });
-                        }
+                            }
+                            $cell->setValue('　');
+                            $cell->setFontSize(24);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
                             $cell->setValue('中　華　民　國　一　百　零　八　年　十　月　二　十　六　日');
                             $cell->setFontSize(20);
