@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <select class="form-control" id="m_select2_1" name="scheduleSn">
                     @foreach ($schedules as $schedule)
-                        <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組  {{ $schedule->item }} </option>
+                        <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }} - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組  {{ $schedule->item }} {{ $schedule->game_type }} {{ $schedule->remark }} </option>
                     @endforeach
                 </select>
             </div>
