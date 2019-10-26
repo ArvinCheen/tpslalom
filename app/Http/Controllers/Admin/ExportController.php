@@ -17,12 +17,12 @@ class ExportController extends Controller
     public function certificate($scheduleId)
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
-        $order = $gameInfo->order;
-        $group = $gameInfo->group;
-        $item = $gameInfo->item;
+        $order    = $gameInfo->order;
+        $group    = $gameInfo->group;
+        $item     = $gameInfo->item;
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-        $rankLimit = floor($numberOfPlayer/2);
+        $rankLimit      = floor($numberOfPlayer / 2);
 
         if ($rankLimit > 8) {
             $rankLimit = 8;
@@ -123,12 +123,12 @@ class ExportController extends Controller
 
     private function exportExcel($fileName, $enrolls)
     {
-        $scheduleId = substr($fileName,6);
+        $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
-                    function ($sheet) use ($enroll,$scheduleId) {
+                    function ($sheet) use ($enroll, $scheduleId) {
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
@@ -244,15 +244,18 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
 
-                        $sheet->cell('C25', function ($cell) use ($enroll) {
-                            $cell->setValue('成　　　績：');
+                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
+                            if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
+                                $cell->setValue('成　　　績：');
+                            }
+                            $cell->setValue('　');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
 
                         $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
-                            if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 )) {
+                            if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
                                 $explodeSecond = explode(".", $enroll->final_result);
                                 if ($explodeSecond[0] >= 60) {
                                     $result = gmdate("i分s秒", $explodeSecond[0]);
@@ -441,10 +444,10 @@ class ExportController extends Controller
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level = $schedule->level;
-                    $group = $schedule->group;
+                    $level  = $schedule->level;
+                    $group  = $schedule->group;
                     $gender = $schedule->gender;
-                    $item = $schedule->item;
+                    $item   = $schedule->item;
 
 
                     $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
@@ -485,9 +488,9 @@ class ExportController extends Controller
 
     public function result()
     {
-        $gameInfo = GameModel::where('id', config('app.game_id'))->first();
+        $gameInfo         = GameModel::where('id', config('app.game_id'))->first();
         $gameCompleteName = $gameInfo->complete_name;
-        $abridgeName = $gameInfo->abridge_name;
+        $abridgeName      = $gameInfo->abridge_name;
 
         Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
             $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
@@ -508,15 +511,33 @@ class ExportController extends Controller
 
                 $sheet->mergeCells('A1:I1');
 
-                $sheet->cell('A', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('B', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('C', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('D', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('E', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('F', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('G', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('H', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('I', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('A', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('B', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('C', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('D', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('E', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('F', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('G', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('H', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('I', function ($cell) {
+                    $cell->setAlignment('center');
+                });
 
                 $sheet->cell('A1', function ($cell) use ($gameCompleteName) {
                     $cell->setAlignment('center');
