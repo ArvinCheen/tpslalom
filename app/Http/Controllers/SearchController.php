@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
 use App\Models\ScheduleModel;
@@ -40,7 +41,7 @@ class SearchController extends Controller
             $result    = $searchService->getResult($scheduleId);
         }
 
-
+        app(SlackNotify::class)->setMsg('有人正在觀看 `場次'.$scheduleId.'` 的成績公告')->notify();
         return view('search/result')->with(compact(
             'openResultTime',
             'scheduleId',
