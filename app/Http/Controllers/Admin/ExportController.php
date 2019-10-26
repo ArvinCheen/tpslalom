@@ -22,12 +22,16 @@ class ExportController extends Controller
         $item     = $gameInfo->item;
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-        $rankLimit      = floor($numberOfPlayer / 2);
 
-        if ($rankLimit > 8) {
-            $rankLimit = 8;
+        if ($numberOfPlayer == 1) {
+            $rankLimit = 1;
+        } else {
+            $rankLimit = floor($numberOfPlayer / 2);
+
+            if ($rankLimit > 8) {
+                $rankLimit = 8;
+            }
         }
-
 
         $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             $query->where('gender', $gameInfo->gender);
@@ -36,6 +40,7 @@ class ExportController extends Controller
             ->where('group', $group)
             ->where('item', $item)
             ->whereNotNull('rank')
+            ->where('rank','<>', 0)
             ->orderBy('rank')
             ->limit($rankLimit)
             ->get();
