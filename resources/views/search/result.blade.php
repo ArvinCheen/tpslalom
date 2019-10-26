@@ -34,7 +34,7 @@
                 <table class="table table-striped table-bordered table-advance table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="10"> 台北市 </th>
+                        <th class="text-center" colspan="10"> 成績公告時間：10:35 </th>
                     </tr>
                     <tr>
                         <th class="text-center"> 名次 </th>
