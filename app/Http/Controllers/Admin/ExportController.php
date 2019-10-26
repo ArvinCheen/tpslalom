@@ -252,8 +252,9 @@ class ExportController extends Controller
                         $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
                             if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
                                 $cell->setValue('成　　　績：');
+                            } else {
+                                $cell->setValue('　');
                             }
-                            $cell->setValue('　');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -273,8 +274,9 @@ class ExportController extends Controller
                                 }
 
                                 $cell->setValue($result);
+                            } else {
+                                $cell->setValue('　');
                             }
-                            $cell->setValue('　');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
