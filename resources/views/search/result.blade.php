@@ -151,70 +151,72 @@
                                 </tr>
                         @break
                         @case(25)
+
                         <tr>
                             <td class="text-center">1</td>
+                            <td class="text-center"> 046 </td>
+                            <td class="text-center">丁于恩</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
                             <td class="text-center"> 175 </td>
                             <td class="text-center">黃苗嫚</td>
                         </tr>
                         <tr>
-                            <td class="text-center">2</td>
+                            <td class="text-center">3</td>
                             <td class="text-center"> 282 </td>
                             <td class="text-center">江芮琳</td>
                         </tr>
                         <tr>
-                            <td class="text-center">3</td>
+                            <td class="text-center">4</td>
                             <td class="text-center"> 130 </td>
                             <td class="text-center">王佑瑜</td>
                         </tr>
                         <tr>
-                            <td class="text-center">4</td>
+                            <td class="text-center">5</td>
                             <td class="text-center"> 247 </td>
                             <td class="text-center">吳芙蓉</td>
                         </tr>
                         <tr>
-                            <td class="text-center">5</td>
+                            <td class="text-center">6</td>
                             <td class="text-center"> 075 </td>
                             <td class="text-center">劉巧兮</td>
                         </tr>
                         <tr>
-                            <td class="text-center">6</td>
+                            <td class="text-center">7</td>
                             <td class="text-center"> 101 </td>
                             <td class="text-center">鄭晴安</td>
                         </tr>
                         <tr>
-                            <td class="text-center">7</td>
+                            <td class="text-center">8</td>
                             <td class="text-center"> 049 </td>
                             <td class="text-center">楊允彣</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">8</td>
-                            <td class="text-center"> 260 </td>
-                            <td class="text-center">游涵伃</td>
                         </tr>
 
 
                         @break
 
                         @case(26)
+
                         <tr>
                             <td class="text-center">1</td>
+                            <td class="text-center">313</td>
+                            <td class="text-center">李孝恒</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
                             <td class="text-center">235</td>
                             <td class="text-center">吳東諺</td>
                         </tr>
                         <tr>
-                            <td class="text-center">2</td>
+                            <td class="text-center">3</td>
                             <td class="text-center">342</td>
                             <td class="text-center">周祈佑</td>
                         </tr>
                         <tr>
-                            <td class="text-center">3</td>
+                            <td class="text-center">4</td>
                             <td class="text-center">335</td>
                             <td class="text-center">羅振嘉</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td class="text-center">338</td>
-                            <td class="text-center">江皇諭</td>
                         </tr>
                         @break
 
@@ -492,7 +494,6 @@
                                                 @if ($key<4)
                                                     ★
                                                 @endif
-                                            {{--                                            晉級--}}
                                         @endif
                                     @endif
                                         {{ $key + 1 }}
