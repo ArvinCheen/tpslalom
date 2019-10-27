@@ -54,7 +54,7 @@ class SearchController extends Controller
             }
         }
 
-        app(SlackNotify::class)->setMsg('有人正在觀看 `場次' . $scheduleId . '` 的成績公告')->notify();
+        app(SlackNotify::class)->setMsg('有人正在觀看 `場次' . $scheduleId . '` 的成績公告 - ' . now())->notify();
         return view('search/result')->with(compact(
             'openResultTime',
             'scheduleId',
