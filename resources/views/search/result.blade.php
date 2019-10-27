@@ -47,11 +47,38 @@
                         <th class="text-center"> 編號 </th>
                         <th class="text-center"> 選手 </th>
                         @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
-                            <th class="text-center"> 一回 </th>
-                            <th class="text-center"> 誤椿 </th>
-                            <th class="text-center"> 二回 </th>
-                            <th class="text-center"> 誤椿 </th>
-                            <th class="text-center"> 成績 </th>
+                            @if ($scheduleId >= 24 || $scheduleId <= 34)
+                                @if ($scheduleId == 27)
+                                    <th class="text-center"> 一回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 二回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                @else
+                                    <th class="text-center"> 一回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                    <th class="text-center"> 二回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                    <th class="text-center"> 三回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                    <th class="text-center"> 四回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                    <th class="text-center"> 五回 </th>
+                                    <th class="text-center"> 誤椿 </th>
+                                    <th class="text-center"> 成績 </th>
+                                    <th class="text-center"> 最佳成績 </th>
+                                @endif
+                            @else
+                                <th class="text-center"> 一回 </th>
+                                <th class="text-center"> 誤椿 </th>
+                                <th class="text-center"> 二回 </th>
+                                <th class="text-center"> 誤椿 </th>
+                                <th class="text-center"> 成績 </th>
+                            @endif
                         @else
                             <th class="text-center"> 技術一 </th>
                             <th class="text-center"> 藝術一 </th>

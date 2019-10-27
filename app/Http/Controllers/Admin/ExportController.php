@@ -619,7 +619,7 @@ class ExportController extends Controller
                         ->where('level', $level)
                         ->where('group', $group)
                         ->where('item', $item)
-                        ->orderBy('player_number')
+                        ->orderBy('appearance')
                         ->get();
 
                     $location = 6;
