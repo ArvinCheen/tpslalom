@@ -42,6 +42,8 @@ class RankController extends Controller
 
         $this->processRank($level, $gender, $group, $item, $rankLimit);
 
+        $gameInfo->open_result_time = now();
+        $gameInfo->save();
 //        全國賽不使用以下的判斷
 //        if ($level == '選手組') {
 //        $this->processRank($level, $gender, $group, $item, );
