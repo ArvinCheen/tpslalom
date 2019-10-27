@@ -48,7 +48,7 @@
                         <th class="text-center"> 選手 </th>
                         @if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20 ))
                             @if ($scheduleId >= 24 || $scheduleId <= 34)
-                                @if ($scheduleId == 27)
+                                @if ($scheduleId == 27 || $scheduleId >= 35)
                                     <th class="text-center"> 一回 </th>
                                     <th class="text-center"> 誤椿 </th>
                                     <th class="text-center"> 二回 </th>
