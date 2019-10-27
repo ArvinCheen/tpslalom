@@ -479,15 +479,23 @@
                         @foreach ($result as $key => $val)
                             <tr>
                                 <td class="text-center">
-
                                     @if ($val->final_result <> '無成績')
-                                        {{ $key + 1 }}
+
 
                                     @if ($scheduleId == 11 ||$scheduleId == 12 ||$scheduleId == 13 ||$scheduleId == 14 ||$scheduleId == 15 ||$scheduleId == 16 ||$scheduleId == 17 ||$scheduleId == 18 ||$scheduleId == 19 ||$scheduleId == 20)
-                                        @if ($rankLimit >= ($key+1))
-{{--                                            晉級--}}
+                                        @if ($remark == '取八強')
+                                            @if ($key<8)
+                                                    ★
+                                            @endif
+                                        @endif
+                                        @if ($remark == '取四強')
+                                                @if ($key<4)
+                                                    ★
+                                                @endif
+                                            {{--                                            晉級--}}
                                         @endif
                                     @endif
+                                        {{ $key + 1 }}
                                     @endif
                                 </td>
                                 <td class="text-center"> {{ $val->player_number }}</td>

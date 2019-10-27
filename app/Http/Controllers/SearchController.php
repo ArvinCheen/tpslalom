@@ -42,6 +42,7 @@ class SearchController extends Controller
         }
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+        $remark = ScheduleModel::find($scheduleId)->remark;
 
         if ($numberOfPlayer == 1) {
             $rankLimit = 1;
@@ -59,7 +60,8 @@ class SearchController extends Controller
             'scheduleId',
             'schedules',
             'result',
-            'rankLimit'
+            'rankLimit',
+            'remark'
         ));
     }
 
