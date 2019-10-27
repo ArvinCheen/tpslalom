@@ -8,9 +8,9 @@ class SlackNotify
 {
     private $client;
 
-    private $channel = 'tpslalom';
+    private $channel = 'taiwan';
 
-    private $username = '黑蝙蝠';
+    private $username = '賽事小幫手';
 
     private $msg = 'Hello World';
 
@@ -29,7 +29,7 @@ class SlackNotify
             'text'     => $this->getMsg()
         ];
 
-        $this->client->post($this->url . env('SLACK', 'TH74P8D8E/BNYRD95TL/PSsMj6vuugwhsabb5zLX57X3'), [
+        $this->client->post($this->url . env('SLACK', 'TH74P8D8E/BPX2NGD0W/80aQpxERjD95tBiMxzdoZDH8'), [
             'form_params' => [
                 'payload' => json_encode($array)
             ]
