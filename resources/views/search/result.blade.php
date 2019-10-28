@@ -189,8 +189,8 @@
                         </tr>
                         <tr>
                             <td class="text-center">8</td>
-                            <td class="text-center"> 049 </td>
-                            <td class="text-center">楊允彣</td>
+                            <td class="text-center"> 260 </td>
+                            <td class="text-center">游涵伃</td>
                         </tr>
 
 
