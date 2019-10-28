@@ -108,6 +108,7 @@
                     @endif
                     @switch ($scheduleId)
                         @case(24)
+                        <img src="{{ URL::asset('result/24.png') }}">
 
                             <tr>
                             <td class="text-center"> 1 </td>
@@ -144,13 +145,23 @@
                             <td class="text-center"> 030 </td>
                             <td class="text-center"> 盧右晨 </td>
                             </tr>
-                            <tr>
+                        <tr>
                             <td class="text-center"> 8 </td>
                             <td class="text-center"> 144 </td>
                             <td class="text-center"> 林子宸 </td>
-                                </tr>
+
+                        </tr>
+                        <tr>
+                            <td class="text-center"> 9 </td>
+                            <td class="text-center"> 086 </td>
+                            <td class="text-center"> 呂秉宥 </td>
+
+                        </tr>
+
+
                         @break
                         @case(25)
+                        <img src="{{ URL::asset('result/25.png') }}">
 
                         <tr>
                             <td class="text-center">1</td>
@@ -192,11 +203,17 @@
                             <td class="text-center"> 260 </td>
                             <td class="text-center">游涵伃</td>
                         </tr>
+                        <tr>
+                            <td class="text-center">9</td>
+                            <td class="text-center"> 049 </td>
+                            <td class="text-center">楊允彣</td>
+                        </tr>
 
 
                         @break
 
                         @case(26)
+                        <img src="{{ URL::asset('result/26.png') }}">
 
                         <tr>
                             <td class="text-center">1</td>
@@ -218,9 +235,15 @@
                             <td class="text-center">335</td>
                             <td class="text-center">羅振嘉</td>
                         </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td class="text-center">338</td>
+                            <td class="text-center">江皇諭</td>
+                        </tr>
                         @break
 
                         @case(28)
+                        <img src="{{ URL::asset('result/28.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">327</td>
@@ -263,6 +286,7 @@
                         </tr>
                         @break
                         @case(29)
+                        <img src="{{ URL::asset('result/29.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">175</td>
@@ -306,6 +330,7 @@
 
                         @break
                         @case(30)
+                        <img src="{{ URL::asset('result/30.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">427</td>
@@ -348,6 +373,7 @@
                         </tr>
                         @break
                         @case(31)
+                        <img src="{{ URL::asset('result/31.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">046</td>
@@ -390,6 +416,8 @@
                         </tr>
                         @break
                         @case(32)
+                        <img src="{{ URL::asset('result/32.png') }}">
+
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">123</td>
@@ -430,8 +458,10 @@
                             <td class="text-center">097</td>
                             <td class="text-center">劉宇軒</td>
                         </tr>
+
                         @break
                         @case(33)
+                        <img src="{{ URL::asset('result/33.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">313</td>
@@ -454,6 +484,7 @@
                         </tr>
                         @break
                         @case(34)
+                        <img src="{{ URL::asset('result/34.png') }}">
                         <tr>
                             <td class="text-center">1</td>
                             <td class="text-center">257</td>
