@@ -695,7 +695,7 @@ class ExportController extends Controller
                         $initIndex++;
                     } else {
                         foreach ($results as $result) {
-                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group, $schedule->item, $result->agency, $result->final_result]);
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' '. $schedule->gender, $schedule->item, $result->agency, $result->final_result]);
                             $initIndex++;
                         }
                     }
