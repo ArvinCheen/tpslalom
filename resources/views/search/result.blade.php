@@ -396,23 +396,24 @@
                         </tr>
                         <tr>
                             <td class="text-center">5</td>
-                            <td class="text-center">051</td>
-                            <td class="text-center">劉又瑄</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">6</td>
                             <td class="text-center">437</td>
                             <td class="text-center">張芃竹</td>
                         </tr>
                         <tr>
-                            <td class="text-center">7</td>
+                            <td class="text-center">6</td>
                             <td class="text-center">260</td>
                             <td class="text-center">游涵伃</td>
                         </tr>
                         <tr>
-                            <td class="text-center">8</td>
+                            <td class="text-center">7</td>
                             <td class="text-center">147</td>
                             <td class="text-center">李蘊芳</td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">8</td>
+                            <td class="text-center">051</td>
+                            <td class="text-center">劉又瑄</td>
                         </tr>
                         @break
                         @case(32)
