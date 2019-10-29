@@ -672,7 +672,7 @@ class ExportController extends Controller
                         }
                     }
 
-                    $results = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
+                    $results = EnrollModel::select('player_number', 'name', 'city','agency_all', 'final_result', 'rank')
                         ->leftJoin('player', 'player.id', 'enroll.player_id')
                         ->where('game_id', config('app.game_id'))
                         ->where('group', $schedule->group)
@@ -683,7 +683,7 @@ class ExportController extends Controller
                         ->orderBy('rank')
                         ->get();
 
-                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '組別', '項目', '單位', '成績']);
+                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '組別', '項目', '縣市','單位', '成績']);
                     $initIndex++;
 
                     if ($results->isEmpty()) {
@@ -695,7 +695,7 @@ class ExportController extends Controller
                         $initIndex++;
                     } else {
                         foreach ($results as $result) {
-                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' '. $schedule->gender, $schedule->item, $result->agency, $result->final_result]);
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' '. $schedule->gender, $schedule->item, $result->city ,$result->agency_all, $result->final_result]);
                             $initIndex++;
                         }
                     }
