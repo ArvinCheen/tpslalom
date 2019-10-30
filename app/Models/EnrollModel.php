@@ -368,7 +368,7 @@ class EnrollModel extends Model
         return $this->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
-            ->where('group', $group)
+            ->where('group', 'like',"%$group%")
             ->where('gender', $gender)
             ->where('item', $item)
             ->count();
