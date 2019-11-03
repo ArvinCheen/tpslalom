@@ -36,7 +36,9 @@ class ResultController extends Controller
                 ->get();
         }
 
-        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls'));
+        $level = $gameInfo->level;
+
+        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls','level'));
     }
 
     public function update(Request $request)
@@ -46,14 +48,32 @@ class ResultController extends Controller
         $roundOneMissConr = $request->roundOneMissConr;
         $roundTwoSecond   = $request->roundTwoSecond;
         $roundTwoMissConr = $request->roundTwoMissConr;
+        $gameType = $request->gameType;
 
         if (! $this->validateInt($request)) {
             app('request')->session()->flash('error', '秒數請輸入數字');
             return back()->withInput();
         }
 
-        foreach ($enrollIds as $key => $enrollId) {
-            $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+        switch ($gameType) {
+            case 'Free':
+                foreach ($enrollIds as $key => $enrollId) {
+                    $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+                }
+                break;
+            case 'Speed':
+                foreach ($enrollIds as $key => $enrollId) {
+
+                    try {
+                        EnrollModel::where('id', $enrollId)->update([
+                            'final_result'        => $request->finalResult[$key],
+                            'rank'                => null,
+                        ]);
+                    } catch (\Exception $e) {
+                        app()->make(SlackNotify::class)->setMsg('[ReultController@update] Error ' . $e->getMessage())->notify();
+                    }
+                }
+                break;
         }
 
         return back()->with(['success' => '更新選手成績成功']);

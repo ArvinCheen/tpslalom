@@ -53,7 +53,8 @@ class SearchController extends Controller
 
         $result = $searchService->translationResult($result);
 
-        return view('search/result')->with(compact('scheduleId', 'schedules', 'result'));
+        $level = $gameInfo->level;
+        return view('search/result')->with(compact('scheduleId', 'schedules', 'result','level'));
     }
 
     public function integral()

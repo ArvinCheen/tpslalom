@@ -36,10 +36,12 @@
                             <th class="text-center"> 名次 </th>
                             <th class="text-center"> 編號 </th>
                             <th class="text-center"> 選手 </th>
+                            @if ($level == '初級組' || $level == '選手組')
                             <th class="text-center"> 一回 </th>
                             <th class="text-center"> 誤椿 </th>
                             <th class="text-center"> 二回 </th>
                             <th class="text-center"> 誤椿 </th>
+                            @endif
                             <th class="text-center"> 成績 </th>
 {{--                            <th class="text-center"> 積分 </th>--}}
                         </tr>
@@ -53,12 +55,15 @@
                                 <td class="text-center"> {{ $val->rank }}</td>
                                 <td class="text-center"> {{ $val->player_number }}</td>
                                 <td class="text-center"> {{ $val->name }}</td>
+
+                                @if ($level == '初級組' || $level == '選手組')
                                 <td class="text-center"> {{ $val->round_one_second }}</td>
                                 <td class="text-center"> {{ $val->round_one_miss_conr > 5 ? '失格' : $val->round_one_miss_conr }}</td>
                                 <td class="text-center"> {{ $val->round_two_second }}</td>
                                 <td class="text-center"> {{ $val->round_two_miss_conr > 5 ? '失格' : $val->round_two_miss_conr }}</td>
+                                    {{--                                <td class="text-center"> {{ $val->integral }}</td>--}}
+                                @endif
                                 <td class="text-center"> {{ $val->final_result }}</td>
-{{--                                <td class="text-center"> {{ $val->integral }}</td>--}}
                             </tr>
                         @endforeach
                         </tbody>
