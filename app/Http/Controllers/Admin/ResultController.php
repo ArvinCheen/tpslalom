@@ -25,8 +25,7 @@ class ResultController extends Controller
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo)
-            {
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
                 $query->where('gender', $gameInfo->gender);
             })
                 ->where('game_id', config('app.game_id'))
@@ -61,54 +60,39 @@ class ResultController extends Controller
     }
 
 
-    public function calculationResult($enrollId, $roundOneSecond, $roundOneMissConr, $roundTwoSecond, $roundTwoMissConr)
+    public function calculationResult($enrollId, $roundOneSecond = 0, $roundOneMissConr = 0, $roundTwoSecond = 0, $roundTwoMissConr = 0)
     {
         try {
             if (! empty($roundOneSecond) || ! empty($roundOneMissConr) || ! empty($roundTwoSecond) || ! empty($roundTwoMissConr)) {
 
-                $resultRoundOne = null;
-                $resultRoundTwo = null;
+                $resultRoundOne = 999;
+                $resultRoundTwo = 999;
 
                 if ($roundOneMissConr > 4) {
-                    $roundOneMissConr = 99;
+                    $roundOneMissConr = 9;
                 } else {
-                    if (! is_null($roundOneSecond)) {
+                    if ($roundOneSecond == 0) {
+                        $resultRoundOne = 999;
+                    } else {
                         $resultRoundOne = $roundOneSecond + ($roundOneMissConr * 0.2);
                     }
                 }
 
                 if ($roundTwoMissConr > 4) {
-                    $roundTwoMissConr = 99;
+                    $roundTwoMissConr = 9;
                 } else {
-                    if (! is_null($roundTwoSecond)) {
+
+                    if ($roundTwoSecond == 0) {
+                        $resultRoundTwo = 999;
+                    } else {
                         $resultRoundTwo = $roundTwoSecond + ($roundTwoMissConr * 0.2);
                     }
                 }
 
-                if (! is_null($resultRoundOne) && ! is_null($resultRoundTwo)) {
-                    $resultRoundFinal = $resultRoundOne < $resultRoundTwo ? $resultRoundOne : $resultRoundTwo;
-
-                    if (is_null($roundOneMissConr)) {
-                        $roundOneMissConr = 0;
-                    }
-                    if (is_null($roundTwoMissConr)) {
-                        $roundTwoMissConr = 0;
-                    }
-                } elseif (is_null($resultRoundOne) && is_null($resultRoundTwo)) {
+                if ($roundOneMissConr > 5 && $roundTwoMissConr > 5) {
                     $resultRoundFinal = '無成績';
                 } else {
-                    if (! is_null($resultRoundOne)) {
-                        $resultRoundFinal = $resultRoundOne;
-                        if (! is_null($roundOneSecond) && is_null($roundOneMissConr)) {
-                            $roundOneMissConr = 0;
-                        }
-                    }
-                    if (! is_null($resultRoundTwo)) {
-                        $resultRoundFinal = $resultRoundTwo;
-                        if (! is_null($roundTwoSecond) && is_null($roundTwoMissConr)) {
-                            $roundTwoMissConr = 0;
-                        }
-                    }
+                    $resultRoundFinal = $resultRoundOne < $resultRoundTwo ? $resultRoundOne : $resultRoundTwo;
                 }
 
                 EnrollModel::where('id', $enrollId)->update([

@@ -40,7 +40,7 @@
                             <td> 級別 </td>
                             <td> 組別 </td>
                             <td> 項目 </td>
-                            <td> 縣市 </td>
+{{--                            <td> 縣市 </td>--}}
                             <td> 人數 </td>
                             <td> 金牌 </td>
                             <td> 銀牌 </td>
@@ -52,7 +52,7 @@
                                 <td> {{ $val->level }} </td>
                                 <td> {{ $val->group }} </td>
                                 <td> {{ $val->item }} </td>
-                                <td> {{ $val->city }} </td>
+{{--                                <td> {{ $val->city }} </td>--}}
                                 <td> {{ $val->quantity }} </td>
                                 <td> {{ $val->gold }} </td>
                                 <td> {{ $val->silver }} </td>

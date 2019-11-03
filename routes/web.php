@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () {
 
     Route::get('/', 'Admin\ResultController@index');
+    Route::get('/cleanResult', 'Admin\CleanResultController@cleanResult');
 
 
     Route::group(['prefix' => 'dashboard'], function () {
@@ -134,8 +135,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
     Route::group(['prefix' => 'export'], function () {
         Route::get('/certificate/{scheduleId}', 'Admin\ExportController@certificate');  // 獎狀
         Route::get('/completion/{accountId}', 'Admin\ExportController@completion');  // 完賽證明
-        Route::get('/records', 'Admin\ExportController@records');  // 紀錄手寫單
-        Route::get('/teamCheckIn', 'Admin\ExportController@teamCheckIn');  // 隊伍簽到表
+        Route::get('/checkIn', 'Admin\ExportController@checkIn');  // 檢錄單
         Route::get('/result', 'Admin\ExportController@result'); // 賽後成績
     });
 });

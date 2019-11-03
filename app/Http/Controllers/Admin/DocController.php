@@ -37,18 +37,6 @@ class DocController extends Controller
             ->groupBy('enroll.player_number')
             ->get();
 
-        foreach ($all as $doc) {
-            if (preg_match("/\前進雙足S型/i", $doc->itemAll)) {
-                $doc->doubleS = '前進雙足S型';
-            }
-            if (preg_match("/\前進單足S型/i", $doc->itemAll)) {
-                $doc->singleS = '前進單足S型';
-            }
-            if (preg_match("/\前進交叉型/i", $doc->itemAll)) {
-                $doc->cross = '前進交叉型';
-            }
-        }
-
         return view('admin/doc/all')->with(compact('all'));
     }
 
@@ -126,11 +114,11 @@ class DocController extends Controller
         $copperTotal = 0;
 
         foreach ($medalData as $val) {
-            if ($val->level == '選手組') {
-                $val->city = '不分縣';
-            } else {
-                $val->city = $val->city == '臺北市' ? '臺北市' : '外縣市';
-            }
+//            if ($val->level == '選手組') {
+//                $val->city = '不分縣';
+//            } else {
+//                $val->city = $val->city == '臺北市' ? '臺北市' : '外縣市';
+//            }
             $val->gold   = 1;
             $val->silver = $val->quantity >= 2 ? 1 : 0;
             $val->copper = $val->quantity >= 3 ? 1 : 0;
@@ -147,16 +135,17 @@ class DocController extends Controller
             ->with('copperTotal', $copperTotal);
     }
 
-    public function players()
-    {
-        $players = (object)[
-            'doubleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進雙足S型'),
-            'singleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進單足S型'),
-            'cross'   => app(EnrollModel::class)->getEnrollPlayers($item = '前進交叉型'),
-        ];
-
-        return view('admin/doc/players')->with(compact('players'));
-    }
+    // 後台選手列表應該有更好的呈現方式，先棄用
+//    public function players()
+//    {
+//        $players = (object)[
+//            'doubleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進雙足S型'),
+//            'singleS' => app(EnrollModel::class)->getEnrollPlayers($item = '前進單足S型'),
+//            'cross'   => app(EnrollModel::class)->getEnrollPlayers($item = '前進交叉型'),
+//        ];
+//
+//        return view('admin/doc/players')->with(compact('players'));
+//    }
 
     public function schedules()
     {

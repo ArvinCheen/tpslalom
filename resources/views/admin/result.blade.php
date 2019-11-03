@@ -80,9 +80,9 @@
                             <th class="text-center">
                                 <i class=""></i> 成績
                             </th>
-                            <th class="text-center">
-                                <i class=""></i> 積分
-                            </th>
+{{--                            <th class="text-center">--}}
+{{--                                <i class=""></i> 積分--}}
+{{--                            </th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -94,17 +94,17 @@
                                 <td class="text-center"> {{ $enroll->player->name }} </td>
                                 <td class="text-center"> {{ $enroll->player->city }} </td>
                                 <td class="text-center"> {{ $enroll->player->agency }} </td>
-                                {{--<td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                {{--<td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
-                                {{--<td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
-                                {{--<td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
+{{--                                <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
+{{--                                <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
+{{--                                <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput" size="8" value="{{ rand(5, 25) }}.{{ rand(1, 900) }}" autocomplete="off" > </td>--}}
+{{--                                <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput" size="3" value="{{ rand(0,7) }}" autocomplete="off"> </td>--}}
 
                                 <td class="text-center"> <input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3" value="{{ $enroll->round_one_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ $enroll->round_two_second }}" autocomplete="off" > </td>
                                 <td class="text-center"> <input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3" value="{{ $enroll->round_two_miss_conr }}" autocomplete="off" > </td>
                                 <td class="text-center"> {{ $enroll->final_result }} </td>
-                                <td class="text-center"> {{ $enroll->integral }} </td>
+{{--                                <td class="text-center"> {{ $enroll->integral }} </td>--}}
                             </tr>
                         @endforeach
                         </tbody>

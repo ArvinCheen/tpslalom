@@ -14,6 +14,7 @@
     <!--begin::Web font -->
 
     <script src="{{ URL::asset('assets/app/js/webfont.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('js/shortcut.js') }}" type="text/javascript"></script>
     <script>
         WebFont.load({
             google: {
@@ -83,12 +84,12 @@
                         <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
                             <div class="m-stack__item m-topbar__nav-wrapper">
                                 <ul class="m-topbar__nav m-nav m-nav--inline">
-                                    <li class="m-nav__item m-topbar__user-profile">
-                                        <a href="#" class="m-nav__link m-dropdown__toggle">
-                                            <span class="m-topbar__welcome">Hello,&nbsp;</span>
-                                            <span class="m-topbar__username">曾大宇</span>
-                                        </a>
-                                    </li>
+{{--                                    <li class="m-nav__item m-topbar__user-profile">--}}
+{{--                                        <a href="#" class="m-nav__link m-dropdown__toggle">--}}
+{{--                                            <span class="m-topbar__welcome">Hello,&nbsp;</span>--}}
+{{--                                            <span class="m-topbar__username">曾大宇</span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
                                     <li class="m-nav__item m-topbar__user-profile ">
                                         <a href="{{ URL('admin/logout') }}" class="m-nav__link m-dropdown__toggle">
                                             <span class="m-topbar__username"> Logout </span>
@@ -146,7 +147,7 @@
 									<i class="la la-search"></i>
 								</span>
                                 <span class="m-header-search__input-wrapper">
-									<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="搜尋選手..." id="m_quicksearch_input">
+									<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="搜尋選手..." id="searchPlayer">
 								</span>
                                 <span class="m-header-search__icon-close" id="m_quicksearch_close">
 									<i class="la la-remove"></i>
@@ -253,14 +254,14 @@
                             <span class="m-menu__link-text"> 隊伍名冊 </span>
                         </a>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 選手名冊 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 選手名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -283,11 +284,19 @@
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('/admin/export/checkIn') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 檢錄單 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('/admin/export/records') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 紀錄手寫單 </span>
+                            <span class="m-menu__link-text"> 成績手寫單 </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
@@ -295,7 +304,28 @@
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 賽後成績 </span>
+                            <span class="m-menu__link-text"> 成績冊 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/export/result/all') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 成績總冊 </span>
+                        </a>
+                    </li>
+
+                    <li class="m-menu__section admin " style="display: none;">
+                        <h4 class="m-menu__section-text"> !! admin !! </h4>
+                        <i class="m-menu__section-icon flaticon-more-v3"></i>
+                    </li>
+                    <li class="m-menu__item admin " aria-haspopup="true">
+                        <a href="{{ URL('admin/cleanResult') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 清除成績 </span>
                         </a>
                     </li>
                 </ul>
@@ -341,6 +371,10 @@
     @if (session('error'))
     toastr.error('{{ session('error') }}');
     @endif
+
+    shortcut.add("Shift+6", function () {
+        $(".admin").show();
+    });
 </script>
 @yield('js')
 

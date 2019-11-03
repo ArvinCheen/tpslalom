@@ -31,14 +31,14 @@ class RankController extends Controller
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
-        if ($level == '選手組') {
+//        if ($level == '選手組') {
             $this->processRank($level, $gender, $group, $item);
-        } else {
-            $this->processRank($level, $gender, $group, $item, $city = '臺北市');
-            $this->processRank($level, $gender, $group, $item, $city = '外縣市');
-        }
+//        } else {
+//            $this->processRank($level, $gender, $group, $item, $city = '臺北市');
+//            $this->processRank($level, $gender, $group, $item, $city = '外縣市');
+//        }
 
-        $this->processIntegral($level, $gender, $group, $item);
+//        $this->processIntegral($level, $gender, $group, $item);
     }
 
 

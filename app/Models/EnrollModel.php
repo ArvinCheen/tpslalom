@@ -245,20 +245,21 @@ class EnrollModel extends Model
         return $this::whereHas('player', function ($query) use ($gender, $city) {
                 $query->where('gender', $gender);
 
-                if (! is_null($city)) {
-                    if ($city == '臺北市') {
-                        $query->where('city', '臺北市');
-                    } else {
-                        $query->where('city', '<>', '臺北市');
-                    }
-                }
+                // todo 這裡可以設定是否區分縣市計算
+//                if (! is_null($city)) {
+//                    if ($city == '臺北市') {
+//                        $query->where('city', '臺北市');
+//                    } else {
+//                        $query->where('city', '<>', '臺北市');
+//                    }
+//                }
             })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('group', $group)
             ->where('item', $item)
             ->where('final_result', '<>', '無成績')
-            ->limit(6)
+            ->limit(8) // todo 這裡可以由後台設定取幾個名次
             ->orderBy(\DB::raw("final_result * 1"))
             ->get();
     }
@@ -322,39 +323,40 @@ class EnrollModel extends Model
     '))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('city', '臺北市')
-            ->where('level', '新人組')
+//            ->where('city', '臺北市')
+//            ->where('level', '新人組')
             ->groupBy('level', 'group', 'item', 'gender');
 
-        $noTaipeiMedal = $this
-            ->select(\DB::raw('
-                `gender`,
-                `level`,
-                `group`,
-                `item`,
-                `city`,
-                count(*) as quantity
-    '))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->where('city', '<>', '臺北市')
-            ->where('level', '新人組')
-            ->groupBy('level', 'group', 'item', 'gender');
+//        $noTaipeiMedal = $this
+//            ->select(\DB::raw('
+//                `gender`,
+//                `level`,
+//                `group`,
+//                `item`,
+//                `city`,
+//                count(*) as quantity
+//    '))
+//            ->leftJoin('player', 'player.id', 'enroll.player_id')
+//            ->where('game_id', config('app.game_id'))
+//            ->where('city', '<>', '臺北市')
+//            ->where('level', '新人組')
+//            ->groupBy('level', 'group', 'item', 'gender');
+//
+//        $選手Medal = $this
+//            ->select(\DB::raw('
+//                `gender`,
+//                `level`,
+//                `group`,
+//                `item`,
+//                `city`,
+//                count(*) as quantity
+//    '))
+//            ->leftJoin('player', 'player.id', 'enroll.player_id')
+//            ->where('game_id', config('app.game_id'))
+//            ->groupBy('level', 'group', 'item', 'gender');
 
-        $選手Medal = $this
-            ->select(\DB::raw('
-                `gender`,
-                `level`,
-                `group`,
-                `item`,
-                `city`,
-                count(*) as quantity
-    '))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->groupBy('level', 'group', 'item', 'gender');
-
-        return $taipeiMedal->union($noTaipeiMedal)->union($選手Medal)
+        return $taipeiMedal
+//            ->union($noTaipeiMedal)->union($選手Medal)
             ->orderBy('level')
             ->orderBy('group')
             ->orderBy('item')

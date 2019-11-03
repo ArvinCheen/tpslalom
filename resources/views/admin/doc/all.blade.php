@@ -24,9 +24,9 @@
                             <th> 級別 </th>
                             <th> 組別 </th>
                             <th> 性別 </th>
-                            <th> 項目一 </th>
-                            <th> 項目二 </th>
-                            <th> 項目三 </th>
+                            <th> 參賽項目 </th>
+{{--                            <th> 項目二 </th>--}}
+{{--                            <th> 項目三 </th>--}}
                             <th> 隊名 </th>
                             <th> 單位 </th>
                             <th> 地區 </th>
@@ -44,9 +44,9 @@
                                 <td> {{ $item->level }} </td>
                                 <td> {{ $item->group }} </td>
                                 <td> {{ $item->gender }} </td>
-                                <td> {{ $item->doubleS }} </td>
-                                <td> {{ $item->singleS }} </td>
-                                <td> {{ $item->cross }} </td>
+                                <td> {{ $item->itemAll }} </td>
+{{--                                <td> {{ $item->singleS }} </td>--}}
+{{--                                <td> {{ $item->cross }} </td>--}}
                                 <td> {{ $item->team_name }} </td>
                                 <td> {{ $item->agency }} </td>
                                 <td> {{ $item->city }} </td>

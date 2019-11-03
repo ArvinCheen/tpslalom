@@ -23,8 +23,7 @@ class SearchController extends Controller
 
     public function result($scheduleId = null)
     {
-        $resultService   = new ResultService();
-        $searchService   = new SearchService();
+        $searchService = new SearchService();
 
         $schedules = app(ScheduleModel::class)->getSchedules();
 
@@ -34,17 +33,27 @@ class SearchController extends Controller
             }
         }
 
-        $isGameOver      = $resultService->isGameOver($scheduleId);
-        $taipeiResult    = $searchService->getResult($scheduleId, 'taipei');
-        $otherCityResult = $searchService->getResult($scheduleId, 'otherCity');
+        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
-        return view('search/result')->with(compact(
-            'scheduleId',
-            'schedules',
-            'isGameOver',
-            'taipeiResult',
-            'otherCityResult'
-        ));
+        // todo 這裡要區分是否有分性別
+        // todo 這裡要可以判斷是否有分縣市
+        $result = EnrollModel::where('game_id', config('app.game_id'))
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
+            ->where('game_id', config('app.game_id'))
+            ->where('level', $gameInfo->level)
+            ->where('group', $gameInfo->group)
+            ->where('item', $gameInfo->item)
+            ->where('gender', $gameInfo->gender)
+            ->whereNotNull('final_result');
+
+        $haveResult    = $result->orderBy(\DB::raw('final_result * 1'))->get();
+        $notHaveResult = $result->where('final_result', '<>', '無成績')->get();
+
+        $result = $notHaveResult->merge($haveResult);
+
+        $result = $searchService->translationResult($result);
+
+        return view('search/result')->with(compact('scheduleId', 'schedules', 'result'));
     }
 
     public function integral()
