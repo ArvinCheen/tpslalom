@@ -31,17 +31,16 @@
                         <a href="{{ URL('admin/export/certificate') }}/{{$scheduleId}}"><button type="button" class="btn btn-primary"> 匯出獎狀 </button></a>
                     </div>
                     <div class="ml-2">
+                        <button type="submit" class="btn btn-primary" onclick="enterResult()"> 輸入成績 </button>
+                    </div>
+                    <div class="ml-2">
                         <form action="{{ route('admin.rank') }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
                             <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">
-                            <button type="submit" class="btn btn-primary"> 排名 </button>
+                            <button type="submit" class="btn btn-primary"> 完賽排名 </button>
                         </form>
                     </div>
-                    <div class="ml-2">
-                        <button type="submit" class="btn btn-primary" onclick="enterResult()"> 輸入成績 </button>
-                    </div>
-
                 </div>
                 <form id="result-form" action="{{ URL('admin/result/update') }}" method="POST">
                     {{ csrf_field() }}
