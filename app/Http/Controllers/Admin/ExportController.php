@@ -17,10 +17,10 @@ class ExportController extends Controller
     public function certificate($scheduleId)
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
-        $order = $gameInfo->order;
-        $level = $gameInfo->level;
-        $group = $gameInfo->group;
-        $item = $gameInfo->item;
+        $order    = $gameInfo->order;
+        $level    = $gameInfo->level;
+        $group    = $gameInfo->group;
+        $item     = $gameInfo->item;
 
         $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             $query->where('gender', $gameInfo->gender);
@@ -64,6 +64,22 @@ class ExportController extends Controller
     private function exportExcel($fileName, $enrolls, $type)
     {
         Excel::create($fileName, function ($excel) use ($enrolls, $type) {
+
+            $excel->sheet('明細', function ($sheet) use ($enrolls, $type) {
+                $sheet->setFontFamily('微軟正黑體');
+
+                $sheet->cell('A1', function ($cell) use ($enrolls) {
+                    $cell->setValue($enrolls[0]->level . $enrolls[0]->group . $enrolls[0]->player->gender . '-' . $enrolls[0]->item);
+                });
+
+                foreach ($enrolls as $key => $enroll) {
+                    $sheet->cell('A' . ($key + 2), function ($cell) use ($enroll, $type) {
+                        $cell->setValue($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number);
+                    });
+                }
+            });
+
+
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $type) {
@@ -207,7 +223,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A46', function ($cell) use ($enroll) {
-                            $date = GameModel::where('id', config('app.game_id'))->value('game_date');
+                            $date     = GameModel::where('id', config('app.game_id'))->value('game_date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
                             $cell->setFontSize(24);
@@ -377,10 +393,10 @@ class ExportController extends Controller
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level = $schedule->level;
-                    $group = $schedule->group;
+                    $level  = $schedule->level;
+                    $group  = $schedule->group;
                     $gender = $schedule->gender;
-                    $item = $schedule->item;
+                    $item   = $schedule->item;
 
 
                     $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
@@ -421,9 +437,9 @@ class ExportController extends Controller
 
     public function result()
     {
-        $gameInfo = GameModel::where('id', config('app.game_id'))->first();
+        $gameInfo         = GameModel::where('id', config('app.game_id'))->first();
         $gameCompleteName = $gameInfo->complete_name;
-        $abridgeName = $gameInfo->abridge_name;
+        $abridgeName      = $gameInfo->abridge_name;
 
         Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
             $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
@@ -444,15 +460,33 @@ class ExportController extends Controller
 
                 $sheet->mergeCells('A1:I1');
 
-                $sheet->cell('A', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('B', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('C', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('D', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('E', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('F', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('G', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('H', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('I', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('A', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('B', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('C', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('D', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('E', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('F', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('G', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('H', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('I', function ($cell) {
+                    $cell->setAlignment('center');
+                });
 
                 $sheet->cell('A1', function ($cell) use ($gameCompleteName) {
                     $cell->setAlignment('center');
