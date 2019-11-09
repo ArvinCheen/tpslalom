@@ -30,7 +30,7 @@ class ResultController extends Controller
             })
                 ->where('game_id', config('app.game_id'))
                 ->where('level', $gameInfo->level)
-                ->where('group', $gameInfo->group)
+                ->where('group','like', '%'.$gameInfo->group.'%')
                 ->where('item', $gameInfo->item)
                 ->orderBy('player_number')
                 ->get();

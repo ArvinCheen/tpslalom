@@ -67,7 +67,7 @@ class RankController extends Controller
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('check', 1)
             ->where('final_result', '<>', '無成績')

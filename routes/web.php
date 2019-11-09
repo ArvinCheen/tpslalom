@@ -136,6 +136,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/certificate/{scheduleId}', 'Admin\ExportController@certificate');  // 獎狀
         Route::get('/completion/{accountId}', 'Admin\ExportController@completion');  // 完賽證明
         Route::get('/checkIn', 'Admin\ExportController@checkIn');  // 檢錄單
+        Route::get('/records', 'Admin\ExportController@records');  // 紀錄手寫單
         Route::get('/result', 'Admin\ExportController@result'); // 賽後成績
     });
 });

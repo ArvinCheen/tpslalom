@@ -135,7 +135,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('final_result', $finalResult);
 
@@ -154,7 +154,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('final_result', $finalResult)
             ->update($updateData);
@@ -169,7 +169,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $gameInfo->level)
             ->where('gender', $gameInfo->gender)
-            ->where('group', $gameInfo->group)
+            ->where('group','like', '%'.$gameInfo->group.'%')
             ->where('item', $gameInfo->item)
             ->get()
             ->map(function ($query) {
@@ -235,7 +235,7 @@ class EnrollModel extends Model
         return $this->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->update($updateData);
     }
@@ -256,7 +256,7 @@ class EnrollModel extends Model
             })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('final_result', '<>', '無成績')
             ->limit(8) // todo 這裡可以由後台設定取幾個名次
@@ -272,7 +272,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('city', '<>', '臺北市')
             ->where('final_result', '<>', '無成績')
@@ -293,7 +293,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item);
 
         if ($city == '臺北市' && ! is_null($city)) {
@@ -416,7 +416,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('final_result', '<>', '無成績')
             ->whereNull('rank')

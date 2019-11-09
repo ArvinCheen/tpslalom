@@ -28,7 +28,7 @@ class ExportController extends Controller
         })
             ->where('game_id', config('app.game_id'))
             ->where('level', $level)
-            ->where('group', $group)
+            ->where('group','like', '%'.$group.'%')
             ->where('item', $item)
             ->where('rank', '<=', 6)
             ->orderBy('rank')
@@ -329,7 +329,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
                     $sheet->cell('A3', function ($cell) use ($schedule) {
-                        $cell->setFontSize(16);
+                        $cell->setFontSize(12);
                         $cell->setValue($schedule->item . '　' . $schedule->level . ' ' . $schedule->group . $schedule->gender . '子組');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -404,7 +404,7 @@ class ExportController extends Controller
                     })
                         ->where('game_id', $gameId)
                         ->where('level', $level)
-                        ->where('group', $group)
+                        ->where('group','like', '%'.$group.'%')
                         ->where('item', $item)
                         ->orderBy('player_number')
                         ->get();
@@ -434,6 +434,122 @@ class ExportController extends Controller
             }
         })->download('xls');
     }
+
+    public function checkIn()
+    {
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
+
+        Excel::create('檢錄單', function ($excel) use ($schedules) {
+            foreach ($schedules as $schedule) {
+                $excel->sheet($schedule->order, function ($sheet) use ($schedule) {
+
+                    $sheet->setAllBorders('thin');
+                    $sheet->setFontFamily('微軟正黑體');
+
+                    $sheet->mergeCells('A1:G1');
+                    $sheet->mergeCells('A2:G2');
+                    $sheet->mergeCells('A3:g3');
+                    $sheet->mergeCells('A4:G4');
+                    $sheet->mergeCells('d5:G5');
+                    $sheet->setWidth([
+                        'A' => 9.5,
+                        'B' => 9.5,
+                        'C' => 30,
+                        'D' => 9.5,
+                        'E' => 9.5,
+                        'F' => 9.5,
+                        'G' => 9.5,
+                        'H' => 9.5,
+                        'I' => 9.5,
+                        'J' => 9.5,
+                        'K' => 9.5,
+                        'L' => 9.5,
+                    ]);
+                    $sheet->cell('A1', function ($cell) use ($schedule) {
+                        $abridgeName = GameModel::where('id', config('app.game_id'))->value('abridge_name');
+                        $cell->setValue($abridgeName . ' - 檢錄單 - ' . $schedule->order);
+                        $cell->setFontSize(18);
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('B1', function ($cell) use ($schedule) {
+                        $cell->setFontSize(16);
+                        $cell->setValue($schedule->item);
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('A3', function ($cell) use ($schedule) {
+                        $cell->setFontSize(12);
+                        $cell->setValue($schedule->item . '　' . $schedule->level . ' ' . $schedule->group . $schedule->gender . '子組');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('A5', function ($cell) {
+                        $cell->setValue('編號');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('B5', function ($cell) {
+                        $cell->setValue('姓名');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('C5', function ($cell) {
+                        $cell->setValue('學校單位');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('d5', function ($cell) {
+                        $cell->setValue('檢錄');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+
+                    $sheet->setHeight('3', 33);
+                    $sheet->setHeight('5', 33);
+                    $gameId = $schedule->game_id;
+                    $level  = $schedule->level;
+                    $group  = $schedule->group;
+                    $gender = $schedule->gender;
+                    $item   = $schedule->item;
+
+
+                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
+                        $query->where('gender', $gender);
+                    })
+                        ->where('game_id', $gameId)
+                        ->where('level', $level)
+                        ->where('group','like', '%'.$group.'%')
+                        ->where('item', $item)
+                        ->orderBy('player_number')
+                        ->get();
+
+                    $location = 6;
+                    foreach ($enrolls as $key => $enroll) {
+                        $sheet->setHeight($location, 30);
+                        $sheet->cell('A' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player_number);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('B' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->name);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('C' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->agency);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->mergeCells('D' . $location . ':G' . $location);
+                        $location++;
+                    }
+                });
+            }
+        })->download('xls');
+    }
+
 
     public function result()
     {

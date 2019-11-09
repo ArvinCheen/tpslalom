@@ -41,7 +41,7 @@ class SearchController extends Controller
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->where('level', $gameInfo->level)
-            ->where('group', $gameInfo->group)
+            ->where('group','like', '%'.$gameInfo->group.'%')
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->whereNotNull('final_result');
