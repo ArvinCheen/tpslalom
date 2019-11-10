@@ -38,7 +38,7 @@ class ExportController extends Controller
             return back()->with(['error' => '無獎狀資料']);
         }
 
-        $this->exportExcel($order, $enrolls, 'certificate');
+        $this->exportExcel($order, $enrolls, 'certificate', $gameInfo->order);
     }
 
     public function completion($accountId)
@@ -62,15 +62,15 @@ class ExportController extends Controller
         $this->exportExcel($teamName, $enrolls, 'completion');
     }
 
-    private function exportExcel($fileName, $enrolls, $type)
+    private function exportExcel($fileName, $enrolls, $type, $order = null)
     {
-        Excel::create($fileName, function ($excel) use ($enrolls, $type) {
+        Excel::create($fileName, function ($excel) use ($enrolls, $type, $order) {
 
-            $excel->sheet('明細', function ($sheet) use ($enrolls, $type) {
+            $excel->sheet('明細', function ($sheet) use ($enrolls, $type, $order) {
                 $sheet->setFontFamily('微軟正黑體');
 
-                $sheet->cell('A1', function ($cell) use ($enrolls) {
-                    $cell->setValue($enrolls[0]->level . $enrolls[0]->group . $enrolls[0]->player->gender . '-' . $enrolls[0]->item);
+                $sheet->cell('A1', function ($cell) use ($enrolls, $order) {
+                    $cell->setValue($order .' '.$enrolls[0]->level . $enrolls[0]->group . $enrolls[0]->player->gender . '-' . $enrolls[0]->item);
                 });
 
                 foreach ($enrolls as $key => $enroll) {
