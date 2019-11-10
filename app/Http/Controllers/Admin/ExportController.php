@@ -47,12 +47,13 @@ class ExportController extends Controller
             ->where('game_id', config('app.game_id'))
             ->where('enroll.account_id', $accountId)
             ->whereNull('rank')
-            ->where('check', 1)
+//            ->where('check', 1)
             ->where('final_result', '<>', '無成績')
+            ->whereNotNull('final_result')
             ->get();
 
         if ($enrolls->isEmpty()) {
-            app('request')->session()->flash('error', '該隊伍無第六名以後的選手資料');
+            app('request')->session()->flash('error', '無資料');
             return back();
         }
 
