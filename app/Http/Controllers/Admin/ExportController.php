@@ -83,6 +83,13 @@ class ExportController extends Controller
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $type) {
+
+                        $sheet->setHeight(array(
+                            10     =>  3,
+                            11     =>  3,
+                            13     =>  3,
+                            14     =>  3,
+                        ));
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
@@ -101,7 +108,7 @@ class ExportController extends Controller
                         $sheet->mergeCells('F25:K25');
                         $sheet->mergeCells('C27:E27');
                         $sheet->mergeCells('F27:J27');
-                        $sheet->mergeCells('A46:K46');
+                        $sheet->mergeCells('A44:K44');
                         $sheet->cell('A9', function ($cell) use ($enroll, $type) {
                             if ($type == 'certificate') {
                                 $cell->setValue('獎　　　狀');
@@ -222,7 +229,7 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A46', function ($cell) use ($enroll) {
+                        $sheet->cell('A44', function ($cell) use ($enroll) {
                             $date     = GameModel::where('id', config('app.game_id'))->value('game_date');
                             $setValue = date('Y', strtotime($date)) - 1911 . '　年　' . date('m　月　d　日', strtotime($date));
                             $cell->setValue('中　華　民　國　' . $setValue);
@@ -315,6 +322,7 @@ class ExportController extends Controller
                         'K' => 9.5,
                         'L' => 9.5,
                     ]);
+
                     $sheet->cell('A1', function ($cell) use ($schedule) {
                         $abridgeName = GameModel::where('id', config('app.game_id'))->value('abridge_name');
                         $cell->setValue($abridgeName . ' - 紀錄單 - ' . $schedule->order);
@@ -390,8 +398,6 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $sheet->setHeight('3', 33);
-                    $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
                     $level  = $schedule->level;
                     $group  = $schedule->group;
