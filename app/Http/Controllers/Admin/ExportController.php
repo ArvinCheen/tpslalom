@@ -116,7 +116,7 @@ class ExportController extends Controller
                             if ($type == 'completion') {
                                 $cell->setValue('完 賽 證 明');
                             }
-                            $cell->setFontFamily('標楷體');
+//                            $cell->setFontFamily('標楷體');
                             $cell->setFontSize(60);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
