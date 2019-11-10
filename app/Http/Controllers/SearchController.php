@@ -28,6 +28,7 @@ class SearchController extends Controller
 
         $schedules = app(ScheduleModel::class)->getSchedules();
 
+
         if (is_null($scheduleId)) {
             if (is_null($scheduleId = app(ScheduleModel::class)->getFirstScheduleId())) {
                 return back()->with('error', '目前未開放查詢');
@@ -56,7 +57,7 @@ class SearchController extends Controller
 
         $level = $gameInfo->level;
 
-        app(SlackNotify::class)->setMsg('有人正在觀看 `場次' . $scheduleId . '` 的成績公告 - ' . now())->notify();
+        app(SlackNotify::class)->setMsg('有人正在觀看 `' . $gameInfo->order . '` 的成績公告 - ' . now())->notify();
 
         return view('search/result')->with(compact('scheduleId', 'schedules', 'result','level'));
     }
