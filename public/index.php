@@ -1,6 +1,7 @@
 <?php
 
-
+header("Location: https://www.facebook.com/ctrsfslalom/");
+exit();
 
 /**
  * Laravel - A PHP Framework For Web Artisans
