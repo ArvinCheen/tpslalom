@@ -1,17 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Check;
 use App\Http\Controllers\Controller as Controller;
-use App\Models\GameModel;
+use App\Students;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $checkStudents = app(Check::class)->with('students')->get();
 
-        return view('index')->with(compact('gameInfo'));
+        return view('index')->with(compact('checkStudents'));
     }
 }

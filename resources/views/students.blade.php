@@ -22,32 +22,28 @@
         </style>
     </head>
     <body>
-        <div class="">
-
-            <div>
-                <a href="{{ route('students') }}">新增學生</a>
-            </div>
-            <br>
-            <div>
-                <form action="{{ route('check') }}" method="POST">
-                    {{ csrf_field() }}
-                    點名號碼：<input type="text" name="studentId">
-                </form>
-            </div>
-
-            <div>
-                <table>
-                    <tr>
-                        <td> 已點名的學生姓名 </td>
-                    </tr>
-                    @foreach ($checkStudents as $student)
-                        <tr>
-                            <td> {{ $student->students->name }} </td>
-                        </tr>
-                    @endforeach
-
-                </table>
-            </div>
+        <div class="flex-center position-ref full-height">
+            <form action="{{ route('students.add') }}" method="POST">
+                {{ csrf_field() }}
+                新增學生姓名：<input type="text" name="name">
+                <button type="submit" class="btn btn-primary"> 新增 </button>
+            </form>
         </div>
+        <div>
+            <table>
+
+                <tr>
+                    <td> 掃描號碼 </td>
+                    <td> 學生 </td>
+                </tr>
+                @foreach ($students as $student)
+                    <tr>
+                        <td> {{ $student->id }} </td>
+                        <td> {{ $student->name }} </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    <a href="{{ route('index') }}">回首頁</a>
     </body>
 </html>

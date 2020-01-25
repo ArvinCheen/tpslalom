@@ -2,67 +2,71 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\SlackNotify;
-use App\Models\AccountModel;
-use Auth;
-use DB;
-use Illuminate\Http\Request;
+use App\User;
 use App\Http\Controllers\Controller;
-use Log;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    public function index()
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+
+    use RegistersUsers;
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        \Auth::logout();
-        return view('auth/register');
+        $this->middleware('guest');
     }
 
-    public function register(Request $request)
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
     {
-        $account    = $request->account;
-        $password   = $request->password;
-        $email      = $request->email;
-        $teamName   = $request->teamName;
-        $phone      = $request->phone;
-        $coach      = $request->coach;
-        $leader     = $request->leader;
-        $management = $request->management;
-        $address    = $request->address;
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
 
-        if ($account == '' || $email == '' || $teamName == '' || $phone == '' || $coach == '') {
-            return back()->with(['error' => '請輸入必填欄位']);
-        }
-
-        if (app(AccountModel::class)->isAccountExist($account)) {
-            return back()->with(['error' => '帳號重覆'])->withInput();
-        } else {
-            try {
-                DB::beginTransaction();
-                AccountModel::create([
-                    'account'    => $account,
-                    'password'   => bcrypt($password),
-                    'email'      => $email,
-                    'team_name'  => $teamName,
-                    'phone'      => $phone,
-                    'coach'      => $coach,
-                    'leader'     => $leader,
-                    'management' => $management,
-                    'address'    => $address,
-                ]);
-
-                app()->make(SlackNotify::class)->setMsg("註冊成功：{$account}")->notify();
-
-                Auth::attempt(['account' => $request->account, 'password' => $request->password], true);
-
-                DB::commit();
-            } catch (\Exception $e) {
-                Log::error("[EnrollController@cancel] 取消報名失敗", [$e->getMessage()]);
-                DB::rollBack();
-                return back()->with(['error' => '帳號註冊失敗'])->withInput();
-            }
-
-            return redirect('/')->with(['success' => '註冊成功']);
-        }
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }

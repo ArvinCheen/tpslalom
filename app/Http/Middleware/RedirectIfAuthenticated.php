@@ -10,29 +10,15 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param $request
-     * @param Closure $next
-     * @param null $guard
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string|null  $guard
+     * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if (app('request')->route()->getPrefix() == '/admin') {
-                if (is_null(config('app.game_id'))) {
-                    \Auth::logout();
-                    return redirect('admin/login');
-                }
-
-                return redirect('admin');
-            }
-
-            if (is_null(config('app.game_id'))) {
-                \Auth::logout();
-                return redirect('login');
-            }
-
-            return redirect('/');
+            return redirect('/home');
         }
 
         return $next($request);

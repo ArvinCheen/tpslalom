@@ -3,35 +3,37 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Services\GameService;
 
 class LoginController extends Controller
 {
-    public function index()
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return view('auth/login');
-    }
-
-    public function login(Request $request)
-    {
-        $account  = $request->account;
-        $password = $request->password;
-
-        if (\Auth::attempt(['account' => $account, 'password' => $password], true)) {
-            return redirect('/')->with(['success' => '登入成功']);
-        } else {
-            return redirect('/login')->with(['error' => '帳號密碼錯誤']);
-        }
-    }
-
-    public function logout()
-    {
-        \Auth::logout();
-
-        session()->flush();
-
-        return redirect('login')->with(['success' => '登出成功']);
+        $this->middleware('guest')->except('logout');
     }
 }
