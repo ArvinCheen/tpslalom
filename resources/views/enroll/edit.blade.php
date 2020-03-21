@@ -182,6 +182,22 @@
                     $('#cross').attr('disabled', false).prop('checked', false);
                     break;
             }
+
+            if ($(this).val() == '新人組') {
+                $('#doubleS').click(function(){
+                    if ($(this).prop('checked')) {
+                        $('#cross').prop('checked',false);
+                    }
+                })
+
+                $('#cross').click(function(){
+
+                    if ($(this).prop('checked')) {
+                        $('#doubleS').prop('checked',false);
+                    }
+                })
+            }
+
         });
 
         function cancelEnroll() {

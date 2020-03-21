@@ -169,6 +169,21 @@
                 $('#cross').attr('disabled', false).prop('checked', false);
                 break;
         }
+        if ($(this).val() == '新人組') {
+            $('#doubleS').click(function(){
+                if ($(this).prop('checked')) {
+                    $('#cross').prop('checked',false);
+                }
+            })
+
+            $('#cross').click(function(){
+
+                if ($(this).prop('checked')) {
+                    $('#doubleS').prop('checked',false);
+                }
+            })
+        }
+        // console.log($('#doubleS').prop('checked'));
     });
 
     $("select[name='playerId']").change(function() {
