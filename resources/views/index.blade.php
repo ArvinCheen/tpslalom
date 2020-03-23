@@ -11,7 +11,7 @@
         <h2>{{ $gameInfo->complete_name }}</h2>
     </div>
 
-        <p class="lead">111宗旨：為倡導全民運動、發展滑輪溜冰運動、提高技術水準</p>
+        <p class="lead">宗旨：為倡導全民運動、發展滑輪溜冰運動、提高技術水準</p>
         <p class="lead">承辦單位：{{ $gameInfo->agency }}</p>
         <p class="lead">比賽地點：{{ $gameInfo->game_address }}</p>
         <p class="lead">報名日期：{{ $gameInfo->enroll_start_time }} ~ {{ $gameInfo->enroll_close_time }}</p>
