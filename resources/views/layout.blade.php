@@ -65,6 +65,9 @@
                                 <a href="#">比賽資訊</a>
                                 <ul>
                                     <li>
+                                        <a href="{{ URL('gameInfo/leaderMeeting') }}"> 領隊會議 </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
                                     </li>
                                     <li>
@@ -81,6 +84,9 @@
 
                             <li>
                                 <a href="{{ URL('about') }}"> 關於我們 </a>
+                            </li>
+                            <li>
+                                <a href="{{ URL('about') }}">  </a>
                             </li>
                             <li class="d-lg-none">
                                 <a href="{{ URL('account') }}"> 帳號 </a>

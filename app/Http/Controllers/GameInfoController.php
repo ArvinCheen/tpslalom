@@ -60,4 +60,9 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/refereeTeam');
     }
+
+    public function leaderMeeting()
+    {
+        return view('gameInfo/leaderMeeting');
+    }
 }

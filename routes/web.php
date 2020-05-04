@@ -53,6 +53,11 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     Route::group(['prefix' => 'paymentInfo'], function () {
         Route::get('/', 'PaymentController@index');
     });
+
+
+    Route::group(['prefix' => 'gameInfo'], function () {
+        Route::get('/leaderMeeting', 'GameInfoController@leaderMeeting');
+    });
 });
 
 Route::group(['prefix' => '/'], function () {
