@@ -62,6 +62,7 @@ class CheckInController extends Controller
                 ->where('level', $schedule->level)
                 ->where('group', $schedule->group)
                 ->where('item', $schedule->item)
+                ->orderBy('player_number')
                 ->get();
         }
     }
