@@ -135,69 +135,101 @@ class GroupingController extends Controller
         $this->setGrouping('國小二年級', '男', '速度過樁菁英組-前溜單足S形', '決賽', '無','3');
         $this->setGrouping('國小二年級', '女', '速度過樁菁英組-前溜單足S形', '決賽', '無','3');
         $this->setGrouping('幼童', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('幼童', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小一年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小一年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小二年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小二年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小三年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小三年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小四年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小四年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小五年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小五年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小六年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國小六年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國中', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('國中', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
-        $this->setGrouping('幼童', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('幼童', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小一年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小一年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小二年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小二年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小三年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小三年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小四年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小四年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小五年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小五年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小六年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國小六年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國中', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
-        $this->setGrouping('國中', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('幼童', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('幼童', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('幼童', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小一年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小一年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小一年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小一年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小二年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小二年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小二年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小二年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小三年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小三年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小三年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小三年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小四年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小四年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小四年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小四年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小五年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小五年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小五年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小五年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小六年級', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小六年級', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國小六年級', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國小六年級', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國中', '男', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國中', '男', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('國中', '女', '速度過樁甲組-前溜雙足S形', '決賽', 'A場','4');
         $this->setGrouping('國中', '女', '速度過樁乙組-前溜雙足S形', '決賽', 'B場','4');
+        $this->setGrouping('幼童', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('幼童', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('幼童', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('幼童', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小一年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小一年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小一年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小一年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小二年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小二年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小二年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小二年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小三年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小三年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小三年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小三年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小四年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小四年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小四年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小四年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小五年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小五年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小五年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小五年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小六年級', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小六年級', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國小六年級', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國小六年級', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國中', '男', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國中', '男', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+        $this->setGrouping('國中', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國中', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return back()->with(['info' => '場次編組成功']);
     }
@@ -208,15 +240,15 @@ class GroupingController extends Controller
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($group, $gender, $item, $gameType);
 
         // 雙場判斷
-        if ($remark == 'B場') {
-            $schedule = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'A場')->first()->order;
-
-            $scheduleb = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'B場')->count();
-
-            $schedule  = '場次' . (str_replace('場次','',$schedule) + $scheduleb);
-        } else {
+//        if ($remark == 'B場') {
+//            $schedule = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'A場')->first()->order;
+//
+//            $scheduleb = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'B場')->count();
+//
+//            $schedule  = '場次' . (str_replace('場次','',$schedule) + $scheduleb);
+//        } else {
             $schedule = '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1);
-        }
+//        }
         if ($numberOfPlayer) {
 
             ScheduleModel::create([
