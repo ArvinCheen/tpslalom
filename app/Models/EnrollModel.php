@@ -361,14 +361,13 @@ class EnrollModel extends Model
             ->get();
     }
 
-    public function countGameItemNumberOfPlayer($level, $group, $gender, $item)
+    public function countGameItemNumberOfPlayer($group, $gender, $item)
     {
         return $this->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('level', $level)
             ->where('group', $group)
             ->where('gender', $gender)
-            ->where('item', $item)
+            ->where('item','like', '%'.$item.'%')
             ->count();
     }
 

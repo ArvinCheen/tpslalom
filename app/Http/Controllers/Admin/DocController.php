@@ -57,17 +57,15 @@ class DocController extends Controller
         $schedules = app(ScheduleModel::class)->getSchedules();
 
         foreach ($schedules as $schedule) {
-            $level  = $schedule->level;
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
 
             $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
-                ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
-                ->where('item', $item)
+                ->where('item', 'like',"%$item%")
                 ->get();
         }
 
