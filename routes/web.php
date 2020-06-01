@@ -109,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
 
 
     Route::get('/grouping', 'Admin\GroupingController@grouping');  // 場次編組
+    Route::get('/import', 'Admin\GroupingController@import');  // 匯入資料
 
     Route::group(['prefix' => 'checkIn'], function () {
         Route::get('/{schedule?}', 'Admin\CheckInController@index');  // 檢錄

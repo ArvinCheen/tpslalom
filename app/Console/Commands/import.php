@@ -123,7 +123,7 @@ class import extends Command
 
 
             } catch (\Exception $e) {
-                $this->info("$player->MemberName 有問題");
+//                $this->info("$player->MemberName 有問題");
             }
 
         }
