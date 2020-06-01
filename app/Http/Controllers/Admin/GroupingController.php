@@ -199,7 +199,7 @@ class GroupingController extends Controller
         $this->setGrouping('國中', '女', '速度過樁甲組-前溜交叉形', '決賽', 'A場','4');
         $this->setGrouping('國中', '女', '速度過樁乙組-前溜交叉形', '決賽', 'B場','4');
 
-        ScheduleModel::whereIn('order',['場次30','場次31','場次32',])->where('game_id',config('app.game_id'))->updtae(['number_of_player' => 8,]);//決賽人數，只會有八人
+        ScheduleModel::whereIn('order',['場次30','場次31','場次32',])->where('game_id',config('app.game_id'))->update(['number_of_player' => 8,]);//決賽人數，只會有八人
         return back()->with(['info' => '場次編組成功']);
     }
 
