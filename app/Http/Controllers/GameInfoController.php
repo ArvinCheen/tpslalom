@@ -102,4 +102,8 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/refereeTeam');
     }
+    public function errata()
+    {
+        return view('gameInfo/errata');
+    }
 }
