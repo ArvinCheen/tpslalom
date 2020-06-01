@@ -51,11 +51,12 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        echo '未開放';exit;
-        $schedulesFirstDay   = app(ScheduleModel::class)->where('id', '<=', 23)->get();
-        $schedulesSecondDay = app(ScheduleModel::class)->where('id', '>=', 24)->get();
+        $schedules1Day   = app(ScheduleModel::class)->where('game_day', 1)->get();
+        $schedules2Day = app(ScheduleModel::class)->where('game_day', 2)->get();
+        $schedules3Day = app(ScheduleModel::class)->where('game_day', 3)->get();
+        $schedules4Day = app(ScheduleModel::class)->where('game_day', 4)->get();
 
-        return view('gameInfo/schedules')->with(compact('schedulesFirstDay', 'schedulesSecondDay'));
+        return view('gameInfo/schedules')->with(compact('schedules1Day', 'schedules2Day', 'schedules3Day', 'schedules4Day'));
     }
 
     public function groups()

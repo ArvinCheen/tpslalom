@@ -23,19 +23,16 @@
                         <td> 備註</td>
                         <td> 人數</td>
                     </tr>
-                    @foreach($schedulesFirstDay as $scheduleFD)
+                    @foreach($schedules1Day as $schedule1)
                         <tr>
-                            <td> {{ $scheduleFD->order }} </td>
-                            <td> {{ $scheduleFD->group }} </td>
-                            <td> {{ $scheduleFD->gender }} </td>
-                            <td> {{ $scheduleFD->item }} </td>
-                            <td> {{ $scheduleFD->game_type }} </td>
-                            <td> {{ $scheduleFD->remark }} </td>
-                            <td> {{ $scheduleFD->number_of_player }} </td>
+                            <td> {{ $schedule1->order }} </td>
+                            <td> {{ $schedule1->group }} </td>
+                            <td> {{ $schedule1->gender }} </td>
+                            <td> {{ $schedule1->item }} </td>
+                            <td> {{ $schedule1->game_type }} </td>
+                            <td> {{ $schedule1->remark }} </td>
+                            <td> {{ $schedule1->number_of_player }} </td>
                         </tr>
-{{--                        <tr >--}}
-{{--                            <td colspan="5 text-center"> 檢錄．完賽排名．獎狀列印 </td>--}}
-{{--                        </tr>--}}
                     @endforeach
                 </table>
             </div>
@@ -55,15 +52,71 @@
                         <td> 備註</td>
                         <td> 人數</td>
                     </tr>
-                    @foreach($schedulesSecondDay as $scheduleSD)
+                    @foreach($schedules2Day as $schedule2)
                         <tr>
-                            <td> {{ $scheduleSD->order }} </td>
-                            <td> {{ $scheduleSD->group }} </td>
-                            <td> {{ $scheduleSD->gender }} </td>
-                            <td> {{ $scheduleSD->item }} </td>
-                            <td> {{ $scheduleSD->game_type }} </td>
-                            <td> {{ $scheduleSD->remark }} </td>
-                            <td> {{ $scheduleSD->number_of_player }} </td>
+                            <td> {{ $schedule2->order }} </td>
+                            <td> {{ $schedule2->group }} </td>
+                            <td> {{ $schedule2->gender }} </td>
+                            <td> {{ $schedule2->item }} </td>
+                            <td> {{ $schedule2->game_type }} </td>
+                            <td> {{ $schedule2->remark }} </td>
+                            <td> {{ $schedule2->number_of_player }} </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <div class="mt-5 mb-5 text-center">
+                <h2> 賽程表 </h2>
+                <h3> 第三天 </h3>
+            </div>
+            <div class="col-md-12">
+                <table class="col-md-12 table table-striped table-dark">
+                    <tr>
+                        <td> 場次</td>
+                        <td> 組別</td>
+                        <td> 性別</td>
+                        <td> 項目</td>
+                        <td> 賽別</td>
+                        <td> 備註</td>
+                        <td> 人數</td>
+                    </tr>
+                    @foreach($schedules3Day as $schedule3)
+                        <tr>
+                            <td> {{ $schedule3->order }} </td>
+                            <td> {{ $schedule3->group }} </td>
+                            <td> {{ $schedule3->gender }} </td>
+                            <td> {{ $schedule3->item }} </td>
+                            <td> {{ $schedule3->game_type }} </td>
+                            <td> {{ $schedule3->remark }} </td>
+                            <td> {{ $schedule3->number_of_player }} </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <div class="mt-5 mb-5 text-center">
+                <h2> 賽程表 </h2>
+                <h3> 第四天 </h3>
+            </div>
+            <div class="col-md-12">
+                <table class="col-md-12 table table-striped table-dark">
+                    <tr>
+                        <td> 場次</td>
+                        <td> 組別</td>
+                        <td> 性別</td>
+                        <td> 項目</td>
+                        <td> 賽別</td>
+                        <td> 備註</td>
+                        <td> 人數</td>
+                    </tr>
+                    @foreach($schedules4Day as $schedule4)
+                        <tr>
+                            <td> {{ $schedule4->order }} </td>
+                            <td> {{ $schedule4->group }} </td>
+                            <td> {{ $schedule4->gender }} </td>
+                            <td> {{ $schedule4->item }} </td>
+                            <td> {{ $schedule4->game_type }} </td>
+                            <td> {{ $schedule4->remark }} </td>
+                            <td> {{ $schedule4->number_of_player }} </td>
                         </tr>
                     @endforeach
                 </table>
