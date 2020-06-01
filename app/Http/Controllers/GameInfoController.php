@@ -51,6 +51,7 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
+        echo '未開放';exit;
         $schedulesFirstDay   = app(ScheduleModel::class)->where('id', '<=', 23)->get();
         $schedulesSecondDay = app(ScheduleModel::class)->where('id', '>=', 24)->get();
 
