@@ -363,12 +363,22 @@ class EnrollModel extends Model
 
     public function countGameItemNumberOfPlayer($group, $gender, $item)
     {
-        return $this->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->where('group', $group)
-            ->where('gender', $gender)
-            ->where('item','like', '%'.$item.'%')
-            ->count();
+
+        if ($item == '雙人花式繞樁') {
+            // 雙人花式繞樁 沒有分性別
+            return $this->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $group)
+                ->where('item','like', '%'.$item.'%')
+                ->count();
+        } else {
+            return $this->leftJoin('player', 'player.id', 'enroll.player_id')
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $group)
+                ->where('gender', $gender)
+                ->where('item','like', '%'.$item.'%')
+                ->count();
+        }
     }
 
 

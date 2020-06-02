@@ -107,8 +107,9 @@ class import extends Command
 //                    echo $key . ' ';
                     echo '.';
                     // 將性別過慮掉，只留下年級（為了統一格式）
-                    $group = str_replace('男子組', '', $item->Option);
-                    $group = str_replace('女子組', '', $group);
+                    $group = str_replace('組', '', $item->Option);
+                    $group = str_replace('男子', '', $group);
+                    $group = str_replace('女子', '', $group);
 
                     // 將性別過慮掉，只留下比賽項目（為了統一格式）
                     EnrollModel::updateOrCreate([

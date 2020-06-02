@@ -208,16 +208,7 @@ class GroupingController extends Controller
         // 全國沒有初級、新手，全部都是選手級
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($group, $gender, $item, $gameType);
 
-        // 雙場判斷
-//        if ($remark == 'B場') {
-//            $schedule = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'A場')->first()->order;
-//
-//            $scheduleb = ScheduleModel::where('game_id', config('app.game_id'))->where('remark', 'B場')->count();
-//
-//            $schedule  = '場次' . (str_replace('場次','',$schedule) + $scheduleb);
-//        } else {
-            $schedule = '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1);
-//        }
+        $schedule = '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1);
         if ($numberOfPlayer) {
 
             ScheduleModel::create([
