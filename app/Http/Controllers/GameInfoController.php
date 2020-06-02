@@ -69,13 +69,24 @@ class GameInfoController extends Controller
             $gender = $schedule->gender;
             $item   = $schedule->item;
 
-            $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
-                ->where('level', $level)
-                ->where('group', $group)
-                ->where('gender', $gender)
-                ->where('item','like',"%$item%")
-                ->get();
+            if ($item == '雙人花式繞樁') {
+                // 雙人花不分性別
+                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
+                    ->where('game_id', config('app.game_id'))
+                    ->where('level', $level)
+                    ->where('group', $group)
+                    ->where('item','like',"%$item%")
+                    ->get();
+            } else {
+                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
+                    ->where('game_id', config('app.game_id'))
+                    ->where('level', $level)
+                    ->where('group', $group)
+                    ->where('gender', $gender)
+                    ->where('item','like',"%$item%")
+                    ->get();
+            }
+
         }
 
 
