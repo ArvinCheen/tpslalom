@@ -21,7 +21,7 @@
                         <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                         <tr>
                             <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                {{ $team->players[0]->player->city }}{{ $team->players[0]->player->agency }} <small>教練：{{ $team->account->coach }} / 領隊：{{ $team->account->leader }} / 經理：{{ $team->account->management }}</small>
+                                {{ $team->players[0]->player->agency }} <small>教練：{{ $team->account->coach }} / 領隊：{{ $team->account->leader }} / 經理：{{ $team->account->management }}</small>
                             </th>
                             <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                 共 {{ count($team->players) }} 位選手
