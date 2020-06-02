@@ -74,7 +74,7 @@ class GameInfoController extends Controller
                 ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
-                ->where('item', $item)
+                ->where('item','like',"%$item%")
                 ->get();
         }
 
