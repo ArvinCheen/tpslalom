@@ -10,7 +10,7 @@
         <div class="container">
             <div class="mt-5 mb-5 text-center">
                 <h2 class="mb-3">分組名冊</h2>
-                <p>點擊積分可展開</p>
+                <p>點擊場次可展開</p>
                 <p>由於本次參賽人數關係，載入時請耐心等後</p>
             </div>
             <div class="col-md-12" mt-3">
@@ -19,7 +19,7 @@
                         <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                         <tr>
                             <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                {{ $group->order }} {{ $group->group }} {{ $group->gender }} {{ $group->item }}
+                                {{ $group->order }} - {{ $group->group }} {{ $group->gender }} {{ $group->item }}
                             </th>
                             <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                 共 {{ $group->number_of_player }} 人
