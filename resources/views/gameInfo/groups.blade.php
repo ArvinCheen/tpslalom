@@ -24,7 +24,7 @@
                             {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->gender }} {{ $group->item }}
                         </th>
                         <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                            @if($group->order == '場次30' || $group->order == '場次31' || $group->order == '場次32')
+                            @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
                                 共 0 人
                             @else
                                 共 {{ $group->number_of_player }} 人
@@ -38,7 +38,7 @@
                         <thead class="thead-inverse">
                         </thead>
                         <tbody>
-                        @if($group->order == '場次30' || $group->order == '場次31' || $group->order == '場次32')
+                        @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
                             <tr>
                                 <td class="" style="">
                                     無
