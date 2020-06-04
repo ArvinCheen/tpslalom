@@ -83,9 +83,9 @@
 {{--                            </li>--}}
 
 
-                            <li>
-                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>
-                            </li>
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>--}}
+{{--                            </li>--}}
                             {{--                全國暫時不走登入制，因為不在我們這註冊--}}
 {{--                            <li class="d-lg-none">--}}
 {{--                                <a href="{{ URL('account') }}"> 帳號 </a>--}}
