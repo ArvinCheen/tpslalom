@@ -16,48 +16,92 @@
             <div class="col-md-12" mt-3
             ">
             @foreach($groups as $key => $group)
-                <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
-                       aria-controls="{{ $key }}collapse">
-                    <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
-                    <tr>
-                        <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                            {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->gender }} {{ $group->item }}
-                        </th>
-                        <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                            @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
-                                共 0 人
-                            @else
+                @if ($group->item == '雙人花式繞樁')
+                    <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
+                           aria-controls="{{ $key }}collapse">
+                        <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
+                        <tr>
+                            <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                                {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->gender }} {{ $group->item }}
+                            </th>
+                            <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                 共 {{ $group->number_of_player }} 人
-                            @endif
-                        </th>
-                    </tr>
-                    </thead>
-                </table>
-                <div class="collapse" id="{{ $key }}collapse">
-                    <table class="table table-striped table-bordered table-advance table-hover">
-                        <thead class="thead-inverse">
+                            </th>
+                        </tr>
                         </thead>
-                        <tbody>
-                        @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
+                    </table>
+                    <div class="collapse" id="{{ $key }}collapse">
+                        <table class="table table-striped table-bordered table-advance table-hover">
+                            <thead class="thead-inverse">
+                            </thead>
+                            <tbody>
                             <tr>
                                 <td class="" style="">
-                                    無
-                                </td>
+                                    0002 范予僖 / 0449 黃淇宣
                             </tr>
-                        @else
-                            @foreach ($group->players as $player)
+                            <tr>
+                                <td class="" style="">
+                                    0737 謝牧倫 / 0745 周柏崴
+                            </tr>
+                            <tr>
+                                <td class="" style="">
+                                    0744 范子聿 / 0797 游瑋筑
+                            </tr>
+                            <tr>
+                                <td class="" style="">
+                                    0781 侯鈞諺 / 0796 陳建廷
+                            </tr>
+                            <tr>
+                                <td class="" style="">
+                                    0798 邱宇廷 / 0394 邱映瑄
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+
+                    <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
+                           aria-controls="{{ $key }}collapse">
+                        <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
+                        <tr>
+                            <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                                {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->gender }} {{ $group->item }}
+                            </th>
+                            <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                                @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
+                                    共 0 人
+                                @else
+                                    共 {{ $group->number_of_player }} 人
+                                @endif
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="collapse" id="{{ $key }}collapse">
+                        <table class="table table-striped table-bordered table-advance table-hover">
+                            <thead class="thead-inverse">
+                            </thead>
+                            <tbody>
+                            @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
                                 <tr>
                                     <td class="" style="">
-                                        {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->city . $player->player->agency }})
+                                        無
                                     </td>
                                 </tr>
-                            @endforeach
-                        @endif
+                            @else
+                                @foreach ($group->players as $player)
+                                    <tr>
+                                        <td class="" style="">
+                                            {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->city . $player->player->agency }})
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
 
-                        </tbody>
-                    </table>
-                </div>
-                {{--                    <br>--}}
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             @endforeach
 
         </div>
