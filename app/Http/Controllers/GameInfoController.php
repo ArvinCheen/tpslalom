@@ -75,7 +75,7 @@ class GameInfoController extends Controller
                     ->where('game_id', config('app.game_id'))
                     ->where('level', $level)
                     ->where('group', $group)
-                    ->where('item','like',"%$item%")
+                    ->where('item',$item)
                     ->get();
             } else {
                 $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
@@ -83,7 +83,7 @@ class GameInfoController extends Controller
                     ->where('level', $level)
                     ->where('group', $group)
                     ->where('gender', $gender)
-                    ->where('item','like',"%$item%")
+                    ->where('item',$item)
                     ->get();
             }
 
