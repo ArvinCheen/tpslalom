@@ -69,7 +69,7 @@
                             </th>
                             <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                 @if($group->group.$group->item == '國中速度過樁菁英組-前溜單足S形(男)' || $group->group.$group->item == '國中速度過樁菁英組-前溜單足S形(女)' || $group->group.$group->item == '高中速度過樁菁英組-前溜單足S形(男)')
-                                    共 0 人
+                                    共 0 人 {{$group->group.$group->item}}
                                 @else
                                     共 {{ $group->number_of_player }} 人
                                 @endif
