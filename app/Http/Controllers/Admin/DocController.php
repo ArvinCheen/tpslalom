@@ -199,8 +199,8 @@ class DocController extends Controller
                          left join enroll on enroll.player_id = player.id
                          left join schedule on schedule.level = enroll.level and schedule.`group` = enroll.`group` and
                                                schedule.item = enroll.item and schedule.gender = player.gender
-                where schedule.game_id = 8
-                  and enroll.game_id = 8
+                where schedule.game_id = ".config('app.game_id')."
+                  and enroll.game_id = ".config('app.game_id')."
                   and enroll.rank is not null
                   and account.id = $team->account_id
                 order by player.name,enroll.`rank`
