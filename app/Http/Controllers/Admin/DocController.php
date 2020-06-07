@@ -67,7 +67,7 @@ class DocController extends Controller
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('gender', $gender)
-                ->where('item', 'like',"%$item%")
+                ->where('item', 'like', "%$item%")
                 ->get();
         }
 
@@ -149,15 +149,11 @@ class DocController extends Controller
 
     public function players()
     {
-        $players = (object)[
-            '花式煞停'              => app(EnrollModel::class)->getEnrollPlayers($item = '花式煞停'),
-            '花式繞樁'              => app(EnrollModel::class)->getEnrollPlayers($item = '花式繞樁'),
-            '雙人花式繞樁'            => app(EnrollModel::class)->getEnrollPlayers($item = '雙人花式繞樁'),
-            '速度過樁-前溜交叉形'        => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜交叉形'),
-            '速度過樁-前溜雙足S形'       => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜雙足S形'),
-            '速度過樁-前溜單足S形'       => app(EnrollModel::class)->getEnrollPlayers($item = '速度過樁-前溜單足S形'),
-            '【國選積分】速度過樁-前溜單足S形' => app(EnrollModel::class)->getEnrollPlayers($item = '【國選積分】速度過樁-前溜單足S形'),
-        ];
+        $schedules = ScheduleModel::select('item')->where('game_id', config('app.game_id'))->groupBy('item')->get();
+
+        foreach ($schedules as $schedule) {
+            $players[$schedule->item] = app(EnrollModel::class)->getEnrollPlayers($schedule->item);
+        }
 
         return view('admin/doc/players')->with(compact('players'));
     }
