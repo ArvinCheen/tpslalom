@@ -21,7 +21,7 @@ class ScheduleModel extends Model
 
     public function getSchedules()
     {
-        return $this->where('game_id', config('app.game_id'))->get();
+        return $this->where('game_id', config('app.game_id'))->where('order','場次30')->get();
     }
 
     public function getSchedule($order)
