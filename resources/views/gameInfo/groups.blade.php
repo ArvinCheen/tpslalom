@@ -82,7 +82,7 @@
                             <thead class="thead-inverse">
                             </thead>
                             <tbody>
-                            @if($group->order == '場次31' || $group->order == '場次32' || $group->order == '場次33')
+                            @if($group->game_type.$group->group.$group->item == '決賽國中速度過樁菁英組-前溜單足S形(男)' || $group->game_type.$group->group.$group->item == '決賽國中速度過樁菁英組-前溜單足S形(女)' || $group->game_type.$group->group.$group->item == '決賽高中速度過樁菁英組-前溜單足S形(男)')
                                 <tr>
                                     <td class="" style="">
                                         無

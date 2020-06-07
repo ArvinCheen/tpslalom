@@ -86,7 +86,6 @@ class GameInfoController extends Controller
                     ->where('item',$item)
                     ->get();
             }
-
         }
 
 
