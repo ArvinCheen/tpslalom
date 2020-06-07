@@ -165,4 +165,55 @@ class DocController extends Controller
 
         return view('admin/doc/schedules')->with(compact('schedules'));
     }
+
+    public function certificate()
+    {
+//        $schedules = ScheduleModel::where('game_id',config('app.game_id'))->get();
+//
+//        foreach ($schedules as $schedule) {
+//            $schedule->result = EnrollModel::leftjoin('player','player.id','enroll.player_id')
+//                ->where('game_id', config('app.game_id'))
+//                ->whereNotNull('rank')
+//                ->where('level',$schedule->level)
+//                ->where('group',$schedule->group)
+//                ->where('item',$schedule->item)
+//                ->where('gender',$schedule->gender)
+//                ->orderBy('rank')
+//                ->get();
+//        }
+
+        $teams = app(EnrollModel::class)->getParticipateTeam();
+
+        foreach ($teams as $team) {
+            $team->certificate = DB::select("
+                select team_name,
+                       player.name,
+                       enroll.rank,
+                       schedule.order,
+                       schedule.gender,
+                       schedule.level,
+                       schedule.group,
+                       schedule.item
+                from account
+                         left join player on player.account_id = account.id
+                         left join enroll on enroll.player_id = player.id
+                         left join schedule on schedule.level = enroll.level and schedule.`group` = enroll.`group` and
+                                               schedule.item = enroll.item and schedule.gender = player.gender
+                where schedule.game_id = 8
+                  and enroll.game_id = 8
+                  and enroll.rank is not null
+                  and account.id = $team->account_id
+                order by player.name,enroll.`rank`
+                ");
+
+        }
+
+//        foreach ($teams as $team) {
+//            foreach ($team->certificate as $certificate) {
+//                dd($certificate);
+//            }
+//        }
+//dd($teams[0]->certificate[0]->team_name);
+        return view('admin/doc/certificate')->with(compact('teams'));
+    }
 }

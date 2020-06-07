@@ -270,6 +270,14 @@
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/certificate') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 獎狀總覽 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
