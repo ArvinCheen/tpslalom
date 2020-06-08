@@ -48,6 +48,7 @@ class DocController extends Controller
 //                $doc->cross = '前進交叉型';
 //            }
 //        }
+
         return view('admin/doc/all')->with(compact('all'));
     }
 
