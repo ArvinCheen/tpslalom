@@ -21,19 +21,15 @@
                         <tr>
                             <th> 選手號碼 </th>
                             <th> 姓名 </th>
-                            <th> 級別 </th>
                             <th> 組別 </th>
                             <th> 性別 </th>
-                            <th> 項目一 </th>
-                            <th> 項目二 </th>
-                            <th> 項目三 </th>
+                            <th> 項目 </th>
                             <th> 隊名 </th>
                             <th> 單位 </th>
                             <th> 地區 </th>
                             <th> 教練 </th>
                             <th> 領隊 </th>
                             <th> 經理 </th>
-                            <th> 報名費 </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,19 +37,15 @@
                             <tr>
                                 <td> {{ $item->player_number }} </td>
                                 <td> {{ $item->name }} </td>
-                                <td> {{ $item->level }} </td>
                                 <td> {{ $item->group }} </td>
                                 <td> {{ $item->gender }} </td>
-                                <td> {{ $item->doubleS }} </td>
-                                <td> {{ $item->singleS }} </td>
-                                <td> {{ $item->cross }} </td>
+                                <td> {{ str_replace(',',' / ',$item->itemAll) }} </td>
                                 <td> {{ $item->team_name }} </td>
                                 <td> {{ $item->agency }} </td>
                                 <td> {{ $item->city }} </td>
                                 <td> {{ $item->coach }} </td>
                                 <td> {{ $item->leader }} </td>
                                 <td> {{ $item->management }} </td>
-                                <td> {{ $item->fee }} </td>
                             </tr>
                         @endforeach
                         </tbody>

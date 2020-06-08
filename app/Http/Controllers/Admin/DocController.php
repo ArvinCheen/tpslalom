@@ -28,29 +28,26 @@ class DocController extends Controller
             coach, 
             leader, 
             management,
-            fee,
             GROUP_CONCAT(item) AS itemAll
         '))
             ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->leftJoin('account', 'account.id', 'player.account_id')
-            ->leftJoin('registry_fee', 'registry_fee.player_id', 'enroll.player_id')
             ->where('enroll.game_id', config('app.game_id'))
-            ->where('registry_fee.game_id', config('app.game_id'))
             ->groupBy('enroll.player_number')
             ->get();
 
-        foreach ($all as $doc) {
-            if (preg_match("/\前進雙足S型/i", $doc->itemAll)) {
-                $doc->doubleS = '前進雙足S型';
-            }
-            if (preg_match("/\前進單足S型/i", $doc->itemAll)) {
-                $doc->singleS = '前進單足S型';
-            }
-            if (preg_match("/\前進交叉型/i", $doc->itemAll)) {
-                $doc->cross = '前進交叉型';
-            }
-        }
-
+//        foreach ($all as $doc) {
+//            echo $doc->itemAll."<br>";
+//            if (preg_match("/\前進雙足S型/i", $doc->itemAll)) {
+//                $doc->doubleS = '前進雙足S型';
+//            }
+//            if (preg_match("/\前進單足S型/i", $doc->itemAll)) {
+//                $doc->singleS = '前進單足S型';
+//            }
+//            if (preg_match("/\前進交叉型/i", $doc->itemAll)) {
+//                $doc->cross = '前進交叉型';
+//            }
+//        }
         return view('admin/doc/all')->with(compact('all'));
     }
 
