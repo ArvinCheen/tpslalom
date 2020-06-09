@@ -15,7 +15,7 @@ class GameInfoController extends Controller
         if (is_null($scheduleId)) {
             $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
         }
-
+        $gameInfo = null;
         $enrolls            = [];
         $schedules          = app(ScheduleModel::class)->getSchedules();
         $numberOfAppearance = app(EnrollModel::class)->where('game_id', config('app.game_id'))->whereNull('appearance')->count();
