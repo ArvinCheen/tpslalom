@@ -19,7 +19,7 @@
     <div class="mh mb-5">
         <div class="container">
             <div class="mt-5 mb-5 text-center">
-                <h2> 分組名單 </h2>
+                <h2> 出場序名冊 </h2>
             </div>
             <div class="col-md-12">
                 <select class="form-control" id="m_select2_1" name="scheduleId">
@@ -28,12 +28,12 @@
                     @endforeach
                 </select>
             </div>
-            @if ($scheduleId == 21)
+            @if ($schedule->item == '雙人花式繞樁')
                 <div class="col-md-12 mt-3">
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
-{{--                            <th class="text-center"> 順序 </th>--}}
+                            <th class="text-center"> 順序 </th>
                             <th class="text-center"> 編號 </th>
                             <th class="text-center"> 選手 </th>
                             <th class="text-center"> 編號 </th>
@@ -43,60 +43,49 @@
                         <tbody>
                         @if ($isView)
                             <tr>
-{{--                                <th class="text-center"> 1 </th>--}}
-                                <th class="text-center"> 180 </th>
-                                <th class="text-center"> 鐘晨恩 </th>
-                                <th class="text-center"> 020 </th>
-                                <th class="text-center"> 鐘晨芸 </th>
+                                <th class="text-center"> 1 </th>
+                                @foreach ($enrolls as $enroll)
+                                    @if($enroll->appearance == 1)
+                                        <th class="text-center"> {{ $enroll->player_number }} </th>
+                                        <th class="text-center"> {{ $enroll->name }} </th>
+                                    @endif
+                                @endforeach
                             </tr>
                             <tr>
-{{--                                <th class="text-center"> 2 </th>--}}
-                                <th class="text-center"> 050 </th>
-                                <th class="text-center"> 侯安伃 </th>
-                                <th class="text-center"> 161 </th>
-                                <th class="text-center"> 劉以琳 </th>
+                                <th class="text-center"> 2 </th>
+                                @foreach ($enrolls as $enroll)
+                                    @if($enroll->appearance == 2)
+                                        <th class="text-center"> {{ $enroll->player_number }} </th>
+                                        <th class="text-center"> {{ $enroll->name }} </th>
+                                    @endif
+                                @endforeach
                             </tr>
                             <tr>
-{{--                                <th class="text-center"> 3 </th>--}}
-                                <th class="text-center"> 002 </th>
-                                <th class="text-center"> 范予僖 </th>
-                                <th class="text-center"> 026 </th>
-                                <th class="text-center"> 黃淇宣 </th>
+                                <th class="text-center"> 3 </th>
+                                @foreach ($enrolls as $enroll)
+                                    @if($enroll->appearance == 3)
+                                        <th class="text-center"> {{ $enroll->player_number }} </th>
+                                        <th class="text-center"> {{ $enroll->name }} </th>
+                                    @endif
+                                @endforeach
                             </tr>
                             <tr>
-{{--                                <th class="text-center"> 4 </th>--}}
-                                <th class="text-center"> 042 </th>
-                                <th class="text-center"> 周柏崴 </th>
-                                <th class="text-center"> 083 </th>
-                                <th class="text-center"> 周柏諦 </th>
+                                <th class="text-center"> 4 </th>
+                                @foreach ($enrolls as $enroll)
+                                    @if($enroll->appearance == 4)
+                                        <th class="text-center"> {{ $enroll->player_number }} </th>
+                                        <th class="text-center"> {{ $enroll->name }} </th>
+                                    @endif
+                                @endforeach
                             </tr>
                             <tr>
-{{--                                <th class="text-center"> 5 </th>--}}
-                                <th class="text-center"> 085 </th>
-                                <th class="text-center"> 侯鈞諺 </th>
-                                <th class="text-center"> 126 </th>
-                                <th class="text-center"> 陳建廷 </th>
-                            </tr>
-                            <tr>
-{{--                                <th class="text-center"> 6 </th>--}}
-                                <th class="text-center"> 084 </th>
-                                <th class="text-center"> 倪詣超 </th>
-                                <th class="text-center"> 092 </th>
-                                <th class="text-center"> 倪采彤 </th>
-                            </tr>
-                            <tr>
-{{--                                <th class="text-center"> 7 </th>--}}
-                                <th class="text-center"> 268 </th>
-                                <th class="text-center"> 邱映瑄 </th>
-                                <th class="text-center"> 132 </th>
-                                <th class="text-center"> 邱宇廷 </th>
-                            </tr>
-                            <tr>
-{{--                                <th class="text-center"> 8 </th>--}}
-                                <th class="text-center"> 342 </th>
-                                <th class="text-center"> 周祈佑 </th>
-                                <th class="text-center"> 311 </th>
-                                <th class="text-center"> 賴徐捷 </th>
+                                <th class="text-center"> 5 </th>
+                                @foreach ($enrolls as $enroll)
+                                    @if($enroll->appearance == 5)
+                                        <th class="text-center"> {{ $enroll->player_number }} </th>
+                                        <th class="text-center"> {{ $enroll->name }} </th>
+                                    @endif
+                                @endforeach
                             </tr>
                         @else
                             <th class="text-center" colspan="10"> -- 未抽籤 -- </th>
@@ -109,20 +98,24 @@
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
-{{--                            <th class="text-center"> 順序 </th>--}}
-                            <th class="text-center"> 編號 </th>
-                            <th class="text-center"> 選手 </th>
+                            <th class="text-center"> 出場順序 </th>
+                            <th class="text-center"> 選手編號 </th>
+                            <th class="text-center"> 選手姓名  </th>
                         </tr>
                         </thead>
                         <tbody>
                         @if ($isView)
-                            @foreach ($enrolls as $enroll)
-                                <tr>
-{{--                                    <td class="text-center"> {{ $enroll->appearance }}</td>--}}
-                                    <td class="text-center"> {{ $enroll->player_number }}</td>
-                                    <td class="text-center"> {{ $enroll->name }}</td>
-                                </tr>
-                            @endforeach
+                            @if($gameInfo->game_type.$gameInfo->group.$gameInfo->item == '決賽國中速度過樁菁英組-前溜單足S形(男)' || $gameInfo->game_type.$gameInfo->group.$gameInfo->item == '決賽國中速度過樁菁英組-前溜單足S形(女)' || $gameInfo->game_type.$gameInfo->group.$gameInfo->item == '決賽高中速度過樁菁英組-前溜單足S形(男)')
+                                <th class="text-center" colspan="10"> -- 前八強PK賽採動態出場 -- </th>
+                            @else
+                                @foreach ($enrolls as $enroll)
+                                    <tr>
+                                        <td class="text-center"> {{ $enroll->appearance }}</td>
+                                        <td class="text-center"> {{ $enroll->player_number }}</td>
+                                        <td class="text-center"> {{ $enroll->name }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         @else
                             <th class="text-center" colspan="10"> -- 未抽籤 -- </th>
                         @endif

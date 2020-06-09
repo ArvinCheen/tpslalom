@@ -33,18 +33,18 @@ class GameInfoController extends Controller
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item);
 
-            if ($gameInfo->gender <> '不分組') {
+            if ($gameInfo->item <> '雙人花式繞樁') {
                 $enrolls->where('gender', $gameInfo->gender);
             }
 
             $enrolls = $enrolls->orderBy('appearance')->get();
         }
 
-
         return view('gameInfo/appearance')->with(compact(
             'schedules',
             'scheduleId',
             'enrolls',
+            'gameInfo',
             'isView'
         ));
     }
