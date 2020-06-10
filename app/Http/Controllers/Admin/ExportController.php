@@ -542,8 +542,8 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
                     $sheet->cell('A3', function ($cell) use ($schedule) {
-                        $cell->setFontSize(16);
-                        $cell->setValue($schedule->item . '　' . $schedule->level . ' ' . $schedule->group . $schedule->gender . '子組');
+                        $cell->setFontSize(14);
+                        $cell->setValue($schedule->item . ' ' . $schedule->group . $schedule->gender . '子組');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
