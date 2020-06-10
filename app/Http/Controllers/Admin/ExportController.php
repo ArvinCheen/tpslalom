@@ -616,7 +616,6 @@ class ExportController extends Controller
                         $query->where('gender', $gender);
                     })
                         ->where('game_id', $gameId)
-                        ->where('level', $level)
                         ->where('group', $group)
                         ->where('item', $item)
                         ->orderBy('appearance')
