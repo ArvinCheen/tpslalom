@@ -11,6 +11,7 @@
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
                 <h3> 第一天 </h3>
+                <h3> 預計比賽時間 09:00 ~ 18:00 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
@@ -45,6 +46,7 @@
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
                 <h3> 第二天 </h3>
+                <h3> 預計比賽時間 09:00 ~ 19:00 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
@@ -78,6 +80,7 @@
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
                 <h3> 第三天 </h3>
+                <h3> 預計比賽時間 09:00 ~ 17:00 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
@@ -110,7 +113,8 @@
             </div>
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
-                <h3> 第四天 - A場 </h3>
+                <h3> 第四天 </h3>
+                <h3> 預計比賽時間 09:00 ~ 16:30 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
@@ -143,7 +147,8 @@
             </div>
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
-                <h3> 第四天 - B場 </h3>
+                <h3> 第四天 </h3>
+                <h3> 預計比賽時間 09:00 ~ 16:30 </h3>
             </div>
             <div class="col-md-12">
                 <table class="col-md-12 table table-striped table-dark">
