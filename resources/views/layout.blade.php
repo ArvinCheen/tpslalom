@@ -73,9 +73,9 @@
                                     <li>
                                         <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
                                     </li>
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>--}}
-{{--                                    </li>--}}
+                                    <li>
+                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>
+                                    </li>
 {{--                                    <li>--}}
 {{--                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>--}}
 {{--                                    </li>--}}
