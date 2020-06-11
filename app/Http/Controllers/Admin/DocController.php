@@ -66,6 +66,9 @@ class DocController extends Controller
                 ->where('group', $group)
                 ->where('gender', $gender)
                 ->where('item', 'like', "%$item%")
+                ->orderBy('appearance')
+                ->orderBy('player_number')
+                ->orderBy('player_id')
                 ->get();
         }
 

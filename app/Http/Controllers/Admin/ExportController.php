@@ -85,6 +85,8 @@ class ExportController extends Controller
                             ->where('group', $schedule->group)
                             ->where('item', $schedule->item)
                             ->orderBy('appearance')
+                            ->orderBy('player_number')
+                            ->orderBy('player_id')
                             ->get();
 
                         foreach ($enrolls as $key => $enroll) {
