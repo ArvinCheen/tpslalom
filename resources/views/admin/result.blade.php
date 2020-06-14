@@ -34,7 +34,7 @@
                             <button type="button" class="btn btn-primary"> 匯出獎狀</button>
                         </a>
                     </div>
-                    @if ($model == 'speed' || $model =='pk')
+                    @if ($model == 'speed')
                         <div class="ml-2">
                             <form action="{{ route('admin.rank') }}" method="POST">
                                 {{ csrf_field() }}
@@ -223,24 +223,6 @@
             if (e.which == 13) {
                 $("#result-form").submit();
                 return;
-            }
-
-            if ($(this).hasClass('roundOneSecond') || $(this).hasClass('roundTwoSecond')) {
-                if ($(this).val().length == 5) {
-                    $(this).parent().next().children().focus();
-                }
-            }
-
-            if ($(this).hasClass('roundOneMissConr')) {
-                if ($(this).val().length == 1) {
-                    $(this).parent().next().children().focus();
-                }
-            }
-
-            if ($(this).hasClass('roundTwoMissConr')) {
-                if ($(this).val().length == 1) {
-                    $(this).parent().parent().next().children().children().eq(0).focus();
-                }
             }
         });
     </script>

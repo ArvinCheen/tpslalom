@@ -24,7 +24,6 @@ class SearchController extends Controller
 
     public function result($scheduleId = null)
     {
-        $resultService = new ResultService();
         $searchService = new SearchService();
 
         $schedules = app(ScheduleModel::class)->getSchedules();
@@ -35,11 +34,8 @@ class SearchController extends Controller
             }
         }
 
-        if (is_null($openResultTime = ScheduleModel::find($scheduleId)->open_result_time)) {
-            $result = [];
-        } else {
-            $result = $searchService->getResult($scheduleId);
-        }
+        $scheduleInfo = ScheduleModel::find($scheduleId);
+        $result = $searchService->getResult($scheduleId);
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
         $remark = ScheduleModel::find($scheduleId)->remark;
@@ -49,16 +45,35 @@ class SearchController extends Controller
         } else {
             $rankLimit = floor($numberOfPlayer / 2);
 
-            if ($rankLimit > 8) {
-                $rankLimit = 8;
+            if ($rankLimit > 6) {
+                $rankLimit = 6;
             }
         }
 
-        app(SlackNotify::class)->setMsg('有人正在觀看 `場次' . $scheduleId . '` 的成績公告 - ' . now())->notify();
+        $model = 'speed';
+
+        if ($scheduleInfo->item == '中級指定套路(女)' ||
+            $scheduleInfo->item == '中級指定套路(男)' ||
+            $scheduleInfo->item == '個人花式繞樁(女)' ||
+            $scheduleInfo->item == '個人花式繞樁(男)' ||
+            $scheduleInfo->item == '初級指定套路(女)' ||
+            $scheduleInfo->item == '初級指定套路(男)' ||
+            $scheduleInfo->item == '花式煞停(女)' ||
+            $scheduleInfo->item == '花式煞停(男)' ||
+            $scheduleInfo->item == '雙人花式繞樁') {
+            $model = 'freeStyle';
+        }
+        if ($scheduleInfo->order == '場次32' || $scheduleInfo->order == '場次33' || $scheduleInfo->order == '場次34') {
+            $model = 'pk';
+        }
+
+
+        app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
         return view('search/result')->with(compact(
-            'openResultTime',
             'scheduleId',
+            'model',
             'schedules',
+            'scheduleInfo',
             'result',
             'rankLimit',
             'remark'

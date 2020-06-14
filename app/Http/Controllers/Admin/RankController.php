@@ -30,11 +30,10 @@ class RankController extends Controller
         $gender   = $gameInfo->gender;
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
-        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-        $rankLimit = floor($numberOfPlayer/2);
+        $rankLimit = ScheduleModel::find($scheduleId)->number_of_player;
 
-        if ($rankLimit > 8) {
-            $rankLimit = 8;
+        if ($rankLimit >= 6) {
+            $rankLimit == 6;
         }
 
 
@@ -45,15 +44,6 @@ class RankController extends Controller
 
         $gameInfo->open_result_time = now();
         $gameInfo->save();
-//        全國賽不使用以下的判斷
-//        if ($level == '選手組') {
-//        $this->processRank($level, $gender, $group, $item, );
-//        } else {
-//            $this->processRank($level, $gender, $group, $item, $city = '臺北市');
-//            $this->processRank($level, $gender, $group, $item, $city = '外縣市');
-//        }
-
-//        $this->processIntegral($level, $gender, $group, $item);
     }
 
 
@@ -62,7 +52,6 @@ class RankController extends Controller
         $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit);
 
         foreach ($results as $key => $result) {
-            echo $key;
             if ($key <> 0) {
                 if ($results[$key - 1]->final_result == $results[$key]->final_result) { //同成績處理 start
                     $前一個選手的名次 = EnrollModel::where('id', $results[$key - 1]->id)->first()->rank; // todo 這裡的命名要改
