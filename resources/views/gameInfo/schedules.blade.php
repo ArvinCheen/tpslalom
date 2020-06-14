@@ -113,7 +113,7 @@
             </div>
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
-                <h3> 第四天 </h3>
+                <h3> 第四天 A場 </h3>
                 <h3> 預計比賽時間 09:00 ~ 16:30 </h3>
             </div>
             <div class="col-md-12">
@@ -147,7 +147,7 @@
             </div>
             <div class="mt-5 mb-5 text-center">
                 <h2> 賽程表 </h2>
-                <h3> 第四天 </h3>
+                <h3> 第四天 B場 </h3>
                 <h3> 預計比賽時間 09:00 ~ 16:30 </h3>
             </div>
             <div class="col-md-12">

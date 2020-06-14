@@ -21,11 +21,13 @@ class ResultController extends Controller
             $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
         }
 
+        $schedule = ScheduleModel::find($scheduleId);
+
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-                $query->where('gender', $gameInfo->gender);
+//                $query->where('gender', $gameInfo->gender);
             })
                 ->where('game_id', config('app.game_id'))
                 ->where('level', $gameInfo->level)
@@ -35,7 +37,24 @@ class ResultController extends Controller
                 ->get();
         }
 
-        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls'));
+        $model = 'speed';
+
+        if ($schedule->item == '中級指定套路(女)' ||
+            $schedule->item == '中級指定套路(男)' ||
+            $schedule->item == '個人花式繞樁(女)' ||
+            $schedule->item == '個人花式繞樁(男)' ||
+            $schedule->item == '初級指定套路(女)' ||
+            $schedule->item == '初級指定套路(男)' ||
+            $schedule->item == '花式煞停(女)' ||
+            $schedule->item == '花式煞停(男)' ||
+            $schedule->item == '雙人花式繞樁') {
+            $model = 'freeStyle';
+        }
+        if ($schedule->order == '場次32' || $schedule->order == '場次33' || $schedule->order == '場次34') {
+            $model = 'pk';
+        }
+
+        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model'));
     }
 
     public function update(Request $request)
@@ -63,43 +82,42 @@ class ResultController extends Controller
         $score_5          = $request->score_5;
         $punish           = $request->punish;
         $rank             = $request->rank;
+        $model            = $request->model;
 
-        if (! $this->validateInt($request)) {
-            app('request')->session()->flash('error', '秒數請輸入數字');
-            return back()->withInput();
+
+        switch ($model) {
+            case('speed');
+                foreach ($enrollIds as $key => $enrollId) {
+                    $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
+                }
+                break;
+            case('freeStyle');
+                foreach ($enrollIds as $key => $enrollId) {
+                    EnrollModel::where('id', $enrollId)->update([
+                        'skill_1' => $skill_1[$key],
+                        'art_1'   => $art_1[$key],
+                        'score_1' => $score_1[$key],
+                        'skill_2' => $skill_2[$key],
+                        'art_2'   => $art_2[$key],
+                        'score_2' => $score_2[$key],
+                        'skill_3' => $skill_3[$key],
+                        'art_3'   => $art_3[$key],
+                        'score_3' => $score_3[$key],
+                        'skill_4' => $skill_4[$key],
+                        'art_4'   => $art_4[$key],
+                        'score_4' => $score_4[$key],
+                        'skill_5' => $skill_5[$key],
+                        'art_5'   => $art_5[$key],
+                        'score_5' => $score_5[$key],
+                        'punish'  => $punish[$key],
+                        'rank'    => $rank[$key],
+                    ]);
+                }
+
+                break;
+            case('pk');
+                break;
         }
-
-        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
-
-            foreach ($enrollIds as $key => $enrollId) {
-                $this->calculationResult($enrollIds[$key], $roundOneSecond[$key], $roundOneMissConr[$key], $roundTwoSecond[$key], $roundTwoMissConr[$key]);
-            }
-        } else {
-
-            foreach ($enrollIds as $key => $enrollId) {
-                EnrollModel::where('id', $enrollId)->update([
-                    'skill_1' => $skill_1[$key],
-                    'art_1'   => $art_1[$key],
-                    'score_1' => $score_1[$key],
-                    'skill_2' => $skill_2[$key],
-                    'art_2'   => $art_2[$key],
-                    'score_2' => $score_2[$key],
-                    'skill_3' => $skill_3[$key],
-                    'art_3'   => $art_3[$key],
-                    'score_3' => $score_3[$key],
-                    'skill_4' => $skill_4[$key],
-                    'art_4'   => $art_4[$key],
-                    'score_4' => $score_4[$key],
-                    'skill_5' => $skill_5[$key],
-                    'art_5'   => $art_5[$key],
-                    'score_5' => $score_5[$key],
-                    'punish'  => $punish[$key],
-                    'rank'    => $rank[$key],
-                ]);
-            }
-        }
-
-
         return back()->with(['success' => '更新選手成績成功']);
     }
 

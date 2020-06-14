@@ -77,6 +77,9 @@ class GameInfoController extends Controller
                     ->where('level', $level)
                     ->where('group', $group)
                     ->where('item',$item)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
                     ->get();
             } else {
                 $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
@@ -85,6 +88,9 @@ class GameInfoController extends Controller
                     ->where('group', $group)
                     ->where('gender', $gender)
                     ->where('item',$item)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
                     ->get();
             }
         }
@@ -94,7 +100,7 @@ class GameInfoController extends Controller
     }
 
     public function teams()
-    {
+    {/**/
         $teams = app(EnrollModel::class)->getParticipateTeam();
 
         foreach ($teams as $team) {
