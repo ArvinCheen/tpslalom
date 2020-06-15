@@ -2,7 +2,7 @@
 
 //header("Location: https://www.facebook.com/ctrsfslalom/");
 //exit();
-
+echo '比賽暫停';exit;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
