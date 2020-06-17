@@ -36,7 +36,7 @@
                             </tr>
                         @if($schedule1->order == '場次10')
                             <tr>
-                                <td class='text-center' colspan="7"> 中午休息</td>
+                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>
                         @endif
                     @endforeach
@@ -71,7 +71,7 @@
                             </tr>
                         @if($schedule2->order == '場次40')
                             <tr>
-                                <td class='text-center' colspan="7"> 中午休息</td>
+                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>
                         @endif
                     @endforeach
@@ -105,7 +105,7 @@
                             </tr>
                         @if($schedule3->order == '場次80')
                             <tr>
-                                <td class='text-center' colspan="7"> 中午休息</td>
+                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>
                         @endif
                     @endforeach
@@ -139,7 +139,7 @@
                             </tr>
                         @if($schedule4A->order == '場次145')
                             <tr>
-                                <td class='text-center' colspan="7"> 中午休息</td>
+                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>
                         @endif
                     @endforeach
@@ -173,7 +173,7 @@
                         </tr>
                         @if($schedule4B->order == '場次126')
                             <tr>
-                                <td class='text-center' colspan="7"> 中午休息</td>
+                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>
                         @endif
                     @endforeach
