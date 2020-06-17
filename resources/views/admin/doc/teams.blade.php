@@ -19,8 +19,8 @@
                     @foreach($teams as $team)
                         <table class="table mb-0">
                             <tr>
-                                <td class="w-25"> {{ $team->account->team_name }} - {{ count($team->players) }}人參賽 </td>
-                                <td class="w-50"> 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }} </td>
+                                <td colspan="5" class="w-25"> {{ $team->account->team_name }} - {{ count($team->players) }} 人參賽 / 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }}</td>
+{{--                                <td colspan="3" class="w-50"> 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }} </td>--}}
 {{--                                <td class="w-25 text-right"> <a href="{{ URL('admin/export/completion') }}/{{ $team->account_id }}"><button type="button" class="btn btn-primary btn-sm"> 完賽證明 </button></a> </td>--}}
                             </tr>
                         </table>
