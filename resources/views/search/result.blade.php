@@ -242,9 +242,12 @@
                         @endif
                         @break;
                         @case('stop')
-
-                        <td class="text-center"> {{ $val->rank }}</td>
-                        <td class="text-center"> {{$val->name}}({{ $val->player_number }})</td>
+                        @foreach ($result as $key => $val)
+                            <tr>
+                                <td class="text-center"> {{ $val->rank }}</td>
+                                <td class="text-center"> {{$val->name}}({{ $val->player_number }})</td>
+                            </tr>
+                        @endforeach
                         @break;
                         @case('pk')
                         @switch ($scheduleInfo->order)
