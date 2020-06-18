@@ -78,16 +78,16 @@ class DocController extends Controller
     public function teams()
     {
 
-        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->groupBy('agency')->get();
-
-        foreach ($agencys as $agency) {
-            echo ('<br><br>'.$agency->agency.',<br>');
-            $players = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('agency',$agency->agency)->orderBy('player_number')->groupBy('player_number')->get();
-            foreach ($players as $player) {
-                echo ($player->name.'('.$player->player_number.'),');
-            }
-        }
-        dd();
+//        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->groupBy('agency')->get();
+//
+//        foreach ($agencys as $agency) {
+//            echo ('<br><br>'.$agency->agency.',<br>');
+//            $players = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('agency',$agency->agency)->orderBy('player_number')->groupBy('player_number')->get();
+//            foreach ($players as $player) {
+//                echo ($player->name.'('.$player->player_number.'),<br>');
+//            }
+//        }
+//        dd();
 //        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->orderBy('agency')->get();
 
         $teams = app(EnrollModel::class)->getParticipateTeam();
@@ -101,7 +101,7 @@ class DocController extends Controller
 
         }
 
-        return view('admin/doc/teams')->with(compact('agencys'));
+        return view('admin/doc/teams')->with(compact('teams'));
     }
 
     public function checkBill()
