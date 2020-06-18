@@ -35,10 +35,10 @@ class SearchController extends Controller
         }
 
         $scheduleInfo = ScheduleModel::find($scheduleId);
-        $result = $searchService->getResult($scheduleId);
+        $result       = $searchService->getResult($scheduleId);
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-        $remark = ScheduleModel::find($scheduleId)->remark;
+        $remark         = ScheduleModel::find($scheduleId)->remark;
 
         if ($numberOfPlayer == 1) {
             $rankLimit = 1;
@@ -58,8 +58,6 @@ class SearchController extends Controller
             $scheduleInfo->item == '個人花式繞樁(男)' ||
             $scheduleInfo->item == '初級指定套路(女)' ||
             $scheduleInfo->item == '初級指定套路(男)' ||
-            $scheduleInfo->item == '花式煞停(女)' ||
-            $scheduleInfo->item == '花式煞停(男)' ||
             $scheduleInfo->item == '雙人花式繞樁') {
             $model = 'freeStyle';
         }
@@ -67,8 +65,12 @@ class SearchController extends Controller
             $model = 'pk';
         }
 
+        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
+            $model = 'stop';
+        }
 
-        app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
+
+            app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
         return view('search/result')->with(compact(
             'scheduleId',
             'model',

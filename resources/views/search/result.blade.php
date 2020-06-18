@@ -66,6 +66,11 @@
                             <th class="text-center"> 總分五</th>
                             <th class="text-center"> 罰分</th>
                             @break;
+
+                            @case('stop')
+                            <th class="text-center"> 名次</th>
+                            <th class="text-center"> 選手</th>
+                            @break;
                             @case('pk')
                             <th class="text-center"> 名次</th>
                             <th class="text-center"> 選手</th>
@@ -235,6 +240,11 @@
                                 </tr>
                             @endforeach
                         @endif
+                        @break;
+                        @case('stop')
+
+                        <td class="text-center"> {{ $val->rank }}</td>
+                        <td class="text-center"> {{$val->name}}({{ $val->player_number }})</td>
                         @break;
                         @case('pk')
                         @switch ($scheduleInfo->order)
