@@ -38,6 +38,7 @@ class ExportController extends Controller
                 ->whereNotNull('rank')
                 ->where('rank', '<>', 0)
                 ->orderBy('rank')
+                ->limit($rankLimit)
                 ->get();
         } else {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
