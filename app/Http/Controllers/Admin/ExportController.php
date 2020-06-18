@@ -21,26 +21,22 @@ class ExportController extends Controller
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
 
-        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+        $scheduleiInfo = ScheduleModel::find($scheduleId);
 
-        if ($numberOfPlayer == 1) {
-            $rankLimit = 1;
-        } else {
-            $rankLimit = floor($numberOfPlayer / 2);
+        $rankLimit = $scheduleiInfo->numberOfPlayer;
 
-            if ($rankLimit > 8) {
-                $rankLimit = 8;
-            }
+        if ($rankLimit > 6) {
+            $rankLimit = 6;
         }
 
 
-        if ($scheduleId == 21) {
+        if ($scheduleiInfo->item == '雙人花式繞樁') {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
             })
                 ->where('game_id', config('app.game_id'))
                 ->where('item', $item)
                 ->whereNotNull('rank')
-                ->where('rank','<>', 0)
+                ->where('rank', '<>', 0)
                 ->orderBy('rank')
                 ->get();
         } else {
@@ -51,20 +47,21 @@ class ExportController extends Controller
                 ->where('group', $group)
                 ->where('item', $item)
                 ->whereNotNull('rank')
-                ->where('rank','<>', 0)
+                ->where('rank', '<>', 0)
                 ->orderBy('rank')
                 ->limit($rankLimit)
                 ->get();
         }
 
+
         if ($enrolls->isEmpty()) {
             return back()->with(['error' => '無獎狀資料']);
         }
 
-        if ($scheduleId >= 24 || ($scheduleId >= 11 && $scheduleId <= 20)) {
-            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
-        } else {
+        if (strpos($scheduleiInfo->item, '速度過樁') !== false) {
             $this->exportExcel($order, $enrolls, 'certificate');
+        } else {
+            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
         }
     }
 
@@ -154,8 +151,8 @@ class ExportController extends Controller
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
-                        $sheet->mergeCells('H13:K13');
-                        $sheet->mergeCells('H14:K14');
+                        $sheet->mergeCells('G13:K13');
+                        $sheet->mergeCells('G14:K14');
                         $sheet->mergeCells('C15:E15');
                         $sheet->mergeCells('F15:K15');
                         $sheet->mergeCells('C17:E17');
@@ -181,20 +178,20 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A12', function ($cell) use ($enroll) {
-                            $cell->setValue('108學年度第41屆中正盃全國溜冰錦標賽競賽');
+                            $cell->setValue('中華民國109年第17屆總統盃全國溜冰錦標賽');
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('H13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教授體字第1080032071號函');
+                        $sheet->cell('G13', function ($cell) use ($enroll) {
+                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('H14', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1080034332號函');
+                        $sheet->cell('G14', function ($cell) use ($enroll) {
+                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -266,32 +263,32 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
 
-                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
-                            $cell->setValue('成　　　績：');
-                            $cell->setFontSize(20);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
+//                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
+//                            $cell->setValue('成　　　績：');
+//                            $cell->setFontSize(20);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
 
-                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
-                            $explodeSecond = explode(".", $enroll->final_result);
-                            if ($explodeSecond[0] >= 60) {
-                                $result = gmdate("i分s秒", $explodeSecond[0]);
-                            } else {
-                                $result = gmdate("s秒", $explodeSecond[0]);
-                            }
-
-                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
-                                $result .= $explodeSecond[1];
-                            }
-
-                            $cell->setValue($result);
-                            $cell->setFontSize(20);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
+//                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
+//                            $explodeSecond = explode(".", $enroll->final_result);
+//                            if ($explodeSecond[0] >= 60) {
+//                                $result = gmdate("i分s秒", $explodeSecond[0]);
+//                            } else {
+//                                $result = gmdate("s秒", $explodeSecond[0]);
+//                            }
+//
+//                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
+//                                $result .= $explodeSecond[1];
+//                            }
+//
+//                            $cell->setValue($result);
+//                            $cell->setFontSize(20);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
                         $sheet->cell('A43', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　八　年　十　月　二　十　七　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　六　月　二　十　一　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -314,8 +311,8 @@ class ExportController extends Controller
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
-                        $sheet->mergeCells('H13:K13');
-                        $sheet->mergeCells('H14:K14');
+                        $sheet->mergeCells('G13:K13');
+                        $sheet->mergeCells('G14:K14');
                         $sheet->mergeCells('C15:E15');
                         $sheet->mergeCells('F15:K15');
                         $sheet->mergeCells('C17:E17');
@@ -341,20 +338,20 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A12', function ($cell) use ($enroll) {
-                            $cell->setValue('108學年度第41屆中正盃全國溜冰錦標賽競賽');
+                            $cell->setValue('中華民國109年第17屆總統盃全國溜冰錦標賽');
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('H13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教授體字第1080032071號函');
+                        $sheet->cell('G13', function ($cell) use ($enroll) {
+                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('H14', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1080034332號函');
+                        $sheet->cell('G14', function ($cell) use ($enroll) {
+                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -440,7 +437,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　八　年　十　月　二　十　七　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　六　月　二　十　一　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -608,10 +605,10 @@ class ExportController extends Controller
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level = $schedule->level;
-                    $group = $schedule->group;
+                    $level  = $schedule->level;
+                    $group  = $schedule->group;
                     $gender = $schedule->gender;
-                    $item = $schedule->item;
+                    $item   = $schedule->item;
 
 
                     $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
@@ -673,7 +670,7 @@ class ExportController extends Controller
                         }
                     }
 
-                    $results = EnrollModel::select('player_number', 'name', 'city','agency_all', 'final_result', 'rank')
+                    $results = EnrollModel::select('player_number', 'name', 'city', 'agency_all', 'final_result', 'rank')
                         ->leftJoin('player', 'player.id', 'enroll.player_id')
                         ->where('game_id', config('app.game_id'))
                         ->where('group', $schedule->group)
@@ -684,7 +681,7 @@ class ExportController extends Controller
                         ->orderBy('rank')
                         ->get();
 
-                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '組別', '項目', '縣市','單位', '成績']);
+                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '組別', '項目', '縣市', '單位', '成績']);
                     $initIndex++;
 
                     if ($results->isEmpty()) {
@@ -696,7 +693,7 @@ class ExportController extends Controller
                         $initIndex++;
                     } else {
                         foreach ($results as $result) {
-                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' '. $schedule->gender, $schedule->item, $result->city ,$result->agency_all, $result->final_result]);
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' ' . $schedule->gender, $schedule->item, $result->city, $result->agency_all, $result->final_result]);
                             $initIndex++;
                         }
                     }
