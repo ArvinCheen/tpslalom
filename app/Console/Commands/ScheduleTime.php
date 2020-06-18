@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\Models\ScheduleModel;
 use Illuminate\Console\Command;
 
-class schedule extends Command
+class ScheduleTime extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'schedule';
+    protected $signature = 'ScheduleTime';
 
     /**
      * The console command description.
