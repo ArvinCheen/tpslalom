@@ -169,7 +169,7 @@ class ExportController extends Controller
                         $sheet->mergeCells('F27:J27');
                         $sheet->mergeCells('A43:L43');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
-                            $cell->setValue('    ');
+                            $cell->setValue('獎　　　狀');
                             $cell->setFontFamily('標楷體');
                             $cell->setFontSize(60);
 
