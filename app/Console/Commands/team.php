@@ -44,7 +44,7 @@ class schedule extends Command
         $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->groupBy('agency')->get();
 
         foreach ($agencys as $agency) {
-            $this->info(''.$agency->agency.',');
+            $this->info('<br>'.$agency->agency.',');
             $players = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('agency',$agency->agency)->orderBy('player_number')->groupBy('player_number')->get();
             foreach ($players as $player) {
                 $this->info($player->name.'('.$player->player_number.'),');
