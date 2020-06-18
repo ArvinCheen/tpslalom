@@ -189,27 +189,26 @@
                                 <th class="text-center">83</th>
                                 <th class="text-center">5</th>
                             </tr>
-                            {{--                            1謝牧倫、周柏崴  31 85 116 36 105 141 44 113 157 44 92 136 34 82 116 4 N/A--}}
-                            {{--                            <tr>--}}
-                            {{--                                <th class="text-center"> 1 </th>--}}
-                            {{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-                            {{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-                            {{--                            </tr>--}}
+                            <tr>
+                                <th class="text-center"></th>
+                                <th class="text-center"> 謝牧倫、周柏崴</th>
+                                <th class="text-center">31</th>
+                                <th class="text-center">85</th>
+                                <th class="text-center">116</th>
+                                <th class="text-center">36</th>
+                                <th class="text-center">105</th>
+                                <th class="text-center">141</th>
+                                <th class="text-center">44</th>
+                                <th class="text-center">113</th>
+                                <th class="text-center">157</th>
+                                <th class="text-center">44</th>
+                                <th class="text-center">92</th>
+                                <th class="text-center">136</th>
+                                <th class="text-center">34</th>
+                                <th class="text-center">82</th>
+                                <th class="text-center">116</th>
+                                <th class="text-center">4</th>
+                            </tr>
 
                         @else
 
