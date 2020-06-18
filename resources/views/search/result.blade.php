@@ -106,110 +106,110 @@
                         @break;
                         @case('freeStyle')
                         @if ($scheduleInfo->item == '雙人花式繞樁')
-{{--                            <tr>--}}
-{{--                                <th class="text-center"> 1 </th>--}}
-{{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-{{--                            </tr>--}}
+                            <tr>
+                                <th class="text-center"> 1</th>
+                                <th class="text-center"> 侯鈞諺、陳建廷</th>
+                                <th class="text-center">25</th>
+                                <th class="text-center">73</th>
+                                <th class="text-center">98</th>
+                                <th class="text-center">24</th>
+                                <th class="text-center">84</th>
+                                <th class="text-center">108</th>
+                                <th class="text-center">29</th>
+                                <th class="text-center">90</th>
+                                <th class="text-center">119</th>
+                                <th class="text-center">26</th>
+                                <th class="text-center">77</th>
+                                <th class="text-center">103</th>
+                                <th class="text-center">23</th>
+                                <th class="text-center">74</th>
+                                <th class="text-center">97</th>
+                                <th class="text-center">11</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center"> 2</th>
+                                <th class="text-center"> 范子聿、游瑋筑</th>
+                                <th class="text-center">33</th>
+                                <th class="text-center">67</th>
+                                <th class="text-center">100</th>
+                                <th class="text-center">31</th>
+                                <th class="text-center">70</th>
+                                <th class="text-center">101</th>
+                                <th class="text-center">37</th>
+                                <th class="text-center">82</th>
+                                <th class="text-center">119</th>
+                                <th class="text-center">32</th>
+                                <th class="text-center">65</th>
+                                <th class="text-center">97</th>
+                                <th class="text-center">29</th>
+                                <th class="text-center">64</th>
+                                <th class="text-center">93</th>
+                                <th class="text-center">1</th>
+                            </tr>
+                            {{--                             --}}
+                            <tr>
+                                <th class="text-center"> 3</th>
+                                <th class="text-center"> 邱映瑄、邱宇廷</th>
+                                <th class="text-center">20</th>
+                                <th class="text-center">66</th>
+                                <th class="text-center">86</th>
+                                <th class="text-center">15</th>
+                                <th class="text-center">56</th>
+                                <th class="text-center">71</th>
+                                <th class="text-center">25</th>
+                                <th class="text-center">75</th>
+                                <th class="text-center">100</th>
+                                <th class="text-center">20</th>
+                                <th class="text-center">63</th>
+                                <th class="text-center">83</th>
+                                <th class="text-center">22</th>
+                                <th class="text-center">70</th>
+                                <th class="text-center">92</th>
+                                <th class="text-center">10</th>
+                            </tr>
 
-{{--                            <tr>--}}
-{{--                                <th class="text-center"> 1 </th>--}}
-{{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-{{--                            </tr>--}}
+                            <tr>
+                                <th class="text-center"> 4</th>
+                                <th class="text-center"> 黃淇宣、范予僖</th>
 
-{{--                            <tr>--}}
-{{--                                <th class="text-center"> 1 </th>--}}
-{{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-{{--                            </tr>--}}
-
-{{--                            <tr>--}}
-{{--                                <th class="text-center"> 1 </th>--}}
-{{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-{{--                            </tr>--}}
-
-{{--                            <tr>--}}
-{{--                                <th class="text-center"> 1 </th>--}}
-{{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
-{{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
-{{--                            </tr>--}}
+                                <th class="text-center">27</th>
+                                <th class="text-center">61</th>
+                                <th class="text-center">88</th>
+                                <th class="text-center">24</th>
+                                <th class="text-center">60</th>
+                                <th class="text-center">84</th>
+                                <th class="text-center">25</th>
+                                <th class="text-center">70</th>
+                                <th class="text-center">95</th>
+                                <th class="text-center">20</th>
+                                <th class="text-center">53</th>
+                                <th class="text-center">73</th>
+                                <th class="text-center">23</th>
+                                <th class="text-center">60</th>
+                                <th class="text-center">83</th>
+                                <th class="text-center">5</th>
+                            </tr>
+                            {{--                            1謝牧倫、周柏崴  31 85 116 36 105 141 44 113 157 44 92 136 34 82 116 4 N/A--}}
+                            {{--                            <tr>--}}
+                            {{--                                <th class="text-center"> 1 </th>--}}
+                            {{--                                <th class="text-center"> 陳某某(0002)<br>陳某某(0002) </th>--}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術一 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術一 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分一 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術二 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術二 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分二 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術三 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術三 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分三 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術四 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術四 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分四 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 技術五 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 藝術五 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 總分五 --}}
+                            {{--                                <th class="text-center">  </th>   --}}{{-- 罰分 --}}
+                            {{--                            </tr>--}}
 
                         @else
 
@@ -235,7 +235,7 @@
                                     <td class="text-center"> {{ $val->punish }}</td>
                                 </tr>
                             @endforeach
-                            @endif
+                        @endif
                         @break;
                         @case('pk')
                         @switch ($scheduleInfo->order)
