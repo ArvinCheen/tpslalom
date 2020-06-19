@@ -14,7 +14,7 @@ use App\Services\DocService;
 
 class DocController extends Controller
 {
-    public $group = '國小高年級';
+    public $group = '國中';
     public $item = '初級指定套路(男)';
 
     public function all()
@@ -24,50 +24,16 @@ class DocController extends Controller
         EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
             ->where('group',$this->group)
             ->where('item',$this->item)
-            ->where('name','曾懿謙')
-            ->update([
-                "skill_1"=>46,
-                "art_1"=>15,
-                "score_1"=>61,
-                "skill_2"=>46,
-                "art_2"=>16,
-                "score_2"=>62,
-                "skill_3"=>46,
-                "art_3"=>11,
-                "score_3"=>57,
-                "rank"=>11,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','方俞淵')
+            ->where('name','陳柔妤')
             ->update([
                 "skill_1"=>54,
-                "art_1"=>22,
-                "score_1"=>76,
+                "art_1"=>19,
+                "score_1"=>73,
                 "skill_2"=>54,
-                "art_2"=>18,
-                "score_2"=>72,
+                "art_2"=>19,
+                "score_2"=>73,
                 "skill_3"=>54,
-                "art_3"=>17,
-                "score_3"=>71,
-                "rank"=>6,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','廖德祐')
-            ->update([
-                "skill_1"=>53,
-                "art_1"=>25,
-                "score_1"=>78,
-                "skill_2"=>53,
-                "art_2"=>22,
-                "score_2"=>75,
-                "skill_3"=>53,
-                "art_3"=>21,
+                "art_3"=>20,
                 "score_3"=>74,
                 "rank"=>2,
             ]);
@@ -75,137 +41,120 @@ class DocController extends Controller
         EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
             ->where('group',$this->group)
             ->where('item',$this->item)
-            ->where('name','林濬程')
+            ->where('name','劉育均')
             ->update([
-                "skill_1"=>52,
-                "art_1"=>19,
-                "score_1"=>71,
-                "skill_2"=>52,
-                "art_2"=>17,
-                "score_2"=>69,
-                "skill_3"=>52,
-                "art_3"=>12,
+                "skill_1"=>49,
+                "art_1"=>14,
+                "score_1"=>63,
+                "skill_2"=>49,
+                "art_2"=>13,
+                "score_2"=>62,
+                "skill_3"=>49,
+                "art_3"=>15,
                 "score_3"=>64,
-                "rank"=>8,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','許祐瑋')
-            ->update([
-                "skill_1"=>55,
-                "art_1"=>23,
-                "score_1"=>78,
-                "skill_2"=>55,
-                "art_2"=>20,
-                "score_2"=>75,
-                "skill_3"=>55,
-                "art_3"=>26,
-                "score_3"=>81,
-                "rank"=>1,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','莊劭軒')
-            ->update([
-                "skill_1"=>56,
-                "art_1"=>16,
-                "score_1"=>72,
-                "skill_2"=>56,
-                "art_2"=>18,
-                "score_2"=>74,
-                "skill_3"=>56,
-                "art_3"=>22,
-                "score_3"=>78,
-                "rank"=>3,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','李燿辰')
-            ->update([
-                "skill_1"=>57,
-                "art_1"=>18,
-                "score_1"=>75,
-                "skill_2"=>57,
-                "art_2"=>14,
-                "score_2"=>71,
-                "skill_3"=>57,
-                "art_3"=>20.5,
-                "score_3"=>77.5,
                 "rank"=>5,
             ]);
 
         EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
             ->where('group',$this->group)
             ->where('item',$this->item)
-            ->where('name','朱軒廷')
+            ->where('name','吳宥蓁')
             ->update([
-                "skill_1"=>53,
-                "art_1"=>21,
-                "score_1"=>74,
-                "skill_2"=>53,
-                "art_2"=>21,
-                "score_2"=>74,
-                "skill_3"=>53,
-                "art_3"=>23,
-                "score_3"=>76,
+                "skill_1"=>45,
+                "art_1"=>18,
+                "score_1"=>63,
+                "skill_2"=>45,
+                "art_2"=>12,
+                "score_2"=>57,
+                "skill_3"=>45,
+                "art_3"=>12,
+                "score_3"=>57,
+                "rank"=>6,
+            ]);
+
+        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
+            ->where('group',$this->group)
+            ->where('item',$this->item)
+            ->where('name','蔡明穎')
+            ->update([
+                "skill_1"=>40,
+                "art_1"=>11,
+                "score_1"=>51,
+                "skill_2"=>40,
+                "art_2"=>9,
+                "score_2"=>49,
+                "skill_3"=>40,
+                "art_3"=>9,
+                "score_3"=>49,
+                "rank"=>8,
+            ]);
+
+        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
+            ->where('group',$this->group)
+            ->where('item',$this->item)
+            ->where('name','蘇靖絮')
+            ->update([
+                "skill_1"=>50,
+                "art_1"=>16,
+                "score_1"=>66,
+                "skill_2"=>50,
+                "art_2"=>16,
+                "score_2"=>66,
+                "skill_3"=>50,
+                "art_3"=>14,
+                "score_3"=>64,
                 "rank"=>4,
             ]);
 
         EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
             ->where('group',$this->group)
             ->where('item',$this->item)
-            ->where('name','林胤斈')
+            ->where('name','林荷庭')
             ->update([
-                "skill_1"=>53,
-                "art_1"=>12,
-                "score_1"=>65,
-                "skill_2"=>53,
-                "art_2"=>13,
-                "score_2"=>66,
-                "skill_3"=>53,
-                "art_3"=>18,
-                "score_3"=>71,
-                "rank"=>9,
-            ]);
-
-        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
-            ->where('group',$this->group)
-            ->where('item',$this->item)
-            ->where('name','楊鈞亞')
-            ->update([
-                "skill_1"=>56,
-                "art_1"=>14,
-                "score_1"=>70,
-                "skill_2"=>56,
-                "art_2"=>14,
-                "score_2"=>70,
-                "skill_3"=>56,
-                "art_3"=>22,
-                "score_3"=>78,
+                "skill_1"=>45,
+                "art_1"=>7,
+                "score_1"=>52,
+                "skill_2"=>45,
+                "art_2"=>8,
+                "score_2"=>53,
+                "skill_3"=>45,
+                "art_3"=>13,
+                "score_3"=>58,
                 "rank"=>7,
             ]);
 
         EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
             ->where('group',$this->group)
             ->where('item',$this->item)
-            ->where('name','江承祐')
+            ->where('name','王若穎')
             ->update([
-                "skill_1"=>54,
+                "skill_1"=>56,
+                "art_1"=>25,
+                "score_1"=>81,
+                "skill_2"=>56,
+                "art_2"=>25,
+                "score_2"=>81,
+                "skill_3"=>56,
+                "art_3"=>26,
+                "score_3"=>82,
+                "rank"=>1,
+            ]);
+
+        EnrollModel::leftjoin('player','player.id','enroll.player_id')->where('game_id',config('app.game_id'))
+            ->where('group',$this->group)
+            ->where('item',$this->item)
+            ->where('name','林育晨')
+            ->update([
+                "skill_1"=>53,
                 "art_1"=>16,
-                "score_1"=>70,
-                "skill_2"=>54,
-                "art_2"=>11,
-                "score_2"=>65,
-                "skill_3"=>54,
-                "art_3"=>15,
+                "score_1"=>69,
+                "skill_2"=>53,
+                "art_2"=>15,
+                "score_2"=>68,
+                "skill_3"=>53,
+                "art_3"=>16,
                 "score_3"=>69,
-                "rank"=>10,
+                "rank"=>3,
             ]);
     }
     public function groups()
