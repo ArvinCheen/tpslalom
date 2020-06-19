@@ -428,16 +428,41 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
 
+//                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
+//                            $cell->setValue('　');
+//                            $cell->setFontSize(24);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
+//
+//                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
+//                            $cell->setValue('　');
+//                            $cell->setFontSize(24);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
+                        //
                         $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
-                            $cell->setValue('　');
-                            $cell->setFontSize(24);
+                            $cell->setValue('成　　　績：');
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
 
                         $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
-                            $cell->setValue('　');
-                            $cell->setFontSize(24);
+                            $explodeSecond = explode(".", $enroll->final_result);
+                            if ($explodeSecond[0] >= 60) {
+                                $result = gmdate("i分s秒", $explodeSecond[0]);
+                            } else {
+                                $result = gmdate("s秒", $explodeSecond[0]);
+                            }
+
+                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
+                                $result .= $explodeSecond[1];
+                            }
+
+                            $cell->setValue($result);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
