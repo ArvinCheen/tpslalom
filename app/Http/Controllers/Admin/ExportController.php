@@ -204,9 +204,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->city . " " . $enroll->player->agency_all);
+                            $cell->setValue($enroll->player->agency_all);
 
-                            if (mb_strlen($enroll->player->agency) >= 10) {
+                            if (mb_strlen($enroll->player->agency_all) >= 10) {
                                 $cell->setFontSize(14);
                             } else {
                                 $cell->setFontSize(18);
@@ -234,7 +234,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->group.$enroll->player->gender . '子組');
+                            $cell->setValue($enroll->group . $enroll->player->gender . '子組');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -246,8 +246,8 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F21', function ($cell) use ($enroll) {
-                            $item = str_replace('(男)','',$enroll->item);
-                            $item = str_replace('(女)','',$item);
+                            $item = str_replace('(男)', '', $enroll->item);
+                            $item = str_replace('(女)', '', $item);
                             $cell->setValue($item);
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
@@ -366,9 +366,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->city . " " . $enroll->player->agency_all);
+                            $cell->setValue($enroll->player->agency_all);
 
-                            if (mb_strlen($enroll->player->agency) >= 10) {
+                            if (mb_strlen($enroll->player->agency_all) >= 10) {
                                 $cell->setFontSize(14);
                             } else {
                                 $cell->setFontSize(18);
@@ -396,7 +396,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->group.$enroll->player->gender . '子組');
+                            $cell->setValue($enroll->group . $enroll->player->gender . '子組');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -408,8 +408,8 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F21', function ($cell) use ($enroll) {
-                            $item = str_replace('(男)','',$enroll->item);
-                            $item = str_replace('(女)','',$item);
+                            $item = str_replace('(男)', '', $enroll->item);
+                            $item = str_replace('(女)', '', $item);
                             $cell->setValue($item);
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
