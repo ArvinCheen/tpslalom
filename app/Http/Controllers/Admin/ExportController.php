@@ -23,12 +23,11 @@ class ExportController extends Controller
 
         $scheduleiInfo = ScheduleModel::find($scheduleId);
 
-        $rankLimit = $scheduleiInfo->numberOfPlayer;
+        $rankLimit = $scheduleiInfo->number_of_player;
 
         if ($rankLimit > 6) {
             $rankLimit = 6;
         }
-
 
         if ($scheduleiInfo->item == '雙人花式繞樁') {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
