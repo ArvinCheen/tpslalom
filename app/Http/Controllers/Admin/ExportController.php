@@ -186,7 +186,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
+                            $cell->setValue('臺教體署競(二)字第1090002504號函');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -348,7 +348,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
+                            $cell->setValue('臺教體署競(二)字第1090002504號函');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
