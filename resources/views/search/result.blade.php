@@ -234,7 +234,7 @@
                         @case('pk')
                         @switch ($scheduleInfo->order)
                             @case('場次32')
-                            <img src="https://i.imgur.com/yJZZZK9.jpg">
+                            <img src="https://imgur.com/ZbjmFcw.jpg">
                             @break;
                             @case('場次33')
                             <img src="https://imgur.com/C4QKUPM.jpg">
