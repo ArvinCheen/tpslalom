@@ -72,24 +72,6 @@
                             <th class="text-center"> 選手</th>
                             @break;
                             @case('pk')
-                            <th class="text-center"> 名次</th>
-                            <th class="text-center"> 選手</th>
-                            <th class="text-center"> 一回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 二回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 三回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 四回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 五回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 最佳成績</th>
                             @break;
                         @endswitch
                     </tr>
@@ -252,10 +234,13 @@
                         @case('pk')
                         @switch ($scheduleInfo->order)
                             @case('場次32')
+                            <img src="https://i.imgur.com/yJZZZK9.jpg">
                             @break;
                             @case('場次33')
+                            <img src="https://imgur.com/C4QKUPM.jpg">
                             @break;
                             @case('場次34')
+                            <img src="https://imgur.com/2WbntPQ.jpg">
                             @break
                         @endswitch
                         @break;
