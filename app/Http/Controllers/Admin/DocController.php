@@ -15,7 +15,7 @@ use App\Services\DocService;
 class DocController extends Controller
 {
     public $group = '國中';
-    public $item = '初級指定套路(男)';
+    public $item = '初級指定套路(女)';
 
     public function all()
     {
