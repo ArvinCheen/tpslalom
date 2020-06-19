@@ -234,7 +234,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue(str_replace('組', '', $enroll->level) . ' ' . $enroll->player->gender . '子' . $enroll->group);
+                            $cell->setValue($enroll->group.$enroll->player->gender . '子組');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -246,7 +246,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F21', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->item);
+                            $item = str_replace('(男)','',$enroll->item);
+                            $item = str_replace('(女)','',$item);
+                            $cell->setValue($item);
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -394,7 +396,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue(str_replace('組', '', $enroll->level) . ' ' . $enroll->player->gender . '子' . $enroll->group);
+                            $cell->setValue($enroll->group.$enroll->player->gender . '子組');
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -406,7 +408,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F21', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->item);
+                            $item = str_replace('(男)','',$enroll->item);
+                            $item = str_replace('(女)','',$item);
+                            $cell->setValue($item);
                             $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
