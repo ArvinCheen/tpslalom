@@ -462,7 +462,7 @@ class ExportController extends Controller
                             }
 
                             $cell->setValue($result);
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
