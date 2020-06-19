@@ -69,7 +69,7 @@
                                 <td> {{ $schedule2->remark }} </td>
                                 <td> {{ $schedule2->number_of_player }} </td>
                             </tr>
-                        @if($schedule2->order == '場次40')
+                        @if($schedule2->order == '場次34')
                             <tr>
                                 <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
                             </tr>

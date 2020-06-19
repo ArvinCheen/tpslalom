@@ -43,7 +43,7 @@ class ScheduleTime extends Command
         // 一個人跑二次
         // 一場二個人跑
         $this->info("\n第一天");
-        $this->initTime = '2020/6/18 08:00';
+        $this->initTime = '2020/6/18 09:00';
         $this->printTime('決賽', '個人花式繞樁', '國小', '男', '300', '1');
         $this->printTime('決賽', '個人花式繞樁', '國小', '女', '300', '1');
         $this->printTime('決賽', '個人花式繞樁', '國中', '男', '300', '1');
@@ -61,7 +61,7 @@ class ScheduleTime extends Command
         $this->printTime('決賽', '花式煞停', '成年', '女', '900', '2');
 
         $this->info("\n第二天");
-        $this->initTime = '2020/6/19 08:00';
+        $this->initTime = '2020/6/19 09:00';
         $this->printTime('預賽', '速度過樁菁英組-前溜單足S形', '國中', '男', '60', '2');
         $this->printTime('預賽', '速度過樁菁英組-前溜單足S形', '國中', '女', '60', '2');
         $this->printTime('預賽', '速度過樁菁英組-前溜單足S形', '高中', '男', '60', '2');
@@ -117,7 +117,7 @@ class ScheduleTime extends Command
 
 
         $this->info("\n第三天");
-        $this->initTime = '2020/6/20 08:00';
+        $this->initTime = '2020/6/20 09:00';
         $this->printTime('決賽', '速度過樁菁英組-前溜雙足S形', '幼童', '男', '60', '2');
         $this->printTime('決賽', '速度過樁菁英組-前溜雙足S形', '幼童', '女', '60', '2');
         $this->printTime('決賽', '速度過樁菁英組-前溜雙足S形', '國小一年級', '男', '60', '2');
@@ -242,7 +242,7 @@ class ScheduleTime extends Command
 
 //        $this->printTime($gameType, $item, $group, $gender, $initTime, $estimate, $每次上場人數)
 //        $everyPlayerTime = $this->argument('s');
-//        $startTime       = '2019-5-12 08:00:00';
+//        $startTime       = '2019-5-12 09:00:00';
 //        $currentTime     = date("H:i:s", strtotime($startTime));
 //
 //        $schedules = ScheduleModel::where('game_id', 5)->orderBy('id')->get();
