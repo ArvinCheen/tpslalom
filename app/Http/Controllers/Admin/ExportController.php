@@ -444,7 +444,7 @@ class ExportController extends Controller
                         //
                         $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
                             $cell->setValue('成　　　績：');
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
