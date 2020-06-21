@@ -70,9 +70,12 @@
                                     <li>
                                         <a href="{{ URL('gameInfo/groups') }}"> 分組名冊暨出場序 </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
-                                    </li>
+                            <li>
+                                <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
+                            </li>
+                            <li>
+                                <a href="{{ URL('gameInfo/nationalRecord') }}"> 單足S形全國紀錄 </a>
+                            </li>
 {{--                                    <li>--}}
 {{--                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>--}}
 {{--                                    </li>--}}

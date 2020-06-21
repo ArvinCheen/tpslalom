@@ -75,6 +75,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/teams', 'GameInfoController@teams');
         Route::get('/refereeTeam', 'GameInfoController@refereeTeam');
         Route::get('/errata', 'GameInfoController@errata');//勘誤
+        Route::get('/nationalRecord', 'GameInfoController@nationalRecord');
 
     });
 });

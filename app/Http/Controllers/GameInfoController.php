@@ -125,4 +125,9 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/errata');
     }
+
+    public function nationalRecord()
+    {
+        return view('gameInfo/nationalRecord');
+    }
 }
