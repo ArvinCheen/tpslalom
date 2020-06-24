@@ -130,4 +130,9 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/nationalRecord');
     }
+    
+    public function program()
+    {
+        return view('gameInfo/program');
+    }
 }

@@ -73,6 +73,10 @@
                             <li>
                                 <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
                             </li>
+
+                            <li>
+                                <a href="{{ URL('gameInfo/program') }}"> 線上秩序冊 </a>
+                            </li>
                             <li>
                                 <a href="{{ URL('gameInfo/nationalRecord') }}"> 單足S形全國紀錄 </a>
                             </li>
