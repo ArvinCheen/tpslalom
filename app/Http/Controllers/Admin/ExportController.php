@@ -684,29 +684,29 @@ class ExportController extends Controller
         Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
             $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
 
-                $schedules = ScheduleModel::orderBy('id')->get();
+                $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
                 $initIndex = 2;
                 foreach ($schedules as $schedule) {
-                    $numberOfPlayer = ScheduleModel::find($schedule->id)->number_of_player;
-
-                    if ($numberOfPlayer == 1) {
-                        $rankLimit = 1;
-                    } else {
-                        $rankLimit = floor($numberOfPlayer / 2);
-
-                        if ($rankLimit > 8) {
-                            $rankLimit = 8;
-                        }
-                    }
+//                    $numberOfPlayer = ScheduleModel::find($schedule->id)->number_of_player;
+//
+//                    if ($numberOfPlayer == 1) {
+//                        $rankLimit = 1;
+//                    } else {
+//                        $rankLimit = floor($numberOfPlayer / 2);
+//
+//                        if ($rankLimit > 6) {
+//                            $rankLimit = 6;
+//                        }
+//                    }
 
                     $results = EnrollModel::select('player_number', 'name', 'city', 'agency_all', 'final_result', 'rank')
                         ->leftJoin('player', 'player.id', 'enroll.player_id')
                         ->where('game_id', config('app.game_id'))
                         ->where('group', $schedule->group)
-                        ->where('player.gender', $schedule->gender)
+//                        ->where('player.gender', $schedule->gender)
                         ->where('item', $schedule->item)
                         ->whereNotNull('rank')
-                        ->limit($rankLimit)
+                        ->limit(8)
                         ->orderBy('rank')
                         ->get();
 

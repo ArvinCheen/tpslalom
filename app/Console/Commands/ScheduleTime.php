@@ -40,6 +40,7 @@ class ScheduleTime extends Command
      */
     public function handle()
     {
+        dd(bcrypt('axd1981'));
         // 一個人跑二次
         // 一場二個人跑
 //        $this->info("\n第一天");
