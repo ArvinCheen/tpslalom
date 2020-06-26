@@ -677,58 +677,87 @@ class ExportController extends Controller
 
     public function result()
     {
-        $gameInfo         = GameModel::where('id', config('app.game_id'))->first();
+        $gameInfo = GameModel::where('id', config('app.game_id'))->first();
         $gameCompleteName = $gameInfo->complete_name;
-        $abridgeName      = $gameInfo->abridge_name;
+        $abridgeName = $gameInfo->abridge_name;
 
         Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
             $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
 
-                $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
+                $sheet->setAllBorders('thin');
+                $sheet->setFontFamily('微軟正黑體');
+                $sheet->setFontSize(10);
+                $sheet->setWidth(array(
+                    'A' => 8,
+                    'B' => 7,
+                    'C' => 7,
+                    'D' => 7,
+                    'E' => 12,
+                    'F' => 30,
+                    'G' => 12,
+                    'H' => 8,
+                ));
+
+                $sheet->mergeCells('A1:H1');
+
+                $sheet->cell('A', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('B', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('C', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('D', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('E', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('F', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('G', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('H', function ($cell) {$cell->setAlignment('center');});
+
+                $sheet->cell('A1', function ($cell) use ($gameCompleteName) {
+                    $cell->setAlignment('center');
+                    $cell->setValue($gameCompleteName);
+                });
+
+                $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
+
                 $initIndex = 2;
                 foreach ($schedules as $schedule) {
-//                    $numberOfPlayer = ScheduleModel::find($schedule->id)->number_of_player;
-//
-//                    if ($numberOfPlayer == 1) {
-//                        $rankLimit = 1;
-//                    } else {
-//                        $rankLimit = floor($numberOfPlayer / 2);
-//
-//                        if ($rankLimit > 6) {
-//                            $rankLimit = 6;
-//                        }
-//                    }
 
-                    $results = EnrollModel::select('player_number', 'name', 'city', 'agency_all', 'final_result', 'rank')
-                        ->leftJoin('player', 'player.id', 'enroll.player_id')
-                        ->where('game_id', config('app.game_id'))
-                        ->where('group', $schedule->group)
-//                        ->where('player.gender', $schedule->gender)
-                        ->where('item', $schedule->item)
-                        ->whereNotNull('rank')
-                        ->limit(8)
-                        ->orderBy('rank')
-                        ->get();
 
-                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '組別', '項目', '縣市', '單位', '成績']);
-                    $initIndex++;
+                        $results = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
+                            ->leftJoin('player', 'player.id', 'enroll.player_id')
+                            ->where('game_id', config('app.game_id'))
+                            ->where('group', $schedule->group)
+                            ->where('level', $schedule->level)
+                            ->where('item', $schedule->item)
+                            ->whereNotNull('rank')
+                            ->limit(8)
+                            ->orderBy('rank')
+                            ->get();
 
-                    if ($results->isEmpty()) {
-                        $sheet->row($initIndex, [$schedule->order]);
-                        $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
-                        $sheet->cell('B' . $initIndex, function ($cell) {
-                            $cell->setValue('無資料');
-                        });
+//                        $sheet->mergeCells('A' . $initIndex . ':I' . $initIndex);
+//                        $sheet->cell('A' . $initIndex, function ($cell) {
+//                            $cell->setAlignment('center');
+//                            $cell->setValue('臺北市');
+//                        });
+//                        $initIndex++;
+
+                        $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '年級組別', '項目', '單位', '成績']);
                         $initIndex++;
-                    } else {
-                        foreach ($results as $result) {
-                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group . ' ' . $schedule->gender, $schedule->item, $result->city, $result->agency_all, $result->final_result]);
+
+                        if ($results->isEmpty()) {
+                            $sheet->row($initIndex, [$schedule->order]);
+                            $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
+                            $sheet->cell('B' . $initIndex, function ($cell) {
+                                $cell->setValue('無資料');
+                            });
                             $initIndex++;
+                        } else {
+                            foreach ($results as $result) {
+                                $item = str_replace('(女)',' 女子組',$schedule->item);
+                                $item = str_replace('(男)',' 男子組',$item);
+                                $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group, $item, $result->agency, $result->final_result]);
+                                $initIndex++;
+                            }
                         }
                     }
-                }
             });
-
         })->download('xls');
     }
 }
