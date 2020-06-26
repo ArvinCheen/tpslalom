@@ -727,7 +727,7 @@ class ExportController extends Controller
                             ->where('level', $schedule->level)
                             ->where('item', $schedule->item)
                             ->whereNotNull('rank')
-                            ->limit(8)
+//                            ->limit(8) // 全國賽的要全列出來
                             ->orderBy('rank')
                             ->get();
 
