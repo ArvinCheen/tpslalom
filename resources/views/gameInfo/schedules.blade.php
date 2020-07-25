@@ -35,9 +35,9 @@
                                 <td> {{ $schedule1->number_of_player }} </td>
                             </tr>
                         @if($schedule1->order == '場次10')
-                            <tr>
-                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
+{{--                            </tr>--}}
                         @endif
                     @endforeach
                 </table>
@@ -70,9 +70,9 @@
                                 <td> {{ $schedule2->number_of_player }} </td>
                             </tr>
                         @if($schedule2->order == '場次34')
-                            <tr>
-                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
+{{--                            </tr>--}}
                         @endif
                     @endforeach
                 </table>
@@ -104,9 +104,9 @@
                                 <td> {{ $schedule3->number_of_player }} </td>
                             </tr>
                         @if($schedule3->order == '場次80')
-                            <tr>
-                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
+{{--                            </tr>--}}
                         @endif
                     @endforeach
                 </table>
@@ -127,54 +127,20 @@
                         <td> 備註</td>
                         <td> 人數</td>
                     </tr>
-                    @foreach($schedules4ADay as $schedule4A)
+                    @foreach($schedules4Day as $schedule4)
                             <tr>
-                                <td> {{ $schedule4A->order }} </td>
-                                <td> {{ $schedule4A->group }} </td>
-                                <td> {{ $schedule4A->gender }} </td>
-                                <td> {{ $schedule4A->item }} </td>
-                                <td> {{ $schedule4A->game_type }} </td>
-                                <td> {{ $schedule4A->remark }} </td>
-                                <td> {{ $schedule4A->number_of_player }} </td>
+                                <td> {{ $schedule4->order }} </td>
+                                <td> {{ $schedule4->group }} </td>
+                                <td> {{ $schedule4->gender }} </td>
+                                <td> {{ $schedule4->item }} </td>
+                                <td> {{ $schedule4->game_type }} </td>
+                                <td> {{ $schedule4->remark }} </td>
+                                <td> {{ $schedule4->number_of_player }} </td>
                             </tr>
-                        @if($schedule4A->order == '場次145')
-                            <tr>
-                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </table>
-            </div>
-            <div class="mt-5 mb-5 text-center">
-                <h2> 賽程表 </h2>
-                <h3> 第四天 B場 </h3>
-                <h3> 預計比賽時間 09:00 ~ 16:30 </h3>
-            </div>
-            <div class="col-md-12">
-                <table class="col-md-12 table table-striped table-dark">
-                    <tr>
-                        <td> 場次</td>
-                        <td> 組別</td>
-                        <td> 性別</td>
-                        <td> 項目</td>
-                        <td> 賽別</td>
-                        <td> 備註</td>
-                        <td> 人數</td>
-                    </tr>
-                    @foreach($schedules4BDay as $schedule4B)
-                        <tr>
-                            <td> {{ $schedule4B->order }} </td>
-                            <td> {{ $schedule4B->group }} </td>
-                            <td> {{ $schedule4B->gender }} </td>
-                            <td> {{ $schedule4B->item }} </td>
-                            <td> {{ $schedule4B->game_type }} </td>
-                            <td> {{ $schedule4B->remark }} </td>
-                            <td> {{ $schedule4B->number_of_player }} </td>
-                        </tr>
-                        @if($schedule4B->order == '場次126')
-                            <tr>
-                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>
-                            </tr>
+                        @if($schedule4->order == '場次145')
+{{--                            <tr>--}}
+{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
+{{--                            </tr>--}}
                         @endif
                     @endforeach
                 </table>

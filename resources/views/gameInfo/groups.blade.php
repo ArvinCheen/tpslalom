@@ -9,7 +9,7 @@
     <div class="mh mb-5">
         <div class="container">
             <div class="mt-5 mb-5 text-center">
-                <h2 class="mb-3">分組名冊暨出場序</h2>
+                <h2 class="mb-3">分組名冊</h2>
                 <p>點擊場次可展開</p>
                 <p>由於本次參賽人數關係，載入時請耐心等後</p>
             </div>
@@ -30,41 +30,41 @@
                         </thead>
                     </table>
                     <div class="collapse" id="{{ $key }}collapse">
-                        <table class="table table-striped table-bordered table-advance table-hover">
-                            <thead class="thead-inverse">
-                            </thead>
-                            <tbody>
+                        資料整理中
+{{--                        <table class="table table-striped table-bordered table-advance table-hover">--}}
+{{--                            <thead class="thead-inverse">--}}
+{{--                            </thead>--}}
+{{--                            <tbody>--}}
 
-                            <tr>
-                                <td class="" style="">
-                                    0737 謝牧倫 / 0745 周柏崴
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="" style="">
-                                    0002 范予僖 / 0449 黃淇宣
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="" style="">
-                                    0798 邱宇廷 / 0394 邱映瑄
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="" style="">
-                                    0744 范子聿 / 0797 游瑋筑
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="" style="">
-                                    0781 侯鈞諺 / 0796 陳建廷
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+{{--                            <tr>--}}
+{{--                                <td class="" style="">--}}
+{{--                                    0737 謝牧倫 / 0745 周柏崴--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <td class="" style="">--}}
+{{--                                    0002 范予僖 / 0449 黃淇宣--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <td class="" style="">--}}
+{{--                                    0798 邱宇廷 / 0394 邱映瑄--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <td class="" style="">--}}
+{{--                                    0744 范子聿 / 0797 游瑋筑--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <td class="" style="">--}}
+{{--                                    0781 侯鈞諺 / 0796 陳建廷--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            </tbody>--}}
+{{--                        </table>--}}
                     </div>
                 @else
-
                     <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
                            aria-controls="{{ $key }}collapse">
                         <thead class="{{ $key % 2 ? 'thead-dark' : null }}">

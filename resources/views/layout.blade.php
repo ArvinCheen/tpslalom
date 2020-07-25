@@ -68,7 +68,7 @@
                                         <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊暨出場序 </a>
+                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
                                     </li>
                             <li>
                                 <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
