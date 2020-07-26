@@ -37,12 +37,12 @@
 
                             <tr>
                                 <td class="" style="">
-                                    098 邱映瑄 / 255 邱宇廷
+                                    邱映瑄 / 邱宇廷
                                 </td>
                             </tr>
                             <tr>
                                 <td class="" style="">
-                                    001 范予僖 / 123 黃淇宣
+                                    范予僖 / 黃淇宣
                                 </td>
                             </tr>
                             </tbody>
@@ -81,7 +81,7 @@
                                 @foreach ($group->players as $player)
                                     <tr>
                                         <td class="" style="">
-                                            {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->city . $player->player->agency_all }})
+                                            {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->agency_all }})
                                         </td>
                                     </tr>
                                 @endforeach
