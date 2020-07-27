@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
+use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
 use Illuminate\Http\Request;
 use App\Services\GameInfoService;
@@ -94,18 +95,13 @@ class GameInfoController extends Controller
 
     public function teams()
     {/**/
-        $teams = app(EnrollModel::class)->getParticipateTeam();
+        $agencys = PlayerModel::groupBy('agency_all')->get();
 
-        foreach ($teams as $team) {
-            $team->players = EnrollModel::with('player')
-                ->where('game_id', config('app.game_id'))
-                ->where('enroll.account_id', $team->account_id)
-                ->groupBy('enroll.player_id')
-                ->get();
-
+        foreach ($agencys as $agency) {
+            $agency->players = PlayerModel::where('agency_all',$agency->agency_all)->get();
         }
 
-        return view('gameInfo/teams')->with(compact('teams'));
+        return view('gameInfo/teams')->with(compact('agencys'));
     }
 
     public function refereeTeam()

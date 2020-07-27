@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\AccountModel;
+use App\Models\AgencyModel;
 use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
