@@ -164,41 +164,15 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-
-        $wordTest = new \PhpOffice\PhpWord\PhpWord();
-        $wordTest->setDefaultFontName('微軟正黑體'); //設定預設字型
-
-        $newSection = $wordTest->addSection();
-
-        $newSection->addText('選手號碼清單', ['size' => 20]);
-
-        $agencys = PlayerModel::selectRaw('agency_all,count(*) as co')->groupBy('agency_all')->orderByDesc('co')->get();
-
-        foreach ($agencys as $agency) {
-            $addText = null;
-
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($agency) {
-                $query->where('agency_all', $agency->agency_all);
-            })
-                ->orderBy('player_number')
-                ->get();
-
-
-            foreach ($enrolls as $enroll) {
-                $addText .= $enroll->player_number.' '. $enroll->player->name . ', ';
-            }
-            $newSection->addText($agency->agency_all . '：' . mb_substr($addText, 0, -2));
-            $newSection->addTextBreak();
-        }
-
-
-        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
-        try {
-            $objectWriter->save(storage_path('選手號碼清單.docx'));
-        } catch (\Exception $e) {
-        }
-
-        return response()->download(storage_path('選手號碼清單.docx'));
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency_all as 單位,player.coach as 教練,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
+            ->leftjoin('player','player.id','enroll.player_id')
+            ->groupBy('player_number')
+            ->get();
+        Excel::create('選手號碼布列表', function ($excel) use ($data) {//第一參數是檔案名稱
+            $excel->sheet('SheetName', function ($sheet) use ($data) {//第一個參數是sheet名稱
+                $sheet->fromArray($data);//可以簡單用fromArray這個函式傳資料進去。
+            });
+        })->export('xls');//輸出格式，也可選擇csv，若是要輸出成pdf則需要另外安裝套件
     }
     // 全國沒有完賽證明
 //    public function completion($accountId)
