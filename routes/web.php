@@ -151,6 +151,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/result', 'Admin\ExportController@result');
         Route::get('/groups', 'Admin\ExportController@groups');
         Route::get('/teams', 'Admin\ExportController@teams');
+        Route::get('/playerNumber', 'Admin\ExportController@playerNumber');
+
 
     });
 });

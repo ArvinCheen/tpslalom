@@ -99,7 +99,9 @@ class ExportController extends Controller
                 $addText = null;
 
                 $erolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                    $query->where('gender', $schedule->gender);
+                    if ($schedule->item <> '雙人花式繞樁') {
+                        $query->where('gender', $schedule->gender);
+                    }
                 })
                     ->where('group', $schedule->group)
                     ->where('item', $schedule->item)
@@ -111,6 +113,7 @@ class ExportController extends Controller
                 foreach ($erolls as $enroll) {
                     $addText .= $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
                 }
+
                 $newSection->addText(mb_substr($addText, 0, -2));
             }
             $newSection->addTextBreak();
@@ -145,7 +148,7 @@ class ExportController extends Controller
             foreach ($players as $player) {
                 $addText .= $player->name . ', ';
             }
-            $newSection->addText($agency->agency_all.'：'.mb_substr($addText, 0, -2));
+            $newSection->addText($agency->agency_all . '：' . mb_substr($addText, 0, -2));
             $newSection->addTextBreak();
         }
 
@@ -159,6 +162,44 @@ class ExportController extends Controller
         return response()->download(storage_path('隊伍名冊.docx'));
     }
 
+    public function playerNumber()
+    {
+
+        $wordTest = new \PhpOffice\PhpWord\PhpWord();
+        $wordTest->setDefaultFontName('微軟正黑體'); //設定預設字型
+
+        $newSection = $wordTest->addSection();
+
+        $newSection->addText('選手號碼清單', ['size' => 20]);
+
+        $agencys = PlayerModel::selectRaw('agency_all,count(*) as co')->groupBy('agency_all')->orderByDesc('co')->get();
+
+        foreach ($agencys as $agency) {
+            $addText = null;
+
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($agency) {
+                $query->where('agency_all', $agency->agency_all);
+            })
+                ->orderBy('player_number')
+                ->get();
+
+
+            foreach ($enrolls as $enroll) {
+                $addText .= $enroll->player_number.' '. $enroll->player->name . ', ';
+            }
+            $newSection->addText($agency->agency_all . '：' . mb_substr($addText, 0, -2));
+            $newSection->addTextBreak();
+        }
+
+
+        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
+        try {
+            $objectWriter->save(storage_path('選手號碼清單.docx'));
+        } catch (\Exception $e) {
+        }
+
+        return response()->download(storage_path('選手號碼清單.docx'));
+    }
     // 全國沒有完賽證明
 //    public function completion($accountId)
 //    {
@@ -187,6 +228,7 @@ class ExportController extends Controller
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $scheduleId) {
+                        $gameInfo = GameModel::find(config('app.game_id'));
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
@@ -216,21 +258,23 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A12', function ($cell) use ($enroll) {
-                            $cell->setValue('中華民國109年第17屆總統盃全國溜冰錦標賽');
+                        $sheet->cell('A12', function ($cell) use ($enroll, $gameInfo) {
+                            $cell->setValue($gameInfo->complete_name);
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090002504號函');
+                        $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
+                            //todo 切割涵號
+                            $cell->setValue('臺教體署競(二)字第1090021472號');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G14', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
+                        $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
+                            //todo 切割涵號
+                            $cell->setValue('臺教體署競(二)字第1090021061號');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -597,7 +641,7 @@ class ExportController extends Controller
                     ]);
                     $sheet->cell('A1', function ($cell) use ($schedule) {
                         $abridgeName = GameModel::where('id', config('app.game_id'))->value('abridge_name');
-                        $cell->setValue($abridgeName . ' - 紀錄單 - ' . $schedule->order);
+                        $cell->setValue($schedule->order);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');

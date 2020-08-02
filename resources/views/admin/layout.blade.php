@@ -298,14 +298,14 @@
                             <span class="m-menu__link-text"> 檢錄手寫單 </span>
                         </a>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/export/result') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 賽後成績 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/export/result') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 賽後成績 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/export/groups') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -320,6 +320,14 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text"> 隊伍名冊 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/export/playerNumber') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 選手號碼布列表 </span>
                         </a>
                     </li>
                 </ul>
