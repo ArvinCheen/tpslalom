@@ -70,6 +70,24 @@ class ExportController extends Controller
      */
     public function groups()
     {
+        $wordTest = new \PhpOffice\PhpWord\PhpWord();
+        $newSection = $wordTest->addSection();
+
+        $newSection->addText('FIRST NAME: ');
+        $newSection->addText('LAST NAME: ');
+
+        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
+        try
+        {
+            $objectWriter->save(storage_path('TestWordFile.docx'));
+        }
+        catch (\Exception $e)
+        {
+        }
+
+        return response()->download(storage_path('TestWordFile.docx'));
+
+
         $schedules = ScheduleModel::get();
         Excel::create('分組名冊', function ($excel) use ($schedules) {
             foreach ($schedules as $schedule) {

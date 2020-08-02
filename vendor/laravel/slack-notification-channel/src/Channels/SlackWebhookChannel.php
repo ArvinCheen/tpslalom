@@ -3,10 +3,10 @@
 namespace Illuminate\Notifications\Channels;
 
 use GuzzleHttp\Client as HttpClient;
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackAttachmentField;
+use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class SlackWebhookChannel
 {
@@ -33,7 +33,7 @@ class SlackWebhookChannel
      *
      * @param  mixed  $notifiable
      * @param  \Illuminate\Notifications\Notification  $notification
-     * @return void
+     * @return \Psr\Http\Message\ResponseInterface|null
      */
     public function send($notifiable, Notification $notification)
     {
@@ -41,7 +41,7 @@ class SlackWebhookChannel
             return;
         }
 
-        $this->http->post($url, $this->buildJsonPayload(
+        return $this->http->post($url, $this->buildJsonPayload(
             $notification->toSlack($notifiable)
         ));
     }
