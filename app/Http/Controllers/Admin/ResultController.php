@@ -27,10 +27,11 @@ class ResultController extends Controller
             $enrolls = [];
         } else {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-//                $query->where('gender', $gameInfo->gender);
+                if ($gameInfo->item <> '雙人花式繞樁') {
+                    $query->where('gender', $gameInfo->gender);
+                }
             })
                 ->where('game_id', config('app.game_id'))
-                ->where('level', $gameInfo->level)
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item)
                 ->orderBy('appearance')
@@ -39,18 +40,26 @@ class ResultController extends Controller
 
         $model = 'speed';
 
-        if ($schedule->item == '中級指定套路(女)' ||
-            $schedule->item == '中級指定套路(男)' ||
-            $schedule->item == '個人花式繞樁(女)' ||
-            $schedule->item == '個人花式繞樁(男)' ||
-            $schedule->item == '初級指定套路(女)' ||
-            $schedule->item == '初級指定套路(男)' ||
-            $schedule->item == '花式煞停(女)' ||
-            $schedule->item == '花式煞停(男)' ||
+        if ($schedule->item == '中級指定套路' ||
+            $schedule->item == '中級指定套路' ||
+            $schedule->item == '個人花式繞樁' ||
+            $schedule->item == '個人花式繞樁' ||
+            $schedule->item == '初級指定套路' ||
+            $schedule->item == '初級指定套路' ||
+            $schedule->item == '花式煞停' ||
+            $schedule->item == '花式煞停' ||
             $schedule->item == '雙人花式繞樁') {
             $model = 'freeStyle';
         }
-        if ($schedule->order == '場次32' || $schedule->order == '場次33' || $schedule->order == '場次34') {
+        if (
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+            $schedule->group.$schedule->gender.$schedule->item.$schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽'
+        ) {
             $model = 'pk';
         }
 
