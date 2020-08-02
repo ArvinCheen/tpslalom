@@ -144,12 +144,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
     Route::put('/rank', ["as" => "admin.rank", 'uses' => 'Admin\RankController@rank']); // 排名
 
     Route::group(['prefix' => 'export'], function () {
-        Route::get('/certificate/{scheduleId}', 'Admin\ExportController@certificate');  // 獎狀
-        Route::get('/completion/{accountId}', 'Admin\ExportController@completion');  // 完賽證明
-        Route::get('/records', 'Admin\ExportController@records');  // 紀錄手寫單
-        Route::get('/teamCheckIn', 'Admin\ExportController@teamCheckIn');  // 隊伍簽到表
-        Route::get('/result', 'Admin\ExportController@result'); // 賽後成績
-        Route::get('/groups', 'Admin\ExportController@groups'); // 賽後成績
+        Route::get('/certificate/{scheduleId}', 'Admin\ExportController@certificate');
+        Route::get('/completion/{accountId}', 'Admin\ExportController@completion');
+        Route::get('/records', 'Admin\ExportController@records');
+        Route::get('/teamCheckIn', 'Admin\ExportController@teamCheckIn');
+        Route::get('/result', 'Admin\ExportController@result');
+        Route::get('/groups', 'Admin\ExportController@groups');
+        Route::get('/teams', 'Admin\ExportController@teams');
 
     });
 });

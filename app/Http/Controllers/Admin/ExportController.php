@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\UsersExport;
 use App\Http\Controllers\Controller as Controller;
+use App\Models\PlayerModel;
 use Illuminate\Http\Request;
 use App\Models\ScheduleModel;
 use App\Models\EnrollModel;
@@ -71,71 +72,91 @@ class ExportController extends Controller
     public function groups()
     {
         $wordTest = new \PhpOffice\PhpWord\PhpWord();
+        $wordTest->setDefaultFontName('微軟正黑體'); //設定預設字型
+
         $newSection = $wordTest->addSection();
 
-        $newSection->addText('FIRST NA這是什麼ME: ');
-        $newSection->addText('LAST NAME: ');
+        $newSection->addText('分組名冊', ['size' => 20]);
+
+        $schedules = ScheduleModel::orderBy('id')->get();
+
+        foreach ($schedules as $schedule) {
+            if ($schedule->item == '雙人花式繞樁') {
+                $newSection->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->item");
+            } else {
+                $newSection->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->gender" . "子組 $schedule->item");
+            }
+
+            if ($schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
+                $newSection->addText('PK賽採動態出場');
+            } else {
+                $addText = null;
+
+                $erolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
+                    $query->where('gender', $schedule->gender);
+                })
+                    ->where('group', $schedule->group)
+                    ->where('item', $schedule->item)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
+                    ->get();
+
+                foreach ($erolls as $enroll) {
+                    $addText .= $enroll->player_number . ' ' . $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
+                }
+                $newSection->addText(mb_substr($addText, 0, -2));
+            }
+            $newSection->addTextBreak();
+        }
+
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
-        try
-        {
-            $objectWriter->save(storage_path('TestWordFile.docx'));
-        }
-        catch (\Exception $e)
-        {
+        try {
+            $objectWriter->save(storage_path('分組名冊.docx'));
+        } catch (\Exception $e) {
         }
 
-        return response()->download(storage_path('TestWordFile.docx'));
+        return response()->download(storage_path('分組名冊.docx'));
+    }
 
+    public function teams()
+    {
+        $wordTest = new \PhpOffice\PhpWord\PhpWord();
+        $wordTest->setDefaultFontName('微軟正黑體'); //設定預設字型
 
-        $schedules = ScheduleModel::get();
-        Excel::create('分組名冊', function ($excel) use ($schedules) {
-            foreach ($schedules as $schedule) {
-                $excel->sheet($schedule->order,
-                    function ($sheet) use ($schedule) {
-                        $sheet->setFontFamily('微軟正黑體');
-                        $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                            $query->where('gender', $schedule->gender);
-                        })
-                            ->where('group', $schedule->group)
-                            ->where('item', $schedule->item)
-                            ->orderBy('appearance')
-                            ->orderBy('player_number')
-                            ->orderBy('player_id')
-                            ->get();
+        $newSection = $wordTest->addSection();
 
-                        foreach ($enrolls as $key => $enroll) {
-                            $local = $key + 2;
+        $newSection->addText('隊伍名冊', ['size' => 20]);
 
-                            $sheet->cell('A1', function ($cell) use ($enroll) {
-                                $cell->setValue('出場序');
-                            });
-                            $sheet->cell('B1', function ($cell) use ($enroll) {
-                                $cell->setValue('選手編號');
-                            });
-                            $sheet->cell('C1', function ($cell) use ($enroll) {
-                                $cell->setValue('選手姓名');
-                            });
-                            $sheet->cell('D1', function ($cell) use ($enroll) {
-                                $cell->setValue('單位');
-                            });
+        $agencys = PlayerModel::selectRaw('agency_all,count(*) as co')->groupBy('agency_all')->orderByDesc('co')->get();
 
-                            $sheet->cell('A' . ($local), function ($cell) use ($enroll) {
-                                $cell->setValue($enroll->appearance);
-                            });
-                            $sheet->cell('B' . ($local), function ($cell) use ($enroll) {
-                                $cell->setValue($enroll->player_number);
-                            });
-                            $sheet->cell('C' . ($local), function ($cell) use ($enroll) {
-                                $cell->setValue($enroll->player->name);
-                            });
-                            $sheet->cell('D' . ($local), function ($cell) use ($enroll) {
-                                $cell->setValue($enroll->player->agency);
-                            });
-                        }
-                    });
+        foreach ($agencys as $agency) {
+            $addText = null;
+
+            $players = PlayerModel::where('agency_all', $agency->agency_all)->get();
+
+            foreach ($players as $player) {
+                $addText .= $player->id . ' ' . $player->name . ', ';
             }
-        })->download('xls');
+            $newSection->addText($agency->agency_all.'：'.mb_substr($addText, 0, -2));
+            $newSection->addTextBreak();
+        }
+
+
+        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
+        try {
+            $objectWriter->save(storage_path('隊伍名冊.docx'));
+        } catch (\Exception $e) {
+        }
+
+        return response()->download(storage_path('隊伍名冊.docx'));
     }
 
     // 全國沒有完賽證明
@@ -695,9 +716,9 @@ class ExportController extends Controller
 
     public function result()
     {
-        $gameInfo = GameModel::where('id', config('app.game_id'))->first();
+        $gameInfo         = GameModel::where('id', config('app.game_id'))->first();
         $gameCompleteName = $gameInfo->complete_name;
-        $abridgeName = $gameInfo->abridge_name;
+        $abridgeName      = $gameInfo->abridge_name;
 
         Excel::create($abridgeName . '賽後成績', function ($excel) use ($gameCompleteName) {
             $excel->sheet('賽後成績', function ($sheet) use ($gameCompleteName) {
@@ -718,14 +739,30 @@ class ExportController extends Controller
 
                 $sheet->mergeCells('A1:H1');
 
-                $sheet->cell('A', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('B', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('C', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('D', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('E', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('F', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('G', function ($cell) {$cell->setAlignment('center');});
-                $sheet->cell('H', function ($cell) {$cell->setAlignment('center');});
+                $sheet->cell('A', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('B', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('C', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('D', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('E', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('F', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('G', function ($cell) {
+                    $cell->setAlignment('center');
+                });
+                $sheet->cell('H', function ($cell) {
+                    $cell->setAlignment('center');
+                });
 
                 $sheet->cell('A1', function ($cell) use ($gameCompleteName) {
                     $cell->setAlignment('center');
@@ -738,16 +775,16 @@ class ExportController extends Controller
                 foreach ($schedules as $schedule) {
 
 
-                        $results = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
-                            ->leftJoin('player', 'player.id', 'enroll.player_id')
-                            ->where('game_id', config('app.game_id'))
-                            ->where('group', $schedule->group)
-                            ->where('level', $schedule->level)
-                            ->where('item', $schedule->item)
-                            ->whereNotNull('rank')
+                    $results = EnrollModel::select('player_number', 'name', 'agency', 'final_result', 'rank')
+                        ->leftJoin('player', 'player.id', 'enroll.player_id')
+                        ->where('game_id', config('app.game_id'))
+                        ->where('group', $schedule->group)
+                        ->where('level', $schedule->level)
+                        ->where('item', $schedule->item)
+                        ->whereNotNull('rank')
 //                            ->limit(8) // 全國賽的要全列出來
-                            ->orderBy('rank')
-                            ->get();
+                        ->orderBy('rank')
+                        ->get();
 
 //                        $sheet->mergeCells('A' . $initIndex . ':I' . $initIndex);
 //                        $sheet->cell('A' . $initIndex, function ($cell) {
@@ -756,25 +793,25 @@ class ExportController extends Controller
 //                        });
 //                        $initIndex++;
 
-                        $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '年級組別', '項目', '單位', '成績']);
-                        $initIndex++;
+                    $sheet->row($initIndex, ['場次', '名次', '編號', '姓名', '年級組別', '項目', '單位', '成績']);
+                    $initIndex++;
 
-                        if ($results->isEmpty()) {
-                            $sheet->row($initIndex, [$schedule->order]);
-                            $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
-                            $sheet->cell('B' . $initIndex, function ($cell) {
-                                $cell->setValue('無資料');
-                            });
+                    if ($results->isEmpty()) {
+                        $sheet->row($initIndex, [$schedule->order]);
+                        $sheet->mergeCells('B' . $initIndex . ':I' . $initIndex);
+                        $sheet->cell('B' . $initIndex, function ($cell) {
+                            $cell->setValue('無資料');
+                        });
+                        $initIndex++;
+                    } else {
+                        foreach ($results as $result) {
+                            $item = str_replace('(女)', ' 女子組', $schedule->item);
+                            $item = str_replace('(男)', ' 男子組', $item);
+                            $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group, $item, $result->agency, $result->final_result]);
                             $initIndex++;
-                        } else {
-                            foreach ($results as $result) {
-                                $item = str_replace('(女)',' 女子組',$schedule->item);
-                                $item = str_replace('(男)',' 男子組',$item);
-                                $sheet->row($initIndex, [$schedule->order, $result->rank, $result->player_number, $result->name, $schedule->group, $item, $result->agency, $result->final_result]);
-                                $initIndex++;
-                            }
                         }
                     }
+                }
             });
         })->download('xls');
     }
