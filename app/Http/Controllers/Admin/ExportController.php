@@ -73,7 +73,7 @@ class ExportController extends Controller
         $wordTest = new \PhpOffice\PhpWord\PhpWord();
         $newSection = $wordTest->addSection();
 
-        $newSection->addText('FIRST NAME: ');
+        $newSection->addText('FIRST NA這是什麼ME: ');
         $newSection->addText('LAST NAME: ');
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
