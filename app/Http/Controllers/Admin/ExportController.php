@@ -109,7 +109,7 @@ class ExportController extends Controller
                     ->get();
 
                 foreach ($erolls as $enroll) {
-                    $addText .= $enroll->player_number . ' ' . $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
+                    $addText .= $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
                 }
                 $newSection->addText(mb_substr($addText, 0, -2));
             }
@@ -143,7 +143,7 @@ class ExportController extends Controller
             $players = PlayerModel::where('agency_all', $agency->agency_all)->get();
 
             foreach ($players as $player) {
-                $addText .= $player->id . ' ' . $player->name . ', ';
+                $addText .= $player->name . ', ';
             }
             $newSection->addText($agency->agency_all.'：'.mb_substr($addText, 0, -2));
             $newSection->addTextBreak();
