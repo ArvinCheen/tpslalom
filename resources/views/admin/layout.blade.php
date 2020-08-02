@@ -85,8 +85,8 @@
                                 <ul class="m-topbar__nav m-nav m-nav--inline">
                                     <li class="m-nav__item m-topbar__user-profile">
                                         <a href="#" class="m-nav__link m-dropdown__toggle">
-                                            <span class="m-topbar__welcome">Hello,&nbsp;</span>
-                                            <span class="m-topbar__username">曾大宇</span>
+{{--                                            <span class="m-topbar__welcome">Hello,&nbsp;</span>--}}
+{{--                                            <span class="m-topbar__username">曾大宇</span>--}}
                                         </a>
                                     </li>
                                     <li class="m-nav__item m-topbar__user-profile ">
@@ -208,14 +208,14 @@
 {{--                            <span class="m-menu__link-text"> 檢錄 </span>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
-{{--                        <a href="{{ URL('admin/drawLots') }}" class="m-menu__link ">--}}
-{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
-{{--                                <span></span>--}}
-{{--                            </i>--}}
-{{--                            <span class="m-menu__link-text"> 出場序抽籤 </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/drawLots') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 出場序抽籤 </span>
+                        </a>
+                    </li>
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/grouping') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -253,22 +253,22 @@
                             <span class="m-menu__link-text"> 分組名冊 </span>
                         </a>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/teams') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 隊伍名冊 </span>
-                        </a>
-                    </li>
-                    <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text"> 選手名冊 </span>
-                        </a>
-                    </li>
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/teams') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 隊伍名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
+{{--                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">--}}
+{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
+{{--                                <span></span>--}}
+{{--                            </i>--}}
+{{--                            <span class="m-menu__link-text"> 選手名冊 </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 {{--                    <li class="m-menu__item " aria-haspopup="true">--}}
 {{--                        <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">--}}
 {{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}

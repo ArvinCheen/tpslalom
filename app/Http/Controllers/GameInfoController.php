@@ -94,7 +94,7 @@ class GameInfoController extends Controller
     }
 
     public function teams()
-    {/**/
+    {
         $agencys = PlayerModel::groupBy('agency_all')->get();
 
         foreach ($agencys as $agency) {
