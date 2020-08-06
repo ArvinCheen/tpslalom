@@ -21,7 +21,7 @@
                             <tr>
                                 <td>{{ $group->order }} </td>
                                 <td class="text-center">({{ $group->game_type }}) {{ $group->group }} {{ $group->gender }}子組 {{ $group->item }}</td>
-                                <td class="text-right">共 {{ $group->number_of_player }} 人</td>
+                                <td class="text-right">共 {{ count($group->players) }} 人</td>
                             </tr>
                         </table>
                         @if($group->group.$group->gender.$group->item.$group->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
