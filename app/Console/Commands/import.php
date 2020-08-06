@@ -24,6 +24,48 @@ class import extends Command
 
     public function handle()
     {
+//        PlayerModel::where('agency_all','皇佳幼兒園')->where('name','田宸祐')->update(['agency' => '皇佳幼兒園']);
+//        PlayerModel::where('agency_all','育才幼兒園')->where('name','李威霆')->update(['agency' => '育才幼兒園']);
+//        PlayerModel::where('agency_all','木棉庄幼稚園')->where('name','李宸逸')->update(['agency' => '木棉庄幼稚園']);
+//        PlayerModel::where('agency_all','蚊子輪滑直排輪')->where('name','侯俊聿')->update(['agency' => '蚊子輪滑直排輪']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','林侑辰')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','浦立揚')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','極限小子溜冰隊')->where('name','黃御宸')->update(['agency' => '極限小子溜冰隊']);
+//        PlayerModel::where('agency_all','妙慧幼兒園')->where('name','曾馨誼')->update(['agency' => '妙慧幼兒園']);
+//        PlayerModel::where('agency_all','而勇幼兒園')->where('name','黃昕柔')->update(['agency' => '而勇幼兒園']);
+//        PlayerModel::where('agency_all','柏林幼兒園')->where('name','曹淨湉')->update(['agency' => '柏林幼兒園']);
+//        PlayerModel::where('agency_all','新樓幼兒園')->where('name','鄒愉')->update(['agency' => '新樓幼兒園']);
+//        PlayerModel::where('agency_all','新家家幼兒園')->where('name','詹淳瑜')->update(['agency' => '新家家幼兒園']);
+//        PlayerModel::where('agency_all','道明幼稚園')->where('name','周佩穎')->update(['agency' => '道明幼稚園']);
+//        PlayerModel::where('agency_all','蚊子輪滑直排輪')->where('name','游沛恩')->update(['agency' => '蚊子輪滑直排輪']);
+//        PlayerModel::where('agency_all','蚊子輪滑直排輪')->where('name','翁子帷')->update(['agency' => '蚊子輪滑直排輪']);
+//        PlayerModel::where('agency_all','高雄市立三埤國小附設幼兒園')->where('name','薛宥芊')->update(['agency' => '高雄市立三埤國小附設幼兒園']);
+//        PlayerModel::where('agency_all','高雄市立三埤國小附設幼兒園')->where('name','薛宥芊')->update(['agency' => '高雄市立三埤國小附設幼兒園']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','顏朵澄')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','浦立穎')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','陳思妤')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','吳蕙丞')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','陳映頡')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','皇佳幼兒園')->where('name','田宸祐')->update(['agency' => '皇佳幼兒園']);
+//        PlayerModel::where('agency_all','育才幼兒園')->where('name','李威霆')->update(['agency' => '育才幼兒園']);
+//        PlayerModel::where('agency_all','木棉庄幼稚園')->where('name','李宸逸')->update(['agency' => '木棉庄幼稚園']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','林侑辰')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','極限小子溜冰隊')->where('name','黃御宸')->update(['agency' => '極限小子溜冰隊']);
+//        PlayerModel::where('agency_all','而勇幼兒園')->where('name','黃昕柔')->update(['agency' => '而勇幼兒園']);
+//        PlayerModel::where('agency_all','妙慧幼兒園')->where('name','曾馨誼')->update(['agency' => '妙慧幼兒園']);
+//        PlayerModel::where('agency_all','新樓幼兒園')->where('name','鄒愉')->update(['agency' => '新樓幼兒園']);
+//        PlayerModel::where('agency_all','柏林幼兒園')->where('name','曹淨湉')->update(['agency' => '柏林幼兒園']);
+//        PlayerModel::where('agency_all','新家家幼兒園')->where('name','詹淳瑜')->update(['agency' => '新家家幼兒園']);
+//        PlayerModel::where('agency_all','道明幼稚園')->where('name','周佩穎')->update(['agency' => '道明幼稚園']);
+//        PlayerModel::where('agency_all','蚊子輪滑直排輪')->where('name','游沛恩')->update(['agency' => '蚊子輪滑直排輪']);
+//        PlayerModel::where('agency_all','蚊子輪滑直排輪')->where('name','翁子帷')->update(['agency' => '蚊子輪滑直排輪']);
+//        PlayerModel::where('agency_all','慈濟附幼')->where('name','陳寬')->update(['agency' => '慈濟附幼']);
+//        PlayerModel::where('agency_all','慈濟附幼')->where('name','陳寬')->update(['agency' => '慈濟附幼']);
+//        PlayerModel::where('agency_all','新湖國小附設幼兒園')->where('name','黃于瑄')->update(['agency' => '新湖國小附設幼兒園']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','吳姿樂')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','高雄市體育會滑輪溜冰委員會')->where('name','吳姿樂')->update(['agency' => '高雄市體育會滑輪溜冰委員會']);
+//        PlayerModel::where('agency_all','新湖國小附設幼兒園')->where('name','黃于瑄')->update(['agency' => '新湖國小附設幼兒園']);
+        dd();
         if ($this->argument('type') == 'player') {
             $this->importPlayer();
         } else if ($this->argument('type') == 'schedule') {

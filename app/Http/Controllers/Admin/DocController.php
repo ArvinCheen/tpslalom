@@ -165,16 +165,27 @@ class DocController extends Controller
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
+            if ($item == '雙人花式繞樁') {
+                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
+                    ->where('game_id', config('app.game_id'))
+                    ->where('group', $group)
+                    ->where('item', 'like', "%$item%")
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
+                    ->get();
+            } else {
 
-            $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
-                ->where('group', $group)
-                ->where('gender', $gender)
-                ->where('item', 'like', "%$item%")
-                ->orderBy('appearance')
-                ->orderBy('player_number')
-                ->orderBy('player_id')
-                ->get();
+                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
+                    ->where('game_id', config('app.game_id'))
+                    ->where('group', $group)
+                    ->where('gender', $gender)
+                    ->where('item', 'like', "%$item%")
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
+                    ->get();
+            }
         }
 
         return view('admin/doc/groups')->with(['groups' => $schedules]);
