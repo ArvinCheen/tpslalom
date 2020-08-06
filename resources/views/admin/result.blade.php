@@ -21,7 +21,7 @@
                         <select class="form-control m-select2" id="m_select2_1">
                             @foreach ($schedules as $schedule)
                                 <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }}
-                                    - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組 {{ $schedule->item }} {{ $schedule->number_of_player }}人
+                                    - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組 {{ $schedule->item }}
                                 </option>
                             @endforeach
                         </select>
@@ -96,6 +96,9 @@
                                 @break
                                 @case('freeStyle')
                                 <th class="text-center">
+                                    <i class=""></i> 罰分
+                                </th>
+                                <th class="text-center">
                                     <i class=""></i> 技術1
                                 </th>
                                 <th class="text-center">
@@ -141,9 +144,6 @@
                                     <i class=""></i> 總分5
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 罰分
-                                </th>
-                                <th class="text-center">
                                     <i class=""></i> 名次
                                 </th>
                                 @break
@@ -172,24 +172,23 @@
                                     @case('pk')
                                     @break
                                     @case('freeStyle')
-
+                                    <td class="text-center"><input name="punish[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->punish }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="skill_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_1 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_1 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="score_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_1 }}" autocomplete="off"></td>
+                                    <td class="text-center">{{ $enroll->score_1 }}</td>
                                     <td class="text-center"><input name="skill_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_2 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_2 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="score_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_2 }}" autocomplete="off"></td>
+                                    <td class="text-center">{{ $enroll->score_2 }}</td>
                                     <td class="text-center"><input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="score_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_3 }}" autocomplete="off"></td>
+                                    <td class="text-center">{{ $enroll->score_3 }}</td>
                                     <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="score_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_4 }}" autocomplete="off"></td>
+                                    <td class="text-center">{{ $enroll->score_4 }}</td>
                                     <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="punish[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->punish }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>
+                                    <td class="text-center">{{ $enroll->score_5 }}</td>
+                                    <td class="text-center">{{ $enroll->rank }}</td>
                                     @break
                                 @endswitch
                             </tr>
@@ -200,6 +199,7 @@
 
                     @foreach ($enrolls as $key => $enroll)
                         <input type="hidden" name="enrollIds[]" value="{{ $enroll->id }}" }>
+                        <input type="hidden" name="playerNumbers[]" value="{{ $enroll->player_number }}" }>
                     @endforeach
                 </form>
             </div>
