@@ -24,7 +24,7 @@
                                     {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->item }}
                                 </th>
                                 <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                                    共 {{ $group->number_of_player }} 人
+                                    共 {{ count($group->players) }} 人
                                 </th>
                             </tr>
                             </thead>
@@ -75,7 +75,7 @@
                                     )
                                         共 ? 人
                                     @else
-                                        共 {{ $group->number_of_player }} 人
+                                        共 {{ count($group->players) }} 人
                                     @endif
                                 </th>
                             </tr>
