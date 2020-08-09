@@ -55,20 +55,14 @@
                     <input type="hidden" name="scheduleId" value="{{ $scheduleId }}">
                     <input type="hidden" name="model" value="{{ $model }}">
                     <table class="
-                    @if($model <> 'freeStyle')
-                    table
-                     @endif
+{{--                    @if($model <> 'freeStyle')--}}
+                        table
+{{--@endif--}}
                         table-striped table-bordered table-advance table-hover">
                         <thead>
                         <tr>
                             <th class="text-center">
-                                <i class=""></i> 號碼
-                            </th>
-                            <th class="text-center">
-                                <i class=""></i> 姓名
-                            </th>
-                            <th class="text-center">
-                                <i class=""></i> 單位
+                                <i class=""></i> 選手
                             </th>
 
                             @switch ($model)
@@ -96,55 +90,55 @@
                                 @break
                                 @case('freeStyle')
                                 <th class="text-center">
-                                    <i class=""></i> 罰分
+                                    罰分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 技術1
+                                    技術1
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 藝術1
+                                    藝術1
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 總分1
+                                    總分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 技術2
+                                    技術2
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 藝術2
+                                    藝術2
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 總分2
+                                    總分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 技術3
+                                    技術3
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 藝術3
+                                    藝術3
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 總分3
+                                    總分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 技術4
+                                    技術4
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 藝術4
+                                    藝術4
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 總分4
+                                    總分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 技術5
+                                    技術5
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 藝術5
+                                    藝術5
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 總分5
+                                    總分
                                 </th>
                                 <th class="text-center">
-                                    <i class=""></i> 名次
+                                    名次
                                 </th>
                                 @break
                             @endswitch
@@ -153,9 +147,7 @@
                         <tbody>
                         @foreach ($enrolls as $key => $enroll)
                             <tr>
-                                <td class="text-center"> {{ $enroll->player_number }}</td>
-                                <td class="text-center"> {{ $enroll->player->name }} </td>
-                                <td class="text-center"> {{ $enroll->player->agency }} </td>
+                                <td class="text-center" style="width:70px"> {{ $enroll->player_number }} <br>{{ $enroll->player->name }}</td>
                                 @switch ($model)
                                     @case('speed')
                                     <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}"
@@ -197,11 +189,70 @@
                         </tbody>
                     </table>
 
+
                     @foreach ($enrolls as $key => $enroll)
                         <input type="hidden" name="enrollIds[]" value="{{ $enroll->id }}" }>
-                        <input type="hidden" name="playerNumbers[]" value="{{ $enroll->player_number }}" }>
                     @endforeach
                 </form>
+                @if ($model == 'freeStyle')
+                    <p class="mt-5">裁判排名結果</p>
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <td class="text-center">選手</td>
+                            <td class="text-center">裁判一</td>
+                            <td class="text-center">裁判二</td>
+                            <td class="text-center">裁判三</td>
+                            <td class="text-center">裁判四</td>
+                            <td class="text-center">裁判五</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($評分表 as $選手)
+                            <tr>
+                                @foreach ($選手 as $val)
+                                    <td class="text-center"> {{ $val }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <p class="mt-5">得勝分表及最終排名</p>
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <td class="text-center"></td>
+                            @foreach ($得勝分表 as $各選手 => $val)
+                            <td class="text-center">{{$各選手}}</td>
+                            @endforeach
+                            <td class="text-center">多數得勝分</td>
+                            <td class="text-center">總計分別得勝分</td>
+                            <td class="text-center">總計技術分</td>
+                            <td class="text-center">總計得勝分</td>
+                            <td class="text-center">總分</td>
+                            <td class="text-center">排名</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($得勝分表 as $各選手 => $val)
+                            <tr>
+                                <td class="text-center">{{$各選手}}</td>
+                            @foreach ($val as $var)
+                                <td class="text-center">{{$var}}</td>
+                            @endforeach
+                            </tr>
+                        @endforeach
+{{--                        @foreach ($評分表 as $選手)--}}
+{{--                            <tr>--}}
+{{--                                @foreach ($選手 as $val)--}}
+{{--                                    <td class="text-center"> {{ $val }}</td>--}}
+{{--                                @endforeach--}}
+{{--                            </tr>--}}
+{{--                        @endforeach--}}
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </div>

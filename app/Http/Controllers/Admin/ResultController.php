@@ -22,6 +22,8 @@ class ResultController extends Controller
         }
 
         $schedule = ScheduleModel::find($scheduleId);
+        $評分表 = [];
+        $得勝分表 = [];
 
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
@@ -48,9 +50,112 @@ class ResultController extends Controller
             $schedule->item == '初級指定套路' ||
             $schedule->item == '花式煞停' ||
             $schedule->item == '花式煞停' ||
-            $schedule->item == '雙人花式繞樁') {
+            $schedule->item == '雙人花式繞樁')
+        {
             $model = 'freeStyle';
+
+            // 建立評分表架構 開始
+            $gender = $schedule->gender;
+            $group = $schedule->group;
+            $item = $schedule->item;
+            $評分表資料源 = EnrollModel::leftJoin('player','player.id','enroll.player_id')->where('gender', $gender)->where('group',$group)->where('item',$item)->orderBy('appearance')->get();
+
+            $judge_1 = [];
+            $judge_2 = [];
+            $judge_3 = [];
+            $judge_4 = [];
+            $judge_5 = [];
+
+            foreach ($評分表資料源 as $val) {
+                $評分表[$val->player_id][] = $val->player_id.' '.$val->name;
+                $judge_1[$val->player_id] = $val->score_1;
+                $judge_2[$val->player_id] = $val->score_2;
+                $judge_3[$val->player_id] = $val->score_3;
+                $judge_4[$val->player_id] = $val->score_4;
+                $judge_5[$val->player_id] = $val->score_5;
+            }
+            // 建立評分表架構 結束
+
+            arsort($judge_1);
+            arsort($judge_2);
+            arsort($judge_3);
+            arsort($judge_4);
+            arsort($judge_5);
+            $rank = 1;
+            foreach ($judge_1 as $key => $val) {
+                $評分表[$key][] = $rank;
+                $rank++;
+                }
+                $rank = 1;
+            foreach ($judge_2 as $key => $val) {
+                $評分表[$key][] = $rank;
+                $rank++;
+            }
+            $rank = 1;
+            foreach ($judge_3 as $key => $val) {
+                $評分表[$key][] = $rank;
+                $rank++;
+            }
+            $rank = 1;
+            foreach ($judge_4 as $key => $val) {
+                $評分表[$key][] = $rank;
+                $rank++;
+            }
+            $rank = 1;
+            foreach ($judge_5 as $key => $val) {
+                $評分表[$key][] = $rank;
+                $rank++;
+            }
+
+            $得勝分表 = [];
+            foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
+                $評分表暫存 = $評分表;
+                $score = 0;
+                $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
+                $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
+                $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
+                $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
+                $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
+
+                foreach ($評分表暫存 as $比較選手號碼 => $比較選手評分表) {
+                    if ($主要選手號碼 == $比較選手號碼) {
+                        $得勝分表[$主要選手號碼][] = 0;
+                        continue;
+                    }
+                    $比較選手裁判一名次 = $評分表暫存[$比較選手號碼][1];
+                    $比較選手裁判二名次 = $評分表暫存[$比較選手號碼][2];
+                    $比較選手裁判三名次 = $評分表暫存[$比較選手號碼][3];
+                    $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
+                    $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
+
+                    if ($主要選手裁判一名次 < $比較選手裁判一名次) $score++;
+                    if ($主要選手裁判二名次 < $比較選手裁判二名次) $score++;
+                    if ($主要選手裁判三名次 < $比較選手裁判三名次) $score++;
+                    if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
+                    if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
+
+                    $得勝分表[$主要選手號碼][] = $score;
+                    $score = 0;
+                }
+            }
+
+            $多數得勝分 = 0;
+            foreach ($得勝分表 as $key => $val) {
+                    foreach ($val as $席位分數) {
+                        if ($席位分數 > 2.5) {
+                            $多數得勝分++;
+                        }
+                    }
+                $得勝分表[$key][] = $多數得勝分;
+                $得勝分表[$key][]='';
+                $得勝分表[$key][]='';
+                $得勝分表[$key][]='';
+                $得勝分表[$key][]='';
+                $得勝分表[$key][]='';
+                $多數得勝分=0;
+            }
         }
+
         if (
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
@@ -58,18 +163,17 @@ class ResultController extends Controller
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽'
-        ) {
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
+        {
             $model = 'pk';
         }
 
-        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model'));
+        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model','評分表','得勝分表'));
     }
 
     public function update(Request $request)
     {
         $enrollIds        = $request->enrollIds;
-        $playerNumbers    = $request->playerNumbers;
         $roundOneSecond   = $request->roundOneSecond;
         $roundOneMissConr = $request->roundOneMissConr;
         $roundTwoSecond   = $request->roundTwoSecond;
@@ -94,14 +198,8 @@ class ResultController extends Controller
                 }
                 break;
             case('freeStyle');
-                $judge_1 = [];
-                $judge_2 = [];
-                $judge_3 = [];
-                $judge_4 = [];
-                $judge_5 = [];
-
                 foreach ($enrollIds as $key => $enrollId) {
-                    $score = [
+                    EnrollModel::where('id', $enrollId)->update([
                         'punish'  => $punish[$key],
                         'skill_1' => $skill_1[$key],
                         'art_1'   => $art_1[$key],
@@ -118,17 +216,8 @@ class ResultController extends Controller
                         'skill_5' => $skill_5[$key],
                         'art_5'   => $art_5[$key],
                         'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
-                    ];
-
-                    EnrollModel::where('id', $enrollId)->update($score);
-
-                    $judge_1[$playerNumbers[$key]] = $score['score_1'];
-                    $judge_2[$playerNumbers[$key]] = $score['score_2'];
-                    $judge_3[$playerNumbers[$key]] = $score['score_3'];
-                    $judge_4[$playerNumbers[$key]] = $score['score_4'];
-                    $judge_5[$playerNumbers[$key]] = $score['score_5'];
+                    ]);
                 }
-                dd($judge_1);
                 break;
             case('pk');
                 break;
