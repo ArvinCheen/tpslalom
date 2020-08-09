@@ -99,7 +99,7 @@
                                     藝術1
                                 </th>
                                 <th class="text-center">
-                                    總分
+                                    總分1
                                 </th>
                                 <th class="text-center">
                                     技術2
@@ -108,7 +108,7 @@
                                     藝術2
                                 </th>
                                 <th class="text-center">
-                                    總分
+                                    總分2
                                 </th>
                                 <th class="text-center">
                                     技術3
@@ -117,7 +117,7 @@
                                     藝術3
                                 </th>
                                 <th class="text-center">
-                                    總分
+                                    總分3
                                 </th>
                                 <th class="text-center">
                                     技術4
@@ -126,7 +126,7 @@
                                     藝術4
                                 </th>
                                 <th class="text-center">
-                                    總分
+                                    總分4
                                 </th>
                                 <th class="text-center">
                                     技術5
@@ -135,7 +135,7 @@
                                     藝術5
                                 </th>
                                 <th class="text-center">
-                                    總分
+                                    總分5
                                 </th>
                                 <th class="text-center">
                                     名次
