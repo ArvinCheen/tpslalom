@@ -153,6 +153,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/teams', 'Admin\ExportController@teams');
         Route::get('/playerNumber', 'Admin\ExportController@playerNumber');
         Route::get('/花樁評分表', 'Admin\ExportController@花樁評分表');
+        Route::get('/花樁總匯表', 'Admin\ExportController@花樁總匯表');
+        Route::get('/花樁罰分紀錄', 'Admin\ExportController@花樁罰分紀錄');
 
 
     });
