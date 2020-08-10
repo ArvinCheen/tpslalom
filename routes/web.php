@@ -152,6 +152,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/groups', 'Admin\ExportController@groups');
         Route::get('/teams', 'Admin\ExportController@teams');
         Route::get('/playerNumber', 'Admin\ExportController@playerNumber');
+        Route::get('/花樁評分表', 'Admin\ExportController@花樁評分表');
 
 
     });

@@ -298,6 +298,14 @@
                             <span class="m-menu__link-text"> 檢錄手寫單 </span>
                         </a>
                     </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('/admin/export/花樁評分表') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 花樁評分表 </span>
+                        </a>
+                    </li>
 {{--                    <li class="m-menu__item " aria-haspopup="true">--}}
 {{--                        <a href="{{ URL('admin/export/result') }}" class="m-menu__link ">--}}
 {{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}

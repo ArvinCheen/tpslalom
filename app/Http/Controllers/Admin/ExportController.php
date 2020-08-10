@@ -165,7 +165,7 @@ class ExportController extends Controller
     public function playerNumber()
     {
         $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency_all as 單位,player.coach as 教練,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
-            ->leftjoin('player','player.id','enroll.player_id')
+            ->leftjoin('player', 'player.id', 'enroll.player_id')
             ->groupBy('player_number')
             ->get();
         Excel::create('選手號碼布列表', function ($excel) use ($data) {//第一參數是檔案名稱
@@ -832,5 +832,129 @@ class ExportController extends Controller
                 }
             });
         })->download('xls');
+    }
+
+    public function 花樁評分表()
+    {
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))
+            ->where('item', 'like', '%花%')
+            ->orWhere('item', 'like', '%套路%')
+            ->get();
+
+        Excel::create('花樁評分表', function ($excel) use ($schedules) {
+            foreach ($schedules as $schedule) {
+                $excel->sheet($schedule->order, function ($sheet) use ($schedule) {
+                    $sheet->setAllBorders('thin');
+                    $sheet->setHeight(40);
+                    $sheet->setFontFamily('微軟正黑體');
+                    $sheet->setFontSize(10);
+                    $sheet->setWidth(array(
+                        'A' => 12,
+                        'B' => 12,
+                        'C' => 12,
+                        'D' => 12,
+                        'E' => 12,
+                        'F' => 12,
+                        'G' => 12,
+                        'H' => 12,
+                    ));
+
+                    $sheet->setHeight(1, 40);
+                    $sheet->setHeight(3, 30);
+
+                    $sheet->mergeCells('A1:H1');
+
+                    $sheet->cell('A1', function ($cell) use ($schedule) {
+                        $cell->setValue($schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setFontSize(18);
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('A3', function ($cell){
+                        $cell->setValue('簽序');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('B3', function ($cell){
+                        $cell->setValue('選手號');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('C3', function ($cell){
+                        $cell->setValue('選手姓名');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('D3', function ($cell){
+                        $cell->setValue('基礎分50%');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('E3', function ($cell){
+                        $cell->setValue('質量分50%');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('F3', function ($cell){
+                        $cell->setValue('失誤黼分');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('G3', function ($cell){
+                        $cell->setValue('時間罰分');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('H3', function ($cell){
+                        $cell->setValue('總分');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+
+                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
+                        if ($schedule->item <> '雙人花式繞樁') {
+                            $query->where('gender', $schedule->gender);
+                        }
+                    })
+                        ->where('group', $schedule->group)
+                        ->where('item', $schedule->item)
+                        ->orderBy('appearance')
+                        ->get();
+
+                    $location = 4;
+                    foreach ($enrolls as $key => $enroll) {
+
+                        $sheet->setHeight($location, 30);
+
+                        $sheet->cell('A' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->appearance);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('B' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->id);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('C' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->name);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $location++;
+                    }
+                });
+            }
+        })->download('xls');
+    }
+
+    public function 總匯表()
+    {
+
+    }
+
+    public function 罰分表()
+    {
+
     }
 }
