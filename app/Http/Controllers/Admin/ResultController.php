@@ -22,8 +22,8 @@ class ResultController extends Controller
         }
 
         $schedule = ScheduleModel::find($scheduleId);
-        $評分表 = [];
-        $得勝分表 = [];
+        $評分表      = [];
+        $得勝分表     = [];
 
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
@@ -50,15 +50,15 @@ class ResultController extends Controller
             $schedule->item == '初級指定套路' ||
             $schedule->item == '花式煞停' ||
             $schedule->item == '花式煞停' ||
-            $schedule->item == '雙人花式繞樁')
-        {
+            $schedule->item == '雙人花式繞樁') {
             $model = 'freeStyle';
 
             // 建立評分表架構 開始
-            $gender = $schedule->gender;
-            $group = $schedule->group;
-            $item = $schedule->item;
-            $評分表資料源 = EnrollModel::leftJoin('player','player.id','enroll.player_id')->where('gender', $gender)->where('group',$group)->where('item',$item)->orderBy('appearance')->get();
+            $numberOfPlayer = $schedule->number_of_player;
+            $gender         = $schedule->gender;
+            $group          = $schedule->group;
+            $item           = $schedule->item;
+            $評分表資料源         = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
 
             $judge_1 = [];
             $judge_2 = [];
@@ -67,7 +67,7 @@ class ResultController extends Controller
             $judge_5 = [];
 
             foreach ($評分表資料源 as $val) {
-                $評分表[$val->player_id][] = $val->player_id.' '.$val->name;
+                $評分表[$val->player_id][]   = $val->player_id . ' ' . $val->name;
                 $judge_1[$val->player_id] = $val->score_1;
                 $judge_2[$val->player_id] = $val->score_2;
                 $judge_3[$val->player_id] = $val->score_3;
@@ -85,8 +85,8 @@ class ResultController extends Controller
             foreach ($judge_1 as $key => $val) {
                 $評分表[$key][] = $rank;
                 $rank++;
-                }
-                $rank = 1;
+            }
+            $rank = 1;
             foreach ($judge_2 as $key => $val) {
                 $評分表[$key][] = $rank;
                 $rank++;
@@ -109,8 +109,8 @@ class ResultController extends Controller
 
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
-                $評分表暫存 = $評分表;
-                $score = 0;
+                $評分表暫存     = $評分表;
+                $score     = 0;
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
                 $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
                 $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
@@ -135,26 +135,60 @@ class ResultController extends Controller
                     if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
 
                     $得勝分表[$主要選手號碼][] = $score;
-                    $score = 0;
+                    $score           = 0;
                 }
             }
 
             $多數得勝分 = 0;
             foreach ($得勝分表 as $key => $val) {
-                    foreach ($val as $席位分數) {
-                        if ($席位分數 > 2.5) {
-                            $多數得勝分++;
-                        }
+                foreach ($val as $席位分數) {
+                    if ($席位分數 > 2.5) {
+                        $多數得勝分++;
                     }
+                }
                 $得勝分表[$key][] = $多數得勝分;
-                $得勝分表[$key][]='';
-                $得勝分表[$key][]='';
-                $得勝分表[$key][]='';
-                $得勝分表[$key][]='';
-                $得勝分表[$key][]='';
-                $多數得勝分=0;
+                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = '';
+                $多數得勝分        = 0;
             }
         }
+
+        $第一層 = $numberOfPlayer;
+        $第二層 = $第一層 + 1;
+        $第三層 = $第二層 + 1;
+        $第四層 = $第三層 + 1;
+        $第五層 = $第四層 + 1;
+        $名次層 = $第五層 + 1;
+
+        // 算第一層同樣名次
+        $tmpRank   = [];
+        $tmpRankv2 = [];
+        foreach ($得勝分表 as $選手) {
+            $tmpRank[$選手[$第一層]] = null;
+
+            if (isset($tmpRankv2[$選手[$第一層]])) {
+                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]]+1;
+            } else {
+                $tmpRankv2[$選手[$第一層]] = 1;
+            }
+
+            $rank++;
+        }
+
+        $rank = 1;
+        foreach ($tmpRank as $key => $val) {
+            $tmpRank[$key] = $rank;
+            $rank++;
+        }
+
+        foreach ($得勝分表 as $key => $選手) {
+//            dd($選手[$名次層]);
+            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+        }
+
 
         if (
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
@@ -163,12 +197,11 @@ class ResultController extends Controller
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
-        {
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
             $model = 'pk';
         }
 
-        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model','評分表','得勝分表'));
+        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
     }
 
     public function update(Request $request)
