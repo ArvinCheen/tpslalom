@@ -208,12 +208,17 @@ class DocController extends Controller
 
         $teams = app(EnrollModel::class)->getParticipateTeam();
 
+        $teams = PlayerModel::groupBy('agency_all')->get();
+
         foreach ($teams as $team) {
-            $team->players = EnrollModel::with('player')
-                ->where('game_id', config('app.game_id'))
-                ->where('enroll.account_id', $team->account_id)
-                ->groupBy('enroll.player_id')
-                ->get();
+            $team->players = PlayerModel::where('agency_all',$team->agency_all)->groupBy('id')->get();
+
+
+//                EnrollModel::with('player')
+//                ->where('game_id', config('app.game_id'))
+//                ->where('enroll.account_id', $team->account_id)
+//                ->groupBy('enroll.player_id')
+//                ->get();
 
         }
 
