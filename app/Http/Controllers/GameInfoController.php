@@ -52,7 +52,7 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        $schedules1Day   = app(ScheduleModel::class)->where('game_day', 1)->get();
+        $schedules1Day = app(ScheduleModel::class)->where('game_day', 1)->get();
         $schedules2Day = app(ScheduleModel::class)->where('game_day', 2)->get();
         $schedules3Day = app(ScheduleModel::class)->where('game_day', 3)->get();
         $schedules4Day = app(ScheduleModel::class)->where('game_day', 4)->get();
