@@ -119,6 +119,7 @@
                                 <th class="text-center">
                                     總分3
                                 </th>
+                                @if ($當前項目 <> '初級指定套路')
                                 <th class="text-center">
                                     技術4
                                 </th>
@@ -137,6 +138,7 @@
                                 <th class="text-center">
                                     總分5
                                 </th>
+                                @endif
                                 <th class="text-center">
                                     名次
                                 </th>
@@ -174,13 +176,15 @@
                                     <td class="text-center"><input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off"></td>
                                     <td class="text-center">{{ $enroll->score_3 }}</td>
+                                    @if ($當前項目 <> '初級指定套路')
                                     <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>
                                     <td class="text-center">{{ $enroll->score_4 }}</td>
                                     <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>
                                     <td class="text-center">{{ $enroll->score_5 }}</td>
-                                    <td class="text-center">{{ $enroll->rank }}</td>
+@endif
+                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>
                                     @break
                                 @endswitch
                             </tr>
@@ -203,8 +207,10 @@
                             <td class="text-center">裁判一</td>
                             <td class="text-center">裁判二</td>
                             <td class="text-center">裁判三</td>
+                            @if ($當前項目 <> '初級指定套路')
                             <td class="text-center">裁判四</td>
                             <td class="text-center">裁判五</td>
+                                @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -224,7 +230,7 @@
                         <tr>
                             <td class="text-center"></td>
                             @foreach ($得勝分表 as $各選手 => $val)
-                            <td class="text-center">{{$各選手}}</td>
+                                <td class="text-center">{{$各選手}}</td>
                             @endforeach
                             <td class="text-center">多數得勝分</td>
                             <td class="text-center">總計分別得勝分</td>
@@ -238,18 +244,18 @@
                         @foreach ($得勝分表 as $各選手 => $val)
                             <tr>
                                 <td class="text-center">{{$各選手}}</td>
-                            @foreach ($val as $var)
-                                <td class="text-center">{{$var}}</td>
-                            @endforeach
+                                @foreach ($val as $var)
+                                    <td class="text-center">{{$var}}</td>
+                                @endforeach
                             </tr>
                         @endforeach
-{{--                        @foreach ($評分表 as $選手)--}}
-{{--                            <tr>--}}
-{{--                                @foreach ($選手 as $val)--}}
-{{--                                    <td class="text-center"> {{ $val }}</td>--}}
-{{--                                @endforeach--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
+                        {{--                        @foreach ($評分表 as $選手)--}}
+                        {{--                            <tr>--}}
+                        {{--                                @foreach ($選手 as $val)--}}
+                        {{--                                    <td class="text-center"> {{ $val }}</td>--}}
+                        {{--                                @endforeach--}}
+                        {{--                            </tr>--}}
+                        {{--                        @endforeach--}}
                         </tbody>
                     </table>
                 @endif

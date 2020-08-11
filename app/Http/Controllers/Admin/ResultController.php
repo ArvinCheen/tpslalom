@@ -22,6 +22,7 @@ class ResultController extends Controller
         }
 
         $schedule = ScheduleModel::find($scheduleId);
+        $當前項目 = $schedule->item;
         $評分表      = [];
         $得勝分表     = [];
 
@@ -71,16 +72,21 @@ class ResultController extends Controller
                 $judge_1[$val->player_id] = $val->score_1;
                 $judge_2[$val->player_id] = $val->score_2;
                 $judge_3[$val->player_id] = $val->score_3;
-                $judge_4[$val->player_id] = $val->score_4;
-                $judge_5[$val->player_id] = $val->score_5;
+
+                if ($schedule->item <> '初級指定套路') {
+                    $judge_4[$val->player_id] = $val->score_4;
+                    $judge_5[$val->player_id] = $val->score_5;
+                }
             }
             // 建立評分表架構 結束
 
             arsort($judge_1);
             arsort($judge_2);
             arsort($judge_3);
-            arsort($judge_4);
-            arsort($judge_5);
+            if ($schedule->item <> '初級指定套路') {
+                arsort($judge_4);
+                arsort($judge_5);
+            }
             $rank = 1;
             foreach ($judge_1 as $key => $val) {
                 $評分表[$key][] = $rank;
@@ -96,15 +102,17 @@ class ResultController extends Controller
                 $評分表[$key][] = $rank;
                 $rank++;
             }
-            $rank = 1;
-            foreach ($judge_4 as $key => $val) {
-                $評分表[$key][] = $rank;
-                $rank++;
-            }
-            $rank = 1;
-            foreach ($judge_5 as $key => $val) {
-                $評分表[$key][] = $rank;
-                $rank++;
+            if ($schedule->item <> '初級指定套路') {
+                $rank = 1;
+                foreach ($judge_4 as $key => $val) {
+                    $評分表[$key][] = $rank;
+                    $rank++;
+                }
+                $rank = 1;
+                foreach ($judge_5 as $key => $val) {
+                    $評分表[$key][] = $rank;
+                    $rank++;
+                }
             }
 
             $得勝分表 = [];
@@ -114,25 +122,31 @@ class ResultController extends Controller
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
                 $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
                 $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
-                $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
-                $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
+                if ($schedule->item <> '初級指定套路') {
+                    $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
+                    $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
+                }
 
                 foreach ($評分表暫存 as $比較選手號碼 => $比較選手評分表) {
                     if ($主要選手號碼 == $比較選手號碼) {
-                        $得勝分表[$主要選手號碼][] = 0;
+                        $得勝分表[$主要選手號碼][] = 'N/A';
                         continue;
                     }
                     $比較選手裁判一名次 = $評分表暫存[$比較選手號碼][1];
                     $比較選手裁判二名次 = $評分表暫存[$比較選手號碼][2];
                     $比較選手裁判三名次 = $評分表暫存[$比較選手號碼][3];
-                    $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
-                    $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
+                    if ($schedule->item <> '初級指定套路') {
+                        $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
+                        $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
+                    }
 
                     if ($主要選手裁判一名次 < $比較選手裁判一名次) $score++;
                     if ($主要選手裁判二名次 < $比較選手裁判二名次) $score++;
                     if ($主要選手裁判三名次 < $比較選手裁判三名次) $score++;
-                    if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
-                    if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
+                    if ($schedule->item <> '初級指定套路') {
+                        if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
+                        if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
+                    }
 
                     $得勝分表[$主要選手號碼][] = $score;
                     $score           = 0;
@@ -142,8 +156,14 @@ class ResultController extends Controller
             $多數得勝分 = 0;
             foreach ($得勝分表 as $key => $val) {
                 foreach ($val as $席位分數) {
-                    if ($席位分數 > 2.5) {
-                        $多數得勝分++;
+                    if ($schedule->item <> '初級指定套路') {
+                        if ($席位分數 > 1.5) {
+                            $多數得勝分++;
+                        }
+                    } else {
+                        if ($席位分數 > 2.5) {
+                            $多數得勝分++;
+                        }
                     }
                 }
                 $得勝分表[$key][] = $多數得勝分;
@@ -170,7 +190,7 @@ class ResultController extends Controller
             $tmpRank[$選手[$第一層]] = null;
 
             if (isset($tmpRankv2[$選手[$第一層]])) {
-                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]]+1;
+                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
             } else {
                 $tmpRankv2[$選手[$第一層]] = 1;
             }
@@ -183,11 +203,24 @@ class ResultController extends Controller
             $tmpRank[$key] = $rank;
             $rank++;
         }
-
+//        dd($tmpRank);
         foreach ($得勝分表 as $key => $選手) {
-//            dd($選手[$名次層]);
             $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
         }
+//
+//        $rank = 1;
+//        foreach ($得勝分表 as $key => $選手) {
+//            if ($rank == 1) {
+//                $tmpRank = $得勝分表[$key][$名次層];
+//                $rank++;
+//                continue;
+//            }
+//
+//            if ($得勝分表[$key][$名次層] == $tmpRank) {
+//                $rank++;
+//            }
+//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+//        }
 
 
         if (
@@ -201,7 +234,7 @@ class ResultController extends Controller
             $model = 'pk';
         }
 
-        return view('admin/result')->with(compact('schedules', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
+        return view('admin/result')->with(compact('schedules','當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
     }
 
     public function update(Request $request)
@@ -222,6 +255,7 @@ class ResultController extends Controller
         $art_4            = $request->art_4;
         $skill_5          = $request->skill_5;
         $art_5            = $request->art_5;
+        $rank             = $request->rank;
         $model            = $request->model;
 
         switch ($model) {
@@ -249,6 +283,7 @@ class ResultController extends Controller
                         'skill_5' => $skill_5[$key],
                         'art_5'   => $art_5[$key],
                         'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
+                        'rank'    => $rank[$key],
                     ]);
                 }
                 break;

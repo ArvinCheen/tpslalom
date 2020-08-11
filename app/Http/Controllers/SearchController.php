@@ -52,12 +52,12 @@ class SearchController extends Controller
 
         $model = 'speed';
 
-        if ($scheduleInfo->item == '中級指定套路(女)' ||
-            $scheduleInfo->item == '中級指定套路(男)' ||
-            $scheduleInfo->item == '個人花式繞樁(女)' ||
-            $scheduleInfo->item == '個人花式繞樁(男)' ||
-            $scheduleInfo->item == '初級指定套路(女)' ||
-            $scheduleInfo->item == '初級指定套路(男)' ||
+        if ($scheduleInfo->item == '中級指定套路' ||
+            $scheduleInfo->item == '中級指定套路' ||
+            $scheduleInfo->item == '個人花式繞樁' ||
+            $scheduleInfo->item == '個人花式繞樁' ||
+            $scheduleInfo->item == '初級指定套路' ||
+            $scheduleInfo->item == '初級指定套路' ||
             $scheduleInfo->item == '雙人花式繞樁') {
             $model = 'freeStyle';
         }
@@ -65,9 +65,9 @@ class SearchController extends Controller
             $model = 'pk';
         }
 
-        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
-            $model = 'stop';
-        }
+//        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
+//            $model = 'stop';
+//        }
 
 
             app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();

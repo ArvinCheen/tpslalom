@@ -32,7 +32,17 @@
                                 <td> {{ $schedule1->item }} </td>
                                 <td> {{ $schedule1->game_type }} </td>
                                 <td> {{ $schedule1->remark }} </td>
-                                <td> {{ $schedule1->number_of_player }} </td>
+                                @if ($schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
+                                    <td> ? </td>
+                                    @else
+                                    <td> {{ $schedule1->number_of_player }} </td>
+                                @endif
                             </tr>
                         @if($schedule1->order == '場次10')
 {{--                            <tr>--}}
@@ -67,7 +77,17 @@
                                 <td> {{ $schedule2->item }} </td>
                                 <td> {{ $schedule2->game_type }} </td>
                                 <td> {{ $schedule2->remark }} </td>
-                                <td> {{ $schedule2->number_of_player }} </td>
+                                @if ($schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
+                                    <td> ? </td>
+                                @else
+                                    <td> {{ $schedule2->number_of_player }} </td>
+                                @endif
                             </tr>
                         @if($schedule2->order == '場次34')
 {{--                            <tr>--}}
@@ -101,7 +121,17 @@
                                 <td> {{ $schedule3->item }} </td>
                                 <td> {{ $schedule3->game_type }} </td>
                                 <td> {{ $schedule3->remark }} </td>
-                                <td> {{ $schedule3->number_of_player }} </td>
+                                @if ($schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
+                                    <td> ? </td>
+                                @else
+                                    <td> {{ $schedule3->number_of_player }} </td>
+                                @endif
                             </tr>
                         @if($schedule3->order == '場次80')
 {{--                            <tr>--}}
@@ -135,7 +165,17 @@
                                 <td> {{ $schedule4->item }} </td>
                                 <td> {{ $schedule4->game_type }} </td>
                                 <td> {{ $schedule4->remark }} </td>
-                                <td> {{ $schedule4->number_of_player }} </td>
+                                @if ($schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
+                                    <td> ? </td>
+                                @else
+                                    <td> {{ $schedule4->number_of_player }} </td>
+                                @endif
                             </tr>
                         @if($schedule4->order == '場次145')
 {{--                            <tr>--}}
