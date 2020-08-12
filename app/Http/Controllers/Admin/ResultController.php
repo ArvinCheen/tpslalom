@@ -22,7 +22,7 @@ class ResultController extends Controller
         }
 
         $schedule = ScheduleModel::find($scheduleId);
-        $當前項目 = $schedule->item;
+        $當前項目     = $schedule->item;
         $評分表      = [];
         $得勝分表     = [];
 
@@ -59,7 +59,12 @@ class ResultController extends Controller
             $gender         = $schedule->gender;
             $group          = $schedule->group;
             $item           = $schedule->item;
-            $評分表資料源         = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
+
+            if ($schedule->item == '雙人花式繞樁') {
+                $評分表資料源 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('item', $item)->orderBy('appearance')->get();
+            } else {
+                $評分表資料源 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
+            }
 
             $judge_1 = [];
             $judge_2 = [];
@@ -114,7 +119,6 @@ class ResultController extends Controller
                     $rank++;
                 }
             }
-
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
                 $評分表暫存     = $評分表;
@@ -179,9 +183,14 @@ class ResultController extends Controller
         $第一層 = $numberOfPlayer;
         $第二層 = $第一層 + 1;
         $第三層 = $第二層 + 1;
-        $第四層 = $第三層 + 1;
-        $第五層 = $第四層 + 1;
-        $名次層 = $第五層 + 1;
+        if ($schedule->item <> '初級指定套路') {
+            $第四層 = $第三層 + 1;
+            $第五層 = $第四層 + 1;
+            $名次層 = $第五層 + 1;
+        } else {
+            $名次層 = $第三層 + 1;
+        }
+
 
         // 算第一層同樣名次
         $tmpRank   = [];
@@ -233,8 +242,9 @@ class ResultController extends Controller
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
             $model = 'pk';
         }
-
-        return view('admin/result')->with(compact('schedules','當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
+//          dd($enrolls);
+//dd($評分表);
+        return view('admin/result')->with(compact('schedules', '當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
     }
 
     public function update(Request $request)
