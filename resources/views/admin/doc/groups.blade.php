@@ -28,7 +28,7 @@
                                     $group->group.$group->gender.$group->item.$group->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
                                     $group->group.$group->gender.$group->item.$group->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
                                     $group->group.$group->gender.$group->item.$group->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+
                                     $group->group.$group->gender.$group->item.$group->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
                                     $group->group.$group->gender.$group->item.$group->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
                             <table class="table table-bordered m-table m-table--border-tpslalom mb-4">

@@ -36,7 +36,6 @@
                                 $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
                                 $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
                                 $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
                                 $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
                                 $schedule1->group.$schedule1->gender.$schedule1->item.$schedule1->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
                                     <td> ? </td>
@@ -81,7 +80,6 @@
 $schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
 $schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
 $schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-$schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
 $schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
 $schedule2->group.$schedule2->gender.$schedule2->item.$schedule2->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
                                     <td> ? </td>
@@ -169,7 +167,7 @@ $schedule3->group.$schedule3->gender.$schedule3->item.$schedule3->game_type == '
 $schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
 $schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
 $schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-$schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國小六年級男速度過樁選手菁英-前溜單足S形決賽' ||
+
 $schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
 $schedule4->group.$schedule4->gender.$schedule4->item.$schedule4->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽')
                                     <td> ? </td>

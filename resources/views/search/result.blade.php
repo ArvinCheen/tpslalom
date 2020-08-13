@@ -184,8 +184,6 @@
                             @break;
                             @case('場次36')
                             @break;
-                            @case('場次43')
-                            @break;
                             @case('場次52')
                             @break;
                             @case('場次53')
