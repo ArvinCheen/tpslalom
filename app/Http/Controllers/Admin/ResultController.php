@@ -280,6 +280,8 @@ class ResultController extends Controller
         $art_5            = $request->art_5;
         $rank             = $request->rank;
         $model            = $request->model;
+        $scheduleId            = $request->scheduleId;
+
 
         switch ($model) {
             case('speed');
@@ -288,26 +290,52 @@ class ResultController extends Controller
                 }
                 break;
             case('freeStyle');
+
+
                 foreach ($enrollIds as $key => $enrollId) {
-                    EnrollModel::where('id', $enrollId)->update([
-                        'punish'  => $punish[$key],
-                        'skill_1' => $skill_1[$key],
-                        'art_1'   => $art_1[$key],
-                        'score_1' => $skill_1[$key] + $art_1[$key] - $punish[$key],
-                        'skill_2' => $skill_2[$key],
-                        'art_2'   => $art_2[$key],
-                        'score_2' => $skill_2[$key] + $art_2[$key] - $punish[$key],
-                        'skill_3' => $skill_3[$key],
-                        'art_3'   => $art_3[$key],
-                        'score_3' => $skill_3[$key] + $art_3[$key] - $punish[$key],
-                        'skill_4' => $skill_4[$key],
-                        'art_4'   => $art_4[$key],
-                        'score_4' => $skill_4[$key] + $art_4[$key] - $punish[$key],
-                        'skill_5' => $skill_5[$key],
-                        'art_5'   => $art_5[$key],
-                        'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
-                        'rank'    => $rank[$key],
-                    ]);
+
+                    if (ScheduleModel::find($scheduleId)->item == '中級指定套路') {
+                        $update = [
+                            'punish'  => $punish[$key],
+                            'skill_1' => $skill_1[$key],
+                            'art_1'   => $art_1[$key],
+                            'score_1' => $skill_1[$key] + $art_1[$key] - $punish[$key],
+                            'skill_2' => $skill_1[$key],
+                            'art_2'   => $art_2[$key],
+                            'score_2' => $skill_2[$key] + $art_2[$key] - $punish[$key],
+                            'skill_3' => $skill_1[$key],
+                            'art_3'   => $art_3[$key],
+                            'score_3' => $skill_3[$key] + $art_3[$key] - $punish[$key],
+                            'skill_4' => $skill_1[$key],
+                            'art_4'   => $art_4[$key],
+                            'score_4' => $skill_4[$key] + $art_4[$key] - $punish[$key],
+                            'skill_5' => $skill_1[$key],
+                            'art_5'   => $art_5[$key],
+                            'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
+                            'rank'    => $rank[$key],
+                        ];
+                    } else {
+                        $update = [
+                            'punish'  => $punish[$key],
+                            'skill_1' => $skill_1[$key],
+                            'art_1'   => $art_1[$key],
+                            'score_1' => $skill_1[$key] + $art_1[$key] - $punish[$key],
+                            'skill_2' => $skill_2[$key],
+                            'art_2'   => $art_2[$key],
+                            'score_2' => $skill_2[$key] + $art_2[$key] - $punish[$key],
+                            'skill_3' => $skill_3[$key],
+                            'art_3'   => $art_3[$key],
+                            'score_3' => $skill_3[$key] + $art_3[$key] - $punish[$key],
+                            'skill_4' => $skill_4[$key],
+                            'art_4'   => $art_4[$key],
+                            'score_4' => $skill_4[$key] + $art_4[$key] - $punish[$key],
+                            'skill_5' => $skill_5[$key],
+                            'art_5'   => $art_5[$key],
+                            'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
+                            'rank'    => $rank[$key],
+                        ];
+                    }
+                    EnrollModel::where('id', $enrollId)->update($update);
                 }
                 break;
             case('pk');
