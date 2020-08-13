@@ -70,6 +70,7 @@ class SearchService
                     ->where('final_result', '無成績')
                     ->get();
 //
+
                 $data = $data->merge($data無成績);
 //            } else {
 //                $data = EnrollModel::where('game_id', config('app.game_id'))

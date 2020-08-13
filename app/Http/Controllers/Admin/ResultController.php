@@ -198,9 +198,9 @@ class ResultController extends Controller
         $第二層 = $第一層 + 1;
         $第三層 = $第二層 + 1;
 //        if ($schedule->item <> '初級指定套路') {
-            $第四層 = $第三層 + 1;
-            $第五層 = $第四層 + 1;
-            $名次層 = $第五層 + 1;
+        $第四層 = $第三層 + 1;
+        $第五層 = $第四層 + 1;
+        $名次層 = $第五層 + 1;
 //        } else {
 //            $名次層 = $第三層 + 1;
 //        }
@@ -226,11 +226,11 @@ class ResultController extends Controller
             $tmpRank[$key] = $rank;
             $rank++;
         }
-//        dd($tmpRank);
+
         foreach ($得勝分表 as $key => $選手) {
             $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
         }
-//        dd($得勝分表);
+
 
 //        $rank = 1;
 //        foreach ($得勝分表 as $key => $選手) {
@@ -256,8 +256,8 @@ class ResultController extends Controller
             $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
             $model = 'pk';
         }
-//          dd($enrolls);
-//dd($評分表);
+
+
         return view('admin/result')->with(compact('schedules', '當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
     }
 
@@ -302,24 +302,25 @@ class ResultController extends Controller
 
                     if (ScheduleModel::find($scheduleId)->item == '中級指定套路' || ScheduleModel::find($scheduleId)->item == '初級指定套路') {
                         $update = [
-                            'punish'  => $punish[$key],
-                            'skill_1' => $skill_1[$key],
-                            'art_1'   => $art_1[$key],
-                            'score_1' => $skill_1[$key] + $art_1[$key] - $punish[$key],
-                            'skill_2' => $skill_1[$key],
-                            'art_2'   => $art_2[$key],
-                            'score_2' => $skill_1[$key] + $art_2[$key] - $punish[$key],
-                            'skill_3' => $skill_1[$key],
-                            'art_3'   => $art_3[$key],
-                            'score_3' => $skill_1[$key] + $art_3[$key] - $punish[$key],
-                            'skill_4' => $skill_1[$key],
-                            'art_4'   => $art_4[$key],
-                            'score_4' => $skill_1[$key] + $art_4[$key] - $punish[$key],
-                            'skill_5' => $skill_1[$key],
-                            'art_5'   => $art_5[$key],
-                            'score_5' => $skill_1[$key] + $art_5[$key] - $punish[$key],
-                            'rank'    => $rank[$key],
-                        ];
+                            'punish'       => $punish[$key],
+                            'skill_1'      => $skill_1[$key],
+                            'art_1'        => $art_1[$key],
+                            'score_1'      => $skill_1[$key] + $art_1[$key] - $punish[$key],
+                            'skill_2'      => $skill_1[$key],
+                            'art_2'        => $art_2[$key],
+                            'score_2'      => $skill_1[$key] + $art_2[$key] - $punish[$key],
+                            'skill_3'      => $skill_1[$key],
+                            'art_3'        => $art_3[$key],
+                            'score_3'      => $skill_1[$key] + $art_3[$key] - $punish[$key],
+                            'skill_4'      => $skill_1[$key],
+                            'art_4'        => $art_4[$key],
+                            'score_4'      => $skill_1[$key] + $art_4[$key] - $punish[$key],
+                            'skill_5'      => $skill_1[$key],
+                            'art_5'        => $art_5[$key],
+                            'score_5'      => $skill_1[$key] + $art_5[$key] - $punish[$key],
+                            'rank'         => $rank[$key],
+                            'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
+                    ];
                     } else if (ScheduleModel::find($scheduleId)->item == '雙人花式繞樁') {
                         $update = [
                             'punish'  => $punish[$key],
@@ -338,7 +339,8 @@ class ResultController extends Controller
                             'skill_5' => $skill_5[$key],
                             'art_5'   => $art_5[$key],
                             'score_5' => $score_5[$key],
-                            'rank'    => $rank[$key],
+                            'rank'         => $rank[$key],
+                            'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
                     } else {
 
@@ -359,7 +361,8 @@ class ResultController extends Controller
                             'skill_5' => $skill_5[$key],
                             'art_5'   => $art_5[$key],
                             'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
-                            'rank'    => $rank[$key],
+                            'rank'         => $rank[$key],
+                            'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
                     }
 
