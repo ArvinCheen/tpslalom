@@ -219,8 +219,8 @@ class ResultController extends Controller
 
             $rank++;
         }
-
         $rank = 1;
+        krsort($tmpRank);
         foreach ($tmpRank as $key => $val) {
             $tmpRank[$key] = $rank;
             $rank++;
