@@ -347,7 +347,7 @@ class ExportController extends Controller
 //                            $cell->setValignment('center');
 //                        });
                         $sheet->cell('A43', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　六　月　二　十　一　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　八　月　十 六　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -870,42 +870,42 @@ class ExportController extends Controller
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('A3', function ($cell){
+                    $sheet->cell('A3', function ($cell) {
                         $cell->setValue('簽序');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('B3', function ($cell){
+                    $sheet->cell('B3', function ($cell) {
                         $cell->setValue('選手號');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('C3', function ($cell){
+                    $sheet->cell('C3', function ($cell) {
                         $cell->setValue('選手姓名');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('D3', function ($cell){
+                    $sheet->cell('D3', function ($cell) {
                         $cell->setValue('基礎分50%');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('E3', function ($cell){
+                    $sheet->cell('E3', function ($cell) {
                         $cell->setValue('質量分50%');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('F3', function ($cell){
+                    $sheet->cell('F3', function ($cell) {
                         $cell->setValue('失誤黼分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('G3', function ($cell){
+                    $sheet->cell('G3', function ($cell) {
                         $cell->setValue('時間罰分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('H3', function ($cell){
+                    $sheet->cell('H3', function ($cell) {
                         $cell->setValue('總分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -979,47 +979,47 @@ class ExportController extends Controller
                     $sheet->mergeCells('A1:H1');
 
                     $sheet->cell('A1', function ($cell) use ($schedule) {
-                        $cell->setValue($schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setValue($schedule->order . ' ' . $schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('A3', function ($cell){
+                    $sheet->cell('A3', function ($cell) {
                         $cell->setValue('簽序');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('B3', function ($cell){
+                    $sheet->cell('B3', function ($cell) {
                         $cell->setValue('選手號');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('C3', function ($cell){
+                    $sheet->cell('C3', function ($cell) {
                         $cell->setValue('選手姓名');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('D3', function ($cell){
+                    $sheet->cell('D3', function ($cell) {
                         $cell->setValue('裁判一');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('E3', function ($cell){
+                    $sheet->cell('E3', function ($cell) {
                         $cell->setValue('裁判二');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('F3', function ($cell){
+                    $sheet->cell('F3', function ($cell) {
                         $cell->setValue('裁判三');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('G3', function ($cell){
+                    $sheet->cell('G3', function ($cell) {
                         $cell->setValue('裁判四');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('H3', function ($cell){
+                    $sheet->cell('H3', function ($cell) {
                         $cell->setValue('裁判五');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -1092,42 +1092,42 @@ class ExportController extends Controller
                     $sheet->mergeCells('A1:G1');
 
                     $sheet->cell('A1', function ($cell) use ($schedule) {
-                        $cell->setValue($schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setValue($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('A3', function ($cell){
+                    $sheet->cell('A3', function ($cell) {
                         $cell->setValue('簽序');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('B3', function ($cell){
+                    $sheet->cell('B3', function ($cell) {
                         $cell->setValue('選手號');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('C3', function ($cell){
+                    $sheet->cell('C3', function ($cell) {
                         $cell->setValue('選手姓名');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('D3', function ($cell){
+                    $sheet->cell('D3', function ($cell) {
                         $cell->setValue('誤樁數');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('E3', function ($cell){
+                    $sheet->cell('E3', function ($cell) {
                         $cell->setValue('誤樁扣分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('F3', function ($cell){
+                    $sheet->cell('F3', function ($cell) {
                         $cell->setValue('時間');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
-                    $sheet->cell('G3', function ($cell){
+                    $sheet->cell('G3', function ($cell) {
                         $cell->setValue('時間罰分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');

@@ -121,6 +121,7 @@ class ResultController extends Controller
             }
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
+
                 $評分表暫存     = $評分表;
                 $score     = 0;
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
@@ -159,6 +160,7 @@ class ResultController extends Controller
 
             $多數得勝分 = 0;
             foreach ($得勝分表 as $key => $val) {
+
                 foreach ($val as $席位分數) {
                     if ($schedule->item <> '初級指定套路') {
                         if ($席位分數 > 1.5) {
@@ -170,9 +172,12 @@ class ResultController extends Controller
                         }
                     }
                 }
+
+                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('player_id', $key)->where('group', $group)->where('item', $item)->first();
+
                 $得勝分表[$key][] = $多數得勝分;
                 $得勝分表[$key][] = '';
-                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = $記算技術分->skill_1+$記算技術分->skill_2+$記算技術分->skill_3+$記算技術分->skill_4+$記算技術分->skill_5;
                 $得勝分表[$key][] = '';
                 $得勝分表[$key][] = '';
                 $得勝分表[$key][] = '';
@@ -193,29 +198,28 @@ class ResultController extends Controller
 
 
         // 算第一層同樣名次
-        $tmpRank   = [];
-        $tmpRankv2 = [];
-        foreach ($得勝分表 as $選手) {
-            $tmpRank[$選手[$第一層]] = null;
+//        $tmpRank   = [];
+//        $tmpRankv2 = [];
+//        foreach ($得勝分表 as $選手) {
+//            $tmpRank[$選手[$第一層]] = null;
+//
+//            if (isset($tmpRankv2[$選手[$第一層]])) {
+//                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+//            } else {
+//                $tmpRankv2[$選手[$第一層]] = 1;
+//            }
+//
+//            $rank++;
+//        }
 
-            if (isset($tmpRankv2[$選手[$第一層]])) {
-                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-            } else {
-                $tmpRankv2[$選手[$第一層]] = 1;
-            }
-
-            $rank++;
-        }
-
-        $rank = 1;
-        foreach ($tmpRank as $key => $val) {
-            $tmpRank[$key] = $rank;
-            $rank++;
-        }
-//        dd($tmpRank);
-        foreach ($得勝分表 as $key => $選手) {
-            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-        }
+//        $rank = 1;
+//        foreach ($tmpRank as $key => $val) {
+//            $tmpRank[$key] = $rank;
+//            $rank++;
+//        }
+//        foreach ($得勝分表 as $key => $選手) {
+//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+//        }
 //
 //        $rank = 1;
 //        foreach ($得勝分表 as $key => $選手) {
