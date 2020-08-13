@@ -979,7 +979,7 @@ class ExportController extends Controller
                     $sheet->mergeCells('A1:H1');
 
                     $sheet->cell('A1', function ($cell) use ($schedule) {
-                        $cell->setValue($schedule->order . ' ' . $schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setValue($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
