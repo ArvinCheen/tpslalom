@@ -21,11 +21,11 @@ class ResultController extends Controller
             $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
         }
 
-        $schedule = ScheduleModel::find($scheduleId);
+        $schedule       = ScheduleModel::find($scheduleId);
         $numberOfPlayer = $schedule->number_of_player;
-        $當前項目     = $schedule->item;
-        $評分表      = [];
-        $得勝分表     = [];
+        $當前項目           = $schedule->item;
+        $評分表            = [];
+        $得勝分表           = [];
 
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
@@ -57,9 +57,9 @@ class ResultController extends Controller
 
             // 建立評分表架構 開始
 
-            $gender         = $schedule->gender;
-            $group          = $schedule->group;
-            $item           = $schedule->item;
+            $gender = $schedule->gender;
+            $group  = $schedule->group;
+            $item   = $schedule->item;
 
             if ($schedule->item == '雙人花式繞樁') {
                 $評分表資料源 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('item', $item)->orderBy('appearance')->get();
@@ -179,7 +179,7 @@ class ResultController extends Controller
                 $得勝分表[$key][] = $多數得勝分;
                 $得勝分表[$key][] = '';
                 $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
-                $總分 = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
+                $總分           = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
 
                 $總計得勝分 = 0;
 
@@ -197,13 +197,13 @@ class ResultController extends Controller
         $第一層 = $numberOfPlayer;
         $第二層 = $第一層 + 1;
         $第三層 = $第二層 + 1;
-        if ($schedule->item <> '初級指定套路') {
+//        if ($schedule->item <> '初級指定套路') {
             $第四層 = $第三層 + 1;
             $第五層 = $第四層 + 1;
             $名次層 = $第五層 + 1;
-        } else {
-            $名次層 = $第三層 + 1;
-        }
+//        } else {
+//            $名次層 = $第三層 + 1;
+//        }
 
 
         // 算第一層同樣名次
@@ -226,10 +226,12 @@ class ResultController extends Controller
             $tmpRank[$key] = $rank;
             $rank++;
         }
+//        dd($tmpRank);
         foreach ($得勝分表 as $key => $選手) {
             $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
         }
-//
+//        dd($得勝分表);
+
 //        $rank = 1;
 //        foreach ($得勝分表 as $key => $選手) {
 //            if ($rank == 1) {
@@ -284,7 +286,7 @@ class ResultController extends Controller
         $art_5            = $request->art_5;
         $rank             = $request->rank;
         $model            = $request->model;
-        $scheduleId            = $request->scheduleId;
+        $scheduleId       = $request->scheduleId;
 
 
         switch ($model) {
