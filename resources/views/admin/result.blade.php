@@ -169,20 +169,25 @@
                                     <td class="text-center"><input name="punish[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->punish }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="skill_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_1 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_1 }}" autocomplete="off"></td>
-                                    <td class="text-center">{{ $enroll->score_1 }}</td>
+                                    <td class="text-center"><input name="score_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_1 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_1 }}</td>--}}
                                     <td class="text-center"><input name="skill_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_2 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_2 }}" autocomplete="off"></td>
-                                    <td class="text-center">{{ $enroll->score_2 }}</td>
+                                    <td class="text-center"><input name="score_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_2 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_2 }}</td>--}}
                                     <td class="text-center"><input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off"></td>
-                                    <td class="text-center">{{ $enroll->score_3 }}</td>
+                                    <td class="text-center"><input name="score_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_3 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_3 }}</td>--}}
                                     @if ($當前項目 <> '初級指定套路')
                                     <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>
-                                    <td class="text-center">{{ $enroll->score_4 }}</td>
+                                    <td class="text-center"><input name="score_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_4 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_4 }}</td>--}}
                                     <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>
-                                    <td class="text-center">{{ $enroll->score_5 }}</td>
+                                    <td class="text-center"><input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_5 }}</td>--}}
 @endif
                                     <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>
                                     @break
