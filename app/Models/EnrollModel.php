@@ -251,7 +251,6 @@ class EnrollModel extends Model
             $query->where('gender', $gender);
         })
             ->where('game_id', config('app.game_id'))
-            ->where('level', $level)
             ->where('group', $group)
             ->where('item', $item)
             ->where('final_result', '<>', '無成績')

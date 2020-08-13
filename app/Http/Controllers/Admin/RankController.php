@@ -36,7 +36,6 @@ class RankController extends Controller
             $rankLimit == 6;
         }
 
-
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
         $this->processRank($level, $gender, $group, $item, $rankLimit);

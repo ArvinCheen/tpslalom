@@ -22,6 +22,7 @@ class ResultController extends Controller
         }
 
         $schedule = ScheduleModel::find($scheduleId);
+        $numberOfPlayer = $schedule->number_of_player;
         $當前項目     = $schedule->item;
         $評分表      = [];
         $得勝分表     = [];
@@ -55,7 +56,7 @@ class ResultController extends Controller
             $model = 'freeStyle';
 
             // 建立評分表架構 開始
-            $numberOfPlayer = $schedule->number_of_player;
+
             $gender         = $schedule->gender;
             $group          = $schedule->group;
             $item           = $schedule->item;
