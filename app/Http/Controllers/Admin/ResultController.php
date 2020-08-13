@@ -335,6 +335,7 @@ class ResultController extends Controller
                             'rank'    => $rank[$key],
                         ];
                     }
+
                     EnrollModel::where('id', $enrollId)->update($update);
                 }
                 break;
