@@ -206,28 +206,28 @@ class ResultController extends Controller
 
 
         // 算第一層同樣名次
-//        $tmpRank   = [];
-//        $tmpRankv2 = [];
-//        foreach ($得勝分表 as $選手) {
-//            $tmpRank[$選手[$第一層]] = null;
-//
-//            if (isset($tmpRankv2[$選手[$第一層]])) {
-//                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-//            } else {
-//                $tmpRankv2[$選手[$第一層]] = 1;
-//            }
-//
-//            $rank++;
-//        }
+        $tmpRank   = [];
+        $tmpRankv2 = [];
+        foreach ($得勝分表 as $選手) {
+            $tmpRank[$選手[$第一層]] = null;
 
-//        $rank = 1;
-//        foreach ($tmpRank as $key => $val) {
-//            $tmpRank[$key] = $rank;
-//            $rank++;
-//        }
-//        foreach ($得勝分表 as $key => $選手) {
-//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-//        }
+            if (isset($tmpRankv2[$選手[$第一層]])) {
+                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+            } else {
+                $tmpRankv2[$選手[$第一層]] = 1;
+            }
+
+            $rank++;
+        }
+
+        $rank = 1;
+        foreach ($tmpRank as $key => $val) {
+            $tmpRank[$key] = $rank;
+            $rank++;
+        }
+        foreach ($得勝分表 as $key => $選手) {
+            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+        }
 //
 //        $rank = 1;
 //        foreach ($得勝分表 as $key => $選手) {

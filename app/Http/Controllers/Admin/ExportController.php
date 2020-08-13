@@ -1169,4 +1169,101 @@ class ExportController extends Controller
             }
         })->download('xls');
     }
+
+    public function 花樁紀錄()
+    {
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))
+            ->where('item', 'like', '%花%')
+            ->orWhere('item', 'like', '%套路%')
+            ->get();
+
+        Excel::create('花樁紀錄', function ($excel) use ($schedules) {
+            foreach ($schedules as $schedule) {
+                $excel->sheet($schedule->order, function ($sheet) use ($schedule) {
+                    $sheet->setAllBorders('thin');
+                    $sheet->setFontFamily('微軟正黑體');
+                    $sheet->setFontSize(10);
+                    $sheet->setWidth(array(
+                        'A' => 24,
+                        'B' => 24,
+                        'C' => 24,
+                        'D' => 24,
+                        'E' => 24,
+                        'F' => 24,
+                        'G' => 24,
+                    ));
+
+                    $sheet->setHeight(1, 40);
+                    $sheet->setHeight(3, 30);
+
+                    $sheet->mergeCells('A1:G1');
+
+                    $sheet->cell('A1', function ($cell) use ($schedule) {
+                        $cell->setValue('花樁紀錄 '.$schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setFontSize(18);
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('A3', function ($cell) {
+                        $cell->setValue('選手');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('B3', function ($cell) {
+                        $cell->setValue('其它類');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('C3', function ($cell) {
+                        $cell->setValue('蹲坐類');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('D3', function ($cell) {
+                        $cell->setValue('跳躍類');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('E3', function ($cell) {
+                        $cell->setValue('單輪類');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('F3', function ($cell) {
+                        $cell->setValue('旋轉類');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+                    $sheet->cell('G3', function ($cell) {
+                        $cell->setValue('備註');
+                        $cell->setAlignment('center');
+                        $cell->setValignment('center');
+                    });
+
+                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
+                        if ($schedule->item <> '雙人花式繞樁') {
+                            $query->where('gender', $schedule->gender);
+                        }
+                    })
+                        ->where('group', $schedule->group)
+                        ->where('item', $schedule->item)
+                        ->orderBy('appearance')
+                        ->get();
+
+                    $location = 4;
+                    foreach ($enrolls as $key => $enroll) {
+
+                        $sheet->setHeight($location, 80);
+
+                        $sheet->cell('A' . $location, function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->id .' '.$enroll->player->name);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $location++;
+                    }
+                });
+            }
+        })->download('xls');
+    }
 }
