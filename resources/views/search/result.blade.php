@@ -189,8 +189,10 @@
                             <img src="https://imgur.com/x06SgPF.jpg"/>
                             @break;
                             @case('場次52')
+                            <img src="https://imgur.com/EFIhBBZ.jpg"/>
                             @break;
                             @case('場次53')
+                            <img src="https://imgur.com/ucwR0f9.jpg"/>
                             @break;
                         @endswitch
                         @break;
