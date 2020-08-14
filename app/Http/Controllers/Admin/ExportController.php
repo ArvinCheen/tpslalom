@@ -304,7 +304,7 @@ class ExportController extends Controller
                             $item = str_replace('(男)', '', $enroll->item);
                             $item = str_replace('(女)', '', $item);
                             $cell->setValue($item);
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(18);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -469,7 +469,7 @@ class ExportController extends Controller
                             $item = str_replace('(男)', '', $enroll->item);
                             $item = str_replace('(女)', '', $item);
                             $cell->setValue($item);
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(18);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
