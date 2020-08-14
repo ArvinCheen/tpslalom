@@ -366,6 +366,7 @@ class ExportController extends Controller
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $scheduleId) {
+                        $gameInfo = GameModel::find(config('app.game_id'));
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
@@ -395,21 +396,23 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A12', function ($cell) use ($enroll) {
-                            $cell->setValue('中華民國109年第17屆總統盃全國溜冰錦標賽');
+                        $sheet->cell('A12', function ($cell) use ($enroll,$gameInfo) {
+                            $cell->setValue($gameInfo->complete_name);
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G13', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090002504號函');
+                        $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
+                            //todo 切割涵號
+                            $cell->setValue('臺教體署競(二)字第1090021472號');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G14', function ($cell) use ($enroll) {
-                            $cell->setValue('臺教體署競(二)字第1090006392號函辦理');
+                        $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
+                            //todo 切割涵號
+                            $cell->setValue('臺教體署競(二)字第1090021061號');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
