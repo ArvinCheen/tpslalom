@@ -198,6 +198,24 @@ class ExportController extends Controller
         $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
+            $excel->sheet('明細', function ($sheet) use ($enrolls, $scheduleId) {
+                $gameInfo = ScheduleModel::find($scheduleId);
+                $sheet->setWidth(array(
+                    'A' => 24,
+                    'B' => 24,
+                    'C' => 24,
+                ));
+
+                $sheet->mergeCells("A1:H1");
+                $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
+                $sheet->row(2, ['名次', '姓名', '教練']);
+                $initIndex = 3;
+                foreach ($enrolls as $enroll) {
+                    $sheet->row($initIndex, [$enroll->rank, '(' . $enroll->player_number . ') ' . $enroll->player->name, $enroll->player->coach]);
+                    $initIndex++;
+                }
+            });
+
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $scheduleId) {
@@ -362,7 +380,7 @@ class ExportController extends Controller
         $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
-            $excel->sheet('賽後成績', function ($sheet) use ($enrolls, $scheduleId) {
+            $excel->sheet('明細', function ($sheet) use ($enrolls, $scheduleId) {
                 $gameInfo = ScheduleModel::find($scheduleId);
                 $sheet->setWidth(array(
                     'A' => 24,
