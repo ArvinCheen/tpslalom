@@ -21,7 +21,7 @@
                         <select class="form-control m-select2" id="m_select2_1">
                             @foreach ($schedules as $schedule)
                                 <option value="{{ $schedule->id }}" {{ $scheduleId == $schedule->id ? 'selected' : null }}>{{ $schedule->order }}
-                                    - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組 {{ $schedule->item }}
+                                    - {{ $schedule->level }}  {{ $schedule->group }}  {{ $schedule->gender }}子組 {{ $schedule->item }} - {{ $schedule->number_of_player }}人
                                 </option>
                             @endforeach
                         </select>
