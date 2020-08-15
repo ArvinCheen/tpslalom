@@ -254,7 +254,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C15', function ($cell) use ($enroll) {
                             $cell->setValue('單　　　位：');
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(18);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -359,10 +359,27 @@ class ExportController extends Controller
 
     private function exportExcel($fileName, $enrolls)
     {
-
         $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
+            $excel->sheet('賽後成績', function ($sheet) use ($enrolls, $scheduleId) {
+                $gameInfo = ScheduleModel::find($scheduleId);
+                $sheet->setWidth(array(
+                    'A' => 24,
+                    'B' => 24,
+                    'C' => 24,
+                ));
+
+                $sheet->mergeCells("A1:H1");
+                $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
+                $sheet->row(2, ['名次', '姓名']);
+                $initIndex = 3;
+                foreach ($enrolls as $enroll) {
+                    $sheet->row($initIndex, [$enroll->rank, '(' . $enroll->player_number . ') ' . $enroll->player->name,]);
+                    $initIndex++;
+                }
+            });
+
             foreach ($enrolls as $enroll) {
                 $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
                     function ($sheet) use ($enroll, $scheduleId) {
@@ -389,14 +406,13 @@ class ExportController extends Controller
                         $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
                             $cell->setValue('獎　　　狀');
-//                            $cell->setFontFamily('標楷體');
                             $cell->setFontSize(60);
 
                             $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A12', function ($cell) use ($enroll,$gameInfo) {
+                        $sheet->cell('A12', function ($cell) use ($enroll, $gameInfo) {
                             $cell->setValue($gameInfo->complete_name);
                             $cell->setFontSize(22);
                             $cell->setFontWeight('bold');
@@ -419,7 +435,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C15', function ($cell) use ($enroll) {
                             $cell->setValue('單　　　位：');
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -1201,7 +1217,7 @@ class ExportController extends Controller
                     $sheet->mergeCells('A1:G1');
 
                     $sheet->cell('A1', function ($cell) use ($schedule) {
-                        $cell->setValue('花樁紀錄 '.$schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setValue('花樁紀錄 ' . $schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
@@ -1258,7 +1274,7 @@ class ExportController extends Controller
                         $sheet->setHeight($location, 80);
 
                         $sheet->cell('A' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->id .' '.$enroll->player->name);
+                            $cell->setValue($enroll->player->id . ' ' . $enroll->player->name);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
