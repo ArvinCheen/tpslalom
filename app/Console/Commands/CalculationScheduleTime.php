@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use App\Models\ScheduleModel;
 use Illuminate\Console\Command;
 
-class ScheduleTime extends Command
+class CalculationScheduleTime extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'ScheduleTime';
+    protected $signature = 'CalculationScheduleTime';
 
     /**
      * The console command description.
@@ -89,7 +89,6 @@ class ScheduleTime extends Command
 
     public function printTime($gameType, $item, $group, $gender, $estimate, $每次上場人數)
     {
-
         if ($item == '雙人花式繞樁') {
 
             $schedule = ScheduleModel::where('game_id', config('app.game_id'))
