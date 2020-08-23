@@ -147,7 +147,6 @@ class ExportController extends Controller
         }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objectWriter->save(storage_path('分組名冊.docx'));
 
         return response()->download(storage_path('分組名冊.docx'));
     }
@@ -230,7 +229,6 @@ class ExportController extends Controller
         }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objectWriter->save(storage_path('隊伍名冊.docx'));
 
         return response()->download(storage_path('隊伍名冊.docx'));
     }
