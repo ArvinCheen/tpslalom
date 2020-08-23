@@ -104,7 +104,7 @@ class ExportController extends Controller
             if ($schedule->game_type . $schedule->group . $schedule->item == '決賽國中速度過樁菁英組-前溜單足S形(男)' || $schedule->game_type . $schedule->group . $schedule->item == '決賽國中速度過樁菁英組-前溜單足S形(女)' || $schedule->game_type . $schedule->group . $schedule->item == '決賽高中速度過樁菁英組-前溜單足S形(男)') {
                 $table->addRow();
                 $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText('', ['size' => 1]);
-                $table->addCell(100 * 0.5,)->addText('1', ['size' => 1]);
+                $table->addCell(100 * 0.5)->addText('1', ['size' => 1]);
                 $table->addCell(100 * 33)->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText('PK賽採動態排位', ['size' => 8]);
                 $table->addCell(100 * 0.5)->addText('1', ['size' => 1]);
                 $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('', ['size' => 1]);
