@@ -120,9 +120,9 @@ class ExportController extends Controller
 
                 for ($i = 0; $i < count($enrolls); $i += 3) {
                     if (strpos($enrolls[$i]->player->agency, $enrolls[$i]->player->city) !== false) {
-                        $agencyName =$enrolls[$i]->player->agency;
+                        $agencyName = $enrolls[$i]->player->agency;
                     } else {
-                        $agencyName = $enrolls[$i]->player->city.$enrolls[$i]->player->agency;
+                        $agencyName = $enrolls[$i]->player->city . $enrolls[$i]->player->agency;
                     }
 
                     $table->addRow();
@@ -130,10 +130,10 @@ class ExportController extends Controller
                     $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
 
                     if (isset($enrolls[$i + 1])) {
-                        if (strpos($enrolls[$i+1]->player->agency, $enrolls[$i+1]->player->city) !== false) {
-                            $agencyName =$enrolls[$i+1]->player->agency;
+                        if (strpos($enrolls[$i + 1]->player->agency, $enrolls[$i + 1]->player->city) !== false) {
+                            $agencyName = $enrolls[$i + 1]->player->agency;
                         } else {
-                            $agencyName = $enrolls[$i+1]->player->city.$enrolls[$i+1]->player->agency;
+                            $agencyName = $enrolls[$i + 1]->player->city . $enrolls[$i + 1]->player->agency;
                         }
 
                         $table->addCell(100 * 33)->addText($enrolls[$i + 1]->player_number . ' ' . $enrolls[$i + 1]->player->name . '(' . $agencyName . ')', $textStyle);
@@ -144,10 +144,10 @@ class ExportController extends Controller
                     }
 
                     if (isset($enrolls[$i + 2])) {
-                        if (strpos($enrolls[$i+2]->player->agency, $enrolls[$i+2]->player->city) !== false) {
-                            $agencyName =$enrolls[$i+2]->player->agency;
+                        if (strpos($enrolls[$i + 2]->player->agency, $enrolls[$i + 2]->player->city) !== false) {
+                            $agencyName = $enrolls[$i + 2]->player->agency;
                         } else {
-                            $agencyName = $enrolls[$i+2]->player->city.$enrolls[$i+2]->player->agency;
+                            $agencyName = $enrolls[$i + 2]->player->city . $enrolls[$i + 2]->player->agency;
                         }
                         $table->addCell(100 * 33, ['borderRightSize' => 1])->addText($enrolls[$i + 2]->player_number . ' ' . $enrolls[$i + 2]->player->name . '(' . $agencyName . ')', $textStyle);
                     } else {
@@ -164,9 +164,10 @@ class ExportController extends Controller
         }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objectWriter->save(storage_path('分組名冊.docx'));
+        $fileName     = $gameName . ' 分組名冊' . time();
+        $objectWriter->save(storage_path($fileName.'.docx'));
 
-        return response()->download(storage_path('分組名冊.docx'));
+        return response()->download(storage_path($fileName.'.docx'));
     }
 
     public function teams()
@@ -195,7 +196,7 @@ class ExportController extends Controller
             $leader  = '';
             $manager = '';
 
-            $numberOfPlayer = PlayerModel::where('agency',$agency->agency)->get()->count();
+            $numberOfPlayer = PlayerModel::where('agency', $agency->agency)->get()->count();
 
             foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
                 $coach .= $coachData->coach . '、';
@@ -214,7 +215,7 @@ class ExportController extends Controller
 
 
             $table->addRow();
-            $table->addCell(100 * 100, ['borderBottomSize' => 1])->addText('單位：'.$agency->agency . ' - ' . $numberOfPlayer . '位選手參賽 / 教練：' . $coach . ' / 領隊：' . $leader . ' / 經理：' . $manager, $textStyle);
+            $table->addCell(100 * 100, ['borderBottomSize' => 1])->addText('單位：' . $agency->agency . ' - ' . $numberOfPlayer . '位選手參賽 / 教練：' . $coach . ' / 領隊：' . $leader . ' / 經理：' . $manager, $textStyle);
 
 
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
