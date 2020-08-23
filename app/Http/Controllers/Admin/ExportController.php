@@ -71,55 +71,115 @@ class ExportController extends Controller
      */
     public function groups()
     {
-        $wordTest = new \PhpOffice\PhpWord\PhpWord();
-        $wordTest->setDefaultFontName('微軟正黑體'); //設定預設字型
+        //todo 雙人花、pk賽採動態出賽
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
+        $section = $phpWord->addSection([
+            'marginLeft' => 700, 'marginRight' => 700,
+            'marginTop'  => 700, 'marginBottom' => 700
+        ]);
 
-        $newSection = $wordTest->addSection();
-
-        $newSection->addText('分組名冊', ['size' => 20]);
-
-        $schedules = ScheduleModel::orderBy('id')->get();
+        $gameName = GameModel::find(config('app.game_id'))->complete_name;
+        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($gameName . ' 分組名冊', ['size' => 20]);
+        $section->addTextBreak();
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
 
         foreach ($schedules as $schedule) {
-            if ($schedule->item == '雙人花式繞樁') {
-                $newSection->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->item");
-            } else {
-                $newSection->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->gender" . "子組 $schedule->item");
-            }
+            $fontSize            = 8;
+            $fancyTableStyleName = 'Fancy Table';
+            $fancyTableStyle     = ['borderSize' => 1, 'borderColor' => 'white', 'cellMargin' => 130];
+            $textStyle           = ['size' => $fontSize];
+            $textSpaceStyle      = ['size' => $fontSize, 'color' => 'white'];
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+            $table = $section->addTable($fancyTableStyleName);
 
-            if ($schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
-                $newSection->addText('PK賽採動態出場');
-            } else {
-                $addText = null;
+            $table->addRow();
+            $table->addCell(100 * 10, ['borderTopSize' => 1, 'borderLeftSize' => 1])->addText($schedule->order, $textStyle);
+            $table->addCell(100 * 80, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText("$schedule->group $schedule->item", $textStyle);
+            $table->addCell(100 * 10, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共' . $schedule->number_of_player . ' 人', $textStyle);
 
-                $erolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                    if ($schedule->item <> '雙人花式繞樁') {
-                        $query->where('gender', $schedule->gender);
-                    }
-                })
-                    ->where('group', $schedule->group)
-                    ->where('item', $schedule->item)
-                    ->orderBy('appearance')
-                    ->orderBy('player_number')
-                    ->orderBy('player_id')
-                    ->get();
 
-                foreach ($erolls as $enroll) {
-                    $addText .= $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+            $table = $section->addTable($fancyTableStyleName);
+
+            $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
+                if ($schedule->item <> '雙人花式繞樁') {
+                    $query->where('gender', $schedule->gender);
+                }
+            })
+                ->where('group', $schedule->group)
+                ->where('item', $schedule->item)
+                ->get();
+
+            for ($i = 0; $i < count($enrolls); $i += 3) {
+                $table->addRow();
+                $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText($enrolls[$i]->player_number . ' ' . $enrolls[$i]->player->name . '(' . $enrolls[$i]->player->agency . ')', $textStyle);
+                $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
+
+                if (isset($enrolls[$i + 1])) {
+                    $table->addCell(100 * 33)->addText($enrolls[$i + 1]->player_number . ' ' . $enrolls[$i + 1]->player->name . '(' . $enrolls[$i + 1]->player->agency . ')', $textStyle);
+                    $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
+                } else {
+                    $table->addCell(100 * 33)->addText('.', $textSpaceStyle);
+                    $table->addCell(100 * 0.5)->addText('.', $textSpaceStyle);
                 }
 
-                $newSection->addText(mb_substr($addText, 0, -2));
+                if (isset($enrolls[$i + 2])) {
+                    $table->addCell(100 * 33, ['borderRightSize' => 1])->addText($enrolls[$i + 2]->player_number . ' ' . $enrolls[$i + 2]->player->name . '(' . $enrolls[$i + 2]->player->agency . ')', $textStyle);
+                } else {
+                    $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('.', $textSpaceStyle);
+                }
             }
-            $newSection->addTextBreak();
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+            $table = $section->addTable($fancyTableStyleName);
+            $table->addRow();
+            $table->addCell(100 * 100,['borderLeftSize' => 1,'borderBottomSize' => 1,'borderRightSize' => 1])->addText('1', ['size' => 1]);
+
+            $section->addTextBreak(); // 换行
         }
+//        -----------------
 
 
-        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($wordTest, 'Word2007');
+//        foreach ($schedules as $schedule) {
+//            if ($schedule->item == '雙人花式繞樁') {
+//                $section->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->item");
+//            } else {
+//                $section->addText("$schedule->order - ($schedule->game_type) $schedule->group $schedule->gender" . "子組 $schedule->item");
+//            }
+//
+//            if ($schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+//                $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
+//                $section->addText('PK賽採動態出場');
+//            } else {
+//                $addText = null;
+//
+//                $erolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
+//                    if ($schedule->item <> '雙人花式繞樁') {
+//                        $query->where('gender', $schedule->gender);
+//                    }
+//                })
+//                    ->where('group', $schedule->group)
+//                    ->where('item', $schedule->item)
+//                    ->orderBy('appearance')
+//                    ->orderBy('player_number')
+//                    ->orderBy('player_id')
+//                    ->get();
+//
+//                foreach ($erolls as $enroll) {
+//                    $addText .= $enroll->player->name . '(' . $enroll->player->agency . ')' . ', ';
+//                }
+//
+//                $section->addText(mb_substr($addText, 0, -2));
+//            }
+//            $section->addTextBreak();
+//        }
+
+
+        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         try {
             $objectWriter->save(storage_path('分組名冊.docx'));
         } catch (\Exception $e) {

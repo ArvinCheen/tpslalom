@@ -24,6 +24,10 @@ class import extends Command
 
     public function handle()
     {
+
+        $x = json_decode('[{"account_id":1,"account":"wowyuanwow@gmail.com","coach":"莊學淵","players":[{"player_number":0,"name":"邱晟恩","gender":"男","city":"桃園市","agency":"桃園市立大忠國小","coach":"莊學淵","leader":"謝雅莉","management":"楊思凡","item":[{"group":"國小五年級男子組","item":"速度過樁乙組-前溜雙足S形(男)"},{"group":"國小五年級男子組","item":"速度過樁乙組-前溜交叉形(男)"}]},{"player_number":0,"name":"黃梓祐","gender":"男","city":"桃園市","agency":"幼兒園","coach":"莊學淵","leader":"莊學淵","management":"楊思凡","item":[{"group":"幼童男子組","item":"速度過樁乙組-前溜交叉形(男)"},{"group":"幼童男子組","item":"速度過樁乙組-前溜雙足S形(男)"}]},{"player_number":0,"name":"邱晟安","gender":"男","city":"桃園市","agency":"桃園市立大忠國小","coach":"莊學淵","leader":"謝雅莉","management":"楊思凡","item":[{"group":"國小三年級男子組","item":"速度過樁乙組-前溜雙足S形(男)"},{"group":"國小三年級男子組","item":"速度過樁乙組-前溜交叉形(男)"}]},{"player_number":0,"name":"史宸熙","gender":"男","city":"桃園市","agency":"桃園市立莊敬國小","coach":"莊學淵","leader":"黃清淵","management":"楊思凡","item":[{"group":"國小一年級男子組","item":"速度過樁乙組-前溜雙足S形(男)"},{"group":"國小一年級男子組","item":"速度過樁乙組-前溜交叉形(男)"}]},{"player_number":0,"name":"莊傑恩","gender":"男","city":"桃園市","agency":"幼兒園","coach":"莊學淵","leader":"莊學淵","management":"楊思凡","item":[{"group":"幼童男子組","item":"速度過樁乙組-前溜雙足S形(男)"}]},{"player_number":0,"name":"史硯棠","gender":"男","city":"桃園市","agency":"桃園市立莊敬國小","coach":"莊學淵","leader":"黃清淵","management":"楊思凡","item":[{"group":"國小三年級男子組","item":"速度過樁乙組-前溜雙足S形(男)"},{"group":"國小三年級男子組","item":"速度過樁乙組-前溜交叉形(男)"}]}]}]');
+
+        dd($x);
 //        PlayerModel::where('agency_all','皇佳幼兒園')->where('name','田宸祐')->update(['agency' => '皇佳幼兒園']);
 //        PlayerModel::where('agency_all','育才幼兒園')->where('name','李威霆')->update(['agency' => '育才幼兒園']);
 //        PlayerModel::where('agency_all','木棉庄幼稚園')->where('name','李宸逸')->update(['agency' => '木棉庄幼稚園']);
