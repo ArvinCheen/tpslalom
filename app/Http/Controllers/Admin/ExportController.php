@@ -84,7 +84,7 @@ class ExportController extends Controller
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
 
         foreach ($schedules as $schedule) {
-            $fontSize            = 8;
+            $fontSize            = 10;
             $fancyTableStyleName = 'Fancy Table';
             $fancyTableStyle     = ['borderSize' => 1, 'borderColor' => 'white', 'cellMargin' => 130];
             $textStyle           = ['size' => $fontSize];
@@ -93,9 +93,9 @@ class ExportController extends Controller
             $table = $section->addTable($fancyTableStyleName);
 
             $table->addRow();
-            $table->addCell(100 * 10, ['borderTopSize' => 1, 'borderLeftSize' => 1])->addText($schedule->order, $textStyle);
-            $table->addCell(100 * 80, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText("$schedule->group $schedule->item", $textStyle);
-            $table->addCell(100 * 10, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共' . $schedule->number_of_player . ' 人', $textStyle);
+            $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderLeftSize' => 1])->addText($schedule->order, $textStyle);
+            $table->addCell(100 * 60, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText("$schedule->group $schedule->item", $textStyle);
+            $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共' . $schedule->number_of_player . ' 人', $textStyle);
 
 
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
@@ -119,12 +119,24 @@ class ExportController extends Controller
                     ->get();
 
                 for ($i = 0; $i < count($enrolls); $i += 3) {
+                    if (strpos($enrolls[$i]->player->agency, $enrolls[$i]->player->city) !== false) {
+                        $agencyName =$enrolls[$i]->player->agency;
+                    } else {
+                        $agencyName = $enrolls[$i]->player->city.$enrolls[$i]->player->agency;
+                    }
+
                     $table->addRow();
-                    $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText($enrolls[$i]->player_number . ' ' . $enrolls[$i]->player->name . '(' . $enrolls[$i]->player->agency . ')', $textStyle);
+                    $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText($enrolls[$i]->player_number . ' ' . $enrolls[$i]->player->name . '(' . $agencyName . ')', $textStyle);
                     $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
 
                     if (isset($enrolls[$i + 1])) {
-                        $table->addCell(100 * 33)->addText($enrolls[$i + 1]->player_number . ' ' . $enrolls[$i + 1]->player->name . '(' . $enrolls[$i + 1]->player->agency . ')', $textStyle);
+                        if (strpos($enrolls[$i+1]->player->agency, $enrolls[$i+1]->player->city) !== false) {
+                            $agencyName =$enrolls[$i+1]->player->agency;
+                        } else {
+                            $agencyName = $enrolls[$i+1]->player->city.$enrolls[$i+1]->player->agency;
+                        }
+
+                        $table->addCell(100 * 33)->addText($enrolls[$i + 1]->player_number . ' ' . $enrolls[$i + 1]->player->name . '(' . $agencyName . ')', $textStyle);
                         $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
                     } else {
                         $table->addCell(100 * 33)->addText('.', $textSpaceStyle);
@@ -132,7 +144,12 @@ class ExportController extends Controller
                     }
 
                     if (isset($enrolls[$i + 2])) {
-                        $table->addCell(100 * 33, ['borderRightSize' => 1])->addText($enrolls[$i + 2]->player_number . ' ' . $enrolls[$i + 2]->player->name . '(' . $enrolls[$i + 2]->player->agency . ')', $textStyle);
+                        if (strpos($enrolls[$i+2]->player->agency, $enrolls[$i+2]->player->city) !== false) {
+                            $agencyName =$enrolls[$i+2]->player->agency;
+                        } else {
+                            $agencyName = $enrolls[$i+2]->player->city.$enrolls[$i+2]->player->agency;
+                        }
+                        $table->addCell(100 * 33, ['borderRightSize' => 1])->addText($enrolls[$i + 2]->player_number . ' ' . $enrolls[$i + 2]->player->name . '(' . $agencyName . ')', $textStyle);
                     } else {
                         $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('.', $textSpaceStyle);
                     }
@@ -141,7 +158,7 @@ class ExportController extends Controller
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
             $table = $section->addTable($fancyTableStyleName);
             $table->addRow();
-            $table->addCell(100 * 100, ['borderLeftSize' => 1, 'borderBottomSize' => 1, 'borderRightSize' => 1])->addText('1', ['size' => 1]);
+            $table->addCell(100 * 100, ['borderLeftSize' => 1, 'borderBottomSize' => 1, 'borderRightSize' => 1])->addText('', ['size' => 1]);
 
             $section->addTextBreak();
         }
