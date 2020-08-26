@@ -155,37 +155,36 @@ class ExportController extends Controller
                     }
                 }
             }
-            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
-            $table = $section->addTable($fancyTableStyleName);
-            $table->addRow();
-            $table->addCell(100 * 100, ['borderLeftSize' => 1, 'borderBottomSize' => 1, 'borderRightSize' => 1])->addText('', ['size' => 1]);
+//            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+//            $table = $section->addTable($fancyTableStyleName);
+//            $table->addRow();
+//            $table->addCell(100 * 100, ['borderLeftSize' => 1, 'borderBottomSize' => 1, 'borderRightSize' => 1])->addText('', ['size' => 1]);
 
             $section->addTextBreak();
         }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $fileName     = $gameName . ' 分組名冊' . time();
-        $objectWriter->save(storage_path($fileName.'.docx'));
+        $objectWriter->save(storage_path($fileName . '.docx'));
 
-        return response()->download(storage_path($fileName.'.docx'));
+        return response()->download(storage_path($fileName . '.docx'));
     }
 
     public function teams()
     {
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
-        $section = $phpWord->addSection([
+        $section  = $phpWord->addSection([
             'marginLeft' => 700, 'marginRight' => 700,
             'marginTop'  => 700, 'marginBottom' => 700
         ]);
-
         $gameName = GameModel::find(config('app.game_id'))->complete_name;
         $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($gameName . ' 隊伍名冊', ['size' => 20]);
         $section->addTextBreak();
 
-        $agencys = PlayerModel::selectRaw('agency,count(*) as co')->groupBy('agency')->orderByDesc('co')->get();
+        $agencys = PlayerModel::selectRaw('agency_all,city,count(*) as co')->groupBy('agency_all')->groupBy('city')->orderByDesc('co')->get();
         foreach ($agencys as $agency) {
-            $fontSize            = 8;
+            $fontSize            = 10;
             $fancyTableStyleName = 'Fancy Table';
             $fancyTableStyle     = ['borderSize' => 1, 'borderColor' => 'white', 'cellMargin' => 130];
             $textStyle           = ['size' => $fontSize];
@@ -196,26 +195,31 @@ class ExportController extends Controller
             $leader  = '';
             $manager = '';
 
-            $numberOfPlayer = PlayerModel::where('agency', $agency->agency)->get()->count();
+            $numberOfPlayer = PlayerModel::where('agency', $agency->agency_all)->get()->count();
 
-            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
+            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
                 $coach .= $coachData->coach . '、';
             }
 
-            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
+            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
                 $leader .= $leaderData->leader . '、';
             }
 
-            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
+            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
                 $manager .= $managerData->manager . '、';
             }
             $coach   = mb_substr($coach, 0, -1);
             $leader  = mb_substr($leader, 0, -1);
             $manager = mb_substr($manager, 0, -1);
 
+            if (strpos($agency->agency_all, $agency->city) !== false) {
+                $agencyName = $agency->agency_all;
+            } else {
+                $agencyName = $agency->city . $agency->agency_all;
+            }
 
             $table->addRow();
-            $table->addCell(100 * 100, ['borderBottomSize' => 1])->addText('單位：' . $agency->agency . ' - ' . $numberOfPlayer . '位選手參賽 / 教練：' . $coach . ' / 領隊：' . $leader . ' / 經理：' . $manager, $textStyle);
+            $table->addCell(100 * 100, ['borderBottomSize' => 1])->addText('單位：' . $agencyName . ' - ' . $numberOfPlayer . '位選手參賽 / 教練：' . $coach . ' / 領隊：' . $leader . ' / 經理：' . $manager, $textStyle);
 
 
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
@@ -223,7 +227,7 @@ class ExportController extends Controller
 
 
             $players = EnrollModel::wherehas('player', function ($query) use ($agency) {
-                $query->where('agency', $agency->agency);
+                $query->where('agency_all', $agency->agency_all);
             })->where('game_id', config('app.game_id'))->groupBy('player_id')->get();
 
             for ($i = 0; $i < count($players); $i += 5) {
@@ -248,9 +252,10 @@ class ExportController extends Controller
         }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objectWriter->save(storage_path('隊伍名冊.docx'));
+        $fileName     = $gameName . ' 隊伍名冊' . time();
+        $objectWriter->save(storage_path($fileName . '.docx'));
 
-        return response()->download(storage_path('隊伍名冊.docx'));
+        return response()->download(storage_path($fileName . '.docx'));
     }
 
     public function playerNumber()
