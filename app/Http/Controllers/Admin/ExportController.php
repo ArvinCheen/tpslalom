@@ -195,7 +195,7 @@ class ExportController extends Controller
             $leader  = '';
             $manager = '';
 
-            $numberOfPlayer = PlayerModel::where('agency', $agency->agency_all)->get()->count();
+            $numberOfPlayer = PlayerModel::where('agency_all', $agency->agency_all)->get()->count();
 
             foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
                 $coach .= $coachData->coach . '、';
