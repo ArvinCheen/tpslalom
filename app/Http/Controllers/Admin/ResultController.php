@@ -62,9 +62,9 @@ class ResultController extends Controller
             $item   = $schedule->item;
 
             if ($schedule->item == '雙人花式繞樁') {
-                $評分表資料源 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('item', $item)->orderBy('appearance')->get();
+                $評分表資料源 = EnrollModel::where('item', $item)->orderBy('appearance')->get();
             } else {
-                $評分表資料源 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
+                $評分表資料源 = EnrollModel::where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
             }
 
             $judge_1 = [];

@@ -95,18 +95,19 @@ class ExportController extends Controller
             $table->addRow();
             $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderLeftSize' => 1])->addText($schedule->order, $textStyle);
             $table->addCell(100 * 60, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText("$schedule->group $schedule->item", $textStyle);
-            $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共' . $schedule->number_of_player . ' 人', $textStyle);
+            $numberOfPlyaer = empty($schedule->number_of_player) ? '?' : $schedule->number_of_player;
+            $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共 ' . $numberOfPlyaer . ' 人', $textStyle);
 
 
             $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
             $table = $section->addTable($fancyTableStyleName);
 
-            if ($schedule->game_type . $schedule->group . $schedule->item == '決賽國中速度過樁菁英組-前溜單足S形(男)' || $schedule->game_type . $schedule->group . $schedule->item == '決賽國中速度過樁菁英組-前溜單足S形(女)' || $schedule->game_type . $schedule->group . $schedule->item == '決賽高中速度過樁菁英組-前溜單足S形(男)') {
+            if ($schedule->number_of_player == 0) {
                 $table->addRow();
                 $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText('', ['size' => 1]);
-                $table->addCell(100 * 0.5)->addText('1', ['size' => 1]);
+                $table->addCell(100 * 0.5)->addText('.', ['size' => 1]);
                 $table->addCell(100 * 33)->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText('PK賽採動態排位', ['size' => 8]);
-                $table->addCell(100 * 0.5)->addText('1', ['size' => 1]);
+                $table->addCell(100 * 0.5)->addText('.', ['size' => 1]);
                 $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('', ['size' => 1]);
             } else {
                 $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
@@ -155,10 +156,6 @@ class ExportController extends Controller
                     }
                 }
             }
-//            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
-//            $table = $section->addTable($fancyTableStyleName);
-//            $table->addRow();
-//            $table->addCell(100 * 100, ['borderLeftSize' => 1, 'borderBottomSize' => 1, 'borderRightSize' => 1])->addText('', ['size' => 1]);
 
             $section->addTextBreak();
         }
@@ -182,7 +179,8 @@ class ExportController extends Controller
         $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($gameName . ' 隊伍名冊', ['size' => 20]);
         $section->addTextBreak();
 
-        $agencys = PlayerModel::selectRaw('agency_all,city,count(*) as co')->groupBy('agency_all')->groupBy('city')->orderByDesc('co')->get();
+        $agencys = PlayerModel::selectRaw('agency,city,count(*) as co')->groupBy('agency')->groupBy('city')->orderByDesc('co')->get();
+
         foreach ($agencys as $agency) {
             $fontSize            = 10;
             $fancyTableStyleName = 'Fancy Table';
@@ -195,27 +193,27 @@ class ExportController extends Controller
             $leader  = '';
             $manager = '';
 
-            $numberOfPlayer = PlayerModel::where('agency_all', $agency->agency_all)->get()->count();
+            $numberOfPlayer = PlayerModel::where('agency', $agency->agency)->get()->count();
 
-            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
                 $coach .= $coachData->coach . '、';
             }
 
-            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
                 $leader .= $leaderData->leader . '、';
             }
 
-            foreach (PlayerModel::where('agency_all', $agency->agency_all)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
                 $manager .= $managerData->manager . '、';
             }
             $coach   = mb_substr($coach, 0, -1);
             $leader  = mb_substr($leader, 0, -1);
             $manager = mb_substr($manager, 0, -1);
 
-            if (strpos($agency->agency_all, $agency->city) !== false) {
-                $agencyName = $agency->agency_all;
+            if (strpos($agency->agency, $agency->city) !== false) {
+                $agencyName = $agency->agency;
             } else {
-                $agencyName = $agency->city . $agency->agency_all;
+                $agencyName = $agency->city . $agency->agency;
             }
 
             $table->addRow();
@@ -227,7 +225,7 @@ class ExportController extends Controller
 
 
             $players = EnrollModel::wherehas('player', function ($query) use ($agency) {
-                $query->where('agency_all', $agency->agency_all);
+                $query->where('agency', $agency->agency);
             })->where('game_id', config('app.game_id'))->groupBy('player_id')->get();
 
             for ($i = 0; $i < count($players); $i += 5) {
@@ -250,6 +248,7 @@ class ExportController extends Controller
 
             $section->addTextBreak();
         }
+        ini_set('memory_limit', '256M');
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $fileName     = $gameName . ' 隊伍名冊' . time();
@@ -260,7 +259,7 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency_all as 單位,player.coach as 教練,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,player.coach as 教練,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
             ->leftjoin('player', 'player.id', 'enroll.player_id')
             ->groupBy('player_number')
             ->get();
@@ -374,9 +373,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->agency_all);
+                            $cell->setValue($enroll->player->agency);
 
-                            if (mb_strlen($enroll->player->agency_all) >= 10) {
+                            if (mb_strlen($enroll->player->agency) >= 10) {
                                 $cell->setFontSize(14);
                             } else {
                                 $cell->setFontSize(18);
@@ -555,9 +554,9 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->agency_all);
+                            $cell->setValue($enroll->player->agency);
 
-                            if (mb_strlen($enroll->player->agency_all) >= 10) {
+                            if (mb_strlen($enroll->player->agency) >= 10) {
                                 $cell->setFontSize(14);
                             } else {
                                 $cell->setFontSize(18);
@@ -935,115 +934,115 @@ class ExportController extends Controller
                     $initIndex++;
 
                     if ($schedule->order == '場次33') {
-                        $sheet->row($initIndex, [1, '358 劉巧兮', PlayerModel::find('358')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '358 劉巧兮', PlayerModel::find('358')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '160 丁于恩', PlayerModel::find('160')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '160 丁于恩', PlayerModel::find('160')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '363 黃苗嫚', PlayerModel::find('363')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '363 黃苗嫚', PlayerModel::find('363')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '266 王佑瑜', PlayerModel::find('266')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '266 王佑瑜', PlayerModel::find('266')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '128 楊允彣', PlayerModel::find('128')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '128 楊允彣', PlayerModel::find('128')->agency, '', '4']);
                         $initIndex++;
-                        $sheet->row($initIndex, [6, '215 李蘊芳', PlayerModel::find('215')->agency_all, '', '3']);
+                        $sheet->row($initIndex, [6, '215 李蘊芳', PlayerModel::find('215')->agency, '', '3']);
                         $initIndex++;
-                        $sheet->row($initIndex, [7, '249 徐嘉欣', PlayerModel::find('249')->agency_all, '', '2']);
+                        $sheet->row($initIndex, [7, '249 徐嘉欣', PlayerModel::find('249')->agency, '', '2']);
                         $initIndex++;
-                        $sheet->row($initIndex, [8, '173 江芮琳', PlayerModel::find('173')->agency_all, '', '1']);
+                        $sheet->row($initIndex, [8, '173 江芮琳', PlayerModel::find('173')->agency, '', '1']);
                         $initIndex++;
                         continue;
                     }
 
                     if ($schedule->order == '場次34') {
-                        $sheet->row($initIndex, [1, '255 鄭宇翔', PlayerModel::find('255')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '255 鄭宇翔', PlayerModel::find('255')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '373 郭加恩', PlayerModel::find('373')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '373 郭加恩', PlayerModel::find('373')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '058 楊凱崴', PlayerModel::find('058')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '058 楊凱崴', PlayerModel::find('058')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '113 許至曦', PlayerModel::find('113')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '113 許至曦', PlayerModel::find('113')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '138 林子宸', PlayerModel::find('138')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '138 林子宸', PlayerModel::find('138')->agency, '', '4']);
                         $initIndex++;
-                        $sheet->row($initIndex, [6, '105 盧右晨', PlayerModel::find('105')->agency_all, '', '3']);
+                        $sheet->row($initIndex, [6, '105 盧右晨', PlayerModel::find('105')->agency, '', '3']);
                         $initIndex++;
-                        $sheet->row($initIndex, [7, '061 巫蘇宇恩', PlayerModel::find('061')->agency_all, '', '2']);
+                        $sheet->row($initIndex, [7, '061 巫蘇宇恩', PlayerModel::find('061')->agency, '', '2']);
                         $initIndex++;
-                        $sheet->row($initIndex, [8, '112 陳廷翊', PlayerModel::find('112')->agency_all, '', '1']);
+                        $sheet->row($initIndex, [8, '112 陳廷翊', PlayerModel::find('112')->agency, '', '1']);
                         $initIndex++;
                         continue;
                     }
 
                     if ($schedule->order == '場次35') {
-                        $sheet->row($initIndex, [1, '283 陳貝怡', PlayerModel::find('283')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '283 陳貝怡', PlayerModel::find('283')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '119 呂采榛', PlayerModel::find('119')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '119 呂采榛', PlayerModel::find('119')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '282 羅珮瑜', PlayerModel::find('282')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '282 羅珮瑜', PlayerModel::find('282')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '252 梁宣旼', PlayerModel::find('252')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '252 梁宣旼', PlayerModel::find('252')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '159 王佳葳', PlayerModel::find('159')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '159 王佳葳', PlayerModel::find('159')->agency, '', '4']);
                         $initIndex++;
                         continue;
                     }
 
                     if ($schedule->order == '場次36') {
-                        $sheet->row($initIndex, [1, '281 陳昱錡', PlayerModel::find('281')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '281 陳昱錡', PlayerModel::find('281')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '172 鄭睿綸', PlayerModel::find('172')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '172 鄭睿綸', PlayerModel::find('172')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '256 李孝恒', PlayerModel::find('256')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '256 李孝恒', PlayerModel::find('256')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '186 呂尚豐', PlayerModel::find('186')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '186 呂尚豐', PlayerModel::find('186')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '065 楊曾智', PlayerModel::find('065')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '065 楊曾智', PlayerModel::find('065')->agency, '', '4']);
                         $initIndex++;
-                        $sheet->row($initIndex, [6, '352 吳東諺', PlayerModel::find('352')->agency_all, '', '3']);
+                        $sheet->row($initIndex, [6, '352 吳東諺', PlayerModel::find('352')->agency, '', '3']);
                         $initIndex++;
-                        $sheet->row($initIndex, [7, '253 賴徐捷', PlayerModel::find('253')->agency_all, '', '2']);
+                        $sheet->row($initIndex, [7, '253 賴徐捷', PlayerModel::find('253')->agency, '', '2']);
                         $initIndex++;
-                        $sheet->row($initIndex, [8, '254 盧奕辰', PlayerModel::find('254')->agency_all, '', '1']);
+                        $sheet->row($initIndex, [8, '254 盧奕辰', PlayerModel::find('254')->agency, '', '1']);
                         $initIndex++;
                         continue;
                     }
 
                     if ($schedule->order == '場次52') {
-                        $sheet->row($initIndex, [1, '373 郭加恩', PlayerModel::find('373')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '373 郭加恩', PlayerModel::find('373')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '058 楊凱崴', PlayerModel::find('058')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '058 楊凱崴', PlayerModel::find('058')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '061 巫蘇宇恩', PlayerModel::find('061')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '061 巫蘇宇恩', PlayerModel::find('061')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '264 黃緯華', PlayerModel::find('264')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '264 黃緯華', PlayerModel::find('264')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '113 許至曦', PlayerModel::find('113')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '113 許至曦', PlayerModel::find('113')->agency, '', '4']);
                         $initIndex++;
-                        $sheet->row($initIndex, [6, '263 黃品睿', PlayerModel::find('263')->agency_all, '', '3']);
+                        $sheet->row($initIndex, [6, '263 黃品睿', PlayerModel::find('263')->agency, '', '3']);
                         $initIndex++;
-                        $sheet->row($initIndex, [7, '219 滑彥凱', PlayerModel::find('219')->agency_all, '', '2']);
+                        $sheet->row($initIndex, [7, '219 滑彥凱', PlayerModel::find('219')->agency, '', '2']);
                         $initIndex++;
-                        $sheet->row($initIndex, [8, '267 王宥鈞', PlayerModel::find('267')->agency_all, '', '1']);
+                        $sheet->row($initIndex, [8, '267 王宥鈞', PlayerModel::find('267')->agency, '', '1']);
                         $initIndex++;
                         continue;
                     }
 
                     if ($schedule->order == '場次53') {
-                        $sheet->row($initIndex, [1, '118 游涵伃', PlayerModel::find('118')->agency_all, '', '12']);
+                        $sheet->row($initIndex, [1, '118 游涵伃', PlayerModel::find('118')->agency, '', '12']);
                         $initIndex++;
-                        $sheet->row($initIndex, [2, '215 李蘊芳', PlayerModel::find('215')->agency_all, '', '9']);
+                        $sheet->row($initIndex, [2, '215 李蘊芳', PlayerModel::find('215')->agency, '', '9']);
                         $initIndex++;
-                        $sheet->row($initIndex, [3, '128 楊允彣', PlayerModel::find('128')->agency_all, '', '7']);
+                        $sheet->row($initIndex, [3, '128 楊允彣', PlayerModel::find('128')->agency, '', '7']);
                         $initIndex++;
-                        $sheet->row($initIndex, [4, '275 江艾琳', PlayerModel::find('275')->agency_all, '', '5']);
+                        $sheet->row($initIndex, [4, '275 江艾琳', PlayerModel::find('275')->agency, '', '5']);
                         $initIndex++;
-                        $sheet->row($initIndex, [5, '106 丁昕羽', PlayerModel::find('106')->agency_all, '', '4']);
+                        $sheet->row($initIndex, [5, '106 丁昕羽', PlayerModel::find('106')->agency, '', '4']);
                         $initIndex++;
-                        $sheet->row($initIndex, [6, '089 涂舒婷', PlayerModel::find('089')->agency_all, '', '3']);
+                        $sheet->row($initIndex, [6, '089 涂舒婷', PlayerModel::find('089')->agency, '', '3']);
                         $initIndex++;
-                        $sheet->row($initIndex, [7, '095 張芃竹', PlayerModel::find('095')->agency_all, '', '2']);
+                        $sheet->row($initIndex, [7, '095 張芃竹', PlayerModel::find('095')->agency, '', '2']);
                         $initIndex++;
-                        $sheet->row($initIndex, [8, '330 林紜妘', PlayerModel::find('330')->agency_all, '', '1']);
+                        $sheet->row($initIndex, [8, '330 林紜妘', PlayerModel::find('330')->agency, '', '1']);
                         $initIndex++;
                         continue;
                     }
@@ -1069,13 +1068,13 @@ class ExportController extends Controller
                                 ];
 
                                 if ($result->rank > 8) {
-                                    $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency_all, $result->final_result]);
+                                    $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency, $result->final_result]);
                                 } else {
-                                    $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency_all, $result->final_result, $積分[$result->rank]]);
+                                    $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency, $result->final_result, $積分[$result->rank]]);
                                 }
 
                             } else {
-                                $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency_all, $result->final_result]);
+                                $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->agency, $result->final_result]);
                             }
 
                             $initIndex++;

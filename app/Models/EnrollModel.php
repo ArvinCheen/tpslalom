@@ -17,7 +17,7 @@ class EnrollModel extends Model
     protected $table = 'enroll';
 
 
-    protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'level', 'group', 'item',
+    protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'gender','level', 'group', 'item',
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
         'skill1', 'art1', 'score1', 'skill2', 'art2', 'score2', 'skill3', 'art3', 'score3', 'skill4', 'art4', 'score4', 'skill5', 'art5', 'score5', 'punish',
         'rank', 'integral', 'check', 'check_in_time', 'appearance'];
@@ -365,14 +365,12 @@ class EnrollModel extends Model
 
         if ($item == '雙人花式繞樁') {
             // 雙人花式繞樁 沒有分性別
-            return $this->leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
+            return $this->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('item','like', '%'.$item.'%')
                 ->count();
         } else {
-            return $this->leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
+            return $this->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('gender', $gender)
                 ->where('item','like', '%'.$item.'%')

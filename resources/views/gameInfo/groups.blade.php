@@ -103,7 +103,7 @@
                                     @foreach ($group->players as $player)
                                         <tr>
                                             <td class="" style="">
-                                                {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->agency_all }})
+                                                {{ $player->player_number }} {{ $player->player->name }} ({{ $player->player->agency }})
                                             </td>
                                         </tr>
                                     @endforeach

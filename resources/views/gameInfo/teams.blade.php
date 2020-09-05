@@ -21,7 +21,7 @@
                         <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                         <tr>
                             <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                {{ $agency->agency_all }} <small></small>
+                                {{ $agency->city . ' '.$agency->agency }} <small></small>
                             </th>
                             <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                 共 {{ count($agency->players) }} 位選手
