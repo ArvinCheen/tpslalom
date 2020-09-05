@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\EnrollModel;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\ScheduleModel;
@@ -12,28 +13,11 @@ class ResultController extends Controller
     public function searchResult($order)
     {
         // todo 這裡應該可以帶 schedule id
-
         $scheduleModel = new ScheduleModel();
         $schedules     = $scheduleModel->getSchedules();
         $schedule      = $scheduleModel->getSchedule($order);
 
-        $enrollData = DB::table('enroll')
-            ->select(
-                'enroll.id',
-                'final_result',
-                'rank',
-                'player_number',
-                'name',
-                'city',
-                'agency',
-                'round_one_second',
-                'round_one_miss_conr',
-                'round_two_second',
-                'round_two_miss_conr',
-                'final_result'
-            )
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
+        $enrollData = EnrollModel::where('game_id', config('app.game_id'))
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
             ->where('item', $schedule->item)

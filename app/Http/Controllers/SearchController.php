@@ -61,18 +61,13 @@ class SearchController extends Controller
             $scheduleInfo->item == '雙人花式繞樁') {
             $model = 'freeStyle';
         }
-        if ($scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-            $scheduleInfo->group . $scheduleInfo->gender . $scheduleInfo->item . $scheduleInfo->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
+        if ($scheduleInfo->number_of_player == 0) {
             $model = 'pk';
         }
 
-//        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
-//            $model = 'stop';
-//        }
+        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
+            $model = 'stop';
+        }
 
         app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
         return view('search/result')->with(compact(

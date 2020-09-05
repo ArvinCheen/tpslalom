@@ -34,25 +34,29 @@
                                 <thead class="thead-inverse">
                                 </thead>
                                 <tbody>
+                                                                        <tr>
+                                                                            <td class="" style="">
+                                                                                雙人賽分組中
+                                                                            </td>
+                                                                        </tr>
+{{--                                @foreach ($group->players as $player)--}}
+{{--                                    @if ($player->player->name == '邱映瑄')--}}
+{{--                                        <tr>--}}
+{{--                                            <td class="" style="">--}}
+{{--                                                164 邱映瑄 / 362 邱宇廷--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endif--}}
 
-                                @foreach ($group->players as $player)
-                                    @if ($player->player->name == '邱映瑄')
-                                        <tr>
-                                            <td class="" style="">
-                                                164 邱映瑄 / 362 邱宇廷
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                    @if ($player->player->name == '范予僖')
-                                        <tr>
-                                            <td class="" style="">
-                                                001 范予僖 / 193 黃淇宣
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                                </tbody>
+{{--                                    @if ($player->player->name == '范予僖')--}}
+{{--                                        <tr>--}}
+{{--                                            <td class="" style="">--}}
+{{--                                                001 范予僖 / 193 黃淇宣--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                                </tbody>--}}
                             </table>
                         </div>
                     @else
@@ -61,17 +65,10 @@
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                             <tr>
                                 <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                    {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }}{{$group->gender }}子組 {{ $group->item }}
+                                    {{ $group->order }} {{ $group->game_type }} - {{ $group->group }}{{$group->gender }}子組 {{ $group->item }}
                                 </th>
                                 <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                                    @if(
-                                    $group->group.$group->gender.$group->item.$group->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽'
-                                    )
+                                    @if($group->number_of_player == 0)
                                         共 ? 人
                                     @else
                                         共 {{ count($group->players) }} 人
@@ -85,15 +82,7 @@
                                 <thead class="thead-inverse">
                                 </thead>
                                 <tbody>
-                                @if(
-                                    $group->group.$group->gender.$group->item.$group->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-
-                                    $group->group.$group->gender.$group->item.$group->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-                                    $group->group.$group->gender.$group->item.$group->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽'
-)
+                                @if($group->number_of_player == 0)
                                     <tr>
                                         <td class="" style="">
                                             PK賽採動態出場
@@ -107,7 +96,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                                                @endif
+                                @endif
 
                                 </tbody>
                             </table>
