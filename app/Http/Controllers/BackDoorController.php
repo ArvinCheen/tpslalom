@@ -12,6 +12,6 @@ class BackDoorController extends Controller
     {
         \Auth::loginUsingId(AccountModel::where('account', $account)->value('id'));
 
-        return redirect('/');
+        return redirect('/admin');
     }
 }

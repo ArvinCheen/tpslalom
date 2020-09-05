@@ -35,6 +35,7 @@ class import extends Command
 
     private function importPlayer()
     {
+        dd('已開始勘誤，重新匯入會導致目前勘誤全失效');
         AccountModel::truncate();
         PlayerModel::truncate();
         EnrollModel::truncate();
