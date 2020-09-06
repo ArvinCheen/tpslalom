@@ -206,9 +206,24 @@ class ExportController extends Controller
             foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
                 $manager .= $managerData->manager . '、';
             }
-            $coach   = mb_substr($coach, 0, -1);
-            $leader  = mb_substr($leader, 0, -1);
-            $manager = mb_substr($manager, 0, -1);
+
+            if ($coach == '') {
+                $coach   = '無';
+            } else {
+                $coach   = mb_substr($coach, 0, -1);
+            }
+
+            if ($leader == '') {
+                $leader   = '無';
+            } else {
+                $leader   = mb_substr($leader, 0, -1);
+            }
+
+            if ($manager == '') {
+                $manager   = '無';
+            } else {
+                $manager   = mb_substr($manager, 0, -1);
+            }
 
             if (strpos($agency->agency, $agency->city) !== false) {
                 $agencyName = $agency->agency;

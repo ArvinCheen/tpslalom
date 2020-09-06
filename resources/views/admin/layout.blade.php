@@ -146,7 +146,7 @@
 									<i class="la la-search"></i>
 								</span>
                                 <span class="m-header-search__input-wrapper">
-									<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="搜尋選手..." id="m_quicksearch_input">
+									<input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="搜尋選手...（設計中）" id="m_quicksearch_input">
 								</span>
                                 <span class="m-header-search__icon-close" id="m_quicksearch_close">
 									<i class="la la-remove"></i>

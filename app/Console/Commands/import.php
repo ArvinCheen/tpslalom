@@ -24,6 +24,7 @@ class import extends Command
 
     public function handle()
     {
+        dd(bcrypt('NYAM85@7pNp$'));
         if ($this->argument('type') == 'player') {
             $this->importPlayer();
         } else if ($this->argument('type') == 'schedule') {
