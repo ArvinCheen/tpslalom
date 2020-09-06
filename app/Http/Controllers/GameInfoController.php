@@ -96,7 +96,49 @@ class GameInfoController extends Controller
         $agencys = PlayerModel::groupBy('agency')->get();
 
         foreach ($agencys as $agency) {
+            $coach   = '';
+            $leader  = '';
+            $manager = '';
+
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
+                $coach .= $coachData->coach . '、';
+            }
+
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
+                $leader .= $leaderData->leader . '、';
+            }
+
+            foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
+                $manager .= $managerData->manager . '、';
+            }
+
+            if ($coach == '') {
+                $coach   = '無';
+            } else {
+                $coach   = mb_substr($coach, 0, -1);
+            }
+
+            if ($leader == '') {
+                $leader   = '無';
+            } else {
+                $leader   = mb_substr($leader, 0, -1);
+            }
+
+            if ($manager == '') {
+                $manager   = '無';
+            } else {
+                $manager   = mb_substr($manager, 0, -1);
+            }
+
+            if (strpos($agency->agency, $agency->city) !== false) {
+                $agencyName = $agency->agency;
+            } else {
+                $agencyName = $agency->city . $agency->agency;
+            }
+
             $agency->players = PlayerModel::where('agency',$agency->agency)->get();
+            $agency->agency = $agencyName;
+            $agency->teamMans = "教練： $coach / 領隊： $leader / 經理： $manager";
         }
 
         return view('gameInfo/teams')->with(compact('agencys'));
