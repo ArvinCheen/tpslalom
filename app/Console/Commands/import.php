@@ -3,13 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Models\AccountModel;
-use App\Models\AgencyModel;
 use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
 
 class import extends Command
 {
@@ -24,7 +21,6 @@ class import extends Command
 
     public function handle()
     {
-        dd(bcrypt('NYAM85@7pNp$'));
         if ($this->argument('type') == 'player') {
             $this->importPlayer();
         } else if ($this->argument('type') == 'schedule') {
@@ -270,16 +266,13 @@ class import extends Command
 
     private function setGrouping($group, $gender, $item, $gameType, $remark, $gameDay)
     {
-        // 全國沒有初級、新手，全部都是選手級
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($group, $gender, $item, $gameType);
-//        $this->info($group . ' ' . $gender . ' ' . $item . ' ' . $gameType . ' ' . $remark . ' ' . $numberOfPlayer);
 
-        $schedule = '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1);
         if ($numberOfPlayer) {
-
+$this->info('場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1));
             ScheduleModel::create([
                 'game_id'          => config('app.game_id'),
-                'order'            => $schedule,
+                'order'            => '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1),
                 'group'            => $group,
                 'gender'           => $gender,
                 'item'             => $item,

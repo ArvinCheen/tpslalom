@@ -17,7 +17,7 @@ class EnrollModel extends Model
     protected $table = 'enroll';
 
 
-    protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'gender','level', 'group', 'item',
+    protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'gender', 'level', 'group', 'item',
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
         'skill1', 'art1', 'score1', 'skill2', 'art2', 'score2', 'skill3', 'art3', 'score3', 'skill4', 'art4', 'score4', 'skill5', 'art5', 'score5', 'punish',
         'rank', 'integral', 'check', 'check_in_time', 'appearance'];
@@ -306,60 +306,6 @@ class EnrollModel extends Model
         return $query->get();
     }
 
-    public function getMedalQuantity()
-    {
-        $taipeiMedal = $this
-            ->select(\DB::raw('
-                `gender`,
-                `level`,
-                `group`,
-                `item`,
-                `city`,
-                count(*) as quantity
-    '))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->where('city', '臺北市')
-            ->where('level', '新人組')
-            ->groupBy('level', 'group', 'item', 'gender');
-
-        $noTaipeiMedal = $this
-            ->select(\DB::raw('
-                `gender`,
-                `level`,
-                `group`,
-                `item`,
-                `city`,
-                count(*) as quantity
-    '))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->where('city', '<>', '臺北市')
-            ->where('level', '新人組')
-            ->groupBy('level', 'group', 'item', 'gender');
-
-        $選手Medal = $this
-            ->select(\DB::raw('
-                `gender`,
-                `level`,
-                `group`,
-                `item`,
-                `city`,
-                count(*) as quantity
-    '))
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
-            ->groupBy('level', 'group', 'item', 'gender');
-
-        return $taipeiMedal->union($noTaipeiMedal)->union($選手Medal)
-            ->orderBy('level')
-            ->orderBy('group')
-            ->orderBy('item')
-            ->orderBy('city', 'desc')
-            ->orderBy('gender', 'desc')
-            ->get();
-    }
-
     public function countGameItemNumberOfPlayer($group, $gender, $item)
     {
 
@@ -367,13 +313,13 @@ class EnrollModel extends Model
             // 雙人花式繞樁 沒有分性別
             return $this->where('game_id', config('app.game_id'))
                 ->where('group', $group)
-                ->where('item','like', '%'.$item.'%')
+                ->where('item', 'like', '%' . $item . '%')
                 ->count();
         } else {
             return $this->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('gender', $gender)
-                ->where('item','like', '%'.$item.'%')
+                ->where('item', 'like', '%' . $item . '%')
                 ->count();
         }
     }

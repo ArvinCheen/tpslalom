@@ -118,28 +118,11 @@ class DocController extends Controller
 
     public function medals()
     {
-        $enrollModel = new EnrollModel();
+        $medalData = ScheduleModel::orderBy('id')->get();
 
-        $medalData = $enrollModel->getMedalQuantity();
-
-        $goldTotal   = 0;
-        $silverTotal = 0;
-        $copperTotal = 0;
-
-        foreach ($medalData as $val) {
-            if ($val->level == '選手組') {
-                $val->city = '不分縣';
-            } else {
-                $val->city = $val->city == '臺北市' ? '臺北市' : '外縣市';
-            }
-            $val->gold   = 1;
-            $val->silver = $val->quantity >= 2 ? 1 : 0;
-            $val->copper = $val->quantity >= 3 ? 1 : 0;
-
-            $goldTotal   += $val->gold;
-            $silverTotal += $val->silver;
-            $copperTotal += $val->copper;
-        }
+        $goldTotal   = ScheduleModel::where('number_of_player','>=',1)->count();
+        $silverTotal = ScheduleModel::where('number_of_player','>=',2)->count();
+        $copperTotal = ScheduleModel::where('number_of_player','>=',3)->count();
 
         return view('admin/doc/medals')
             ->with('medalData', $medalData)

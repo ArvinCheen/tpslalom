@@ -269,14 +269,14 @@
 {{--                            <span class="m-menu__link-text"> 選手名冊 </span>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
-{{--                        <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">--}}
-{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
-{{--                                <span></span>--}}
-{{--                            </i>--}}
-{{--                            <span class="m-menu__link-text"> 獎牌數量 </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 獎牌數量 </span>
+                        </a>
+                    </li>
 {{--                    <li class="m-menu__item " aria-haspopup="true">--}}
 {{--                        <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">--}}
 {{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
