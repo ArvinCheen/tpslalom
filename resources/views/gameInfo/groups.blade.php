@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-12">
                 @foreach($groups as $key => $group)
-                    @if ($group->item == '雙人花式繞樁')
+{{--                    @if ($group->item == '雙人花式繞樁')--}}
                         <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
                                aria-controls="{{ $key }}collapse">
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
@@ -59,7 +59,7 @@
 {{--                                </tbody>--}}
                             </table>
                         </div>
-                    @else
+{{--                    @else--}}
                         <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
                                aria-controls="{{ $key }}collapse">
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
@@ -101,7 +101,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    @endif
+{{--                    @endif--}}
                 @endforeach
 
             </div>
