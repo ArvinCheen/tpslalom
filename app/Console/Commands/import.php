@@ -90,6 +90,7 @@ class import extends Command
         ScheduleModel::truncate();
 
         $this->setGrouping('幼童','男','速度過樁乙組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('幼童','男','速度過樁乙組-前溜交叉形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('幼童','女','速度過樁乙組-前溜交叉形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('國小一年級','男','速度過樁乙組-前溜交叉形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('國小一年級','女','速度過樁乙組-前溜交叉形','決賽','中壢公九溜冰場','1');
@@ -121,39 +122,38 @@ class import extends Command
         $this->setGrouping('國小六年級','女','速度過樁乙組-前溜雙足S形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('國中','男','速度過樁乙組-前溜雙足S形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('國中','女','速度過樁乙組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('幼童','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('幼童','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小一年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小一年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小二年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小二年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小三年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小三年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小四年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小四年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小五年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小五年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小六年級','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小六年級','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國中','男','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國中','女','速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('幼童','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('幼童','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小一年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小一年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小二年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小二年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小三年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小三年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小四年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小四年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小五年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小五年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小六年級','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國小六年級','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國中','男','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-        $this->setGrouping('國中','女','速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
-
+        $this->setGrouping('幼童','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('幼童','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小一年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小一年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小二年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小二年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小三年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小三年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小四年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小四年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小五年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小五年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小六年級','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小六年級','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國中','男',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國中','女',' 速度過樁甲組-前溜雙足S形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('幼童','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('幼童','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小一年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小一年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小二年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小二年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小三年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小三年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小四年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小四年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小五年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小五年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小六年級','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國小六年級','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國中','男',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
+        $this->setGrouping('國中','女',' 速度過樁甲組-前溜交叉形','決賽','中壢公九溜冰場','1');
         $this->setGrouping('國小一年級','男','速度過樁菁英組-前溜雙足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國小一年級','女','速度過樁菁英組-前溜雙足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國小二年級','男','速度過樁菁英組-前溜雙足S形','決賽','中壢公九溜冰場','2');
@@ -196,8 +196,8 @@ class import extends Command
         $this->setGrouping('國小一年級','女','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國小二年級','男','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國小二年級','女','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
-        $this->setGrouping('成年','男','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
-        $this->setGrouping('成年','女','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
+        $this->setGrouping('成年','男','個人速度過樁選手公開組','預賽','中壢公九溜冰場','2');
+        $this->setGrouping('成年','女','個人速度過樁選手公開組','預賽','中壢公九溜冰場','2');
         $this->setGrouping('青年','男','個人速度過樁選手公開組','預賽','中壢公九溜冰場','2');
         $this->setGrouping('青年','女','個人速度過樁選手公開組','預賽','中壢公九溜冰場','2');
         $this->setGrouping('社會','男','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
@@ -218,6 +218,8 @@ class import extends Command
         $this->setGrouping('國小三年級','女','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國中','男','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
         $this->setGrouping('國中','女','速度過樁菁英組-前溜單足S形','決賽','中壢公九溜冰場','2');
+        $this->setGrouping('成年','男','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
+        $this->setGrouping('成年','女','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
         $this->setGrouping('青年','男','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
         $this->setGrouping('青年','女','個人速度過樁選手公開組','決賽','中壢公九溜冰場','2');
 
@@ -256,10 +258,11 @@ class import extends Command
         $this->setGrouping('成年','男','花式煞停','','國道三號龍潭段橋下溜冰場','3');
 
         //決賽人數，只會有八人\
-        ScheduleModel::where('game_type', '決賽')->where('group', '國中')->where('item', '速度過樁菁英組-前溜單足S形')->where('game_id', config('app.game_id'))->update(['number_of_player' => 0,]);
-        ScheduleModel::where('game_type', '決賽')->where('group', '青年')->where('item', '個人速度過樁選手公開組')->where('game_id', config('app.game_id'))->update(['number_of_player' => 0,]);
 
-
+        $pkGames = ScheduleModel::where('game_type','預賽')->get();
+        foreach ($pkGames as $val) {
+            ScheduleModel::where('game_type', '決賽')->where('gender',$val->gender)->where('group', $val->group)->where('item', $val->item)->where('game_id', config('app.game_id'))->update(['number_of_player' => 0,]);
+        }
 
         $this->info('done');
     }
@@ -269,7 +272,6 @@ class import extends Command
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($group, $gender, $item, $gameType);
 
         if ($numberOfPlayer) {
-$this->info('場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1));
             ScheduleModel::create([
                 'game_id'          => config('app.game_id'),
                 'order'            => '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1),

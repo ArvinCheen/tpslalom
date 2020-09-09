@@ -53,7 +53,8 @@
 {{--                                <a href="#">成績公告</a>--}}
 {{--                                <ul>--}}
                                     <li>
-                                        <a href="{{ URL('search/result') }}"> 成績查詢 </a>
+{{--                                        <a href="{{ URL('search/result') }}"> --}}
+                                            <a>成績查詢（未開放） </a>
                                     </li>
 {{--                                    <li>--}}
 {{--                                        <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
@@ -65,7 +66,8 @@
 {{--                                <a href="#">比賽資訊</a>--}}
 {{--                                <ul>--}}
                                     <li>
-                                        <a href="{{ URL('gameInfo/schedules') }}"> 賽程表 </a>
+{{--                                        <a href="{{ URL('gameInfo/schedules') }}">--}}
+                                            <a>賽程表（未開放） </a>
                                     </li>
                                     <li>
                                         <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
