@@ -25,8 +25,6 @@
                             <th> 性別 </th>
                             <th> 項目 </th>
                             <th> 隊名 </th>
-                            <th> 單位 </th>
-                            <th> 地區 </th>
                             <th> 教練 </th>
                             <th> 領隊 </th>
                             <th> 經理 </th>
@@ -39,13 +37,11 @@
                                 <td> {{ $item->name }} </td>
                                 <td> {{ $item->group }} </td>
                                 <td> {{ $item->gender }} </td>
-                                <td> {{ str_replace(',',' / ',$item->itemAll) }} </td>
-                                <td> {{ $item->team_name }} </td>
+                                <td> {{ str_replace(','," / ",$item->itemAll) }} </td>
                                 <td> {{ $item->agency }} </td>
-                                <td> {{ $item->city }} </td>
                                 <td> {{ $item->coach }} </td>
                                 <td> {{ $item->leader }} </td>
-                                <td> {{ $item->management }} </td>
+                                <td> {{ $item->manager }} </td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -20,7 +20,24 @@ class DocController extends Controller
     public function all()
     {
 
-        dd(1);
+//        $all = EnrollModel::orderBy('player_number')->get();
+        $all = EnrollModel::select(\DB::raw('
+            enroll.player_number, 
+            name, 
+            `group`, 
+            enroll.gender, 
+            agency,
+            coach, 
+            leader, 
+            manager,
+            GROUP_CONCAT(item) AS itemAll
+        '))
+            ->leftJoin('player', 'player.id', 'enroll.player_id')
+            ->where('enroll.game_id', config('app.game_id'))
+            ->groupBy('enroll.player_number')
+            ->get();
+
+        return view('admin/doc/all')->with(['all' => $all]);
     }
 
     public function groups()
@@ -77,7 +94,7 @@ class DocController extends Controller
         $teams = PlayerModel::groupBy('agency_all')->get();
 
         foreach ($teams as $team) {
-            $team->players = PlayerModel::where('agency_all',$team->agency_all)->groupBy('id')->get();
+            $team->players = PlayerModel::where('agency_all', $team->agency_all)->groupBy('id')->get();
 
 
 //                EnrollModel::with('player')
@@ -120,9 +137,9 @@ class DocController extends Controller
     {
         $medalData = ScheduleModel::orderBy('id')->get();
 
-        $goldTotal   = ScheduleModel::where('number_of_player','>=',1)->count();
-        $silverTotal = ScheduleModel::where('number_of_player','>=',2)->count();
-        $copperTotal = ScheduleModel::where('number_of_player','>=',3)->count();
+        $goldTotal   = ScheduleModel::where('number_of_player', '>=', 1)->count();
+        $silverTotal = ScheduleModel::where('number_of_player', '>=', 2)->count();
+        $copperTotal = ScheduleModel::where('number_of_player', '>=', 3)->count();
 
         return view('admin/doc/medals')
             ->with('medalData', $medalData)
