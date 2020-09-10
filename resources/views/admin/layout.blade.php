@@ -250,7 +250,7 @@
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 分組名冊 </span>
+                            <span class="m-menu__link-text"> 分組名冊（整合中） </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
@@ -258,7 +258,7 @@
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 隊伍名冊 </span>
+                            <span class="m-menu__link-text"> 隊伍名冊（整合中） </span>
                         </a>
                     </li>
 {{--                    <li class="m-menu__item " aria-haspopup="true">--}}
