@@ -123,8 +123,8 @@ class import extends Command
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '紀昊恩');
-        })->where('item', '速度過樁乙組-前溜雙足S形')
-            ->update(['item' => '速度過樁甲組-前溜雙足S形']);
+        })->where('item', '速度過樁乙組-前溜交叉形')
+            ->update(['item' => '速度過樁甲組-前溜交叉形']);
 
 
         AccountModel::create(['account' => 'admin', 'password' => '$2y$10$3S0Fjlx60PacjIHUxNiqfusqbNkdzyu2.euWSHnD4CJxN94qk8Kdi']);
@@ -293,6 +293,7 @@ class import extends Command
         $this->setGrouping('國小中年級', '男', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
         $this->setGrouping('國小中年級', '女', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
         $this->setGrouping('國小高年級', '男', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
+        $this->setGrouping('國小高年級', '女', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
         $this->setGrouping('國中', '男', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
         $this->setGrouping('大專', '男', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
         $this->setGrouping('大專', '女', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3');
