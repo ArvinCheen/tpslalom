@@ -126,6 +126,72 @@ class import extends Command
         })->where('item', '速度過樁乙組-前溜交叉形')
             ->update(['item' => '速度過樁甲組-前溜交叉形']);
 
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => PlayerModel::where('name', '陳以叡')->first()->id,
+                             'player_number' => PlayerModel::where('name', '陳以叡')->first()->id,
+                             'account_id'    => PlayerModel::where('name', '陳以叡')->first()->account_id,
+                             'group'         => '國小三年級',
+                             'gender'        => '男',
+                             'item'          => '速度過樁菁英組-前溜單足S形)',]);
+
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '張傅閔');
+        })->where('item', '速度過樁甲組-前溜雙足S形')
+            ->update(['item' => '速度過樁菁英組-前溜雙足S形']);
+
+
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '張傅閔');
+        })->where('item', '速度過樁甲組-前溜交叉形')
+            ->update(['item' => '速度過樁菁英組-前溜交叉形']);
+
+
+        PlayerModel::where('agency', '嘉義市博愛國小')->update(['manager' => '林穎生']);
+        PlayerModel::where('agency', '嘉義市興嘉國小')->update(['manager' => '周子筠']);
+        PlayerModel::where('agency', '嘉義市南興國民中學')->update(['manager' => '徐文龍']);
+        PlayerModel::where('agency', '嘉義縣竹崎高中國中部')->update(['manager' => '何靜如']);
+        PlayerModel::where('agency', '國立華南高級商業職業學校')->update(['manager' => '陳孟夆']);
+        PlayerModel::where('agency', '國立嘉義高級商業職業學校')->update(['manager' => '吳昔賢']);
+        PlayerModel::where('name', '李蘊芳')->update(['coach' => '王政基','manager' => '吳東諺']);
+        PlayerModel::where('name', '林祉彤')->update(['agency'=>'臺北市立成德國小','coach' => '牟志嵩','leader' => '連世傑','manager' => '吳錫賓']);
+
+        $playerId = PlayerModel::create([
+            'account_id'=>AccountModel::where('coach','李菁茹')->first()->id,
+            'name'=>'許旂菲',
+            'gender'=>'女',
+            'city'=>'新北市',
+            'agency'=>'新北市後埔國小',
+        ])->id;
+
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => $playerId,
+                             'player_number' => $playerId,
+                             'account_id'    => AccountModel::where('coach','李菁茹')->first()->id,
+                             'group'         => '國小高年級',
+                             'gender'        => '女',
+                             'item'          => '中級指定套路']);
+
+        unset($playerId);
+
+        $playerId = PlayerModel::create([
+            'account_id'=>AccountModel::where('coach','李菁茹')->first()->id,
+            'name'=>'許詠鈞',
+            'gender'=>'男',
+            'city'=>'新北市',
+            'agency'=>'新北市立海山附中',
+        ])->id;
+
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => $playerId,
+                             'player_number' => $playerId,
+                             'account_id'    => AccountModel::where('coach','李菁茹')->first()->id,
+                             'group'         => '國中',
+                             'gender'        => '男',
+                             'item'          => '中級指定套路']);
+        unset($playerId);
+
+//        新增選手-新北市立海山附中.許詠鈞-中級指定套路國中男子組
+
 
         AccountModel::create(['account' => 'admin', 'password' => '$2y$10$3S0Fjlx60PacjIHUxNiqfusqbNkdzyu2.euWSHnD4CJxN94qk8Kdi']);
 

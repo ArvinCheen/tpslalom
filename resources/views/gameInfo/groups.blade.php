@@ -15,51 +15,54 @@
             </div>
             <div class="col-md-12">
                 @foreach($groups as $key => $group)
-{{--                    @if ($group->item == '雙人花式繞樁')--}}
-{{--                        <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"--}}
-{{--                               aria-controls="{{ $key }}collapse">--}}
-{{--                            <thead class="{{ $key % 2 ? 'thead-dark' : null }}">--}}
-{{--                            <tr>--}}
-{{--                                <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">--}}
-{{--                                    {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->item }}--}}
-{{--                                </th>--}}
-{{--                                <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">--}}
-{{--                                    共 {{ count($group->players) }} 人--}}
-{{--                                </th>--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-{{--                        </table>--}}
-{{--                        <div class="collapse" id="{{ $key }}collapse">--}}
-{{--                            <table class="table table-striped table-bordered table-advance table-hover">--}}
-{{--                                <thead class="thead-inverse">--}}
-{{--                                </thead>--}}
-{{--                                <tbody>--}}
-{{--                                                                        <tr>--}}
-{{--                                                                            <td class="" style="">--}}
-{{--                                                                                雙人賽分組中--}}
-{{--                                                                            </td>--}}
-{{--                                                                        </tr>--}}
+                    @if ($group->item == '雙人花式繞樁')
+                        <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
+                               aria-controls="{{ $key }}collapse">
+                            <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
+                            <tr>
+                                <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                                    {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->item }}
+                                </th>
+                                <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                                    共 {{ count($group->players) }} 人
+                                </th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <div class="collapse" id="{{ $key }}collapse">
+                            <table class="table table-striped table-bordered table-advance table-hover">
+                                <thead class="thead-inverse">
+                                </thead>
+                                <tbody>
 {{--                                @foreach ($group->players as $player)--}}
 {{--                                    @if ($player->player->name == '邱映瑄')--}}
 {{--                                        <tr>--}}
 {{--                                            <td class="" style="">--}}
-{{--                                                164 邱映瑄 / 362 邱宇廷--}}
+{{--                                                邱映瑄 / 邱宇廷--}}
 {{--                                            </td>--}}
 {{--                                        </tr>--}}
 {{--                                    @endif--}}
 
-{{--                                    @if ($player->player->name == '范予僖')--}}
+{{--                                    @if ($player->player->name == '劉祐呈')--}}
 {{--                                        <tr>--}}
 {{--                                            <td class="" style="">--}}
-{{--                                                001 范予僖 / 193 黃淇宣--}}
+{{--                                                劉祐呈 / 劉哲呈--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endif--}}
+
+{{--                                    @if ($player->player->name == '侯鈞諺')--}}
+{{--                                        <tr>--}}
+{{--                                            <td class="" style="">--}}
+{{--                                                侯鈞諺 / 陳建廷--}}
 {{--                                            </td>--}}
 {{--                                        </tr>--}}
 {{--                                    @endif--}}
 {{--                                @endforeach--}}
-{{--                                </tbody>--}}
-{{--                            </table>--}}
-{{--                        </div>--}}
-{{--                    @else--}}
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
                         <table class="table table-striped  table-advance table-hover" style="cursor: pointer;" data-toggle="collapse" href="#{{ $key }}collapse" aria-expanded="false"
                                aria-controls="{{ $key }}collapse">
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
@@ -101,7 +104,7 @@
                                 </tbody>
                             </table>
                         </div>
-{{--                    @endif--}}
+                    @endif
                 @endforeach
 
             </div>
