@@ -21,7 +21,7 @@
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                             <tr>
                                 <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                    {{ $group->order }} （{ $group->game_type }} - {{ $group->group }} {{ $group->item }}
+                                    {{ $group->order }} {{ $group->game_type }} - {{ $group->group }} {{ $group->item }}
                                 </th>
                                 <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                     共 {{ count($group->players) }} 人
