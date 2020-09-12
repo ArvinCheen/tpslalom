@@ -21,7 +21,7 @@
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                             <tr>
                                 <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                    {{ $group->order }} （{{ $group->game_type }}）- {{ $group->group }} {{ $group->item }}
+                                    {{ $group->order }} （{ $group->game_type }} - {{ $group->group }} {{ $group->item }}
                                 </th>
                                 <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                     共 {{ count($group->players) }} 人
@@ -34,31 +34,31 @@
                                 <thead class="thead-inverse">
                                 </thead>
                                 <tbody>
-{{--                                @foreach ($group->players as $player)--}}
-{{--                                    @if ($player->player->name == '邱映瑄')--}}
-{{--                                        <tr>--}}
-{{--                                            <td class="" style="">--}}
-{{--                                                邱映瑄 / 邱宇廷--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endif--}}
+                                @foreach ($group->players as $player)
+                                    @if ($player->player->name == '邱映瑄')
+                                        <tr>
+                                            <td class="" style="">
+                                                邱映瑄 / 邱宇廷
+                                            </td>
+                                        </tr>
+                                    @endif
 
-{{--                                    @if ($player->player->name == '劉祐呈')--}}
-{{--                                        <tr>--}}
-{{--                                            <td class="" style="">--}}
-{{--                                                劉祐呈 / 劉哲呈--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endif--}}
+                                    @if ($player->player->name == '劉祐呈')
+                                        <tr>
+                                            <td class="" style="">
+                                                劉祐呈 / 劉哲呈
+                                            </td>
+                                        </tr>
+                                    @endif
 
-{{--                                    @if ($player->player->name == '侯鈞諺')--}}
-{{--                                        <tr>--}}
-{{--                                            <td class="" style="">--}}
-{{--                                                侯鈞諺 / 陳建廷--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
+                                    @if ($player->player->name == '侯鈞諺')
+                                        <tr>
+                                            <td class="" style="">
+                                                侯鈞諺 / 陳建廷
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
