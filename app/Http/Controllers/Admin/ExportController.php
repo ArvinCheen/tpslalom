@@ -207,22 +207,16 @@ class ExportController extends Controller
                 $manager .= $managerData->manager . '、';
             }
 
-            if ($coach == '') {
-                $coach   = '無';
-            } else {
-                $coach   = mb_substr($coach, 0, -1);
+            if ($coach <> '') {
+                $coach = mb_substr($coach, 0, -1);
             }
 
-            if ($leader == '') {
-                $leader   = '無';
-            } else {
-                $leader   = mb_substr($leader, 0, -1);
+            if ($leader <> '') {
+                $leader = mb_substr($leader, 0, -1);
             }
 
-            if ($manager == '') {
-                $manager   = '無';
-            } else {
-                $manager   = mb_substr($manager, 0, -1);
+            if ($manager <> '') {
+                $manager = mb_substr($manager, 0, -1);
             }
 
             if (strpos($agency->agency, $agency->city) !== false) {

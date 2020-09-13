@@ -202,6 +202,10 @@ class import extends Command
         PlayerModel::where('name', '王宥鈞')->update(['manager' => '徐文龍']);
         PlayerModel::where('name', '林子敬')->update(['manager' => '徐文龍']);
 
+        PlayerModel::where('coach', '無')->update(['coach' => '']);
+        PlayerModel::where('leader', '無')->update(['leader' => '']);
+        PlayerModel::where('manager', '無')->update(['manager' => '']);
+
         AccountModel::create(['account' => 'admin', 'password' => '$2y$10$3S0Fjlx60PacjIHUxNiqfusqbNkdzyu2.euWSHnD4CJxN94qk8Kdi']);
 
         $this->info('done');
