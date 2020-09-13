@@ -24,7 +24,7 @@
                             <th> 選手號碼</th>
                             <th style="width:80px"> 姓名</th>
                             <th> 組別</th>
-                            <th> 性別</th>
+                            <th style="width:50px"> 性別</th>
                             <th style="width:240px"> 項目</th>
                             <th style="width:80px"> 縣市</th>
                             <th> 單位</th>
