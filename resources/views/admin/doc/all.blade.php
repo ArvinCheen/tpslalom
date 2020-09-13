@@ -8,7 +8,9 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator"> 總冊 <small>共 {{ count($all) }} 人</small> </h3>
+                <h3 class="m-subheader__title m-subheader__title--separator"> 總冊
+                    <small>共 {{ count($all) }} 人</small>
+                </h3>
             </div>
         </div>
     </div>
@@ -19,16 +21,16 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th> 選手號碼 </th>
-                            <th style="width:80px"> 姓名 </th>
-                            <th> 組別 </th>
-                            <th> 性別 </th>
-                            <th style="width:240px"> 項目 </th>
-                            <th style="width:80px"> 縣市 </th>
-                            <th> 單位 </th>
-                            <th style="width:80px"> 教練 </th>
-                            <th style="width:80px"> 領隊 </th>
-                            <th style="width:80px"> 經理 </th>
+                            <th> 選手號碼</th>
+                            <th style="width:80px"> 姓名</th>
+                            <th> 組別</th>
+                            <th> 性別</th>
+                            <th style="width:240px"> 項目</th>
+                            <th style="width:80px"> 縣市</th>
+                            <th> 單位</th>
+                            <th style="width:80px"> 教練</th>
+                            <th style="width:80px"> 領隊</th>
+                            <th style="width:80px"> 經理</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,8 +41,8 @@
                                 <td> {{ $val->group }} </td>
                                 <td> {{ $val->gender }} </td>
                                 <td>
-                                @foreach($val->itemAll as $item)
-                                    {{$item}}<br>
+                                    @foreach($val->itemAll as $key => $item)
+                                        {{$key + 1}}. {{$item}}<br>
                                     @endforeach
                                 </td>
                                 <td> {{ $val->city }} </td>
