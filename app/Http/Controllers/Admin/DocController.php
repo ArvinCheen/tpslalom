@@ -19,13 +19,12 @@ class DocController extends Controller
 
     public function all()
     {
-
-//        $all = EnrollModel::orderBy('player_number')->get();
         $all = EnrollModel::select(\DB::raw('
             enroll.player_number, 
             name, 
             `group`, 
             enroll.gender, 
+            city,
             agency,
             coach, 
             leader, 
@@ -36,6 +35,10 @@ class DocController extends Controller
             ->where('enroll.game_id', config('app.game_id'))
             ->groupBy('enroll.player_number')
             ->get();
+
+        foreach ($all as $key => $val) {
+            $all[$key]['itemAll'] = explode(',',$val->itemAll);
+        }
 
         return view('admin/doc/all')->with(['all' => $all]);
     }
