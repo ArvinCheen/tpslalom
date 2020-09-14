@@ -213,6 +213,15 @@ class import extends Command
         })->where('item', '速度過樁菁英組-前溜單足S形')->where('group','高中')
             ->update(['group' => '大專']);
 
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '陳語彤');
+        })->where('item', '速度過樁乙組-前溜交叉形')->where('group','國小一年級')
+            ->update(['item' => '速度過樁甲組-前溜交叉形']);
+
+        PlayerModel::where('name', '李涔瑄')->update(['agency' => '新竹市私立康橋國中(小)']);
+        PlayerModel::where('name', '賴昀靖')->update(['agency' => '新竹市私立康橋國(中)小']);
+
+
         PlayerModel::where('coach', '無')->update(['coach' => '']);
         PlayerModel::where('leader', '無')->update(['leader' => '']);
         PlayerModel::where('manager', '無')->update(['manager' => '']);
