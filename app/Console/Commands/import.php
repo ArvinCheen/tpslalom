@@ -202,6 +202,17 @@ class import extends Command
         PlayerModel::where('name', '王宥鈞')->update(['manager' => '徐文龍']);
         PlayerModel::where('name', '林子敬')->update(['manager' => '徐文龍']);
 
+
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '鄭宇廷');
+        })->where('item', '個人速度過樁選手公開組')->where('group','青年')
+            ->update(['group' => '成年']);
+
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '賴徐捷');
+        })->where('item', '速度過樁菁英組-前溜單足S形')->where('group','高中')
+            ->update(['group' => '大專']);
+
         PlayerModel::where('coach', '無')->update(['coach' => '']);
         PlayerModel::where('leader', '無')->update(['leader' => '']);
         PlayerModel::where('manager', '無')->update(['manager' => '']);
