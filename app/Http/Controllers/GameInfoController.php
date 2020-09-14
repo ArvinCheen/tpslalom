@@ -16,7 +16,7 @@ class GameInfoController extends Controller
         if (is_null($scheduleId)) {
             $scheduleId = app(ScheduleModel::class)->getFirstScheduleId();
         }
-        $gameInfo = null;
+        $gameInfo           = null;
         $enrolls            = [];
         $schedules          = app(ScheduleModel::class)->getSchedules();
         $numberOfAppearance = app(EnrollModel::class)->where('game_id', config('app.game_id'))->whereNull('appearance')->count();
@@ -72,7 +72,7 @@ class GameInfoController extends Controller
                 // 雙人花不分性別
                 $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
                     ->where('group', $group)
-                    ->where('item',$item)
+                    ->where('item', $item)
                     ->orderBy('appearance')
                     ->orderBy('player_id')
                     ->get();
@@ -80,7 +80,7 @@ class GameInfoController extends Controller
                 $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
                     ->where('group', $group)
                     ->where('gender', $gender)
-                    ->where('item',$item)
+                    ->where('item', $item)
                     ->orderBy('appearance')
                     ->orderBy('player_id')
                     ->get();
@@ -117,22 +117,16 @@ class GameInfoController extends Controller
                 }
             }
 
-            if ($coach == '') {
-                $coach   = '無';
-            } else {
-                $coach   = mb_substr($coach, 0, -1);
+            if ($coach <> '') {
+                $coach = mb_substr($coach, 0, -1);
             }
 
-            if ($leader == '') {
-                $leader   = '無';
-            } else {
-                $leader   = mb_substr($leader, 0, -1);
+            if ($leader <> '') {
+                $leader = mb_substr($leader, 0, -1);
             }
 
-            if ($manager == '') {
-                $manager   = '無';
-            } else {
-                $manager   = mb_substr($manager, 0, -1);
+            if ($manager <> '') {
+                $manager = mb_substr($manager, 0, -1);
             }
 
             if (strpos($agency->agency, $agency->city) !== false) {
@@ -141,8 +135,8 @@ class GameInfoController extends Controller
                 $agencyName = $agency->city . $agency->agency;
             }
 
-            $agency->players = PlayerModel::where('agency',$agency->agency)->get();
-            $agency->agency = $agencyName;
+            $agency->players  = PlayerModel::where('agency', $agency->agency)->get();
+            $agency->agency   = $agencyName;
             $agency->teamMans = "教練： $coach / 領隊： $leader / 經理： $manager";
         }
 
@@ -153,6 +147,7 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/refereeTeam');
     }
+
     public function errata()
     {
         return view('gameInfo/errata');
@@ -162,7 +157,7 @@ class GameInfoController extends Controller
     {
         return view('gameInfo/nationalRecord');
     }
-    
+
     public function program()
     {
         return view('gameInfo/program');

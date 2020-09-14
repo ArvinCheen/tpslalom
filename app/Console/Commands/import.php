@@ -145,6 +145,14 @@ class import extends Command
         })->where('item', '速度過樁甲組-前溜交叉形')
             ->update(['item' => '速度過樁菁英組-前溜交叉形']);
 
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => PlayerModel::where('name', '張傅閔')->first()->id,
+                             'player_number' => PlayerModel::where('name', '張傅閔')->first()->id,
+                             'account_id'    => PlayerModel::where('name', '張傅閔')->first()->account_id,
+                             'group'         => '國小三年級',
+                             'gender'        => '男',
+                             'item'          => '速度過樁菁英組-前溜單足S形']);
+
 
         PlayerModel::where('agency', '嘉義市博愛國小')->update(['manager' => '林穎生']);
         PlayerModel::where('agency', '嘉義市興嘉國小')->update(['manager' => '周子筠']);

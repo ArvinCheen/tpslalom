@@ -196,15 +196,21 @@ class ExportController extends Controller
             $numberOfPlayer = PlayerModel::where('agency', $agency->agency)->get()->count();
 
             foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('coach')->groupBy('coach')->get() as $coachData) {
-                $coach .= $coachData->coach . '、';
+                if ($coachData->coach <> '') {
+                    $coach .= $coachData->coach . '、';
+                }
             }
 
             foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('leader')->groupBy('leader')->get() as $leaderData) {
-                $leader .= $leaderData->leader . '、';
+                if ($leaderData->leader <> '') {
+                    $leader .= $leaderData->leader . '、';
+                }
             }
 
             foreach (PlayerModel::where('agency', $agency->agency)->whereNotNull('manager')->groupBy('manager')->get() as $managerData) {
-                $manager .= $managerData->manager . '、';
+                if ($managerData->manager <> '') {
+                    $manager .= $managerData->manager . '、';
+                }
             }
 
             if ($coach <> '') {
