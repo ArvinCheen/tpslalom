@@ -79,7 +79,7 @@ class ExportController extends Controller
         ]);
 
         $gameName = GameModel::find(config('app.game_id'))->complete_name;
-        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($gameName . ' 分組名冊', ['size' => 20]);
+        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText('分組名冊', ['size' => 20]);
         $section->addTextBreak();
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
 
@@ -176,7 +176,7 @@ class ExportController extends Controller
             'marginTop'  => 700, 'marginBottom' => 700
         ]);
         $gameName = GameModel::find(config('app.game_id'))->complete_name;
-        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($gameName . ' 隊伍名冊', ['size' => 20]);
+        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText(' 隊伍名冊', ['size' => 20]);
         $section->addTextBreak();
 
         $agencys = PlayerModel::selectRaw('agency,city,count(*) as co')->groupBy('agency')->groupBy('city')->orderByDesc('co')->get();

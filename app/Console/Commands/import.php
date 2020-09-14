@@ -229,6 +229,9 @@ class import extends Command
         PlayerModel::where('name', '李涔瑄')->update(['agency' => '新竹市私立康橋國中(小)']);
         PlayerModel::where('name', '賴昀靖')->update(['agency' => '新竹市私立康橋國(中)小']);
 
+        EnrollModel::whereHas('player', function ($query) {
+            $query->where('name', '王綺萱');
+        })->delete();
 
         PlayerModel::where('coach', '無')->update(['coach' => '']);
         PlayerModel::where('leader', '無')->update(['leader' => '']);
