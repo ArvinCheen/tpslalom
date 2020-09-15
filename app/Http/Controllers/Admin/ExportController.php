@@ -274,7 +274,7 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,player.coach as 教練,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,player.coach as 教練,player.leader as 領隊,player.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
             ->leftjoin('player', 'player.id', 'enroll.player_id')
             ->groupBy('player_number')
             ->get();

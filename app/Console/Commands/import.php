@@ -114,12 +114,10 @@ class import extends Command
         })->where('item', '速度過樁乙組-前溜雙足S形')
             ->update(['item' => '速度過樁甲組-前溜雙足S形']);
 
-
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '紀昊恩');
         })->where('item', '速度過樁乙組-前溜雙足S形')
             ->update(['item' => '速度過樁甲組-前溜雙足S形']);
-
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '紀昊恩');
@@ -132,7 +130,7 @@ class import extends Command
                              'account_id'    => PlayerModel::where('name', '陳以叡')->first()->account_id,
                              'group'         => '國小三年級',
                              'gender'        => '男',
-                             'item'          => '速度過樁菁英組-前溜單足S形)',]);
+                             'item'          => '速度過樁菁英組-前溜單足S形',]);
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '張傅閔');
@@ -204,7 +202,6 @@ class import extends Command
                              'item'          => '中級指定套路']);
         unset($playerId);
 
-        PlayerModel::where('name', '陳語彤')->update(['agency' => '花蓮縣私立海星國小']);
 
         PlayerModel::where('name', '潘重佑')->update(['manager' => '何靜如']);
         PlayerModel::where('name', '王宥鈞')->update(['manager' => '徐文龍']);
@@ -213,17 +210,17 @@ class import extends Command
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '鄭宇廷');
-        })->where('item', '個人速度過樁選手公開組')->where('group','青年')
+        })->where('item', '個人速度過樁選手公開組')->where('group', '青年')
             ->update(['group' => '成年']);
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '賴徐捷');
-        })->where('item', '速度過樁菁英組-前溜單足S形')->where('group','高中')
+        })->where('item', '速度過樁菁英組-前溜單足S形')->where('group', '高中')
             ->update(['group' => '大專']);
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '陳語彤');
-        })->where('item', '速度過樁乙組-前溜交叉形')->where('group','國小一年級')
+        })->where('item', '速度過樁乙組-前溜交叉形')->where('group', '國小一年級')
             ->update(['item' => '速度過樁甲組-前溜交叉形']);
 
         PlayerModel::where('name', '李涔瑄')->update(['agency' => '新竹市私立康橋國中(小)']);
@@ -232,6 +229,45 @@ class import extends Command
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '王綺萱');
         })->delete();
+
+        $playerId = PlayerModel::create([
+            'account_id' => AccountModel::where('coach', '張友倫')->first()->id,
+            'name'       => '張友倫',
+            'gender'     => '男',
+            'city'       => '臺北市',
+            'coach'      => '連堂凱',
+            'leader'     => '張友倫',
+            'manager'    => '盧東輝',
+            'agency'     => '臺北市體育總會滑輪溜冰協會',
+        ])->id;
+
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => $playerId,
+                             'player_number' => $playerId,
+                             'account_id'    => AccountModel::where('coach', '張友倫')->first()->id,
+                             'group'         => '社會',
+                             'gender'        => '男',
+                             'item'          => '速度過樁菁英組-前溜交叉形']
+        );
+
+
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => $playerId,
+                             'player_number' => $playerId,
+                             'account_id'    => AccountModel::where('coach', '張友倫')->first()->id,
+                             'group'         => '社會',
+                             'gender'        => '男',
+                             'item'          => '速度過樁菁英組-前溜雙足S形']);
+        unset($playerId);
+
+
+        EnrollModel::create(['game_id'       => 1,
+                             'player_id'     => PlayerModel::where('name', '呂秉宥')->first()->id,
+                             'player_number' => PlayerModel::where('name', '呂秉宥')->first()->id,
+                             'account_id'    => PlayerModel::where('name', '呂秉宥')->first()->account_id,
+                             'group'         => '青年',
+                             'gender'        => '男',
+                             'item'          => '個人速度過樁選手公開組',]);
 
         PlayerModel::where('coach', '無')->update(['coach' => '']);
         PlayerModel::where('leader', '無')->update(['leader' => '']);
