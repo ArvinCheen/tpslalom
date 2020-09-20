@@ -473,7 +473,7 @@ class ExportController extends Controller
 //                            $cell->setValignment('center');
 //                        });
                         $sheet->cell('A43', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　八　月　十 六　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　十　月　五　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -666,7 +666,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　八　月　十　六　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　十　月　五　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
