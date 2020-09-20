@@ -32,7 +32,7 @@
                         <input type="text" class="form-control" name="completeName" value="{{ $completeName }}">
                     </div>
                     <div class="form-group">
-                        <label for="usr">審略號函一</label>
+                        <label for="usr">號函一</label>
                         <input type="text" class="form-control" name="letterOne" value="{{ $letterOne }}">
                     </div>
                     <div class="form-group">
