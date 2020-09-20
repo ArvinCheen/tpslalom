@@ -29,7 +29,7 @@
 {{--                    </div>--}}
                     <div class="form-group">
                         <label for="usr">賽事名稱</label>
-                        <input type="text" class="form-control" name="complete_name" value="{{ $gameInfo->complete_name }}">
+                        <input type="text" class="form-control" name="completeName" value="{{ $completeName }}">
                     </div>
                     <div class="form-group">
                         <label for="usr">審略號函一</label>

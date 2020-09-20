@@ -12,24 +12,20 @@ class SettingController extends Controller
 {
     public function index()
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo     = GameModel::find(config('app.game_id'));
+        $completeName = $gameInfo->complete_name;
+        $letterOne    = explode(' ', $gameInfo->letter)[0];
+        $letterTwo    = explode(' ', $gameInfo->letter)[1];
 
 
-        return view('admin/setting')->with(compact('gameInfo'));
+        return view('admin/setting')->with(compact('completeName', 'letterOne', 'letterTwo'));
     }
 
     public function update(Request $request)
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
-        $gameInfo->agency = $request->agency;
-        $gameInfo->abridge_name = $request->abridge_name;
-        $gameInfo->complete_name = $request->complete_name;
-        $gameInfo->letter = $request->letter;
-        $gameInfo->game_address = $request->game_address;
-        $gameInfo->game_date = $request->game_date;
-        $gameInfo->enroll_start_time = $request->enroll_start_time;
-        $gameInfo->enroll_close_time = $request->enroll_close_time;
-        $gameInfo->errata_close_time = $request->errata_close_time;
+        $gameInfo                = GameModel::find(config('app.game_id'));
+        $gameInfo->complete_name = $request->completeName;
+        $gameInfo->letter        = $request->letterOne . ' '.$request->letterTwo;
         $gameInfo->save();
 
         return back()->with(['success' => '修改成功']);
