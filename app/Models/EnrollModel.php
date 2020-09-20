@@ -170,9 +170,7 @@ class EnrollModel extends Model
         $gameInfo = ScheduleModel::find($scheduleId);
 
         $enrolls = $this->select('enroll.id')
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
-            ->where('level', $gameInfo->level)
             ->where('gender', $gameInfo->gender)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
