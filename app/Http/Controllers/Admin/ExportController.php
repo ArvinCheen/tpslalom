@@ -368,15 +368,13 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
-                            //todo 切割涵號
-                            $cell->setValue('臺教體署競(二)字第1090021472號');
+                            $cell->setValue(explode(' ',$gameInfo->letter)[0]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
-                            //todo 切割涵號
-                            $cell->setValue('臺教體署競(二)字第1090021061號');
+                            $cell->setValue(explode(' ',$gameInfo->letter)[1]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -549,15 +547,13 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
-                            //todo 切割涵號
-                            $cell->setValue('臺教體署競(二)字第1090021472號');
+                            $cell->setValue(explode(' ',$gameInfo->letter)[0]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
-                            //todo 切割涵號
-                            $cell->setValue('臺教體署競(二)字第1090021061號');
+                            $cell->setValue(explode(' ',$gameInfo->letter)[1]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
