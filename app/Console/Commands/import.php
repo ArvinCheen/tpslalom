@@ -248,7 +248,7 @@ class import extends Command
                              'account_id'    => AccountModel::where('coach', '張友倫')->first()->id,
                              'group'         => '社會',
                              'gender'        => '男',
-                             'item'          => '速度過樁菁英組-前溜交叉60形']
+                             'item'          => '速度過樁菁英組-前溜交叉形']
         );
 
 

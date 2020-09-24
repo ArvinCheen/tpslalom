@@ -19,7 +19,6 @@ class DrawLotsController extends Controller
                 $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $schedule->id)->first(); // 取得該場次的比賽資料
 
                 $enrolls = EnrollModel::select('enroll.id')->where('game_id', config('app.game_id'))// 取得該場次的選手列表
-                ->leftJoin('player', 'player.id', 'enroll.player_id')// 將選手資料表和比賽項目資料表做資料聯集
                 ->where('game_id', config('app.game_id'))// 設定比賽的ID
                 ->where('group', $gameInfo->group)// 設定該場次的組別
                 ->where('item', $gameInfo->item)// 設定該場次的比賽項目
@@ -41,8 +40,9 @@ class DrawLotsController extends Controller
     public function setDoubleFreeStyle()
     {
         $playerNumber = [
-            ['164', '362'],
-            ['1', '193'],
+            ['317', '655'],
+            ['635', '683'],
+            ['638', '653'],
         ];
 
         shuffle($playerNumber);

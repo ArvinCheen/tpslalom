@@ -18,142 +18,107 @@ class tmp extends Command
     protected $signature = 'tmp';
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = '109總統盃版本的隊伍名冊';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public $group = '國中';
-    public $item = '個人花式繞樁(男)';
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $schedules = ScheduleModel::where('game_type', '決賽')->where('item', 'like', '%選手菁英%')
-            ->orderBy('id')->get();
+        $coach = PlayerModel::groupBy('coach')->get();
 
-        foreach ($schedules as $schedule) {
-            if ($schedule->order == '場次33') {
-                $this->info('場次33 青年 女子組 速度過樁選手菁英組-前溜單足S形');
-                $this->info('358 劉巧兮 積分：12');
-                $this->info('160 丁于恩 積分：9');
-                $this->info('363 黃苗嫚 積分：7');
-                $this->info('266 王佑瑜 積分：5');
-                $this->info('128 楊允彣 積分：4');
-                $this->info('215 李蘊芳 積分：3');
-                $this->info('249 徐嘉欣 積分：2');
-                $this->info('173 江芮琳 積分：1');
-                $this->info('');
-                continue;
-            }
-
-            if ($schedule->order == '場次34') {
-                $this->info('場次34 青年 男子組 速度過樁選手菁英組積分賽-前溜單足S形');
-                $this->info('255 鄭宇翔 積分：12');
-                $this->info('373 郭加恩 積分：9');
-                $this->info('058 楊凱崴 積分：7');
-                $this->info('113 許至曦 積分：5');
-                $this->info('138 林子宸 積分：4');
-                $this->info('105 盧右晨 積分：3');
-                $this->info('061 巫蘇宇恩 積分：2');
-                $this->info('112 陳廷翊 積分：1');
-                $this->info('');
-                continue;
-            }
-
-            if ($schedule->order == '場次35') {
-                $this->info('場次35 成年 女子組 速度過樁選手菁英組積分賽-前溜單足S形');
-                $this->info('283 陳貝怡 積分：12');
-                $this->info('119 呂采榛 積分：9');
-                $this->info('282 羅珮瑜 積分：7');
-                $this->info('252 梁宣旼 積分：5');
-                $this->info('159 王佳葳 積分：4');
-                $this->info('');
-                continue;
-            }
-
-            if ($schedule->order == '場次36') {
-                $this->info('場次36 成年 男子組 速度過樁選手菁英組積分賽-前溜單足S形');
-                $this->info('281 陳昱錡 積分：12');
-                $this->info('172 鄭睿綸 積分：9');
-                $this->info('256 李孝恒 積分：7');
-                $this->info('186 呂尚豐 積分：5');
-                $this->info('065 楊曾智 積分：4');
-                $this->info('352 吳東諺 積分：3');
-                $this->info('253 賴徐捷 積分：2');
-                $this->info('254 盧奕辰 積分：1');
-                $this->info('');
-                continue;
-            }
-
-            if ($schedule->order == '場次52') {
-                $this->info('場次52 國中 男子組 速度過樁選手菁英-前溜單足S形');
-                $this->info('373 郭加恩 積分：12');
-                $this->info('058 楊凱崴 積分：9');
-                $this->info('061 巫蘇宇恩 積分：7');
-                $this->info('264 黃緯華 積分：5');
-                $this->info('113 許至曦 積分：4');
-                $this->info('263 黃品睿 積分：3');
-                $this->info('219 滑彥凱 積分：2');
-                $this->info('267 王宥鈞 積分：1');
-                $this->info('');
-                continue;
-            }
-
-            if ($schedule->order == '場次53') {
-                $this->info('場次53 國中 女子組 速度過樁選手菁英-前溜單足S形');
-                $this->info('118 游涵伃 積分：12');
-                $this->info('215 李蘊芳 積分：9');
-                $this->info('128 楊允彣 積分：7');
-                $this->info('275 江艾琳 積分：5');
-                $this->info('106 丁昕羽 積分：4');
-                $this->info('089 涂舒婷 積分：3');
-                $this->info('095 張芃竹 積分：2');
-                $this->info('330 林紜妘 積分：1');
-                $this->info('');
-                continue;
-            }
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                $query->where('gender', $schedule->gender);
-            })
-                ->where('game_id', config('app.game_id'))
-                ->where('group', $schedule->group)
-                ->where('item', $schedule->item)
-                ->whereNotNull('rank')
-                ->orderBy('rank')
-                ->limit(8)
-                ->get();
-
-            $積分 = [
-                1 => 12,
-                2 => 9,
-                3 => 7,
-                4 => 5,
-                5 => 4,
-                6 => 3,
-                7 => 2,
-                8 => 1,
-            ];
-            $this->info($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . '子組 ' . $schedule->item);
-            foreach ($enrolls as $enroll) {
-                $this->info($enroll->player->id . ' ' . $enroll->player->name . ' 積分：' . $積分[$enroll->rank]);
+        foreach ($coach as $v) {
+            $this->info('教練：'.$v->coach);
+            foreach (PlayerModel::where('coach',$v->coach)->get() as $vv) {
+                $this->info($vv->id.' '.$vv->name);
             }
             $this->info('');
+        }
+dd();
+        $aminoAcid = [
+            1  => '苯丙胺酸',
+            2  => '白胺酸',
+            3  => '異白胺酸',
+            4  => '甲硫胺酸',
+            5  => '纈胺酸',
+            6  => '絲胺酸',
+            7  => '脯胺酸',
+            8  => '蘇胺酸',
+            9  => '丙胺酸',
+            10 => '酪胺酸',
+            11 => '組胺酸',
+            12 => '離胺酸',
+            13 => '天門冬胺酸',
+            14 => '麩胺酸',
+            15 => '半胱胺酸',
+            16 => '色胺酸',
+            17 => '精胺酸',
+            18 => '甘胺酸',
+            19 => '麩胺醯胺',
+            20 => '天門冬醯胺'
+        ];
+
+        foreach ($aminoAcid as $k => $v) {
+            $this->info($k.','.$v);
+        }
+
+//        \DB::table('amino_acid')->truncate();
+//        \DB::table('amino_acid')->insert(['id' => 1, 'name' => $aminoAcid[1]]);
+//        \DB::table('amino_acid')->insert(['id' => 2, 'name' => $aminoAcid[2]]);
+//        \DB::table('amino_acid')->insert(['id' => 3, 'name' => $aminoAcid[3]]);
+//        \DB::table('amino_acid')->insert(['id' => 4, 'name' => $aminoAcid[4]]);
+//        \DB::table('amino_acid')->insert(['id' => 5, 'name' => $aminoAcid[5]]);
+//        \DB::table('amino_acid')->insert(['id' => 6, 'name' => $aminoAcid[6]]);
+//        \DB::table('amino_acid')->insert(['id' => 7, 'name' => $aminoAcid[7]]);
+//        \DB::table('amino_acid')->insert(['id' => 8, 'name' => $aminoAcid[8]]);
+//        \DB::table('amino_acid')->insert(['id' => 9, 'name' => $aminoAcid[9]]);
+//        \DB::table('amino_acid')->insert(['id' => 10, 'name' => $aminoAcid[10]]);
+//        \DB::table('amino_acid')->insert(['id' => 11, 'name' => $aminoAcid[11]]);
+//        \DB::table('amino_acid')->insert(['id' => 12, 'name' => $aminoAcid[12]]);
+//        \DB::table('amino_acid')->insert(['id' => 13, 'name' => $aminoAcid[13]]);
+//        \DB::table('amino_acid')->insert(['id' => 14, 'name' => $aminoAcid[14]]);
+//        \DB::table('amino_acid')->insert(['id' => 15, 'name' => $aminoAcid[15]]);
+//        \DB::table('amino_acid')->insert(['id' => 16, 'name' => $aminoAcid[16]]);
+//        \DB::table('amino_acid')->insert(['id' => 17, 'name' => $aminoAcid[17]]);
+//        \DB::table('amino_acid')->insert(['id' => 18, 'name' => $aminoAcid[18]]);
+//        \DB::table('amino_acid')->insert(['id' => 19, 'name' => $aminoAcid[19]]);
+//        \DB::table('amino_acid')->insert(['id' => 20, 'name' => $aminoAcid[20]]);
+
+        $characteristic = [
+            1 => null,
+            2 => null,
+            3 => null,
+            4 => null,
+        ];
+
+        $characteristicNumber = 1;
+
+        foreach ($aminoAcid as $key1 => $v1) {
+
+            $characteristic[1] = "($key1)$v1";
+
+            foreach ($aminoAcid as $key2 => $v2) {
+                $characteristic[2] = "($key2)$v2";
+
+                foreach ($aminoAcid as $key3 => $v3) {
+                    $characteristic[3] = "($key3)$v3";
+
+                    foreach ($aminoAcid as $key4 => $v4) {
+                        $characteristic[4] = "($key4)$v4";
+//                        \DB::table('characteristic')->insert([
+//                            'id'      => $characteristicNumber,
+//                            'amino_1' => $key1,
+//                            'amino_2' => $key2,
+//                            'amino_3' => $key3,
+//                            'amino_4' => $key4,
+//                            'name'    => null,
+//                        ]);
+
+                        $this->info($characteristicNumber . ',' . $characteristic[1] . ',' . $characteristic[2] . ',' . $characteristic[3] . ',' . $characteristic[4].',特性');
+
+                        $characteristicNumber++;
+                    }
+                }
+            }
         }
     }
 }
