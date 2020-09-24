@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 
 class import extends Command
 {
-    protected $signature = 'import {type}';
+    protected $signature = 'import';
 
     protected $description = 'Command description';
 
@@ -21,14 +21,9 @@ class import extends Command
 
     public function handle()
     {
-        if ($this->argument('type') == 'player') {
+//        dd('已抽完籤，無法匯入');
             $this->importPlayer();
             $this->importSchedule();
-        } else if ($this->argument('type') == 'schedule') {
-            $this->importSchedule();
-        } else {
-            $this->info('指令錯誤');
-        }
     }
 
     private function importPlayer()
@@ -306,7 +301,11 @@ class import extends Command
         )->update(['item'=>'速度過樁菁英組-前溜單足S形']);
 
 
+
+
         PlayerModel::where('name', '廖信華')->update(['leader' => '郭芳朱']);
+
+        EnrollModel::where('group', '成年')->where('item','花式煞停')->update(['gender' => '不分']);
 
         $this->info('done');
     }
@@ -466,6 +465,7 @@ class import extends Command
         $this->setGrouping('國中', '男', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('國中', '女', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('大專', '男', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
+        $this->setGrouping('大專', '女', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('社會', '男', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('社會', '女', '初級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('國小低年級', '女', '中級指定套路', '', '國道三號龍潭段橋下溜冰場', '3', '360');
@@ -491,7 +491,7 @@ class import extends Command
         $this->setGrouping('社會', '女', '個人花式繞樁', '', '國道三號龍潭段橋下溜冰場', '3', '300');
         $this->setGrouping('青年', '男', '花式煞停', '', '國道三號龍潭段橋下溜冰場', '3', '900');
         $this->setGrouping('青年', '女', '花式煞停', '', '國道三號龍潭段橋下溜冰場', '3', '900');
-        $this->setGrouping('成年', '男', '花式煞停', '', '國道三號龍潭段橋下溜冰場', '3', '900');
+        $this->setGrouping('成年', '不分', '花式煞停', '', '國道三號龍潭段橋下溜冰場', '3', '900');
 
         //決賽人數，只會有八人\
 

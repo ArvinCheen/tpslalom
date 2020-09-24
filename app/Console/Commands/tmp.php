@@ -33,7 +33,7 @@ class tmp extends Command
             }
             $this->info('');
         }
-dd();
+
         $aminoAcid = [
             1  => '苯丙胺酸',
             2  => '白胺酸',
