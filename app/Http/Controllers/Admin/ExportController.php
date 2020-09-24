@@ -334,8 +334,8 @@ class ExportController extends Controller
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
-                        $sheet->mergeCells('G13:K13');
-                        $sheet->mergeCells('G14:K14');
+                        $sheet->mergeCells('C13:K13');
+                        $sheet->mergeCells('C14:K14');
                         $sheet->mergeCells('C15:E15');
                         $sheet->mergeCells('F15:K15');
                         $sheet->mergeCells('C17:E17');
@@ -367,14 +367,16 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue(explode(' ',$gameInfo->letter)[0]);
+                        $sheet->cell('C13', function ($cell) use ($enroll, $gameInfo) {
+                            $cell->setValue(explode(' ', $gameInfo->letter)[0]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue(explode(' ',$gameInfo->letter)[1]);
+                        $sheet->cell('C14', function ($cell) use ($enroll, $gameInfo) {
+                            if (isset(explode(' ', $gameInfo->letter)[1])) {
+                                $cell->setValue(explode(' ', $gameInfo->letter)[1]);
+                            }
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
@@ -514,8 +516,8 @@ class ExportController extends Controller
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
-                        $sheet->mergeCells('G13:K13');
-                        $sheet->mergeCells('G14:K14');
+                        $sheet->mergeCells('C13:K13');
+                        $sheet->mergeCells('C14:K14');
                         $sheet->mergeCells('C15:E15');
                         $sheet->mergeCells('F15:K15');
                         $sheet->mergeCells('C17:E17');
@@ -546,14 +548,16 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G13', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue(explode(' ',$gameInfo->letter)[0]);
+                        $sheet->cell('C13', function ($cell) use ($enroll, $gameInfo) {
+                            $cell->setValue(explode(' ', $gameInfo->letter)[0]);
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('G14', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue(explode(' ',$gameInfo->letter)[1]);
+                        $sheet->cell('C14', function ($cell) use ($enroll, $gameInfo) {
+                            if (isset(explode(' ', $gameInfo->letter)[1])) {
+                                $cell->setValue(explode(' ', $gameInfo->letter)[1]);
+                            }
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
