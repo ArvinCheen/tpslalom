@@ -24,15 +24,17 @@ class tmp extends Command
      */
     public function handle()
     {
-        $coach = PlayerModel::groupBy('coach')->get();
+        foreach (PlayerModel::groupBy('coach')->get() as $v) {
+            $players = PlayerModel::where('coach',$v->coach)->orderBy('id')->get();
 
-        foreach ($coach as $v) {
-            $this->info('教練：'.$v->coach);
-            foreach (PlayerModel::where('coach',$v->coach)->get() as $vv) {
-                $this->info($vv->id.' '.$vv->name);
+            $this->info('團隊教練：'.$v->coach);
+            foreach ($players as $player) {
+
+                $this->info("$player->id, $player->name, $player->cloth_size, $player->agency");
             }
-            $this->info('');
+            $this->info(' ');
         }
+        dd();
 
         $aminoAcid = [
             1  => '苯丙胺酸',
@@ -58,7 +60,7 @@ class tmp extends Command
         ];
 
         foreach ($aminoAcid as $k => $v) {
-            $this->info($k.','.$v);
+            $this->info($k . ',' . $v);
         }
 
 //        \DB::table('amino_acid')->truncate();
@@ -113,7 +115,7 @@ class tmp extends Command
 //                            'name'    => null,
 //                        ]);
 
-                        $this->info($characteristicNumber . ',' . $characteristic[1] . ',' . $characteristic[2] . ',' . $characteristic[3] . ',' . $characteristic[4].',特性');
+                        $this->info($characteristicNumber . ',' . $characteristic[1] . ',' . $characteristic[2] . ',' . $characteristic[3] . ',' . $characteristic[4] . ',特性');
 
                         $characteristicNumber++;
                     }

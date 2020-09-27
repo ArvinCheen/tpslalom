@@ -15,7 +15,7 @@ class PlayerModel extends Model
 {
     protected $table = 'player';
 
-    protected $fillable = ['id','account_id', 'name', 'gender', 'city', 'agency','coach','leader','manager'];
+    protected $fillable = ['id','account_id', 'name', 'gender', 'city', 'agency','coach','leader','manager','cloth_size'];
 
     public function store($playerId, $data)
     {
