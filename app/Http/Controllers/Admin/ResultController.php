@@ -94,6 +94,7 @@ class ResultController extends Controller
                 arsort($judge_5);
             }
             $rank = 1;
+
             foreach ($judge_1 as $key => $val) {
                 $評分表[$key][] = $rank;
                 $rank++;
@@ -122,7 +123,7 @@ class ResultController extends Controller
             }
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
-
+//dd($評分表);
                 $評分表暫存     = $評分表;
                 $score     = 0;
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
@@ -179,7 +180,6 @@ class ResultController extends Controller
                 $得勝分表[$key][] = $多數得勝分;
                 $得勝分表[$key][] = '';
                 $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
-                $總分           = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
 
                 $總計得勝分 = 0;
 
@@ -188,25 +188,64 @@ class ResultController extends Controller
                     $總計得勝分 += $得勝分表[$key][$i];
                 }
                 $得勝分表[$key][] = $總計得勝分;
-                $得勝分表[$key][] = $總分;
-                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5; #總分
+                $得勝分表[$key][] = ''; #名次
                 $多數得勝分        = 0;
             }
         }
 
         $第一層 = $numberOfPlayer;
-        $第二層 = $第一層 + 1;
-        $第三層 = $第二層 + 1;
+        $第二層 = $numberOfPlayer + 1;
+//        $第三層 = $numberOfPlayer + 2;
 //        if ($schedule->item <> '初級指定套路') {
-        $第四層 = $第三層 + 1;
-        $第五層 = $第四層 + 1;
-        $名次層 = $第五層 + 1;
+//        $第四層 = $numberOfPlayer + 3;
+//        $第五層 = $numberOfPlayer + 4;
+        $名次層 = $numberOfPlayer + 5;
 //        } else {
 //            $名次層 = $第三層 + 1;
 //        }
 
 
-        // 算第一層同樣名次
+        //計算第二層 開始
+        //先知道哪些分數是重復的
+        $tmp = null;
+        foreach ($得勝分表 as $v) {
+            $tmp[$v[$第一層]]=0;
+
+        }
+
+        //重復的分數計算重復幾次
+        foreach ($得勝分表 as $v) {
+            $tmp[$v[$第一層]]++;
+        }
+
+        //把沒重復的分數去掉，專心處理重復的分數
+        foreach ($tmp as $key => $v) {
+            if ($tmp[$key] == 1) {
+                unset($tmp[$key]);
+            }
+        }
+
+        //把重復的分數放入key，對應的選手放到value
+        //先把value清掉
+        foreach ($tmp as $key => $v) {
+            $tmp[$key] = null;
+        }
+
+        //把分數重復的選手抓出來
+        $tmpPlayer = null;
+
+        foreach ($tmp as $key1 => $v1) {
+            foreach ($得勝分表 as $key2 => $v2) {
+                if ($v2[$第一層] == $key1) {
+                    $tmp[$key1][] = $key2;
+                }
+            }
+        }
+dd($tmp);
+        //計算第二層 結束
+
+        // 算第一層同樣名次 ，目前名次只計算到第一層
         $tmpRank   = [];
         $tmpRankv2 = [];
         foreach ($得勝分表 as $選手) {
@@ -230,6 +269,8 @@ class ResultController extends Controller
         foreach ($得勝分表 as $key => $選手) {
             $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
         }
+
+
 
 
 //        $rank = 1;

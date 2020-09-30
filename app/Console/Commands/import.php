@@ -206,17 +206,17 @@ class import extends Command
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '鄭宇廷');
-        })->where('item', '個人速度過樁選手公開組')->where('group', '青60年')
+        })->where('item', '個人速度過樁選手公開組')->where('group', '青年')
             ->update(['group' => '成年']);
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '賴徐捷');
-        })->where('item', '速度過樁菁英組-前溜單足S形')->where('group', '高60中')
+        })->where('item', '速度過樁菁英組-前溜單足S形')->where('group', '高中')
             ->update(['group' => '大專']);
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '陳語彤');
-        })->where('item', '速度過樁乙組-前溜交叉形')->where('group', '國小一年120級')
+        })->where('item', '速度過樁乙組-前溜交叉形')->where('group', '國小一年級')
             ->update(['item' => '速度過樁甲組-前溜交叉形']);
 
         PlayerModel::where('name', '李涔瑄')->update(['agency' => '新竹市私立康橋國中(小)']);
