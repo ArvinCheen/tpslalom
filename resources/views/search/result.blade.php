@@ -85,7 +85,7 @@
                         @case('speed')
                         @foreach ($result as $key => $val)
                             <tr>
-                                <td class="text-center"> {{$val->name}}({{ $val->player_number }})</td>
+                                <td class="text-center"> {{ $val->player_number }} {{$val->player->name}}</td>
                                 <td class="text-center"> {{ $val->round_one_second }}</td>
                                 <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }}</td>
                                 <td class="text-center"> {{ $val->round_two_second }}</td>

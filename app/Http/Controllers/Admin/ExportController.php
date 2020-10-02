@@ -322,7 +322,7 @@ class ExportController extends Controller
                 $sheet->row(2, ['名次', '姓名', '教練']);
                 $initIndex = 3;
                 foreach ($enrolls as $enroll) {
-                    $sheet->row($initIndex, [$enroll->rank, '(' . $enroll->player_number . ') ' . $enroll->player->name, $enroll->player->coach]);
+                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->coach]);
                     $initIndex++;
                 }
             });
@@ -504,7 +504,7 @@ class ExportController extends Controller
                 $sheet->row(2, ['名次', '姓名', '教練']);
                 $initIndex = 3;
                 foreach ($enrolls as $enroll) {
-                    $sheet->row($initIndex, [$enroll->rank, '(' . $enroll->player_number . ') ' . $enroll->player->name, $enroll->player->coach]);
+                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->coach]);
                     $initIndex++;
                 }
             });
