@@ -6,6 +6,7 @@ use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
+use const Grpc\CHANNEL_READY;
 use Illuminate\Http\Request;
 use App\Models\EnrollModel;
 use App\Services\ResultService;
@@ -195,6 +196,7 @@ class ResultController extends Controller
         }
 
         $第一層 = $numberOfPlayer;
+//        dd($numberOfPlayer);
         $第二層 = $numberOfPlayer + 1;
 //        $第三層 = $numberOfPlayer + 2;
 //        if ($schedule->item <> '初級指定套路') {
@@ -208,69 +210,81 @@ class ResultController extends Controller
 
         //計算第二層 開始
         //先知道哪些分數是重復的
-        $tmp = null;
-        foreach ($得勝分表 as $v) {
-            $tmp[$v[$第一層]]=0;
-
-        }
-
-        //重復的分數計算重復幾次
-        foreach ($得勝分表 as $v) {
-            $tmp[$v[$第一層]]++;
-        }
-
-        //把沒重復的分數去掉，專心處理重復的分數
-        foreach ($tmp as $key => $v) {
-            if ($tmp[$key] == 1) {
-                unset($tmp[$key]);
-            }
-        }
-
-        //把重復的分數放入key，對應的選手放到value
-        //先把value清掉
-        foreach ($tmp as $key => $v) {
-            $tmp[$key] = null;
-        }
-
-        //把分數重復的選手抓出來
-        $tmpPlayer = null;
-
-        foreach ($tmp as $key1 => $v1) {
-            foreach ($得勝分表 as $key2 => $v2) {
-                if ($v2[$第一層] == $key1) {
-                    $tmp[$key1][] = $key2;
-                }
-            }
-        }
-dd($tmp);
-        //計算第二層 結束
-
-        // 算第一層同樣名次 ，目前名次只計算到第一層
-        $tmpRank   = [];
-        $tmpRankv2 = [];
-        foreach ($得勝分表 as $選手) {
-            $tmpRank[$選手[$第一層]] = null;
-
-            if (isset($tmpRankv2[$選手[$第一層]])) {
-                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-            } else {
-                $tmpRankv2[$選手[$第一層]] = 1;
-            }
-
-            $rank++;
-        }
-        $rank = 1;
-        krsort($tmpRank);
-        foreach ($tmpRank as $key => $val) {
-            $tmpRank[$key] = $rank;
-            $rank++;
-        }
-
-        foreach ($得勝分表 as $key => $選手) {
-            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-        }
-
-
+//        $重復的分數陣列 = null;
+//        foreach ($得勝分表 as $v) {
+//            $重復的分數陣列[$v[$第一層]] = 0;
+//        }
+//
+//        //重復的分數計算重復幾次
+//        foreach ($得勝分表 as $v) {
+//            $重復的分數陣列[$v[$第一層]]++;
+//        }
+//
+//        //把沒重復的分數去掉，專心處理重復的分數
+//        foreach ($重復的分數陣列 as $key => $v) {
+//            if ($重復的分數陣列[$key] == 1) {
+//                unset($重復的分數陣列[$key]);
+//            }
+//        }
+//
+//        //把重復的分數放入key，對應的選手放到value
+//        //先把value清掉
+//        foreach ($重復的分數陣列 as $key => $v) {
+//            $重復的分數陣列[$key] = null;
+//        }
+//
+//        $選手對應的陣列席位 = [];
+//        $x         = 0;
+//        foreach ($得勝分表 as $k => $v) {
+//            $選手對應的陣列席位[$k] = $x;
+//            $x++;
+//        }
+//
+//        //把分數重復的選手抓出來
+//        $重復的分數陣列Player = null;
+//
+//        foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
+//            foreach ($得勝分表 as $playerNumber => $分數資料結構) {
+//                if ($分數資料結構[$第一層] == $重復的分數) {
+//                    $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
+//
+//                }
+//            }
+//        }
+//
+//        krsort($重復的分數陣列);
+////        dd($得勝分表);
+//        foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
+// dd($重復的分數陣列);
+//        }
+////        dd($得勝分表);
+//        //目前寫到這裡 todo
+//        //計算第二層 結束
+//
+//        // 算第一層同樣名次 ，目前名次只計算到第一層
+//        $tmpRank   = [];
+//        $tmpRankv2 = [];
+//        foreach ($得勝分表 as $選手) {
+//            $tmpRank[$選手[$第一層]] = null;
+//
+//            if (isset($tmpRankv2[$選手[$第一層]])) {
+//                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+//            } else {
+//                $tmpRankv2[$選手[$第一層]] = 1;
+//            }
+//
+//            $rank++;
+//        }
+//        $rank = 1;
+//        krsort($tmpRank);
+//        foreach ($tmpRank as $key => $val) {
+//            $tmpRank[$key] = $rank;
+//            $rank++;
+//        }
+//
+//        foreach ($得勝分表 as $key => $選手) {
+//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+//        }
 
 
 //        $rank = 1;

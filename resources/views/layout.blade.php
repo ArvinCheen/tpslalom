@@ -53,8 +53,8 @@
 {{--                                <a href="#">成績公告</a>--}}
 {{--                                <ul>--}}
                                     <li>
-{{--                                        <a href="{{ URL('search/result') }}"> --}}
-                                            <a>成績查詢（未開放） </a>
+                                        <a href="{{ URL('search/result') }}">
+                                            成績查詢（未開放） </a>
                                     </li>
 {{--                                    <li>--}}
 {{--                                        <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
