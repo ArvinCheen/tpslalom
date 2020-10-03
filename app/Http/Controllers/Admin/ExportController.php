@@ -726,7 +726,10 @@ class ExportController extends Controller
 
     public function records()
     {
-        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))
+            ->orderByDesc('id')
+            ->limit(1)
+            ->get();
 
         Excel::create('紀錄手寫單', function ($excel) use ($schedules) {
             foreach ($schedules as $schedule) {
@@ -838,15 +841,12 @@ class ExportController extends Controller
                     $sheet->setHeight('3', 33);
                     $sheet->setHeight('5', 33);
                     $gameId = $schedule->game_id;
-                    $level  = $schedule->level;
                     $group  = $schedule->group;
                     $gender = $schedule->gender;
                     $item   = $schedule->item;
 
 
-                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($gender) {
-                        $query->where('gender', $gender);
-                    })
+                    $enrolls = EnrollModel::where('gender', $gender)
                         ->where('game_id', $gameId)
                         ->where('group', $group)
                         ->where('item', $item)
