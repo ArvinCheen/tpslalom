@@ -22,7 +22,7 @@ class import extends Command
     public function handle()
     {
 //        dd('已抽完籤，無法匯入');
-            $this->importPlayer();
+//            $this->importPlayer();
             $this->importSchedule();
     }
 
