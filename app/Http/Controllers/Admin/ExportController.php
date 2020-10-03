@@ -383,7 +383,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C15', function ($cell) use ($enroll) {
                             $cell->setValue('單　　　位：');
-                            $cell->setFontSize(18);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -564,7 +564,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C15', function ($cell) use ($enroll) {
                             $cell->setValue('單　　　位：');
-                            $cell->setFontSize(20);
+                            $cell->setFontSize(24);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
