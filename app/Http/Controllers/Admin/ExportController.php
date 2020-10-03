@@ -1160,7 +1160,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
                     $sheet->cell('F3', function ($cell) {
-                        $cell->setValue('失誤黼分');
+                        $cell->setValue('失誤輔分');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
@@ -1175,11 +1175,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
-                        if ($schedule->item <> '雙人花式繞樁') {
-                            $query->where('gender', $schedule->gender);
-                        }
-                    })
+                    $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
                         ->orderBy('appearance')
@@ -1289,11 +1285,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
-                        if ($schedule->item <> '雙人花式繞樁') {
-                            $query->where('gender', $schedule->gender);
-                        }
-                    })
+                    $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
                         ->orderBy('appearance')
@@ -1397,11 +1389,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
-                        if ($schedule->item <> '雙人花式繞樁') {
-                            $query->where('gender', $schedule->gender);
-                        }
-                    })
+                    $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
                         ->orderBy('appearance')
@@ -1504,11 +1492,7 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::whereHas('player', function ($query) use ($schedule) {
-                        if ($schedule->item <> '雙人花式繞樁') {
-                            $query->where('gender', $schedule->gender);
-                        }
-                    })
+                    $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
                         ->orderBy('appearance')
