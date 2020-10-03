@@ -727,8 +727,6 @@ class ExportController extends Controller
     public function records()
     {
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))
-            ->orderByDesc('id')
-            ->limit(1)
             ->get();
 
         Excel::create('紀錄手寫單', function ($excel) use ($schedules) {
