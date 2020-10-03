@@ -499,12 +499,38 @@ class ExportController extends Controller
                     'C' => 24,
                 ));
 
+
                 $sheet->mergeCells("A1:H1");
                 $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
                 $sheet->row(2, ['名次', '姓名', '教練']);
+
+                $sheet->cell('A1', function ($cell) {
+                    $cell->setFontSize(20);
+                });
+                $sheet->cell('A2', function ($cell) {
+                    $cell->setFontSize(20);
+                });
+                $sheet->cell('B2', function ($cell) {
+                    $cell->setFontSize(20);
+                });
+                $sheet->cell('C2', function ($cell) {
+                    $cell->setFontSize(20);
+                });
                 $initIndex = 3;
                 foreach ($enrolls as $enroll) {
                     $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->coach]);
+
+                    $sheet->cell('A'.$initIndex, function ($cell) {
+                        $cell->setFontSize(20);
+                    });
+
+                    $sheet->cell('B'.$initIndex, function ($cell) {
+                        $cell->setFontSize(20);
+                    });
+
+                    $sheet->cell('C'.$initIndex, function ($cell) {
+                        $cell->setFontSize(20);
+                    });
                     $initIndex++;
                 }
             });

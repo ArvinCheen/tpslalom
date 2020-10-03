@@ -62,7 +62,7 @@ class CalculationScheduleTime extends Command
                 $每次上場人數 = 1;
                 break;
             default:
-                $每次上場人數 = 2;
+                $每次上場人數 = 4;
                 break;
 
         }
