@@ -179,7 +179,7 @@ class ResultController extends Controller
                 $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('player_id', $key)->where('group', $group)->where('item', $item)->first();
 
                 $得勝分表[$key][] = $多數得勝分;
-                $得勝分表[$key][] = '';
+                $得勝分表[$key][] = null;
                 $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
 
                 $總計得勝分 = 0;
@@ -190,7 +190,7 @@ class ResultController extends Controller
                 }
                 $得勝分表[$key][] = $總計得勝分;
                 $得勝分表[$key][] = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5; #總分
-                $得勝分表[$key][] = ''; #名次
+                $得勝分表[$key][] = null; #名次
                 $多數得勝分        = 0;
             }
         }
@@ -210,85 +210,89 @@ class ResultController extends Controller
 
         //計算第二層 開始
         //先知道哪些分數是重復的
-//        $重復的分數陣列 = null;
-//        foreach ($得勝分表 as $v) {
-//            $重復的分數陣列[$v[$第一層]] = 0;
-//        }
-//
-//        //重復的分數計算重復幾次
-//        foreach ($得勝分表 as $v) {
-//            $重復的分數陣列[$v[$第一層]]++;
-//        }
-//
-//        //把沒重復的分數去掉，專心處理重復的分數
-//        foreach ($重復的分數陣列 as $key => $v) {
-//            if ($重復的分數陣列[$key] == 1) {
-//                unset($重復的分數陣列[$key]);
-//            }
-//        }
-//
-//        //把重復的分數放入key，對應的選手放到value
-//        //先把value清掉
-//        foreach ($重復的分數陣列 as $key => $v) {
-//            $重復的分數陣列[$key] = null;
-//        }
-//
-//        $選手對應的陣列席位 = [];
-//        $x         = 0;
-//        foreach ($得勝分表 as $k => $v) {
-//            $選手對應的陣列席位[$k] = $x;
-//            $x++;
-//        }
-//
-//        //把分數重復的選手抓出來
-//        $重復的分數陣列Player = null;
-//
-//        foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
-//            foreach ($得勝分表 as $playerNumber => $分數資料結構) {
-//                if ($分數資料結構[$第一層] == $重復的分數) {
-//                    $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
-//
-//                }
-//            }
-//        }
-//
-//        krsort($重復的分數陣列);
-////        dd($得勝分表);
-//        foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
-// dd($重復的分數陣列);
-//        }
-////        dd($得勝分表);
-//        //目前寫到這裡 todo
-//        //計算第二層 結束
-//
-//        // 算第一層同樣名次 ，目前名次只計算到第一層
-//        $tmpRank   = [];
-//        $tmpRankv2 = [];
-//        foreach ($得勝分表 as $選手) {
-//            $tmpRank[$選手[$第一層]] = null;
-//
-//            if (isset($tmpRankv2[$選手[$第一層]])) {
-//                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-//            } else {
-//                $tmpRankv2[$選手[$第一層]] = 1;
-//            }
-//
-//            $rank++;
-//        }
-//        $rank = 1;
-//        krsort($tmpRank);
-//        foreach ($tmpRank as $key => $val) {
-//            $tmpRank[$key] = $rank;
-//            $rank++;
-//        }
-//
-//        foreach ($得勝分表 as $key => $選手) {
-//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-//        }
+        $重復的分數陣列 = null;
+        foreach ($得勝分表 as $v) {
+            $重復的分數陣列[$v[$第一層]] = 0;
+        }
 
+        //重復的分數計算重復幾次
+        foreach ($得勝分表 as $v) {
+            $重復的分數陣列[$v[$第一層]]++;
+        }
 
-//        $rank = 1;
-//        foreach ($得勝分表 as $key => $選手) {
+        //把沒重復的分數去掉，專心處理重復的分數
+        foreach ($重復的分數陣列 as $key => $v) {
+            if ($重復的分數陣列[$key] == 1) {
+                unset($重復的分數陣列[$key]);
+            }
+        }
+
+        //把重復的分數放入key，對應的選手放到value
+        //先把value清掉
+        foreach ($重復的分數陣列 as $key => $v) {
+            $重復的分數陣列[$key] = null;
+        }
+
+        $選手對應的陣列席位 = [];
+        $x         = 0;
+        foreach ($得勝分表 as $k => $v) {
+            $選手對應的陣列席位[$k] = $x;
+            $x++;
+        }
+
+        //把分數重復的選手抓出來
+        $重復的分數陣列Player = null;
+
+        foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
+            foreach ($得勝分表 as $playerNumber => $分數資料結構) {
+                if ($分數資料結構[$第一層] == $重復的分數) {
+                    $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
+                }
+            }
+        }
+
+        krsort($重復的分數陣列);
+
+        foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
+            foreach ($重複分數的選手陣列 as $k1 => $v1) {
+                foreach ($重複分數的選手陣列 as $k2 => $v2) {
+                    $分數              = $得勝分表[$k1][$v2] == 'N/A' ? 0 : $得勝分表[$k1][$v2];
+                    $得勝分表[$k1][$第二層] += $分數;
+                }
+            }
+        }
+        //計算第二層 結束
+
+        //算第一層同樣名次，目前名次只計算到第一層 開始
+        $tmpRank   = [];
+        $tmpRankv2 = [];
+        foreach ($得勝分表 as $選手) {
+            $tmpRank[$選手[$第一層]] = null;
+
+            if (isset($tmpRankv2[$選手[$第一層]])) {
+                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+            } else {
+                $tmpRankv2[$選手[$第一層]] = 1;
+            }
+
+            $rank++;
+        }
+        $rank = 1;
+
+        krsort($tmpRank);
+
+        foreach ($tmpRank as $key => $val) {
+            $tmpRank[$key] = $rank;
+            $rank++;
+        }
+//dd($tmpRank);
+        foreach ($得勝分表 as $key => $選手) {
+            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+        }
+
+        $rank = 1;
+        foreach ($得勝分表 as $key => $選手) {
+
 //            if ($rank == 1) {
 //                $tmpRank = $得勝分表[$key][$名次層];
 //                $rank++;
@@ -298,17 +302,19 @@ class ResultController extends Controller
 //            if ($得勝分表[$key][$名次層] == $tmpRank) {
 //                $rank++;
 //            }
+
 //            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-//        }
+            $得勝分表[$key][$名次層] = $tmpRank[$得勝分表[$key][$第一層]];
+//            echo $tmpRank[$選手[$第一層]]."<br>";
+//            echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
+//            echo $得勝分表[$key][$第一層]."<br>";
+        }
+//        dd();
+//        dd($得勝分表);
+        //算第一層同樣名次，目前名次只計算到第一層 結束
 
 
-        if (
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
+        if ($schedule->number_of_player == 0) {
             $model = 'pk';
         }
 
