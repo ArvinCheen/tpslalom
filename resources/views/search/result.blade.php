@@ -59,7 +59,7 @@
                             <th class="text-center"> 技術三</th>
                             <th class="text-center"> 藝術三</th>
                             <th class="text-center"> 總分三</th>
-                            @if ($scheduleInfo->item <> '初級指定套路')
+                            @if ($scheduleInfo->item == '雙人花式繞樁' || $scheduleInfo->item == '個人花式繞樁') {
                                 <th class="text-center"> 技術四</th>
                                 <th class="text-center"> 藝術四</th>
                                 <th class="text-center"> 總分四</th>
@@ -153,7 +153,7 @@
                                     <td class="text-center"> {{ $val->skill_3 }}</td>
                                     <td class="text-center"> {{ $val->art_3 }}</td>
                                     <td class="text-center"> {{ $val->score_3 }}</td>
-                                    @if ($scheduleInfo->item <> '初級指定套路')
+                                    @if ($scheduleInfo->item == '雙人花式繞樁' || $scheduleInfo->item == '個人花式繞樁') {
                                     <td class="text-center"> {{ $val->skill_4 }}</td>
                                     <td class="text-center"> {{ $val->art_4 }}</td>
                                     <td class="text-center"> {{ $val->score_4 }}</td>
