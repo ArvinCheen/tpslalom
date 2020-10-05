@@ -24,7 +24,37 @@ class tmp extends Command
      */
     public function handle()
     {
+        for ($i = 1; $i <= 100; $i++) {
+            $gene1 = null;
+            $gene2 = null;
+            for ($x = 1; $x <= 360; $x++) {
+                switch (rand(1, 4)) {
+                    case 1:
+                        $gene1 .= 'A';
+                        $gene2 .= 'T';
+                        break;
+                    case 2:
+                        $gene1 .= 'T';
+                        $gene2 .= 'A';
+                        break;
+                    case 3:
 
+                        $gene1 .= 'C';
+                        $gene2 .= 'G';
+                        break;
+                    case 4:
+
+                        $gene1 .= 'G';
+                        $gene2 .= 'C';
+                        break;
+                }
+            }
+            $this->info('物種' . $i);
+            $this->info('基因上段：' . $gene1);
+            $this->info('基因下段：' . $gene2);
+            $this->info("\n");
+        }
+        dd();
         $x = ScheduleModel::where('game_day', 3)->get();
 
         $int = 0;

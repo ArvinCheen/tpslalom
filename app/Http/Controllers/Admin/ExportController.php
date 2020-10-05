@@ -42,8 +42,8 @@ class ExportController extends Controller
                 ->get();
         } else {
             $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-                $query->where('gender', $gameInfo->gender);
             })
+                ->where('gender', $gameInfo->gender)
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('item', $item)
