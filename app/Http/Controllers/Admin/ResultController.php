@@ -293,23 +293,23 @@ class ResultController extends Controller
             $rank = 1;
             foreach ($得勝分表 as $key => $選手) {
 
-                if ($rank == 1) {
-                    $tmpRank = $得勝分表[$key][$名次層];
-                    $rank++;
-                    continue;
-                }
-
-                if ($得勝分表[$key][$名次層] == $tmpRank) {
-                    $rank++;
-                }
+//                if ($rank == 1) {
+//                    $tmpRank = $得勝分表[$key][$名次層];
+//                    $rank++;
+//                    continue;
+//                }
+//
+//                if ($得勝分表[$key][$名次層] == $tmpRank) {
+//                    $rank++;
+//                }
 
                 $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
                 $得勝分表[$key][$名次層] = $tmpRank[$得勝分表[$key][$第一層]];
-                echo $tmpRank[$選手[$第一層]]."<br>";
-                echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
-                echo $得勝分表[$key][$第一層]."<br>";
+//                echo $tmpRank[$選手[$第一層]]."<br>";
+//                echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
+//                echo $得勝分表[$key][$第一層]."<br>";
             }
-            dd();
+//            dd();
             //算第一層同樣名次，目前名次只計算到第一層 結束
         }
 
