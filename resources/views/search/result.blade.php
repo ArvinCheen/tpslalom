@@ -97,52 +97,52 @@
                         @break;
                         @case('freeStyle')
                         @if ($scheduleInfo->item == '雙人花式繞樁')
-                                                        <tr>
-                                                            <th class="text-center"> 001 范予僖、193 黃淇宣</th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"> 1</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th class="text-center"> 362 邱宇廷、164 邱映瑄</th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"></th>
-                                                            <th class="text-center"> 2</th>
-                                                        </tr>
+{{--                                                        <tr>--}}
+{{--                                                            <th class="text-center"> 001 范予僖、193 黃淇宣</th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"> 1</th>--}}
+{{--                                                        </tr>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <th class="text-center"> 362 邱宇廷、164 邱映瑄</th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"></th>--}}
+{{--                                                            <th class="text-center"> 2</th>--}}
+{{--                                                        </tr>--}}
 
                         @else
 
                             @foreach ($result as $key => $val)
                                 <tr>
-                                    <td class="text-center"> {{$val->name}}({{ $val->player_number }})</td>
+                                    <td class="text-center"> {{ $val->player_number }} {{$val->player->name}}</td>
                                     <td class="text-center"> {{ $val->punish }}</td>
                                     <td class="text-center"> {{ $val->skill_1 }}</td>
                                     <td class="text-center"> {{ $val->art_1 }}</td>
@@ -175,26 +175,26 @@
                         @endforeach
                         @break;
                         @case('pk')
-                        @switch ($scheduleInfo->order)
-                            @case('場次33')
-                            <img src="https://imgur.com/1Z0wifg.jpg"/>
-                            @break;
-                            @case('場次34')
-                            <img src="https://imgur.com/S3tYjTu.jpg"/>
-                            @break;
-                            @case('場次35')
-                            <img src="https://imgur.com/ewODvdp.jpg"/>
-                            @break;
-                            @case('場次36')
-                            <img src="https://imgur.com/x06SgPF.jpg"/>
-                            @break;
-                            @case('場次52')
-                            <img src="https://imgur.com/EFIhBBZ.jpg"/>
-                            @break;
-                            @case('場次53')
-                            <img src="https://imgur.com/ucwR0f9.jpg"/>
-                            @break;
-                        @endswitch
+{{--                        @switch ($scheduleInfo->order)--}}
+{{--                            @case('場次33')--}}
+{{--                            <img src="https://imgur.com/1Z0wifg.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次34')--}}
+{{--                            <img src="https://imgur.com/S3tYjTu.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次35')--}}
+{{--                            <img src="https://imgur.com/ewODvdp.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次36')--}}
+{{--                            <img src="https://imgur.com/x06SgPF.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次52')--}}
+{{--                            <img src="https://imgur.com/EFIhBBZ.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次53')--}}
+{{--                            <img src="https://imgur.com/ucwR0f9.jpg"/>--}}
+{{--                            @break;--}}
+{{--                        @endswitch--}}
                         @break;
                     @endswitch
 
