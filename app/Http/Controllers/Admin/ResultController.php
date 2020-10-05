@@ -75,7 +75,7 @@ class ResultController extends Controller
                 $judge_2[$val->player_id] = $val->score_2;
                 $judge_3[$val->player_id] = $val->score_3;
 
-                if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+                if ($schedule->item == '個人花式繞樁') {
                     $judge_4[$val->player_id] = $val->score_4;
                     $judge_5[$val->player_id] = $val->score_5;
                 }
@@ -85,7 +85,7 @@ class ResultController extends Controller
             arsort($judge_1);
             arsort($judge_2);
             arsort($judge_3);
-            if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+            if ($schedule->item == '個人花式繞樁') {
                 arsort($judge_4);
                 arsort($judge_5);
             }
@@ -104,7 +104,7 @@ class ResultController extends Controller
                 $評分表[$key][] = $rank;
                 $rank++;
             }
-            if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+            if ($schedule->item == '個人花式繞樁') {
                 $rank = 1;
                 foreach ($judge_4 as $key => $val) {
                     $評分表[$key][] = $rank;
@@ -124,7 +124,7 @@ class ResultController extends Controller
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
                 $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
                 $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
-                if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+                if ($schedule->item == '個人花式繞樁') {
                     $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
                     $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
                 }
@@ -137,7 +137,7 @@ class ResultController extends Controller
                     $比較選手裁判一名次 = $評分表暫存[$比較選手號碼][1];
                     $比較選手裁判二名次 = $評分表暫存[$比較選手號碼][2];
                     $比較選手裁判三名次 = $評分表暫存[$比較選手號碼][3];
-                    if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+                    if ($schedule->item == '個人花式繞樁') {
                         $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
                         $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
                     }
@@ -145,7 +145,7 @@ class ResultController extends Controller
                     if ($主要選手裁判一名次 < $比較選手裁判一名次) $score++;
                     if ($主要選手裁判二名次 < $比較選手裁判二名次) $score++;
                     if ($主要選手裁判三名次 < $比較選手裁判三名次) $score++;
-                    if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+                    if ($schedule->item == '個人花式繞樁') {
                         if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
                         if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
                     }
@@ -159,7 +159,7 @@ class ResultController extends Controller
             foreach ($得勝分表 as $key => $val) {
 
                 foreach ($val as $席位分數) {
-                    if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+                    if ($schedule->item == '個人花式繞樁') {
                         if ($席位分數 > 2.5) {
                             $多數得勝分++;
                         }
@@ -193,7 +193,7 @@ class ResultController extends Controller
         $第一層 = $numberOfPlayer;
         $第二層 = $第一層 + 1;
         $第三層 = $第二層 + 1;
-//        if ($schedule->item == '雙人花式繞樁' || $schedule->item == '個人花式繞樁') {
+//        if ($schedule->item == '個人花式繞樁') {
         $第四層 = $第三層 + 1;
         $第五層 = $第四層 + 1;
         $名次層 = $第五層 + 1;
@@ -296,7 +296,7 @@ class ResultController extends Controller
 
                 foreach ($enrollIds as $key => $enrollId) {
 
-                    if (ScheduleModel::find($scheduleId)->item == '中級指定套路' || ScheduleModel::find($scheduleId)->item == '初級指定套路') {
+                    if (ScheduleModel::find($scheduleId)->item == '個人花式繞樁') {
                         $update = [
                             'punish'       => $punish[$key],
                             'skill_1'      => $skill_1[$key],
@@ -317,27 +317,28 @@ class ResultController extends Controller
                             'rank'         => $rank[$key],
                             'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
-                    } else if (ScheduleModel::find($scheduleId)->item == '雙人花式繞樁') {
-                        $update = [
-                            'punish'  => $punish[$key],
-                            'skill_1' => $skill_1[$key],
-                            'art_1'   => $art_1[$key],
-                            'score_1' => $score_1[$key],
-                            'skill_2' => $skill_2[$key],
-                            'art_2'   => $art_2[$key],
-                            'score_2' => $score_2[$key],
-                            'skill_3' => $skill_3[$key],
-                            'art_3'   => $art_3[$key],
-                            'score_3' => $score_3[$key],
-                            'skill_4' => $skill_4[$key],
-                            'art_4'   => $art_4[$key],
-                            'score_4' => $score_4[$key],
-                            'skill_5' => $skill_5[$key],
-                            'art_5'   => $art_5[$key],
-                            'score_5' => $score_5[$key],
-                            'rank'         => $rank[$key],
-                            'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
-                        ];
+//                    } else
+//                        if (ScheduleModel::find($scheduleId)->item == '雙人花式繞樁') {
+//                        $update = [
+//                            'punish'  => $punish[$key],
+//                            'skill_1' => $skill_1[$key],
+//                            'art_1'   => $art_1[$key],
+//                            'score_1' => $score_1[$key],
+//                            'skill_2' => $skill_2[$key],
+//                            'art_2'   => $art_2[$key],
+//                            'score_2' => $score_2[$key],
+//                            'skill_3' => $skill_3[$key],
+//                            'art_3'   => $art_3[$key],
+//                            'score_3' => $score_3[$key],
+//                            'skill_4' => $skill_4[$key],
+//                            'art_4'   => $art_4[$key],
+//                            'score_4' => $score_4[$key],
+//                            'skill_5' => $skill_5[$key],
+//                            'art_5'   => $art_5[$key],
+//                            'score_5' => $score_5[$key],
+//                            'rank'         => $rank[$key],
+//                            'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
+//                        ];
                     } else {
 
                         $update = [
