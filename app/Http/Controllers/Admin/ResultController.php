@@ -159,7 +159,7 @@ class ResultController extends Controller
             foreach ($得勝分表 as $key => $val) {
 
                 foreach ($val as $席位分數) {
-                    if ($schedule->item <> '初級指定套路') {
+                    if ($schedule->item == '初級指定套路') {
                         if ($席位分數 > 1.5) {
                             $多數得勝分++;
                         }

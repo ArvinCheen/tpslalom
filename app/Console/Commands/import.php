@@ -87,7 +87,7 @@ dd();
 
         EnrollModel::whereHas('player', function ($query) {
             $query->where('name', '陳以勛');
-        })->where('item', '初級指定套路')->where('group', '國小低年300級')
+        })->where('item', '初級指定套路')->where('group', '國小低年級')
             ->update(['player_number' => PlayerModel::where('name', '陳以叡')->first()->id,
                       'player_id'     => PlayerModel::where('name', '陳以叡')->first()->id,]);
 
