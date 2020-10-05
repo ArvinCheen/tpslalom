@@ -175,26 +175,26 @@
                         @endforeach
                         @break;
                         @case('pk')
-{{--                        @switch ($scheduleInfo->order)--}}
-{{--                            @case('場次33')--}}
-{{--                            <img src="https://imgur.com/1Z0wifg.jpg"/>--}}
-{{--                            @break;--}}
-{{--                            @case('場次34')--}}
-{{--                            <img src="https://imgur.com/S3tYjTu.jpg"/>--}}
-{{--                            @break;--}}
-{{--                            @case('場次35')--}}
-{{--                            <img src="https://imgur.com/ewODvdp.jpg"/>--}}
-{{--                            @break;--}}
-{{--                            @case('場次36')--}}
-{{--                            <img src="https://imgur.com/x06SgPF.jpg"/>--}}
-{{--                            @break;--}}
-{{--                            @case('場次52')--}}
-{{--                            <img src="https://imgur.com/EFIhBBZ.jpg"/>--}}
-{{--                            @break;--}}
-{{--                            @case('場次53')--}}
-{{--                            <img src="https://imgur.com/ucwR0f9.jpg"/>--}}
-{{--                            @break;--}}
-{{--                        @endswitch--}}
+                        @switch ($scheduleInfo->order)
+                            @case('場次131')
+                            <img src="https://imgur.com/EwNkPsd.jpg"/>
+                            @break;
+                            @case('場次132')
+                            <img src="https://imgur.com/NGXBntM.jpg"/>
+                            @break;
+                            @case('場次133')
+                            <img src="https://imgur.com/J1OANrj.jpg"/>
+                            @break;
+                            @case('場次134')
+                            <img src="https://imgur.com/awtnLGB.jpg"/>
+                            @break;
+                            @case('場次135')
+                            <img src="https://imgur.com/jI5tFZc.jpg"/>
+                            @break;
+                            @case('場次136')
+                            <img src="https://imgur.com/mnxFene.jpg"/>
+                            @break;
+                        @endswitch
                         @break;
                     @endswitch
 
