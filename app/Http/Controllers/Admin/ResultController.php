@@ -331,6 +331,12 @@ class ResultController extends Controller
                             'skill_3'      => $skill_1[$key],
                             'art_3'        => $art_3[$key],
                             'score_3'      => $skill_1[$key] + $art_3[$key] - $punish[$key],
+                            'skill_4'      => null,
+                            'art_4'        => null,
+                            'score_4'      => null,
+                            'skill_5'      => null,
+                            'art_5'        => null,
+                            'score_5'      => null,
                             'rank'         => $rank[$key],
                             'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
