@@ -101,37 +101,37 @@
                                 <th class="text-center">
                                     總分1
                                 </th>
-{{--                                <th class="text-center">--}}
-{{--                                    技術2--}}
-{{--                                </th>--}}
+                                <th class="text-center">
+                                    技術2
+                                </th>
                                 <th class="text-center">
                                     藝術2
                                 </th>
                                 <th class="text-center">
                                     總分2
                                 </th>
-{{--                                <th class="text-center">--}}
-{{--                                    技術3--}}
-{{--                                </th>--}}
+                                <th class="text-center">
+                                    技術3
+                                </th>
                                 <th class="text-center">
                                     藝術3
                                 </th>
                                 <th class="text-center">
                                     總分3
                                 </th>
-                                @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁') {
-{{--                                <th class="text-center">--}}
-{{--                                    技術4--}}
-{{--                                </th>--}}
+                                @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁')
+                                <th class="text-center">
+                                    技術4
+                                </th>
                                 <th class="text-center">
                                     藝術4
                                 </th>
                                 <th class="text-center">
                                     總分4
                                 </th>
-{{--                                <th class="text-center">--}}
-{{--                                    技術5--}}
-{{--                                </th>--}}
+                                <th class="text-center">
+                                    技術5
+                                </th>
                                 <th class="text-center">
                                     藝術5
                                 </th>
@@ -171,20 +171,20 @@
                                     <td class="text-center"><input name="art_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_1 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_1[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_1 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_1 }}</td>
-{{--                                    <td class="text-center"><input name="skill_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_2 }}" autocomplete="off"></td>--}}
+                                    <td class="text-center"><input name="skill_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_2 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_2 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_2[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_2 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_2 }}</td>
-{{--                                    <td class="text-center"><input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off"></td>--}}
+                                    <td class="text-center"><input name="skill_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_3 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_3 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_3 }}</td>
-                                    @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁') {
-{{--                                    <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>--}}
+                                    @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁')
+                                    <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_4 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_4 }}</td>
-{{--                                    <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>--}}
+                                    <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>
                                     <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_5 }}</td>
@@ -212,7 +212,7 @@
                             <td class="text-center">裁判一</td>
                             <td class="text-center">裁判二</td>
                             <td class="text-center">裁判三</td>
-                            @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁') {
+                            @if ($當前項目 == '雙人花式繞樁' || $當前項目 == '個人花式繞樁')
                             <td class="text-center">裁判四</td>
                             <td class="text-center">裁判五</td>
                                 @endif
