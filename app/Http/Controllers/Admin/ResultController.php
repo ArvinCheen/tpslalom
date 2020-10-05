@@ -6,7 +6,6 @@ use App\Helpers\SlackNotify;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
-use const Grpc\CHANNEL_READY;
 use Illuminate\Http\Request;
 use App\Models\EnrollModel;
 use App\Services\ResultService;
@@ -31,11 +30,7 @@ class ResultController extends Controller
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-                if ($gameInfo->item <> '雙人花式繞樁') {
-                    $query->where('gender', $gameInfo->gender);
-                }
-            })
+            $enrolls = EnrollModel::where('gender', $gameInfo->gender)
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item)
@@ -95,7 +90,6 @@ class ResultController extends Controller
                 arsort($judge_5);
             }
             $rank = 1;
-
             foreach ($judge_1 as $key => $val) {
                 $評分表[$key][] = $rank;
                 $rank++;
@@ -124,7 +118,7 @@ class ResultController extends Controller
             }
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
-//dd($評分表);
+
                 $評分表暫存     = $評分表;
                 $score     = 0;
                 $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
@@ -179,8 +173,9 @@ class ResultController extends Controller
                 $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('player_id', $key)->where('group', $group)->where('item', $item)->first();
 
                 $得勝分表[$key][] = $多數得勝分;
-                $得勝分表[$key][] = null;
+                $得勝分表[$key][] = '';
                 $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
+                $總分           = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
 
                 $總計得勝分 = 0;
 
@@ -189,133 +184,72 @@ class ResultController extends Controller
                     $總計得勝分 += $得勝分表[$key][$i];
                 }
                 $得勝分表[$key][] = $總計得勝分;
-                $得勝分表[$key][] = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5; #總分
-                $得勝分表[$key][] = null; #名次
+                $得勝分表[$key][] = $總分;
+                $得勝分表[$key][] = '';
                 $多數得勝分        = 0;
             }
+        }
 
-
-            $第一層 = $numberOfPlayer;
-//        dd($numberOfPlayer);
-            $第二層 = $numberOfPlayer + 1;
-//        $第三層 = $numberOfPlayer + 2;
+        $第一層 = $numberOfPlayer;
+        $第二層 = $第一層 + 1;
+        $第三層 = $第二層 + 1;
 //        if ($schedule->item <> '初級指定套路') {
-//        $第四層 = $numberOfPlayer + 3;
-//        $第五層 = $numberOfPlayer + 4;
-            $名次層 = $numberOfPlayer + 5;
+        $第四層 = $第三層 + 1;
+        $第五層 = $第四層 + 1;
+        $名次層 = $第五層 + 1;
 //        } else {
 //            $名次層 = $第三層 + 1;
 //        }
 
 
-            //計算第二層 開始
-            //先知道哪些分數是重復的
-            $重復的分數陣列 = null;
-            foreach ($得勝分表 as $v) {
-                $重復的分數陣列[$v[$第一層]] = 0;
+        // 算第一層同樣名次
+        $tmpRank   = [];
+        $tmpRankv2 = [];
+        foreach ($得勝分表 as $選手) {
+            $tmpRank[$選手[$第一層]] = null;
+
+            if (isset($tmpRankv2[$選手[$第一層]])) {
+                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+            } else {
+                $tmpRankv2[$選手[$第一層]] = 1;
             }
 
-            //重復的分數計算重復幾次
-            foreach ($得勝分表 as $v) {
-                $重復的分數陣列[$v[$第一層]]++;
-            }
+            $rank++;
+        }
+        $rank = 1;
+        krsort($tmpRank);
+        foreach ($tmpRank as $key => $val) {
+            $tmpRank[$key] = $rank;
+            $rank++;
+        }
 
-            //把沒重復的分數去掉，專心處理重復的分數
-            foreach ($重復的分數陣列 as $key => $v) {
-                if ($重復的分數陣列[$key] == 1) {
-                    unset($重復的分數陣列[$key]);
-                }
-            }
-
-            //把重復的分數放入key，對應的選手放到value
-            //先把value清掉
-            foreach ($重復的分數陣列 as $key => $v) {
-                $重復的分數陣列[$key] = null;
-            }
-
-            $選手對應的陣列席位 = [];
-            $x         = 0;
-            foreach ($得勝分表 as $k => $v) {
-                $選手對應的陣列席位[$k] = $x;
-                $x++;
-            }
-
-            //把分數重復的選手抓出來
-            $重復的分數陣列Player = null;
-
-            foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
-                foreach ($得勝分表 as $playerNumber => $分數資料結構) {
-                    if ($分數資料結構[$第一層] == $重復的分數) {
-                        $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
-                    }
-                }
-            }
-
-            krsort($重復的分數陣列);
-
-            foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
-                foreach ($重複分數的選手陣列 as $k1 => $v1) {
-                    foreach ($重複分數的選手陣列 as $k2 => $v2) {
-                        $分數              = $得勝分表[$k1][$v2] == 'N/A' ? 0 : $得勝分表[$k1][$v2];
-                        $得勝分表[$k1][$第二層] += $分數;
-                    }
-                }
-            }
-            //計算第二層 結束
-
-            //算第一層同樣名次，目前名次只計算到第一層 開始
-            $tmpRank   = [];
-            $tmpRankv2 = [];
-            foreach ($得勝分表 as $選手) {
-                $tmpRank[$選手[$第一層]] = null;
-
-                if (isset($tmpRankv2[$選手[$第一層]])) {
-                    $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-                } else {
-                    $tmpRankv2[$選手[$第一層]] = 1;
-                }
-
-                $rank++;
-            }
-            $rank = 1;
-
-            krsort($tmpRank);
-
-            foreach ($tmpRank as $key => $val) {
-                $tmpRank[$key] = $rank;
-                $rank++;
-            }
-//dd($tmpRank);
-            foreach ($得勝分表 as $key => $選手) {
-                $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-            }
-
-            $rank = 1;
-            foreach ($得勝分表 as $key => $選手) {
-
-//                if ($rank == 1) {
-//                    $tmpRank = $得勝分表[$key][$名次層];
-//                    $rank++;
-//                    continue;
-//                }
-//
-//                if ($得勝分表[$key][$名次層] == $tmpRank) {
-//                    $rank++;
-//                }
-
-                $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-                $得勝分表[$key][$名次層] = $tmpRank[$得勝分表[$key][$第一層]];
-//                echo $tmpRank[$選手[$第一層]]."<br>";
-//                echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
-//                echo $得勝分表[$key][$第一層]."<br>";
-            }
-//            dd();
-            //算第一層同樣名次，目前名次只計算到第一層 結束
+        foreach ($得勝分表 as $key => $選手) {
+            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
         }
 
 
+//        $rank = 1;
+//        foreach ($得勝分表 as $key => $選手) {
+//            if ($rank == 1) {
+//                $tmpRank = $得勝分表[$key][$名次層];
+//                $rank++;
+//                continue;
+//            }
+//
+//            if ($得勝分表[$key][$名次層] == $tmpRank) {
+//                $rank++;
+//            }
+//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+//        }
 
-        if ($schedule->number_of_player == 0) {
+
+        if (
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
             $model = 'pk';
         }
 
@@ -385,44 +319,44 @@ class ResultController extends Controller
                         ];
                     } else if (ScheduleModel::find($scheduleId)->item == '雙人花式繞樁') {
                         $update = [
-                            'punish'       => $punish[$key],
-                            'skill_1'      => $skill_1[$key],
-                            'art_1'        => $art_1[$key],
-                            'score_1'      => $score_1[$key],
-                            'skill_2'      => $skill_2[$key],
-                            'art_2'        => $art_2[$key],
-                            'score_2'      => $score_2[$key],
-                            'skill_3'      => $skill_3[$key],
-                            'art_3'        => $art_3[$key],
-                            'score_3'      => $score_3[$key],
-                            'skill_4'      => $skill_4[$key],
-                            'art_4'        => $art_4[$key],
-                            'score_4'      => $score_4[$key],
-                            'skill_5'      => $skill_5[$key],
-                            'art_5'        => $art_5[$key],
-                            'score_5'      => $score_5[$key],
+                            'punish'  => $punish[$key],
+                            'skill_1' => $skill_1[$key],
+                            'art_1'   => $art_1[$key],
+                            'score_1' => $score_1[$key],
+                            'skill_2' => $skill_2[$key],
+                            'art_2'   => $art_2[$key],
+                            'score_2' => $score_2[$key],
+                            'skill_3' => $skill_3[$key],
+                            'art_3'   => $art_3[$key],
+                            'score_3' => $score_3[$key],
+                            'skill_4' => $skill_4[$key],
+                            'art_4'   => $art_4[$key],
+                            'score_4' => $score_4[$key],
+                            'skill_5' => $skill_5[$key],
+                            'art_5'   => $art_5[$key],
+                            'score_5' => $score_5[$key],
                             'rank'         => $rank[$key],
                             'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
                     } else {
 
                         $update = [
-                            'punish'       => $punish[$key],
-                            'skill_1'      => $skill_1[$key],
-                            'art_1'        => $art_1[$key],
-                            'score_1'      => $skill_1[$key] + $art_1[$key] - $punish[$key],
-                            'skill_2'      => $skill_2[$key],
-                            'art_2'        => $art_2[$key],
-                            'score_2'      => $skill_2[$key] + $art_2[$key] - $punish[$key],
-                            'skill_3'      => $skill_3[$key],
-                            'art_3'        => $art_3[$key],
-                            'score_3'      => $skill_3[$key] + $art_3[$key] - $punish[$key],
-                            'skill_4'      => $skill_4[$key],
-                            'art_4'        => $art_4[$key],
-                            'score_4'      => $skill_4[$key] + $art_4[$key] - $punish[$key],
-                            'skill_5'      => $skill_5[$key],
-                            'art_5'        => $art_5[$key],
-                            'score_5'      => $skill_5[$key] + $art_5[$key] - $punish[$key],
+                            'punish'  => $punish[$key],
+                            'skill_1' => $skill_1[$key],
+                            'art_1'   => $art_1[$key],
+                            'score_1' => $skill_1[$key] + $art_1[$key] - $punish[$key],
+                            'skill_2' => $skill_2[$key],
+                            'art_2'   => $art_2[$key],
+                            'score_2' => $skill_2[$key] + $art_2[$key] - $punish[$key],
+                            'skill_3' => $skill_3[$key],
+                            'art_3'   => $art_3[$key],
+                            'score_3' => $skill_3[$key] + $art_3[$key] - $punish[$key],
+                            'skill_4' => $skill_4[$key],
+                            'art_4'   => $art_4[$key],
+                            'score_4' => $skill_4[$key] + $art_4[$key] - $punish[$key],
+                            'skill_5' => $skill_5[$key],
+                            'art_5'   => $art_5[$key],
+                            'score_5' => $skill_5[$key] + $art_5[$key] - $punish[$key],
                             'rank'         => $rank[$key],
                             'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
