@@ -296,7 +296,7 @@ class ResultController extends Controller
 
                 foreach ($enrollIds as $key => $enrollId) {
 
-                    if (ScheduleModel::find($scheduleId)->item == '個人花式繞樁') {
+                    if (ScheduleModel::find($scheduleId)->item <> '個人花式繞樁') {
                         $update = [
                             'punish'       => $punish[$key],
                             'skill_1'      => $skill_1[$key],
