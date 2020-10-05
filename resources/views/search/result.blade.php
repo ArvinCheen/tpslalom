@@ -96,7 +96,7 @@
                         @endforeach
                         @break;
                         @case('freeStyle')
-{{--                        @if ($scheduleInfo->item == '雙人花式繞樁')--}}
+                        @if ($scheduleInfo->item == '雙人花式繞樁')
 {{--                                                        <tr>--}}
 {{--                                                            <th class="text-center"> 001 范予僖、193 黃淇宣</th>--}}
 {{--                                                            <th class="text-center"></th>--}}
@@ -138,7 +138,7 @@
 {{--                                                            <th class="text-center"> 2</th>--}}
 {{--                                                        </tr>--}}
 
-{{--                        @else--}}
+                        @else
 
                             @foreach ($result as $key => $val)
                                 <tr>
@@ -164,7 +164,7 @@
                                     <td class="text-center"> {{ $val->rank }}</td>
                                 </tr>
                             @endforeach
-{{--                        @endif--}}
+                        @endif
                         @break;
                         @case('stop')
                         @foreach ($result as $key => $val)
