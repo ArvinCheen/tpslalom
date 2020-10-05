@@ -24,10 +24,22 @@ class tmp extends Command
      */
     public function handle()
     {
-        foreach (PlayerModel::groupBy('coach')->get() as $v) {
-            $players = PlayerModel::where('coach',$v->coach)->orderBy('id')->get();
 
-            $this->info('團隊教練：'.$v->coach);
+        $x = ScheduleModel::where('game_day', 3)->get();
+
+        $int = 0;
+        foreach ($x as $v) {
+            if ($v->number_of_player >= 8) {
+                $int += 8;
+            } else {
+                $int += $v->number_of_player;
+            }
+        }
+        dd($int);
+        foreach (PlayerModel::groupBy('coach')->get() as $v) {
+            $players = PlayerModel::where('coach', $v->coach)->orderBy('id')->get();
+
+            $this->info('團隊教練：' . $v->coach);
             foreach ($players as $player) {
 
                 $this->info("$player->id, $player->name, $player->cloth_size, $player->agency");

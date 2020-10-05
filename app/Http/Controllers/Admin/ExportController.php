@@ -520,15 +520,15 @@ class ExportController extends Controller
                 foreach ($enrolls as $enroll) {
                     $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->coach]);
 
-                    $sheet->cell('A'.$initIndex, function ($cell) {
+                    $sheet->cell('A' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
                     });
 
-                    $sheet->cell('B'.$initIndex, function ($cell) {
+                    $sheet->cell('B' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
                     });
 
-                    $sheet->cell('C'.$initIndex, function ($cell) {
+                    $sheet->cell('C' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
                     });
                     $initIndex++;
@@ -1155,7 +1155,7 @@ class ExportController extends Controller
                     $sheet->mergeCells('A1:H1');
 
                     $sheet->cell('A1', function ($cell) use ($schedule) {
-                        $cell->setValue($schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
+                        $cell->setValue($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . ' ' . $schedule->item);
                         $cell->setFontSize(18);
                         $cell->setAlignment('center');
                         $cell->setValignment('center');

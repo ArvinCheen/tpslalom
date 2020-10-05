@@ -193,125 +193,126 @@ class ResultController extends Controller
                 $得勝分表[$key][] = null; #名次
                 $多數得勝分        = 0;
             }
-        }
 
-        $第一層 = $numberOfPlayer;
+
+            $第一層 = $numberOfPlayer;
 //        dd($numberOfPlayer);
-        $第二層 = $numberOfPlayer + 1;
+            $第二層 = $numberOfPlayer + 1;
 //        $第三層 = $numberOfPlayer + 2;
 //        if ($schedule->item <> '初級指定套路') {
 //        $第四層 = $numberOfPlayer + 3;
 //        $第五層 = $numberOfPlayer + 4;
-        $名次層 = $numberOfPlayer + 5;
+            $名次層 = $numberOfPlayer + 5;
 //        } else {
 //            $名次層 = $第三層 + 1;
 //        }
 
 
-        //計算第二層 開始
-        //先知道哪些分數是重復的
-        $重復的分數陣列 = null;
-        foreach ($得勝分表 as $v) {
-            $重復的分數陣列[$v[$第一層]] = 0;
-        }
-
-        //重復的分數計算重復幾次
-        foreach ($得勝分表 as $v) {
-            $重復的分數陣列[$v[$第一層]]++;
-        }
-
-        //把沒重復的分數去掉，專心處理重復的分數
-        foreach ($重復的分數陣列 as $key => $v) {
-            if ($重復的分數陣列[$key] == 1) {
-                unset($重復的分數陣列[$key]);
+            //計算第二層 開始
+            //先知道哪些分數是重復的
+            $重復的分數陣列 = null;
+            foreach ($得勝分表 as $v) {
+                $重復的分數陣列[$v[$第一層]] = 0;
             }
-        }
 
-        //把重復的分數放入key，對應的選手放到value
-        //先把value清掉
-        foreach ($重復的分數陣列 as $key => $v) {
-            $重復的分數陣列[$key] = null;
-        }
+            //重復的分數計算重復幾次
+            foreach ($得勝分表 as $v) {
+                $重復的分數陣列[$v[$第一層]]++;
+            }
 
-        $選手對應的陣列席位 = [];
-        $x         = 0;
-        foreach ($得勝分表 as $k => $v) {
-            $選手對應的陣列席位[$k] = $x;
-            $x++;
-        }
-
-        //把分數重復的選手抓出來
-        $重復的分數陣列Player = null;
-
-        foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
-            foreach ($得勝分表 as $playerNumber => $分數資料結構) {
-                if ($分數資料結構[$第一層] == $重復的分數) {
-                    $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
+            //把沒重復的分數去掉，專心處理重復的分數
+            foreach ($重復的分數陣列 as $key => $v) {
+                if ($重復的分數陣列[$key] == 1) {
+                    unset($重復的分數陣列[$key]);
                 }
             }
-        }
 
-        krsort($重復的分數陣列);
+            //把重復的分數放入key，對應的選手放到value
+            //先把value清掉
+            foreach ($重復的分數陣列 as $key => $v) {
+                $重復的分數陣列[$key] = null;
+            }
 
-        foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
-            foreach ($重複分數的選手陣列 as $k1 => $v1) {
-                foreach ($重複分數的選手陣列 as $k2 => $v2) {
-                    $分數              = $得勝分表[$k1][$v2] == 'N/A' ? 0 : $得勝分表[$k1][$v2];
-                    $得勝分表[$k1][$第二層] += $分數;
+            $選手對應的陣列席位 = [];
+            $x         = 0;
+            foreach ($得勝分表 as $k => $v) {
+                $選手對應的陣列席位[$k] = $x;
+                $x++;
+            }
+
+            //把分數重復的選手抓出來
+            $重復的分數陣列Player = null;
+
+            foreach ($重復的分數陣列 as $重復的分數 => $無意義v) {
+                foreach ($得勝分表 as $playerNumber => $分數資料結構) {
+                    if ($分數資料結構[$第一層] == $重復的分數) {
+                        $重復的分數陣列[$重復的分數][$playerNumber] = $選手對應的陣列席位[$playerNumber];
+                    }
                 }
             }
-        }
-        //計算第二層 結束
 
-        //算第一層同樣名次，目前名次只計算到第一層 開始
-        $tmpRank   = [];
-        $tmpRankv2 = [];
-        foreach ($得勝分表 as $選手) {
-            $tmpRank[$選手[$第一層]] = null;
+            krsort($重復的分數陣列);
 
-            if (isset($tmpRankv2[$選手[$第一層]])) {
-                $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
-            } else {
-                $tmpRankv2[$選手[$第一層]] = 1;
+            foreach ($重復的分數陣列 as $重復的分數 => $重複分數的選手陣列) {
+                foreach ($重複分數的選手陣列 as $k1 => $v1) {
+                    foreach ($重複分數的選手陣列 as $k2 => $v2) {
+                        $分數              = $得勝分表[$k1][$v2] == 'N/A' ? 0 : $得勝分表[$k1][$v2];
+                        $得勝分表[$k1][$第二層] += $分數;
+                    }
+                }
             }
+            //計算第二層 結束
 
-            $rank++;
-        }
-        $rank = 1;
+            //算第一層同樣名次，目前名次只計算到第一層 開始
+            $tmpRank   = [];
+            $tmpRankv2 = [];
+            foreach ($得勝分表 as $選手) {
+                $tmpRank[$選手[$第一層]] = null;
 
-        krsort($tmpRank);
+                if (isset($tmpRankv2[$選手[$第一層]])) {
+                    $tmpRankv2[$選手[$第一層]] = $tmpRankv2[$選手[$第一層]] + 1;
+                } else {
+                    $tmpRankv2[$選手[$第一層]] = 1;
+                }
 
-        foreach ($tmpRank as $key => $val) {
-            $tmpRank[$key] = $rank;
-            $rank++;
-        }
+                $rank++;
+            }
+            $rank = 1;
+
+            krsort($tmpRank);
+
+            foreach ($tmpRank as $key => $val) {
+                $tmpRank[$key] = $rank;
+                $rank++;
+            }
 //dd($tmpRank);
-        foreach ($得勝分表 as $key => $選手) {
-            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+            foreach ($得勝分表 as $key => $選手) {
+                $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+            }
+
+            $rank = 1;
+            foreach ($得勝分表 as $key => $選手) {
+
+                if ($rank == 1) {
+                    $tmpRank = $得勝分表[$key][$名次層];
+                    $rank++;
+                    continue;
+                }
+
+                if ($得勝分表[$key][$名次層] == $tmpRank) {
+                    $rank++;
+                }
+
+                $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
+                $得勝分表[$key][$名次層] = $tmpRank[$得勝分表[$key][$第一層]];
+                echo $tmpRank[$選手[$第一層]]."<br>";
+                echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
+                echo $得勝分表[$key][$第一層]."<br>";
+            }
+            dd();
+            //算第一層同樣名次，目前名次只計算到第一層 結束
         }
 
-        $rank = 1;
-        foreach ($得勝分表 as $key => $選手) {
-
-//            if ($rank == 1) {
-//                $tmpRank = $得勝分表[$key][$名次層];
-//                $rank++;
-//                continue;
-//            }
-//
-//            if ($得勝分表[$key][$名次層] == $tmpRank) {
-//                $rank++;
-//            }
-
-//            $得勝分表[$key][$名次層] = $tmpRank[$選手[$第一層]];
-            $得勝分表[$key][$名次層] = $tmpRank[$得勝分表[$key][$第一層]];
-//            echo $tmpRank[$選手[$第一層]]."<br>";
-//            echo $tmpRank[$得勝分表[$key][$第一層]]."<br>";
-//            echo $得勝分表[$key][$第一層]."<br>";
-        }
-//        dd();
-//        dd($得勝分表);
-        //算第一層同樣名次，目前名次只計算到第一層 結束
 
 
         if ($schedule->number_of_player == 0) {
