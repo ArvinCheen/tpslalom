@@ -24,10 +24,10 @@ class tmp extends Command
      */
     public function handle()
     {
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 400; $i++) {
             $gene1 = null;
             $gene2 = null;
-            for ($x = 1; $x <= 360; $x++) {
+            for ($x = 1; $x <= 12; $x++) {
                 switch (rand(1, 4)) {
                     case 1:
                         $gene1 .= 'A';
@@ -49,10 +49,11 @@ class tmp extends Command
                         break;
                 }
             }
-            $this->info('物種' . $i);
-            $this->info('基因上段：' . $gene1);
-            $this->info('基因下段：' . $gene2);
-            $this->info("\n");
+//            $this->info('物種' . $i);
+            $this->info($gene1);
+//            $this->info('基因上段：' . $gene1);
+//            $this->info('基因下段：' . $gene2);
+//            $this->info("\n");
         }
         dd();
         $x = ScheduleModel::where('game_day', 3)->get();
