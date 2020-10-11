@@ -12,11 +12,20 @@
             <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>
             <p>相關組別報名注意事項，請參閱簡章</p>
         </div>
-        <form action='{{ URL('enroll/enroll') }}' method="post">
+{{--        <form method="post" action="{{ route('company.store') }}" enctype="multipart/form-data">--}}
+        <form action='{{ URL('enroll/enroll') }}' method="post"  enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-8 mb-5">
+                <div class="col-md-12 mb-12">
                     <h4 class="mb-3">選手資訊</h4>
+{{--                    <div class="custom-file">--}}
+{{--                        <input type="file" name="file" class="custom-file-input" id="chooseFile" accept="audio/*">--}}
+{{--                        <label class="custom-file-label" for="chooseFile">Select file</label>--}}
+{{--                    </div>--}}
+
+{{--                    <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">--}}
+{{--                        Upload Files--}}
+{{--                    </button>--}}
                     <div class="mb-3">
                         <label>出賽選手</label>
                         <select class="form-control" name="playerId" required>
@@ -75,7 +84,7 @@
                     </div>
                     <div class="mb-3">
                         <label>組別</label>
-                        <select class="form-control" name="group" required disabled>
+                        <select id="groupSelect" class="form-control" name="group" required disabled>
                             <option value=''> -- 請選擇 -- </option>
                             <option value="幼童">幼童</option>
                             <option value="國小一年級">國小一年級</option>
@@ -92,19 +101,19 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 mb-4">
+
+            </div>
+            <div id="itemSelect" class="row" style="display:none">
+                <div class="col-md-12 mb-12">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">報名項目</span>
+                        <h4 class="mb-3">報名項目</h4>
                     </h4>
                     <ul class="list-group mb-3">
                         <li class="list-group-item mb-3">
-                            <div>
-                                <h6>選擇級別</h6>
-                            </div>
                             <div class="">
-                                <select class="form-control" name="level" id="levelSelectBar" required>
-                                    <option value=''> -- 選擇級別 -- </option>
-                                    <option value="初級組">初級組</option>
+                                <select class="form-control" name="level" id="levelSelect" required>
+                                    <option value=''> -- 選擇選手級別 -- </option>
+                                    <option id="option初級組" value="初級組">初級組</option>
                                     <option value="新人組">新人組</option>
                                     <option value="選手組">選手組</option>
                                 </select>
@@ -116,21 +125,66 @@
                             </div>
                             <div class="form-check" style="margin-top:10px">
                                 <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S型" id="doubleS" >
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" for="doubleS">
                                     前進雙足S型
                                 </label>
                             </div>
                             <div class="form-check" style="margin-top:10px">
                                 <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S型" id="singleS" >
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" for="singleS">
                                     前進單足S型
                                 </label>
                             </div>
                             <div class="form-check" style="margin-top:10px">
                                 <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉型" id="cross" >
-                                <label class="form-check-label" for="defaultCheck1">
+                                <label class="form-check-label" for="cross">
                                     前進交叉型
                                 </label>
+                            </div>
+                            <div class="form-check" style="margin-top:10px">
+                                <input class="form-check-input" name="flowerItem" type="radio" value="初級指定套路" id="flower1" >
+                                <label class="form-check-label" for="flower1">
+                                    初級指定套路（指定曲目）
+                                </label>
+                            </div>
+                            <div class="form-check" style="margin-top:10px">
+                                <input class="form-check-input" name="flowerItem" type="radio" value="中級指定套路" id="flower2" >
+                                <label class="form-check-label" for="flower2">
+                                    中級指定套路（自選曲目）
+                                </label>
+                            </div>
+
+                            <hr id="flowerHrLine" style="display:none;">
+
+                            <div class="form-check flower1sound" style="margin-top:10px; display:none">
+                                <input class="form-check-input" name="sound" type="radio" value="曲目1" id="sound1" >
+                                <label class="form-check-label" for="sound1">
+                                    曲目1
+                                </label>
+                            </div>
+                            <div class="form-check flower1sound" style="margin-top:10px; display:none">
+                                <input class="form-check-input" name="sound" type="radio" value="曲目2" id="sound2" >
+                                <label class="form-check-label" for="sound2">
+                                    曲目2
+                                </label>
+                            </div>
+                            <div class="form-check flower1sound" style="margin-top:10px; display:none">
+                                <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3" >
+                                <label class="form-check-label" for="sound3">
+                                    曲目3
+                                </label>
+                            </div>
+                            <div class="form-check flower1sound" style="margin-top:10px; display:none">
+                                <input class="form-check-input" name="sound" type="radio" value="曲目4" id="sound4" >
+                                <label class="form-check-label" for="sound4">
+                                    曲目4
+                                </label>
+                            </div>
+
+
+                            <div class="form-check custom-file flower2sound" style="margin-top:10px; display:none">
+                                <input type="file" class="custom-file-input" id="customFile" name="soundFile">
+                                <label class="custom-file-label" for="customFile">選擇音樂檔</label>
                             </div>
                         </li>
                     </ul>
@@ -149,7 +203,12 @@
 
 @section('js')
 <script>
-    $("#levelSelectBar").change(function() {
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    $("#levelSelect").change(function() {
         $("#enrollItemSelectBar").show();
 
         switch ($(this).val()) {
@@ -160,13 +219,50 @@
                 break;
             case '新人組':
                 $('#doubleS').attr('disabled', false).prop('checked', false);
-                $('#singleS').attr('disabled', true).prop('checked', false);
+                $('#singleS').attr('disabled', false).prop('checked', false);
                 $('#cross').attr('disabled', false).prop('checked', false);
                 break;
             case '選手組':
                 $('#doubleS').attr('disabled', false).prop('checked', false);
                 $('#singleS').attr('disabled', false).prop('checked', false);
                 $('#cross').attr('disabled', false).prop('checked', false);
+                break;
+        }
+    });
+
+    $("input[name='flowerItem']").change(function() {
+
+        $("#flowerHrLine").show();
+
+        switch ($(this).val()) {
+            case '初級指定套路':
+                $('.flower1sound').show();
+                $('.flower2sound').hide();
+                break;
+            case '中級指定套路':
+                $('.flower1sound').hide();
+                $('.flower2sound').show();
+                break;
+        }
+    });
+
+
+
+    $("#groupSelect").change(function() {
+        $("#itemSelect").show();
+
+        switch ($(this).val()) {
+            case '幼童':
+            case '國小一年級':
+            case '國小二年級':
+            case '國小三年級':
+            case '國小四年級':
+            case '國小五年級':
+            case '國小六年級':
+                $('#option初級組').prop('disabled', false);
+                break;
+            default:
+                $('#option初級組').prop('disabled', true);
                 break;
         }
     });

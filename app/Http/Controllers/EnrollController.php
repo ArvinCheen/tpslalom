@@ -9,13 +9,10 @@ use App\Models\EnrollModel;
 use App\Models\GameModel;
 use App\Models\PlayerModel;
 use App\Models\RegistryFeeModel;
-use App\Services\RegistryFeeService;
 use Illuminate\Http\Request;
-use App\Services\EnrollService;
-use App\Services\PlayerService;
-use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Storage;
 
 class EnrollController extends Controller
 {
@@ -25,8 +22,7 @@ class EnrollController extends Controller
 
         $gameInfo = GameModel::find(config('app.game_id'));
 
-        $now = strtotime(date('Y/m/d H:i:s'));
-        if ($now >= strtotime($gameInfo->enroll_start_time) && $now <= strtotime($gameInfo->enroll_close_time)) {
+        if ($gameInfo->is_open_enroll) {
             $status = true;
         } else {
             $status = false;
@@ -56,7 +52,45 @@ class EnrollController extends Controller
 
     private function store($request)
     {
+//        ini_set('upload_max_filesize','8M');
+//        dd(ini_get('upload_max_filesize'));
+//        phpinfo();
+//        dd();
+//        dd(public_path('/storage/mp3'));
 
+//            $path = "test/music/"; //file to place within the server
+//            $valid_formats1 = array("mp3", "ogg", "flac"); //list of file extention to be accepted
+//            if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
+//                $file = $_FILES['file']['name']; //input file name in this code is file
+//                $size = $_FILES['file']['size'];
+//
+//                if(strlen($file))
+//                {
+//                    list($txt, $ext) = explode(".", $file);
+//                    if(in_array($ext,$valid_formats1))
+//                    {
+//                        $actual_image_name = $txt.".".$ext;
+//                        $tmp = $_FILES['file']['tmp_name'];
+//
+//
+//                        if(move_uploaded_file($tmp, public_path('/storage/mp3/').$actual_image_name)) {
+////                            dd('success');
+//                        } else {
+////                            dd('fail');
+//                        }
+//                    }
+//                }
+//            }
+//            return back();
+//        dd($request->all());
+//        if ($request->hasFile('file')) {
+//            $fileName = time() . '.mp3';
+//            $path     = Storage::put('file/' . $fileName, $request->file('file')->get());
+//            dd($path);
+//            dd(1);
+//        } else {
+//            dd(2);
+//        }
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
         $agency     = $request->agency;
@@ -65,12 +99,8 @@ class EnrollController extends Controller
         $group      = $request->group;
         $level      = $request->level;
         $enrollItem = $request->enrollItem;
-        if (is_null($enrollItem)) {
-            Log::error("[EnrollController@enroll] 報名失敗", ['未選擇報名項目']);
-            $request->session()->flash('error', '報名失敗，請確定欄位都填寫完畢');
-
-            return false;
-        }
+        $flowerItem = $request->flowerItem;
+        $sound      = $request->sound;
 
         try {
             DB::beginTransaction();
@@ -85,27 +115,53 @@ class EnrollController extends Controller
 
             app(EnrollModel::class)->cancel($playerId);
 
-            $playerNumber = $this->getPlayerNumber($playerId);
+            if ($enrollItem) {
+                foreach ($enrollItem as $item) {
+                    EnrollModel::create([
+                        'game_id'    => config('app.game_id'),
+                        'player_id'  => $playerId,
+                        'account_id' => auth()->user()->id,
+                        'level'      => $level,
+                        'group'      => $group,
+                        'gender'     => $gender,
+                        'item'       => $item,
+                    ]);
+                }
+            }
 
-            foreach ($enrollItem as $item) {
+            if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
+                $soundName = $group . '-' . $flowerItem . '-' . $name . '.mp3';
+                Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
                 EnrollModel::create([
-                    'game_id'       => config('app.game_id'),
-                    'player_id'     => $playerId,
-                    'player_number' => $playerNumber,
-                    'account_id'    => auth()->user()->id,
-                    'level'         => $level,
-                    'group'         => $group,
-                    'item'          => $item,
+                    'game_id'    => config('app.game_id'),
+                    'player_id'  => $playerId,
+                    'account_id' => auth()->user()->id,
+                    'group'      => $group,
+                    'item'       => $flowerItem,
+                    'gender'     => $gender,
+                    'sound'      => $soundName,
+                ]);
+            }
+
+            if ($flowerItem == '初級指定套路') {
+                EnrollModel::create([
+                    'game_id'    => config('app.game_id'),
+                    'player_id'  => $playerId,
+                    'account_id' => auth()->user()->id,
+                    'group'      => $group,
+                    'item'       => $flowerItem,
+                    'gender'     => $gender,
+                    'sound'      => $sound,
                 ]);
             }
 
             app(RegistryFeeModel::class)::updateOrCreate(
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
-                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => 600 + (app(EnrollModel::class)->getEnrollQuantity($playerId) * 100)]
+                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $this->calculationFee($enrollItem, $flowerItem)]
             );
 
             $account = AccountModel::find(auth()->user()->id)->team_name;
-            app(SlackNotify::class)->setMsg("```選手號碼：{$playerNumber} {$name}（{$account}） 報名成功```")->notify();
+            app(SlackNotify::class)->setMsg("```選手： {$name}（{$account}） 報名成功```")->notify();
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -113,6 +169,22 @@ class EnrollController extends Controller
             DB::rollback();
             return false;
         }
+    }
+
+    private function calculationFee($enrollItem, $flowerItem)
+    {
+        $fee = 0;
+
+        if ($enrollItem) {
+            $fee += count($enrollItem) * 100 + 600;
+        }
+
+        if ($flowerItem) {
+            $fee += 600;
+        }
+
+        return $fee;
+
     }
 
     private function getPlayerNumber($playerId)

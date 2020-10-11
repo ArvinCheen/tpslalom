@@ -42,12 +42,12 @@
 {{--                            <li>--}}
 {{--                                <a href="{{ URL('') }}"> 首頁 </a>--}}
 {{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('enroll') }}"> 報名 </a>--}}
-{{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>--}}
-{{--                            </li>--}}
+                            <li>
+                                <a href="{{ URL('enroll') }}"> 報名 </a>
+                            </li>
+                            <li>
+                                <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>
+                            </li>
 
 {{--                            <li class="has-dropdown">--}}
 {{--                                <a href="#">成績公告</a>--}}
@@ -65,16 +65,17 @@
 {{--                            <li class="has-dropdown">--}}
 {{--                                <a href="#">比賽資訊</a>--}}
 {{--                                <ul>--}}
-                                    <li>
-                                        <a href="{{ URL('gameInfo/schedules') }}">
-                                            賽程表</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
-                                    </li>
-                            <li>
-                                <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
-                            </li>
+{{--                            todo 出場序抽籤後在出現 賽程表、分組名冊、團隊名冊--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/schedules') }}">--}}
+{{--                                            賽程表</a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
+{{--                                    </li>--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>--}}
+{{--                            </li>--}}
 
 {{--                            <li>--}}
 {{--                                <a href="{{ URL('gameInfo/program') }}"> 線上秩序冊 </a>--}}
