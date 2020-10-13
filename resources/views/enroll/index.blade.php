@@ -14,6 +14,9 @@
 {{--        </div>--}}
         <form action='{{ URL('enroll/enroll') }}' method="post"  enctype="multipart/form-data">
             {{ csrf_field() }}
+            @if (!is_null($playerId))
+                <input type="hidden" name="playerId" value="{{$playerId}}"/>
+            @endif
             <div class="row">
                 <div class="col-md-12 mb-12">
                     @if (is_null($playerId))
@@ -24,7 +27,7 @@
 
                     @if (is_null($playerId))
                         <div class="mb-3">
-                            <select class="form-control" id="selectPlayer" required>
+                            <select class="form-control" id="selectPlayer" name="playerId" required>
                                 <option value=''> -- 請選擇一位選手 -- </option>
                                 <option value="newPlayer"> 新增一個全新的選手 </option>
                                 @foreach ($players as $player)
@@ -167,7 +170,7 @@
                                 </label>
                             </div>
                             <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                <input class="form-check-inputplayerId" name="sound" type="radio" value="曲目3" id="sound3" >
+                                <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3" >
                                 <label class="form-check-label" for="sound3">
                                     曲目3
                                 </label>
