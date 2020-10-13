@@ -27,9 +27,9 @@ class PlayerController extends Controller
     public function ajaxGetPlayer($playerId)
     {
         $player = PlayerModel::find($playerId);
-        $player->doubleS = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S型');
-        $player->singleS = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S型');
-        $player->cross   = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
+//        $player->doubleS = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S型');
+//        $player->singleS = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S型');
+//        $player->cross   = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
         $player->group   = app(EnrollModel::class)->getGroup($playerId);
 
         return response()->json($player);
