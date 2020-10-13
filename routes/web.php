@@ -12,7 +12,7 @@
 Route::group(['prefix' => '/'], function () {
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@groups']);
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@schedules']);
-    Route::get('/', ['as' => '/', 'uses' => 'EnrollController@index'])->middleware(['auth']);;
+    Route::get('/', ['as' => 'paymentInfo', 'uses' => 'PaymentController@index'])->middleware(['auth']);
 
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@index']);

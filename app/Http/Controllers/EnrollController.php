@@ -28,7 +28,7 @@ class EnrollController extends Controller
             $status = false;
         }
 
-        return view('enroll/index', compact('players', 'status','playerId'));
+        return view('enroll/index', compact('players', 'status', 'playerId'));
     }
 
     public function enroll(Request $request)
@@ -37,7 +37,7 @@ class EnrollController extends Controller
             return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
         }
 
-        return back()->with(['success' => '報名成功']);
+        return redirect('paymentInfo')->with(['success' => '報名成功']);;
     }
 
     public function update(Request $request)
@@ -56,11 +56,12 @@ class EnrollController extends Controller
         $agency     = $request->agency;
         $gender     = $request->gender;
         $city       = $request->city;
-        $group      = $request->group;
         $level      = $request->level;
+        $group      = $request->group;
         $enrollItem = $request->enrollItem;
         $flowerItem = $request->flowerItem;
         $sound      = $request->sound;
+
 
         try {
             DB::beginTransaction();
@@ -96,7 +97,7 @@ class EnrollController extends Controller
                     'game_id'    => config('app.game_id'),
                     'player_id'  => $playerId,
                     'account_id' => auth()->user()->id,
-                    'group'      => $group,
+                    'group'      => $this->getFlowerGroup($group),
                     'item'       => $flowerItem,
                     'gender'     => $gender,
                     'sound'      => $soundName,
@@ -108,7 +109,7 @@ class EnrollController extends Controller
                     'game_id'    => config('app.game_id'),
                     'player_id'  => $playerId,
                     'account_id' => auth()->user()->id,
-                    'group'      => $group,
+                    'group'      => $this->getFlowerGroup($group),
                     'item'       => $flowerItem,
                     'gender'     => $gender,
                     'sound'      => $sound,
@@ -129,6 +130,33 @@ class EnrollController extends Controller
             DB::rollback();
             return false;
         }
+    }
+
+    private function getFlowerGroup($group)
+    {
+            switch ($group) {
+                case '國小一年級':
+                    return '國小低年級';
+                    break;
+                case '國小二年級':
+                    return '國小低年級';
+                    break;
+                case '國小三年級':
+                    return '國小中年級';
+                    break;
+                case '國小四年級':
+                    return '國小中年級';
+                    break;
+                case '國小五年級':
+                    return '國小高年級';
+                    break;
+                case '國小六年級':
+                    return '國小高年級';
+                    break;
+                default:
+                    return $group;
+                    break;
+            }
     }
 
     private function calculationFee($enrollItem, $flowerItem)

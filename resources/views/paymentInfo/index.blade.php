@@ -7,14 +7,17 @@
 @section('content')
     <div class="mh mb-5">
         <div class="container">
-            <div class="mt-5 mb-5 text-center">
-                <h2 class="mb-3">繳費資訊</h2>
-                <p> 報名費請於報名截止日前匯款至 </p>
-                <p> 王道銀行營業部 (048) 0100-0051-3275-88 </p>
-                <p> 戶名： 曾大宇 </p>
+            <div class="mt-5 mb-4 text-center">
+                <h2 class="mb-3">109北市中正盃</h2>
             </div>
+
             <div class="row justify-content-center col-md-12">
-                <div class="col-md-8  px-4">
+                <div class="col-md-8">
+                    <a class="btn btn-primary col-md-12" href="{{ URL('enroll') }}">申請比賽項目</a>
+                </div>
+
+                <div class="col-md-8 px-4">
+                    <h3 class="mt-4 mb-4 ">報名選手清單</h3>
                     @foreach ($paymentInfo as $payment)
                         <div class="row mt-3">
                             <div class="col-md-9">
@@ -39,8 +42,16 @@
                         <hr class="">
                     @endforeach
                     <div class="row mt-3">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
+                        @if ($total)
+                            <div class="col-md-9">
+                                付款資訊：王道銀行營業部 (048) 0100-0051-3275-88
+                            </div>
+                            <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
+                            @else
+                            <div class="col-md-9">
+                                目前無報名資料
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

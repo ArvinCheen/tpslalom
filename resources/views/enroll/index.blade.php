@@ -14,7 +14,7 @@
 {{--        </div>--}}
         <form action='{{ URL('enroll/enroll') }}' method="post"  enctype="multipart/form-data">
             {{ csrf_field() }}
-            @if (!is_null($playerId))
+            @if (isset($playerId))
                 <input type="hidden" name="playerId" value="{{$playerId}}"/>
             @endif
             <div class="row">

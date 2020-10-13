@@ -42,11 +42,11 @@
 {{--                            <li>--}}
 {{--                                <a href="{{ URL('') }}"> 首頁 </a>--}}
 {{--                            </li>--}}
+{{--                            <li>--}}
+{{--                                <a href="{{ URL('enroll') }}"> 報名 </a>--}}
+{{--                            </li>--}}
                             <li>
-                                <a href="{{ URL('enroll') }}"> 報名 </a>
-                            </li>
-                            <li>
-                                <a href="{{ URL('paymentInfo') }}"> 繳費資訊 </a>
+                                <a href="{{ URL('paymentInfo') }}"> 報名選手清單 </a>
                             </li>
 
 {{--                            <li class="has-dropdown">--}}
