@@ -26,6 +26,11 @@ Route::group(['prefix' => 'register'], function () {
     Route::post('/', 'Auth\RegisterController@register');
 });
 
+Route::group(['prefix' => 'player'], function () {
+    Route::get('ajaxGetPlayer/{playerId}', 'PlayerController@ajaxGetPlayer');
+    Route::delete('deletePlayer', 'PlayerController@deletePlayer');
+});
+
 Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -46,10 +51,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
         Route::put('update', 'AccountController@update');
     });
 
-    Route::group(['prefix' => 'player'], function () {
-        Route::get('ajaxGetPlayer/{playerSn}', 'PlayerController@ajaxGetPlayer');
-        Route::delete('deletePlayer', 'PlayerController@deletePlayer');
-    });
 
 
     Route::group(['prefix' => 'paymentInfo'], function () {
