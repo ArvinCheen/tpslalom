@@ -318,7 +318,7 @@
         @if (env('APP_ENV') == 'local')
             var url = "/player/ajaxGetPlayer/" + playerId;
         @else
-            var url = "player/ajaxGetPlayer/" + playerId;
+            var url = "nksds.com/tpslalom/public/player/ajaxGetPlayer/" + playerId;
         @endif
 
         $.ajax({
