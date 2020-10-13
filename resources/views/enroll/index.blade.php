@@ -315,10 +315,10 @@
 
     function getPlayer(playerId) {
         // dev 和 production 的domain不同，暫時使用兩種寫法
-        @if (is_null($playerId))
-            var url = "player/ajaxGetPlayer/" + playerId;
-        @else
+        @if (env('APP_ENV') == 'local')
             var url = "/player/ajaxGetPlayer/" + playerId;
+        @else
+            var url = "player/ajaxGetPlayer/" + playerId;
         @endif
 
         $.ajax({
