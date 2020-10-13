@@ -91,7 +91,7 @@ class EnrollController extends Controller
             }
 
             if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
-                $soundName = $group . '-' . $flowerItem . '-' . $name . '.mp3';
+                $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
                 Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
                 EnrollModel::create([
                     'game_id'    => config('app.game_id'),
