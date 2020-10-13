@@ -18,7 +18,7 @@
                     @foreach ($paymentInfo as $payment)
                         <div class="row mt-3">
                             <div class="col-md-9">
-                                <h5> {{ $payment->name }} </h5>
+                                <h5> {{ $payment->name }} {{ $payment->group }} {{ $payment->gender }}</h5>
                                 <small> {{ $payment->item }} </small>
                             </div>
                             <div class="col-md-3 text-right" style="padding-right:30px">
@@ -26,8 +26,12 @@
                                     <span>${{ $payment->fee }} 元</span>
                                 </div>
                                 <div>
-                                    <a class="small" href="{{ URL('enroll/edit/' . $payment->player_id) }}">
+                                    <a class="small" href="{{ URL('enroll/' . $payment->player_id) }}">
                                         修改報名
+                                    </a>
+
+                                    <a class="small" href="#" onclick="cancelEnroll({{$payment->player_id}})">
+                                        取消報名
                                     </a>
                                 </div>
                             </div>
@@ -42,7 +46,19 @@
             </div>
         </div>
     </div>
+
+    <form id="cancelForm" action="{{ URL('enroll/cancel') }}" method="POST">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <input type="hidden" id="playerId" name="playerId"/>
+    </form>
 @endsection
 
 @section('js')
+    <script>
+        function cancelEnroll(playerId) {
+            $("#playerId").val(playerId);
+            $('#cancelForm').submit();
+        }
+    </script>
 @endsection

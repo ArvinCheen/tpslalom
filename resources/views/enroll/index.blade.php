@@ -7,37 +7,35 @@
 @section('content')
 
 <div class="mh mb-5">
-    <div class="container">
-        <div class="mt-5 mb-5 text-center">
-            <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>
-            <p>相關組別報名注意事項，請參閱簡章</p>
-        </div>
-{{--        <form method="post" action="{{ route('company.store') }}" enctype="multipart/form-data">--}}
+    <div class="container mt-5">
+{{--        <div class="mt-5 mb-5 text-center">--}}
+{{--            <p>本次賽事積分有些許異動，詳細內容請參閱簡章</p>--}}
+{{--            <p>相關組別報名注意事項，請參閱簡章</p>--}}
+{{--        </div>--}}
         <form action='{{ URL('enroll/enroll') }}' method="post"  enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-12 mb-12">
-                    <h4 class="mb-3">選手資訊</h4>
-{{--                    <div class="custom-file">--}}
-{{--                        <input type="file" name="file" class="custom-file-input" id="chooseFile" accept="audio/*">--}}
-{{--                        <label class="custom-file-label" for="chooseFile">Select file</label>--}}
-{{--                    </div>--}}
+                    @if (is_null($playerId))
+                        <h3 class="mb-3">報名參賽選手</h3>
+                    @else
+                        <h3 class="mb-3">修改參賽選手資料</h3>
+                    @endif
 
-{{--                    <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">--}}
-{{--                        Upload Files--}}
-{{--                    </button>--}}
-                    <div class="mb-3">
-                        <label>出賽選手</label>
-                        <select class="form-control" name="playerId" required>
-                            <option value=''> -- 請選擇一位選手 -- </option>
-                            <option value="newPlayer"> 新增一個全新的選手 </option>
-                            @foreach ($players as $player)
-                                <option value="{{ $player->id }}">
-                                    No.{{ $player->id }} {{ $player->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if (is_null($playerId))
+                        <div class="mb-3">
+                            <select class="form-control" id="selectPlayer" required>
+                                <option value=''> -- 請選擇一位選手 -- </option>
+                                <option value="newPlayer"> 新增一個全新的選手 </option>
+                                @foreach ($players as $player)
+                                    <option value="{{ $player->id }}">
+                                        No.{{ $player->id }} {{ $player->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+
                     <div class="mb-3">
                         <label for="address">姓名</label>
                         <input type="text" class="form-control" name="name" placeholder='' value="" required disabled>
@@ -119,7 +117,7 @@
                                 </select>
                             </div>
                         </li>
-                        <li class="list-group-item mb-3" id="enrollItemSelectBar" style="display:none">
+                        <li class="list-group-item mb-3" id="enrollItemBox" style="display:none">
                             <div>
                                 <h6>選擇參賽項目</h6>
                             </div>
@@ -169,7 +167,7 @@
                                 </label>
                             </div>
                             <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3" >
+                                <input class="form-check-inputplayerId" name="sound" type="radio" value="曲目3" id="sound3" >
                                 <label class="form-check-label" for="sound3">
                                     曲目3
                                 </label>
@@ -190,9 +188,14 @@
                     </ul>
 
                     @if ($status)
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">報名</button>
+                        @if (is_null($playerId))
+                            <button class="btn btn-primary col-md-12" type="submit">報名</button>
+                        @else
+                            <button class="btn btn-primary col-md-5" type="submit">修改報名資訊</button>
+                            <a class="btn btn-default col-md-5" href="{{ URL('paymentInfo') }}">回繳費資訊</a>
+                        @endif
                     @else
-                        <button class="btn btn-lg btn-block" type="button" disabled>報名截止，無法報名</button>
+                        <button class="btn" type="button" disabled>報名截止，無法報名</button>
                     @endif
                 </div>
             </div>
@@ -203,13 +206,26 @@
 
 @section('js')
 <script>
-    // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    @if (!is_null($playerId))
+        getPlayer({{$playerId}});
+        disabledForm(false);
+    @endif
+
+    $("#selectPlayer").change(function() {
+        var playerId = $(this).val();
+
+        clearForm();
+
+        if (playerId === '') {
+            disabledForm(true);
+        } else {
+            disabledForm(false);
+            getPlayer(playerId);
+        }
     });
+
     $("#levelSelect").change(function() {
-        $("#enrollItemSelectBar").show();
+        $("#enrollItemBox").show();
 
         switch ($(this).val()) {
             case '初級組':
@@ -246,12 +262,14 @@
         }
     });
 
-
-
     $("#groupSelect").change(function() {
+        showItemSelect();
+    });
+
+    function showItemSelect() {
         $("#itemSelect").show();
 
-        switch ($(this).val()) {
+        switch ($("#groupSelect").val()) {
             case '幼童':
             case '國小一年級':
             case '國小二年級':
@@ -265,20 +283,8 @@
                 $('#option初級組').prop('disabled', true);
                 break;
         }
-    });
+    }
 
-    $("select[name='playerId']").change(function() {
-        var playerId = $(this).val();
-
-        clearForm();
-
-        if (playerId === '') {
-            disabledForm(true);
-        } else {
-            disabledForm(false);
-            getPlayer(playerId);
-        }
-    });
 
     function disabledForm(action) {
         $("input[name='name']").prop('disabled', action);
@@ -305,9 +311,8 @@
     }
 
     function getPlayer(playerId) {
-        console.log(playerId);
         $.ajax({
-            url: "player/ajaxGetPlayer/" + playerId,
+            url: "/player/ajaxGetPlayer/" + playerId,
             dateType: "JSON",
             success: function (msg) {
                 console.log(msg);
@@ -339,11 +344,21 @@
                 } else {
                     $("select[name='cross'] option[value=" + msg.cross + "]").prop('selected', true);
                 }
+                if (msg.group) {
+                    showItemSelect();
+                }
             },
             error: function (err) {
                 console.log(err);
             }
         })
     }
+
+    // 上傳檔案 start
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    // 上傳檔案 end
 </script>
 @endsection

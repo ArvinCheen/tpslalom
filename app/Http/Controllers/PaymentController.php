@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
@@ -12,12 +13,12 @@ class PaymentController extends Controller
         $paymentInfo = app(RegistryFeeModel::class)->getCart();
 
         foreach ($paymentInfo as $payment) {
-            $payment->item = $this->assembleItem($payment->player_number);
+            $payment->item = $this->assembleItem($payment->player_id);
         }
 
         $total = number_format(app(RegistryFeeModel::class)->getTotal());
 
-        return  view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
+        return view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
     }
 
     private function assembleItem($playerId)
@@ -27,7 +28,13 @@ class PaymentController extends Controller
         $itemView = null;
 
         foreach ($items as $item) {
-            $itemView .= $item->item . '（' . $item->level . '） / ';
+            if ($item->item == '初級指定套路') {
+                $itemView .= $item->item . ' ' . $item->sound . ' / ';
+            } else if($item->item == '中級指定套路') {
+                $itemView .= $item->item . ' / ';
+            } else {
+                $itemView .= $item->level . ' ' . $item->item . ' / ';
+            }
         }
 
         return substr($itemView, 0, -3);

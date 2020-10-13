@@ -16,7 +16,7 @@ use Storage;
 
 class EnrollController extends Controller
 {
-    public function index()
+    public function index($playerId = null)
     {
         $players = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
 
@@ -28,8 +28,7 @@ class EnrollController extends Controller
             $status = false;
         }
 
-
-        return view('enroll/index', compact('players', 'status'));
+        return view('enroll/index', compact('players', 'status','playerId'));
     }
 
     public function enroll(Request $request)
@@ -52,45 +51,6 @@ class EnrollController extends Controller
 
     private function store($request)
     {
-//        ini_set('upload_max_filesize','8M');
-//        dd(ini_get('upload_max_filesize'));
-//        phpinfo();
-//        dd();
-//        dd(public_path('/storage/mp3'));
-
-//            $path = "test/music/"; //file to place within the server
-//            $valid_formats1 = array("mp3", "ogg", "flac"); //list of file extention to be accepted
-//            if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
-//                $file = $_FILES['file']['name']; //input file name in this code is file
-//                $size = $_FILES['file']['size'];
-//
-//                if(strlen($file))
-//                {
-//                    list($txt, $ext) = explode(".", $file);
-//                    if(in_array($ext,$valid_formats1))
-//                    {
-//                        $actual_image_name = $txt.".".$ext;
-//                        $tmp = $_FILES['file']['tmp_name'];
-//
-//
-//                        if(move_uploaded_file($tmp, public_path('/storage/mp3/').$actual_image_name)) {
-////                            dd('success');
-//                        } else {
-////                            dd('fail');
-//                        }
-//                    }
-//                }
-//            }
-//            return back();
-//        dd($request->all());
-//        if ($request->hasFile('file')) {
-//            $fileName = time() . '.mp3';
-//            $path     = Storage::put('file/' . $fileName, $request->file('file')->get());
-//            dd($path);
-//            dd(1);
-//        } else {
-//            dd(2);
-//        }
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
         $agency     = $request->agency;

@@ -51,6 +51,7 @@ class RegistryFeeModel extends Model
             'enroll.level',
             'enroll.group',
             'player.name',
+            'player.gender',
         ])
             ->leftJoin('enroll', 'enroll.player_id', 'registry_fee.player_id')
             ->leftJoin('player', 'player.id', 'enroll.player_id')

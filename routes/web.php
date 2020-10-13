@@ -12,7 +12,7 @@
 Route::group(['prefix' => '/'], function () {
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@groups']);
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@schedules']);
-    Route::get('/', ['as' => '/', 'uses' => 'EnrollController@index']);
+    Route::get('/', ['as' => '/', 'uses' => 'EnrollController@index'])->middleware(['auth']);;
 
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@index']);
@@ -34,7 +34,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'enroll'], function () {
-        Route::get('/', ['as' => '/', 'uses' => 'EnrollController@index']);
+        Route::get('/{playerId?}', ['as' => '/', 'uses' => 'EnrollController@index']);
         Route::get('edit/{playerNumber}', ['as' => 'edit', 'uses' => 'EnrollController@edit']);
         Route::put('update', ['as' => 'update', 'uses' => 'EnrollController@update']);
         Route::post('enroll', ['as' => 'enroll', 'uses' => 'EnrollController@enroll']);

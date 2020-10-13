@@ -16,7 +16,6 @@ class EnrollModel extends Model
 {
     protected $table = 'enroll';
 
-
     protected $fillable = ['game_id', 'player_id', 'player_number', 'account_id', 'gender', 'level', 'group', 'item', 'sound',
         'round_one_second', 'round_one_miss_conr', 'round_two_second', 'round_two_miss_conr', 'final_result',
         'skill1', 'art1', 'score1', 'skill2', 'art2', 'score2', 'skill3', 'art3', 'score3', 'skill4', 'art4', 'score4', 'skill5', 'art5', 'score5', 'punish',
@@ -90,7 +89,7 @@ class EnrollModel extends Model
 
     public function getPlayerEnrollItem($playerId)
     {
-        return $this->select('level', 'item')
+        return $this->select('level', 'item','sound')
             ->where('game_id', config('app.game_id'))
             ->where('player_id', $playerId)
             ->get();
