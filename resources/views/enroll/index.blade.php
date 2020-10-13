@@ -314,11 +314,17 @@
     }
 
     function getPlayer(playerId) {
+        // dev 和 production 的domain不同，暫時使用兩種寫法
+        @if (is_null($playerId))
+            var url = "player/ajaxGetPlayer/" + playerId;
+        @else
+            var url = "/player/ajaxGetPlayer/" + playerId;
+        @endif
+
         $.ajax({
-            url: "player/ajaxGetPlayer/" + playerId,
+            url: url,
             dateType: "JSON",
             success: function (msg) {
-                console.log(msg);
                 $("input[name='name']").val(msg.name);
                 $("input[name='agency']").val(msg.agency);
                 $("select[name='gender'] option[value=" + msg.gender + "]").prop('selected', true);
