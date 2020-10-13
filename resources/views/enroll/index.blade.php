@@ -315,7 +315,7 @@
 
     function getPlayer(playerId) {
         $.ajax({
-            url: "/player/ajaxGetPlayer/" + playerId,
+            url: "player/ajaxGetPlayer/" + playerId,
             dateType: "JSON",
             success: function (msg) {
                 console.log(msg);
