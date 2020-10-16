@@ -59,7 +59,7 @@
                             <th class="text-center"> 技術三</th>
                             <th class="text-center"> 藝術三</th>
                             <th class="text-center"> 總分三</th>
-                            @if ($scheduleInfo->item == '個人花式繞樁' )
+                            @if ($scheduleInfo->item <> '初級指定套路')
                                 <th class="text-center"> 技術四</th>
                                 <th class="text-center"> 藝術四</th>
                                 <th class="text-center"> 總分四</th>
@@ -96,49 +96,49 @@
                         @endforeach
                         @break;
                         @case('freeStyle')
-{{--                        @if ($scheduleInfo->item == '雙人花式繞樁')--}}
-{{--                                                        <tr>--}}
-{{--                                                            <th class="text-center"> 001 范予僖、193 黃淇宣</th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"> 1</th>--}}
-{{--                                                        </tr>--}}
-{{--                                                        <tr>--}}
-{{--                                                            <th class="text-center"> 362 邱宇廷、164 邱映瑄</th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"></th>--}}
-{{--                                                            <th class="text-center"> 2</th>--}}
-{{--                                                        </tr>--}}
+                        @if ($scheduleInfo->item == '雙人花式繞樁')
+                            <tr>
+                                <th class="text-center"> 001 范予僖、193 黃淇宣</th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"> 1</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center"> 362 邱宇廷、164 邱映瑄</th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"> 2</th>
+                            </tr>
 
-{{--                        @else--}}
+                        @else
 
                             @foreach ($result as $key => $val)
                                 <tr>
@@ -153,18 +153,18 @@
                                     <td class="text-center"> {{ $val->skill_3 }}</td>
                                     <td class="text-center"> {{ $val->art_3 }}</td>
                                     <td class="text-center"> {{ $val->score_3 }}</td>
-                                    @if ($scheduleInfo->item == '個人花式繞樁')
-                                    <td class="text-center"> {{ $val->skill_4 }}</td>
-                                    <td class="text-center"> {{ $val->art_4 }}</td>
-                                    <td class="text-center"> {{ $val->score_4 }}</td>
-                                    <td class="text-center"> {{ $val->skill_5 }}</td>
-                                    <td class="text-center"> {{ $val->art_5 }}</td>
-                                    <td class="text-center"> {{ $val->score_5 }}</td>
+                                    @if ($scheduleInfo->item <> '初級指定套路')
+                                        <td class="text-center"> {{ $val->skill_4 }}</td>
+                                        <td class="text-center"> {{ $val->art_4 }}</td>
+                                        <td class="text-center"> {{ $val->score_4 }}</td>
+                                        <td class="text-center"> {{ $val->skill_5 }}</td>
+                                        <td class="text-center"> {{ $val->art_5 }}</td>
+                                        <td class="text-center"> {{ $val->score_5 }}</td>
                                     @endif
                                     <td class="text-center"> {{ $val->rank }}</td>
                                 </tr>
                             @endforeach
-{{--                        @endif--}}
+                        @endif
                         @break;
                         @case('stop')
                         @foreach ($result as $key => $val)
@@ -176,23 +176,23 @@
                         @break;
                         @case('pk')
                         @switch ($scheduleInfo->order)
-                            @case('場次131')
-                            <img src="https://imgur.com/EwNkPsd.jpg"/>
+                            @case('場次33')
+                            <img src="https://imgur.com/1Z0wifg.jpg"/>
                             @break;
-                            @case('場次132')
-                            <img src="https://imgur.com/NGXBntM.jpg"/>
+                            @case('場次34')
+                            <img src="https://imgur.com/S3tYjTu.jpg"/>
                             @break;
-                            @case('場次133')
-                            <img src="https://imgur.com/J1OANrj.jpg"/>
+                            @case('場次35')
+                            <img src="https://imgur.com/ewODvdp.jpg"/>
                             @break;
-                            @case('場次134')
-                            <img src="https://imgur.com/awtnLGB.jpg"/>
+                            @case('場次36')
+                            <img src="https://imgur.com/x06SgPF.jpg"/>
                             @break;
-                            @case('場次135')
-                            <img src="https://imgur.com/jI5tFZc.jpg"/>
+                            @case('場次52')
+                            <img src="https://imgur.com/EFIhBBZ.jpg"/>
                             @break;
-                            @case('場次136')
-                            <img src="https://imgur.com/mnxFene.jpg"/>
+                            @case('場次53')
+                            <img src="https://imgur.com/ucwR0f9.jpg"/>
                             @break;
                         @endswitch
                         @break;
