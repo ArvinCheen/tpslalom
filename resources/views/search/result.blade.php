@@ -21,7 +21,7 @@
     <div class="mh mb-5">
         <div class="container">
             <div class="mt-5 mb-5 text-center">
-                <h2> 成績查詢 </h2>
+                <h2> 109有氧盃 成績查詢 </h2>
             </div>
             <div class="col-md-12">
                 <select class="form-control" id="m_select2_1" name="scheduleSn">
