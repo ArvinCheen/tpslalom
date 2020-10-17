@@ -326,8 +326,26 @@
                     break;
                 case '新人組':
                     $('#doubleS').attr('disabled', false);
-                    $('#singleS').attr('disabled', false);
+                    $('#singleS').attr('disabled', true);
                     $('#cross').attr('disabled', false);
+
+                    // 這裡有bug，如果選到新人組，其它組別都會吃到下面的設定，暫時想不到更好的寫法
+                    $('#doubleS').change(function () {
+                        if (document.getElementById("doubleS").checked === true) {
+                            $('#cross').attr('disabled', true);
+                        } else {
+                            $('#cross').attr('disabled', false);
+                        }
+                    });
+
+                    $('#cross').change(function () {
+                        if (document.getElementById("cross").checked === true) {
+                            $('#doubleS').attr('disabled', true);
+                        } else {
+                            $('#doubleS').attr('disabled', false);
+                        }
+                    });
+
                     break;
                 case '選手組':
                     $('#doubleS').attr('disabled', false);
