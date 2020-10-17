@@ -44,7 +44,7 @@
                     <div class="row mt-3">
                         @if ($total)
                             <div class="col-md-9">
-                                付款資訊：王道銀行營業部 (048) 0100-0051-3275-88
+                                付款資訊：048 王道銀行營業部 0100-0051-3275-88 戶名：曾大宇
                             </div>
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
                             @else
