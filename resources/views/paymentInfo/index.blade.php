@@ -44,7 +44,7 @@
                     <div class="row mt-3">
                         @if ($total)
                             <div class="col-md-9">
-                                付款資訊：？？？
+                                付款資訊：822 中國信託 285-54022448-8 戶名：王聖文
                             </div>
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
                             @else
