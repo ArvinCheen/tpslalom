@@ -116,8 +116,8 @@
                                     <select class="form-control" name="level" id="levelSelect">
                                         <option value=''> -- 選擇速樁級別 --</option>
                                         <option id="option初級組" value="初級組" {{ $level == '初級組' ? 'selected' : null }}>初級組</option>
-                                        <option value="新人組" {{ $level == '新人組' ? 'selected' : null }}>新人組</option>
                                         <option value="選手組" {{ $level == '選手組' ? 'selected' : null }}>選手組</option>
+                                        <option value="菁英組" {{ $level == '菁英組' ? 'selected' : null }}>菁英組</option>
                                     </select>
                                 </div>
                                 <div class="enrollItemBox" style="display:none">
@@ -160,92 +160,92 @@
                                 </div>
                             </li>
 
-                            <li class="list-group-item mb-3">
-                                <div>
-                                    <h6>個人指定套路</h6>
-                                </div>
-                                <div class="form-check" style="margin-top:10px">
-                                    <input class="form-check-input" name="flowerItem" type="radio" value="初級指定套路" id="flower1"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->item == '初級指定套路')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="flower1">
-                                        初級指定套路（指定曲目）
-                                    </label>
-                                </div>
-                                <div class="form-check" style="margin-top:10px">
-                                    <input class="form-check-input" name="flowerItem" type="radio" value="中級指定套路" id="flower2"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->item == '中級指定套路')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="flower2">
-                                        中級指定套路（自選曲目）
-                                    </label>
-                                </div>
+{{--                            <li class="list-group-item mb-3">--}}
+{{--                                <div>--}}
+{{--                                    <h6>個人指定套路</h6>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-check" style="margin-top:10px">--}}
+{{--                                    <input class="form-check-input" name="flowerItem" type="radio" value="初級指定套路" id="flower1"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->item == '初級指定套路')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="flower1">--}}
+{{--                                        初級指定套路（指定曲目）--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-check" style="margin-top:10px">--}}
+{{--                                    <input class="form-check-input" name="flowerItem" type="radio" value="中級指定套路" id="flower2"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->item == '中級指定套路')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="flower2">--}}
+{{--                                        中級指定套路（自選曲目）--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 
-                                <hr id="flowerHrLine" style="display:none;">
+{{--                                <hr id="flowerHrLine" style="display:none;">--}}
 
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目1" id="sound1"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目1')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound1">
-                                        曲目1
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目2" id="sound2"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目2')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound2">
-                                        曲目2
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目3')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound3">
-                                        曲目3
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目4" id="sound4"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目4')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound4">
-                                        曲目4
-                                    </label>
-                                </div>
+{{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+{{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目1" id="sound1"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->sound == '曲目1')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="sound1">--}}
+{{--                                        曲目1--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+{{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目2" id="sound2"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->sound == '曲目2')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="sound2">--}}
+{{--                                        曲目2--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+{{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->sound == '曲目3')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="sound3">--}}
+{{--                                        曲目3--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+{{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目4" id="sound4"--}}
+{{--                                           @foreach ($enrolls as $enroll)--}}
+{{--                                           @if ($enroll->sound == '曲目4')--}}
+{{--                                           checked--}}
+{{--                                        @endif--}}
+{{--                                        @endforeach--}}
+{{--                                    >--}}
+{{--                                    <label class="form-check-label" for="sound4">--}}
+{{--                                        曲目4--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
 
 
-                                <div class="form-check custom-file flower2sound" style="margin-top:10px; display:none">
-                                    <input type="file" class="custom-file-input" id="customFile" name="soundFile">
-                                    <label class="custom-file-label" for="customFile">選擇音樂檔</label>
-                                </div>
-                            </li>
+{{--                                <div class="form-check custom-file flower2sound" style="margin-top:10px; display:none">--}}
+{{--                                    <input type="file" class="custom-file-input" id="customFile" name="soundFile">--}}
+{{--                                    <label class="custom-file-label" for="customFile">選擇音樂檔</label>--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
                         </ul>
 
                         @if ($status)
@@ -271,19 +271,19 @@
         getPlayer({{$playerId}});
         disabledForm(false);
 
-        @foreach ($enrolls as $enroll)
+{{--        @foreach ($enrolls as $enroll)--}}
 
-        @if ($enroll->item == '初級指定套路')
-        $("#flowerHrLine").show();
-        $('.flower1sound').show();
-        @endif
+{{--        @if ($enroll->item == '初級指定套路')--}}
+{{--        $("#flowerHrLine").show();--}}
+{{--        $('.flower1sound').show();--}}
+{{--        @endif--}}
 
-        @if ($enroll->item == '中級指定套路')
-        $("#flowerHrLine").show();
-        $('.flower2sound').show();
-        @endif
+{{--        @if ($enroll->item == '中級指定套路')--}}
+{{--        $("#flowerHrLine").show();--}}
+{{--        $('.flower2sound').show();--}}
+{{--        @endif--}}
 
-        @endforeach
+{{--        @endforeach--}}
         @endif
 
         @if (! is_null($level))
@@ -324,30 +324,30 @@
                     $('#singleS').prop('disabled', true);
                     $('#cross').prop('disabled', true);
                     break;
-                case '新人組':
+                case '選手組':
                     $('#doubleS').attr('disabled', false);
                     $('#singleS').attr('disabled', true);
                     $('#cross').attr('disabled', false);
 
-                    // 這裡有bug，如果選到新人組，其它組別都會吃到下面的設定，暫時想不到更好的寫法
-                    $('#doubleS').change(function () {
-                        if (document.getElementById("doubleS").checked === true) {
-                            $('#cross').attr('disabled', true);
-                        } else {
-                            $('#cross').attr('disabled', false);
-                        }
-                    });
-
-                    $('#cross').change(function () {
-                        if (document.getElementById("cross").checked === true) {
-                            $('#doubleS').attr('disabled', true);
-                        } else {
-                            $('#doubleS').attr('disabled', false);
-                        }
-                    });
+                    // // 這裡有bug，如果選到新人組，其它組別都會吃到下面的設定，暫時想不到更好的寫法
+                    // $('#doubleS').change(function () {
+                    //     if (document.getElementById("doubleS").checked === true) {
+                    //         $('#cross').attr('disabled', true);
+                    //     } else {
+                    //         $('#cross').attr('disabled', false);
+                    //     }
+                    // });
+                    //
+                    // $('#cross').change(function () {
+                    //     if (document.getElementById("cross").checked === true) {
+                    //         $('#doubleS').attr('disabled', true);
+                    //     } else {
+                    //         $('#doubleS').attr('disabled', false);
+                    //     }
+                    // });
 
                     break;
-                case '選手組':
+                case '菁英組':
                     $('#doubleS').attr('disabled', false);
                     $('#singleS').attr('disabled', false);
                     $('#cross').attr('disabled', false);

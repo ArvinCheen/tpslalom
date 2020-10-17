@@ -96,32 +96,32 @@ class EnrollController extends Controller
                 }
             }
 
-            if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
-                $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
-                Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
-                EnrollModel::create([
-                    'game_id'    => config('app.game_id'),
-                    'player_id'  => $playerId,
-                    'account_id' => auth()->user()->id,
-                    'group'      => $group,
-                    'group2'     => $this->getFlowerGroup($group),
-                    'item'       => $flowerItem,
-                    'gender'     => $gender,
-                    'sound'      => $soundName,
-                ]);
-            }
-            if ($flowerItem == '初級指定套路') {
-                EnrollModel::create([
-                    'game_id'    => config('app.game_id'),
-                    'player_id'  => $playerId,
-                    'account_id' => auth()->user()->id,
-                    'group'      => $group,
-                    'group2'     => $this->getFlowerGroup($group),
-                    'item'       => $flowerItem,
-                    'gender'     => $gender,
-                    'sound'      => $sound == null ? '未選曲目' : $sound,
-                ]);
-            }
+//            if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
+//                $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
+//                Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
+//                EnrollModel::create([
+//                    'game_id'    => config('app.game_id'),
+//                    'player_id'  => $playerId,
+//                    'account_id' => auth()->user()->id,
+//                    'group'      => $group,
+//                    'group2'     => $this->getFlowerGroup($group),
+//                    'item'       => $flowerItem,
+//                    'gender'     => $gender,
+//                    'sound'      => $soundName,
+//                ]);
+//            }
+//            if ($flowerItem == '初級指定套路') {
+//                EnrollModel::create([
+//                    'game_id'    => config('app.game_id'),
+//                    'player_id'  => $playerId,
+//                    'account_id' => auth()->user()->id,
+//                    'group'      => $group,
+//                    'group2'     => $this->getFlowerGroup($group),
+//                    'item'       => $flowerItem,
+//                    'gender'     => $gender,
+//                    'sound'      => $sound == null ? '未選曲目' : $sound,
+//                ]);
+//            }
 
 
             app(RegistryFeeModel::class)::updateOrCreate(
@@ -172,11 +172,11 @@ class EnrollController extends Controller
         $fee = 0;
 
         if ($enrollItem) {
-            $fee += count($enrollItem) * 100 + 600;
+            $fee += count($enrollItem) * 100 + 400;
         }
 
         if ($flowerItem) {
-            $fee += 600;
+            $fee += 400;
         }
 
         return $fee;
