@@ -110,7 +110,6 @@ class EnrollController extends Controller
                     'sound'      => $soundName,
                 ]);
             }
-
             if ($flowerItem == '初級指定套路') {
                 EnrollModel::create([
                     'game_id'    => config('app.game_id'),
@@ -123,6 +122,7 @@ class EnrollController extends Controller
                     'sound'      => $sound == null ? '未選曲目' : $sound,
                 ]);
             }
+
 
             app(RegistryFeeModel::class)::updateOrCreate(
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
