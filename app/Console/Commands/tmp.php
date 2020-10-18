@@ -24,6 +24,9 @@ class tmp extends Command
      */
     public function handle()
     {
+
+        $x = bcrypt('c29575249');
+        dd($x);
         $enroll = EnrollModel::get();
 
         foreach ($enroll as $v) {
