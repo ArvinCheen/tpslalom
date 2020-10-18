@@ -9,9 +9,6 @@
     <div class="container">
         <div class="mt-5 mb-5 text-center">
             <h2 class="mb-3">帳號資訊</h2>
-            <p> 王道銀行營業部 代碼048 </p>
-            <p> 帳號0100-0051-327-588 曾大宇 </p>
-            <p> 匯款完成後請到「<a href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform" target="_blank">這裡</a>」填寫匯款資料 </p>
         </div>
 
         <form action='{{ URL('account/update') }}' method="POST">

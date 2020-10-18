@@ -49,7 +49,7 @@
                                 <a href="{{ URL('paymentInfo') }}"> 報名選手清單 </a>
                             </li>
 
-{{--                            <li class="has-dropdown">--}}
+                            {{--                            <li class="has-dropdown">--}}
 {{--                                <a href="#">成績公告</a>--}}
 {{--                                <ul>--}}
 {{--                                    <li>--}}
@@ -97,9 +97,9 @@
 {{--                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>--}}
 {{--                            </li>--}}
                             {{--                全國暫時不走登入制，因為不在我們這註冊--}}
-{{--                            <li class="d-lg-none">--}}
-{{--                                <a href="{{ URL('account') }}"> 帳號 </a>--}}
-{{--                            </li>--}}
+                            <li class="float-right">
+                                <a href="{{ route('account')}}"> 帳號資訊 </a>
+                            </li>
 {{--                            <li class="d-lg-none">--}}
 {{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
 {{--                            </li>--}}

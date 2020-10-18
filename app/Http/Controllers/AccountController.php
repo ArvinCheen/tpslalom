@@ -18,7 +18,7 @@ class AccountController extends Controller
 
         $players = app(PlayerModel::class)->getPlayers();
 
-        return view('account/index')->with(compact('players', 'account'));
+        return view('account')->with(compact('players', 'account'));
     }
 
     public function update(Request $request)

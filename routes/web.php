@@ -42,7 +42,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'account'], function () {
-        Route::get('/', 'AccountController@index');
+        Route::get('/', ['as' => 'account', 'uses' => 'AccountController@index'])->middleware(['auth']);
         Route::put('update', 'AccountController@update');
     });
 
