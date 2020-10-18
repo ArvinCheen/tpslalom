@@ -24,20 +24,18 @@ class tmp extends Command
      */
     public function handle()
     {
+        $enroll = EnrollModel::create(['game_id'=>99, 'player_id'=>time()]);
 
-        $x = bcrypt('c29575249');
-        dd($x);
-        $enroll = EnrollModel::get();
-
-        foreach ($enroll as $v) {
-            try {
-
-                EnrollModel::where('id',$v->id)->update(['gender'=> $v->player->gender]);
-                echo ".";
-            } catch (\Exception $e) {
+//
+//        foreach ($enroll as $v) {
+//            try {
+//
+//                EnrollModel::where('id',$v->id)->update(['gender'=> $v->player->gender]);
+//                echo ".";
+//            } catch (\Exception $e) {
 //                dd($v->player);
-            }
-        }
+//            }
+//        }
         $this->info('done');
     }
 }
