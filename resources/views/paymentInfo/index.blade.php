@@ -9,6 +9,7 @@
         <div class="container">
             <div class="mt-5 mb-4 text-center">
                 <h2 class="mb-3">109北市中正盃</h2>
+                匯款完成後請至 <a style="color:orange" href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform">這裡</a> 填寫匯資資訊
             </div>
 
             <div class="row justify-content-center col-md-12">
