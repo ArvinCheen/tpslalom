@@ -34,7 +34,7 @@ class EnrollController extends Controller
             $enrolls = EnrollModel::where('player_id', $playerId)->get();
         }
 
-        return view('enroll/index', compact('players', 'status', 'playerId', 'level', 'enrolls'));
+        return view('enroll.index', compact('players', 'status', 'playerId', 'level', 'enrolls'));
     }
 
     public function enroll(Request $request)
