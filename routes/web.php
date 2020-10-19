@@ -9,7 +9,7 @@
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
 Route::group(['prefix' => '/rand'], function () {
 //    大宇臨時要用的隨機授權碼
-echo  rand(1111,9999);
+echo  "<a style='font-size:300px;margin-left:100px'>".rand(1111,9999)."</a>";
 exit;
 });
 
