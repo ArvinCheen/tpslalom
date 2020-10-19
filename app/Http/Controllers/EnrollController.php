@@ -18,7 +18,6 @@ class EnrollController extends Controller
 {
     public function index($playerId = null)
     {
-        dd(1);
         $players  = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
         $level    = null;
         $enrolls  = [];
@@ -35,7 +34,7 @@ class EnrollController extends Controller
             $enrolls = EnrollModel::where('player_id', $playerId)->get();
         }
 
-        return view('enroll/index', compact('players', 'status', 'playerId', 'level', 'enrolls'));
+        return view('enroll.index', compact('players', 'status', 'playerId', 'level', 'enrolls'));
     }
 
     public function enroll(Request $request)
