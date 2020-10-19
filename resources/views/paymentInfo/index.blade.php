@@ -9,7 +9,6 @@
         <div class="container">
             <div class="mt-5 mb-4 text-center">
                 <h2 class="mb-3">109北市中正盃</h2>
-                <a style="color:orange" href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform">若完成匯款，請點此連結回報</a>
             </div>
 
             <div class="row justify-content-center col-md-12">
@@ -45,7 +44,8 @@
                     <div class="row mt-3">
                         @if ($total)
                             <div class="col-md-9">
-                                付款資訊：048 王道銀行營業部 0100-0051-3275-88 戶名：曾大宇
+                                <p>付款資訊：048 王道銀行營業部 0100-0051-3275-88 戶名：曾大宇</p>
+                                <a style="color:darkblue" href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform">若完成匯款，請點此連結回報</a>
                             </div>
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
                             @else
