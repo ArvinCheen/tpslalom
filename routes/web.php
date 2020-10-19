@@ -7,6 +7,11 @@
 //Route::get('/playerRegister', 'DocumentController@playerRegister');  // 分組名冊
 //Route::get('/teamRegister', 'DocumentController@teamRegister');  // 團隊名冊
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
+Route::group(['prefix' => '/rand'], function () {
+//    大宇臨時要用的隨機授權碼
+echo  rand(1111,9999);
+exit;
+});
 
 
 Route::group(['prefix' => '/'], function () {
