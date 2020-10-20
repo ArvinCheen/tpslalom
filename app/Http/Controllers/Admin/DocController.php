@@ -27,7 +27,7 @@ class DocController extends Controller
             ->get();
 
         foreach ($all as $key => $val) {
-            $all[$key]['itemAll'] = explode(',',$val->itemAll);
+            $all[$key]['itemAll'] = explode(',', $val->itemAll);
         }
 
         return view('admin.doc.all')->with(['all' => $all]);
@@ -41,30 +41,28 @@ class DocController extends Controller
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
-            if ($item == '雙人花式繞樁') {
-                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
-                    ->where('game_id', config('app.game_id'))
-                    ->where('group', $group)
-                    ->where('item', 'like', "%$item%")
-                    ->orderBy('appearance')
-                    ->orderBy('player_number')
-                    ->orderBy('player_id')
-                    ->get();
-            } else {
+//            if ($item == '雙人花式繞樁') {
+//                $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
+//                    ->where('group', $group)
+//                    ->where('item', 'like', "%$item%")
+//                    ->orderBy('appearance')
+//                    ->orderBy('player_number')
+//                    ->orderBy('player_id')
+//                    ->get();
+//            } else {
 
-                $schedule->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
-                    ->where('game_id', config('app.game_id'))
-                    ->where('group', $group)
-                    ->where('gender', $gender)
-                    ->where('item', 'like', "%$item%")
-                    ->orderBy('appearance')
-                    ->orderBy('player_number')
-                    ->orderBy('player_id')
-                    ->get();
-            }
+            $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
+                ->where('group', $group)
+                ->where('gender', $gender)
+                ->where('item', 'like', "%$item%")
+                ->orderBy('appearance')
+                ->orderBy('player_number')
+                ->orderBy('player_id')
+                ->get();
         }
+//        }
 
-        return view('admin/doc/groups')->with(['groups' => $schedules]);
+        return view('admin.doc.groups')->with(['groups' => $schedules]);
     }
 
     public function teams()
@@ -82,20 +80,16 @@ class DocController extends Controller
 //        dd();
 //        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->orderBy('agency')->get();
 
-        $teams = app(EnrollModel::class)->getParticipateTeam();
-
-        $teams = PlayerModel::groupBy('agency_all')->get();
+        $teams = EnrollModel::leftjoin('player','player.id','enroll.player_id')
+//        wherehas('player', function ($query) {
+//            $query->groupBy('agency');
+//        })
+            ->where('game_id',config('app.game_id'))
+            ->groupBy('agency')
+            ->get();
 
         foreach ($teams as $team) {
-            $team->players = PlayerModel::where('agency_all', $team->agency_all)->groupBy('id')->get();
-
-
-//                EnrollModel::with('player')
-//                ->where('game_id', config('app.game_id'))
-//                ->where('enroll.account_id', $team->account_id)
-//                ->groupBy('enroll.player_id')
-//                ->get();
-
+            $team->players = PlayerModel::where('agency', $team->player->agency)->get();
         }
 
         return view('admin/doc/teams')->with(compact('teams'));
@@ -128,11 +122,11 @@ class DocController extends Controller
 
     public function medals()
     {
-        $medalData = ScheduleModel::where('game_id',config('app.game_id'))->orderBy('id')->get();
+        $medalData = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
 
-        $goldTotal   = ScheduleModel::where('game_id',config('app.game_id'))->where('number_of_player', '>=', 1)->count();
-        $silverTotal = ScheduleModel::where('game_id',config('app.game_id'))->where('number_of_player', '>=', 2)->count();
-        $copperTotal = ScheduleModel::where('game_id',config('app.game_id'))->where('number_of_player', '>=', 3)->count();
+        $goldTotal   = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 1)->count();
+        $silverTotal = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 2)->count();
+        $copperTotal = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 3)->count();
 
         return view('admin/doc/medals')
             ->with('medalData', $medalData)
@@ -156,6 +150,23 @@ class DocController extends Controller
     {
 
         $schedules = app(ScheduleModel::class)->getSchedules();
+
+//        $this->initTime = date("Y/m/d H:i:s", strtotime(date("Y/m/d H:i:s", strtotime($this->initTime))) + (($estimate * $比賽人數) / $每次上場人數));
+
+//        for ($i = 0; $i < count($schedules); $i++) {
+//            $schedules[$i]->game_day
+//        }
+
+//        $day = 1;
+//        $this->info('第 1 天');
+//        foreach ($schedules as $schedule) {
+//            if ($schedule->game_day <> $day) {
+//                $day++;
+//                $this->initTime = '08:00';
+//                $this->info("\n第 $day 天");
+//            }
+//            $this->printTime($schedule,$schedule->item, $schedule->estimate, $schedule->number_of_player);
+//        }
 
         return view('admin/doc/schedules')->with(compact('schedules'));
     }
