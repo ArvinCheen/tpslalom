@@ -122,39 +122,39 @@
                                 </div>
                                 <div class="enrollItemBox" style="display:none">
                                     <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S型" id="doubleS"
+                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S形" id="doubleS"
                                                @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進雙足S型')
+                                               @if ($enroll->item == '前進雙足S形')
                                                checked
                                             @endif
                                             @endforeach
                                         >
                                         <label class="form-check-label" for="doubleS">
-                                            前進雙足S型
+                                            前進雙足S形
                                         </label>
                                     </div>
                                     <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S型" id="singleS"
+                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S形" id="singleS"
                                                @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進單足S型')
+                                               @if ($enroll->item == '前進單足S形')
                                                checked
                                             @endif
                                             @endforeach
                                         >
                                         <label class="form-check-label" for="singleS">
-                                            前進單足S型
+                                            前進單足S形
                                         </label>
                                     </div>
                                     <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉型" id="cross"
+                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉形" id="cross"
                                                @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進交叉型')
+                                               @if ($enroll->item == '前進交叉形')
                                                checked
                                             @endif
                                             @endforeach
                                         >
                                         <label class="form-check-label" for="cross">
-                                            前進交叉型
+                                            前進交叉形
                                         </label>
                                     </div>
                                 </div>

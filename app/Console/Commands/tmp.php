@@ -24,7 +24,13 @@ class tmp extends Command
      */
     public function handle()
     {
-        $enroll = EnrollModel::create(['game_id'=>99, 'player_id'=>time()]);
+        $all = EnrollModel::select(\DB::raw('*,
+            GROUP_CONCAT(item) AS itemAll
+        '))
+            ->where('enroll.game_id', config('app.game_id'))
+            ->groupBy('enroll.player_id')
+            ->get();
+        dd($all[0]);
 
 //
 //        foreach ($enroll as $v) {

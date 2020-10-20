@@ -36,8 +36,8 @@
                         <tbody>
                         @foreach($all as $val)
                             <tr>
-                                <td> {{ $val->player_number }} </td>
-                                <td> {{ $val->name }} </td>
+                                <td> {{ is_null($val->player_number) ? '未抽籤' : $val->player_number }} </td>
+                                <td> {{ $val->player->name }} </td>
                                 <td> {{ $val->group }} </td>
                                 <td> {{ $val->gender }} </td>
                                 <td>
@@ -45,11 +45,11 @@
                                         {{$key + 1}}. {{$item}}<br>
                                     @endforeach
                                 </td>
-                                <td> {{ $val->city }} </td>
-                                <td> {{ $val->agency }} </td>
-                                <td> {{ $val->coach }} </td>
-                                <td> {{ $val->leader }} </td>
-                                <td> {{ $val->manager }} </td>
+                                <td> {{ $val->player->city }} </td>
+                                <td> {{ $val->player->agency }} </td>
+                                <td> {{ $val->account->coach }} </td>
+                                <td> {{ $val->account->leader }} </td>
+                                <td> {{ $val->account->manager }} </td>
                             </tr>
                         @endforeach
                         </tbody>
