@@ -318,6 +318,11 @@ class EnrollModel extends Model
     }
 
 
+    /**
+     * @deprecated
+     *
+     * @return EnrollModel[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getParticipateTeam()
     {
         return $this->with('account')->where('game_id', config('app.game_id'))

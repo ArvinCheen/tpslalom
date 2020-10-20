@@ -40,7 +40,7 @@ class CalculationScheduleTime extends Command
      */
     public function handle()
     {
-        $schedules = ScheduleModel::orderBy('id')->get();
+        $schedules = app(ScheduleModel::class)->getSchedules();
 
         $day = 1;
         $this->info('第 1 天');
@@ -58,11 +58,12 @@ class CalculationScheduleTime extends Command
     {
 
         switch ($item) {
+            case '初級指定套路':
             case '中級指定套路':
                 $每次上場人數 = 1;
                 break;
             default:
-                $每次上場人數 = 4;
+                $每次上場人數 = 2;
                 break;
 
         }

@@ -19,7 +19,7 @@
                     @foreach($teams as $team)
                         <table class="table mb-0">
                             <tr>
-                                                                <td colspan="5" class="w-25"> 隊伍：{{ $team->agency_all }} - {{ count($team->players) }} 人參賽</td>
+                                                                <td colspan="5" class="w-25"> 隊伍：{{ $team->agency }} - {{ count($team->players) }} 人參賽</td>
 {{--                                / 教練團：{{ $team->coach }}　{{ $team->leader }}　{{ $team->management }}--}}
 {{--                                <td colspan="5" class="w-25"> 隊伍：{{ $team->account->team_name }} - {{ count($team->players) }} 人參賽 / 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }}</td>--}}
 {{--                                <td colspan="5" class="w-25"> 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }}</td>--}}
@@ -33,49 +33,25 @@
                             @endphp
                             @while($i < count($team->players))
                                 <tr>
-                                    <td class="w-20">
+                                    <td class="w-50">
                                         @if (isset($team->players[$i]))
-                                            {{ $team->players[$i]->id }} {{ $team->players[$i]->name }}
-                                            教練：{{ $team->players[$i]->coach }}
-                                            領隊：{{ $team->players[$i]->leader }}
-                                            經理：{{ $team->players[$i]->management }}
+                                            {{ $team->players[$i]->name }} -
+                                            教練：{{ $team->players[$i]->account->coach }}
+                                            領隊：{{ $team->players[$i]->account->leader }}
+                                            經理：{{ $team->players[$i]->account->management }}
                                         @endif
                                     </td>
-                                    <td class="w-20">
+                                    <td class="w-50">
                                         @if (isset($team->players[$i + 1]))
-                                            {{ $team->players[$i + 1]->id }} {{ $team->players[$i + 1]->name }}
-                                            教練：{{ $team->players[$i + 1]->coach }}
-                                            領隊：{{ $team->players[$i + 1]->leader }}
-                                            經理：{{ $team->players[$i + 1]->management }}
-                                        @endif
-                                    </td>
-                                    <td class="w-20">
-                                        @if (isset($team->players[$i + 2]))
-                                            {{ $team->players[$i + 2]->id }} {{ $team->players[$i + 2]->name }}
-                                            教練：{{ $team->players[$i + 2]->coach }}
-                                            領隊：{{ $team->players[$i + 2]->leader }}
-                                            經理：{{ $team->players[$i + 2]->management }}
-                                        @endif
-                                    </td>
-                                    <td class="w-20">
-                                        @if (isset($team->players[$i + 3]))
-                                            {{ $team->players[$i + 3]->id }} {{ $team->players[$i + 3]->name }}
-                                            教練：{{ $team->players[$i + 3]->coach }}
-                                            領隊：{{ $team->players[$i + 3]->leader }}
-                                            經理：{{ $team->players[$i + 3]->management }}
-                                        @endif
-                                    </td>
-                                    <td class="w-20">
-                                        @if (isset($team->players[$i + 4]))
-                                            {{ $team->players[$i + 4]->id }} {{ $team->players[$i + 4]->name }}
-                                            教練：{{ $team->coach }}
-                                            領隊：{{ $team->leader }}
-                                            經理：{{ $team->management }}
+                                            {{ $team->players[$i + 1]->name }} -
+                                            教練：{{ $team->players[$i + 1]->account->coach }}
+                                            領隊：{{ $team->players[$i + 1]->account->leader }}
+                                            經理：{{ $team->players[$i + 1]->account->management }}
                                         @endif
                                     </td>
                                 </tr>
                                 @php
-                                    $i += 5
+                                    $i += 2
                                 @endphp
                             @endwhile
                             </tbody>
