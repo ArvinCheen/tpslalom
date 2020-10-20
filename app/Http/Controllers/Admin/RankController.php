@@ -88,7 +88,7 @@ class RankController extends Controller
                 continue;
             }
 
-            if ($item == '前進單足S型') {
+            if ($item == '前進單足S形') {
                 $integral++;
             }
 

@@ -22,6 +22,11 @@ class PlayerModel extends Model
         return $this->updateOrCreate(['player_id' => $playerId], $data);
     }
 
+    public function account()
+    {
+        return $this->hasOne('App\Models\AccountModel', 'id', 'account_id');
+    }
+
     public function enroll()
     {
         return $this->belongsTo('App\Models\EnrollModel', 'id', 'player_id');
