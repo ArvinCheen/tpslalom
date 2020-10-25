@@ -107,6 +107,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/import', 'Admin\DrawLotsController@import');
     });
 
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Admin\AccountController@index');
+        Route::get('/edit/{accountId}', ['as' => 'account.edit', 'uses' => 'Admin\AccountController@edit']);
+        Route::put('/update', ['as' => 'account.update', 'uses' => 'Admin\AccountController@update']);
+    });
+
+
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', 'Admin\DashboardController@index');
         Route::get('/game', 'Admin\DashboardController@game');

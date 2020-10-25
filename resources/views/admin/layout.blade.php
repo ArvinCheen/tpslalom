@@ -200,6 +200,14 @@
                             <span class="m-menu__link-text"> 輸入成績 </span>
                         </a>
                     </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/account') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 修改教練資料 </span>
+                        </a>
+                    </li>
 {{--                    <li class="m-menu__item " aria-haspopup="true">--}}
 {{--                        <a href="{{ URL('admin/checkIn') }}" class="m-menu__link ">--}}
 {{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
