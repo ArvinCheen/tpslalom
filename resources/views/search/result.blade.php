@@ -176,23 +176,23 @@
                         @break;
                         @case('pk')
                         @switch ($scheduleInfo->order)
-                            @case('場次131')
-                            <img src="https://imgur.com/EwNkPsd.jpg"/>
-                            @break;
-                            @case('場次132')
-                            <img src="https://imgur.com/NGXBntM.jpg"/>
-                            @break;
-                            @case('場次133')
-                            <img src="https://imgur.com/J1OANrj.jpg"/>
-                            @break;
-                            @case('場次134')
-                            <img src="https://imgur.com/awtnLGB.jpg"/>
-                            @break;
-                            @case('場次135')
-                            <img src="https://imgur.com/jI5tFZc.jpg"/>
-                            @break;
-                            @case('場次136')
-                            <img src="https://imgur.com/mnxFene.jpg"/>
+{{--                            @case('場次131')--}}
+{{--                            <img src="https://imgur.com/EwNkPsd.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次132')--}}
+{{--                            <img src="https://imgur.com/NGXBntM.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次133')--}}
+{{--                            <img src="https://imgur.com/J1OANrj.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次134')--}}
+{{--                            <img src="https://imgur.com/awtnLGB.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次135')--}}
+{{--                            <img src="https://imgur.com/jI5tFZc.jpg"/>--}}
+{{--                            @break;--}}
+{{--                            @case('場次136')--}}
+{{--                            <img src="https://imgur.com/mnxFene.jpg"/>--}}
                             @break;
                         @endswitch
                         @break;
