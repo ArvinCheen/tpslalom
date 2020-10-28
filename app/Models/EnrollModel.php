@@ -300,16 +300,18 @@ class EnrollModel extends Model
         return $query->get();
     }
 
-    public function countGameItemNumberOfPlayer($group, $gender, $item)
+    public function countGameItemNumberOfPlayer($level, $group, $gender, $item)
     {
         if ($item == '雙人花式繞樁') {
             // 雙人花式繞樁 沒有分性別
             return $this->where('game_id', config('app.game_id'))
+                ->where('level', $level)
                 ->where('group', $group)
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();
         } else {
             return $this->where('game_id', config('app.game_id'))
+                ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
                 ->where('item', 'like', '%' . $item . '%')
