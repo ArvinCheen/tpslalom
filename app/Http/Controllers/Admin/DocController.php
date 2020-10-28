@@ -150,6 +150,8 @@ class DocController extends Controller
     {
 
         $schedules = app(ScheduleModel::class)->getSchedules();
+//        dd(ScheduleModel::where('game_id',10)->get());
+//        dd($schedules);
 
 //        $this->initTime = date("Y/m/d H:i:s", strtotime(date("Y/m/d H:i:s", strtotime($this->initTime))) + (($estimate * $比賽人數) / $每次上場人數));
 
