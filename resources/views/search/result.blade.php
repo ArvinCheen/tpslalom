@@ -175,7 +175,7 @@
                         @endforeach
                         @break;
                         @case('pk')
-                        @switch ($scheduleInfo->order)
+{{--                        @switch ($scheduleInfo->order)--}}
 {{--                            @case('場次131')--}}
 {{--                            <img src="https://imgur.com/EwNkPsd.jpg"/>--}}
 {{--                            @break;--}}
@@ -193,8 +193,8 @@
 {{--                            @break;--}}
 {{--                            @case('場次136')--}}
 {{--                            <img src="https://imgur.com/mnxFene.jpg"/>--}}
-                            @break;
-                        @endswitch
+{{--                            @break;--}}
+{{--                        @endswitch--}}
                         @break;
                     @endswitch
 
