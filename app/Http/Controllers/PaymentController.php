@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
 use App\Models\EnrollModel;
+use App\Models\GameModel;
 use App\Models\RegistryFeeModel;
 
 class PaymentController extends Controller
@@ -18,7 +19,9 @@ class PaymentController extends Controller
 
         $total = number_format(app(RegistryFeeModel::class)->getTotal());
 
-        return view('paymentInfo/index')->with(compact('paymentInfo', 'total'));
+        $isOpenEnroll = GameModel::where('id', config('app.game_id'))->value('is_open_enroll');
+
+        return view('paymentInfo/index',compact('paymentInfo', 'total','isOpenEnroll'));
     }
 
     private function assembleItem($playerId)
@@ -30,7 +33,7 @@ class PaymentController extends Controller
         foreach ($items as $item) {
             if ($item->item == '初級指定套路') {
                 $itemView .= $item->item . ' ' . $item->sound . ' / ';
-            } else if($item->item == '中級指定套路') {
+            } else if ($item->item == '中級指定套路') {
                 $itemView .= $item->item . ' / ';
             } else {
                 $itemView .= $item->level . ' ' . $item->item . ' / ';
