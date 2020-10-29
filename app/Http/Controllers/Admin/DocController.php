@@ -98,20 +98,11 @@ class DocController extends Controller
     public function checkBill()
     {
         $bills = RegistryFeeModel::select(DB::raw('
-            account.id,
-            account.account,
-            team_name,
-            email,
-            phone,
-            address,
-            coach,
-            leader,
-            management,
+            *,
             sum(fee) AS totalFee
     '))
-            ->leftJoin('account', 'account.id', 'registry_fee.account_id')
             ->where('game_id', config('app.game_id'))
-            ->groupBy('account.id')
+            ->groupBy('account_id')
             ->get();
 
 

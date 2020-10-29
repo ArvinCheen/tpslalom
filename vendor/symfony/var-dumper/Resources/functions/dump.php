@@ -34,8 +34,15 @@ if (!function_exists('dump')) {
 if (!function_exists('dd')) {
     function dd(...$vars)
     {
-        foreach ($vars as $v) {
-            VarDumper::dump($v);
+        list($callee) = debug_backtrace();
+        echo '<legend style="font-family: Microsoft JhengHei; color:#E87E04; padding:5px;font-size:18px;">'.$callee['file'].':'.$callee['line'].'</legend><pre><code>';
+
+        if(empty($vars)) {
+            VarDumper::dump('empty - '.rand(0,999));
+        } else {
+            foreach ($vars as $v) {
+                VarDumper::dump($v);
+            }
         }
 
         exit(1);

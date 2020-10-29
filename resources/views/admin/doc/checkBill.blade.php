@@ -30,7 +30,7 @@
                 <div class="portlet-body">
                     <table class="table table-condensed table-hover">
                         <tr>
-                            <td> 隊名（帳號） </td>
+                            <td> 隊名 </td>
                             <td> 電話 </td>
                             <td> 地址 </td>
                             <td> 教練/領隊/經理 </td>
@@ -38,10 +38,10 @@
                         </tr>
                         @foreach($bills as $bill)
                             <tr>
-                                <td> {{ $bill->team_name }}（{{ $bill->account }}） </td>
-                                <td> {{ $bill->phone }} </td>
-                                <td> {{ $bill->address }} </td>
-                                <td> {{ $bill->coach }} / {{ $bill->leader }} / {{ $bill->management }} </td>
+                                <td> {{ $bill->account->team_name }} </td>
+                                <td> {{ $bill->account->phone }} </td>
+                                <td> {{ $bill->account->address }} </td>
+                                <td> {{ $bill->account->coach }} / {{ $bill->account->leader }} / {{ $bill->account->manager }} </td>
                                 <td> {{ number_format($bill->totalFee) }} </td>
                             </tr>
                         @endforeach

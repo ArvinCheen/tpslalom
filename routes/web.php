@@ -171,10 +171,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/花樁總匯表', 'Admin\ExportController@花樁總匯表');
         Route::get('/花樁罰分紀錄', 'Admin\ExportController@花樁罰分紀錄');
         Route::get('/花樁紀錄', 'Admin\ExportController@花樁紀錄');
+        Route::get('/music/{filename}', 'Admin\ExportController@music');
 
 
 
     });
+
+
+    Route::get('/musics', 'Admin\MusicsController@index');
+    Route::get('/musics/download/{filename}', ['as' => 'musics.download', 'uses' => 'Admin\MusicsController@download']);
 });
 
 /**
