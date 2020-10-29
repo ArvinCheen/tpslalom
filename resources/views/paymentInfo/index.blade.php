@@ -13,7 +13,12 @@
 
             <div class="row justify-content-center col-md-12">
                 <div class="col-md-8">
-                    <a class="btn btn-primary col-md-12" href="{{ URL('enroll') }}">申請比賽項目</a>
+                    @if ($isOpenEnroll)
+                        <a class="btn btn-primary col-md-12" href="{{ URL('enroll') }}">申請比賽項目</a>
+                    @else
+                        <a class="btn btn-default col-md-12">報名時間已結束</a>
+                    @endif
+
                 </div>
 
                 <div class="col-md-8 px-4">
@@ -29,13 +34,15 @@
                                     <span>${{ $payment->fee }} 元</span>
                                 </div>
                                 <div>
-                                    <a class="small" href="{{ URL('enroll/' . $payment->player_id) }}">
-                                        修改報名
-                                    </a>
 
-                                    <a class="small" href="#" onclick="cancelEnroll({{$payment->player_id}})">
-                                        取消報名
-                                    </a>
+                                    @if ($isOpenEnroll)
+                                        <a class="small" href="{{ URL('enroll/' . $payment->player_id) }}">
+                                            修改報名
+                                        </a>
+                                        <a class="small" href="#" onclick="cancelEnroll({{$payment->player_id}})">
+                                            取消報名
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -48,7 +55,7 @@
                                 <a style="color:darkblue" href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform">若完成匯款，請點此連結回報</a>
                             </div>
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
-                            @else
+                        @else
                             <div class="col-md-9">
                                 目前無報名資料
                             </div>
