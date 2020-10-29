@@ -270,14 +270,6 @@
                             <span class="m-menu__link-text"> 隊伍名冊 </span>
                         </a>
                     </li>
-{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
-{{--                        <a href="{{ URL('admin/doc/players') }}" class="m-menu__link ">--}}
-{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
-{{--                                <span></span>--}}
-{{--                            </i>--}}
-{{--                            <span class="m-menu__link-text"> 選手名冊 </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -286,14 +278,14 @@
                             <span class="m-menu__link-text"> 獎牌數量 </span>
                         </a>
                     </li>
-{{--                    <li class="m-menu__item " aria-haspopup="true">--}}
-{{--                        <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">--}}
-{{--                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">--}}
-{{--                                <span></span>--}}
-{{--                            </i>--}}
-{{--                            <span class="m-menu__link-text"> 對帳單 </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/checkBill') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 對帳單 </span>
+                        </a>
+                    </li>
 
                     <li class="m-menu__section">
                         <h4 class="m-menu__section-text"> 匯出 </h4>
@@ -373,6 +365,14 @@
                         </a>
                     </li>
 
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('/admin/musics') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 下載套路音樂檔 </span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
@@ -386,6 +386,7 @@
 <script src="{{ URL::asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/demo/demo2/base/scripts.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/app/js/layout-builder.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/demo/default/custom/components/forms/widgets/bootstrap-switch.js') }}" type="text/javascript"></script>
 <script>
     toastr.options = {
         "closeButton": true,

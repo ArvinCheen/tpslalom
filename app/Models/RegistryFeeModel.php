@@ -16,7 +16,12 @@ class RegistryFeeModel extends Model
 {
     protected $table = 'registry_fee';
 
-    protected $fillable = ['game_id', 'account_id', 'player_id', 'fee'];
+    protected $guarded = ['id'];
+
+    public function account()
+    {
+        return $this->hasOne(AccountModel::class,'id','account_id');
+    }
 
 //    public function store($playerId, $enrollCount)
 //    {

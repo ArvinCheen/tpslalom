@@ -19,47 +19,27 @@
                 <form action="{{ route('setting.update') }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">承辦單位</label>--}}
-{{--                        <input type="text" class="form-control" name="agency" value="{{ $gameInfo->agency }}">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">賽事簡稱</label>--}}
-{{--                        <input type="text" class="form-control" name="abridge_name" value="{{ $gameInfo->abridge_name }}">--}}
-{{--                    </div>--}}
                     <div class="form-group">
                         <label for="usr">賽事名稱</label>
-                        <input type="text" class="form-control" name="completeName" value="{{ $completeName }}">
+                        <input type="text" class="form-control" name="completeName" value="{{ $gameInfo->complete_name }}">
                     </div>
                     <div class="form-group">
                         <label for="usr">號函一</label>
-                        <input type="text" class="form-control" name="letterOne" value="{{ $letterOne }}">
+                        <input type="text" class="form-control" name="letterOne" value="{{ explode(' ', $gameInfo->letter)[0] }}">
                     </div>
                     <div class="form-group">
                         <label for="usr">號函二（若無則審略）</label>
-                        <input type="text" class="form-control" name="letterTwo" value="{{ $letterTwo }}">
+                        <input type="text" class="form-control" name="letterTwo" value="{{ isset(explode(' ', $gameInfo->letter)[1]) ? explode(' ', $gameInfo->letter)[1] : null }}">
                     </div>
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">比賽地址</label>--}}
-{{--                        <input type="text" class="form-control" name="game_address" value="{{ $gameInfo->game_address }}">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">比賽時間</label>--}}
-{{--                        <input type="text" class="form-control" name="game_date" value="{{ $gameInfo->game_date }}">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">報名開始時間</label>--}}
-{{--                        <input type="text" class="form-control" name="enroll_start_time" value="{{ $gameInfo->enroll_start_time }}">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">報名結束時間</label>--}}
-{{--                        <input type="text" class="form-control" name="enroll_close_time" value="{{ $gameInfo->enroll_close_time }}">--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="usr">勘誤結束時間</label>--}}
-{{--                        <input type="text" class="form-control" name="errata_close_time" value="{{ $gameInfo->errata_close_time }}">--}}
-{{--                    </div>--}}
-                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <div class="form-group">
+                        <label class="usr">報名開關</label>
+                        <div class="">
+                            <input data-switch="true" type="checkbox" name="is_open_enroll" {{ $gameInfo->is_open_enroll ? 'checked' : null }} />
+                        </div>
+                    </div>
+`                    <hr>
+                    <button type="submit" class="btn btn-primary">送出</button>
                 </form>
             </div>
         </div>
@@ -67,6 +47,8 @@
 @endsection
 
 @section('js')
+
+
     <script>
     </script>
 @endsection
