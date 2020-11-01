@@ -21,9 +21,10 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th> 選手號碼</th>
+                            <th style="width:50px"> 選手號碼</th>
                             <th style="width:80px"> 姓名</th>
-                            <th> 組別</th>
+                            <th style="width:80px"> 級別</th>
+                            <th style="width:100px"> 組別</th>
                             <th style="width:50px"> 性別</th>
                             <th style="width:240px"> 項目</th>
                             <th style="width:80px"> 縣市</th>
@@ -38,6 +39,7 @@
                             <tr>
                                 <td> {{ is_null($val->player_number) ? '未抽籤' : $val->player_number }} </td>
                                 <td> {{ $val->player->name }} </td>
+                                <td> {{ $val->level }} </td>
                                 <td> {{ $val->group }} </td>
                                 <td> {{ $val->gender }} </td>
                                 <td>

@@ -24,24 +24,7 @@ class tmp extends Command
      */
     public function handle()
     {
-        $all = EnrollModel::select(\DB::raw('*,
-            GROUP_CONCAT(item) AS itemAll
-        '))
-            ->where('enroll.game_id', config('app.game_id'))
-            ->groupBy('enroll.player_id')
-            ->get();
-        dd($all[0]);
-
-//
-//        foreach ($enroll as $v) {
-//            try {
-//
-//                EnrollModel::where('id',$v->id)->update(['gender'=> $v->player->gender]);
-//                echo ".";
-//            } catch (\Exception $e) {
-//                dd($v->player);
-//            }
-//        }
-        $this->info('done');
+        \Log::info('ddd');
+        dd();
     }
 }
