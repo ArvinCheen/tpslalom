@@ -16,7 +16,7 @@ class EnrollModel extends Model
 {
     protected $table = 'enroll';
 
-    protected  $guarded = ['id'];
+    protected $guarded = ['id'];
 
     public function player()
     {
@@ -309,6 +309,14 @@ class EnrollModel extends Model
                 ->where('group', $group)
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();
+        }
+        if (strpos($item, '套路') !== false && strpos($group, '國小') !== false) {
+            return $this->where('game_id', config('app.game_id'))
+                ->where('level', $level)
+                ->where('group2', $group) // 國小分 低、中、高 級
+                ->where('gender', $gender)
+                ->where('item', 'like', '%' . $item . '%')
+                ->count();
         } else {
             return $this->where('game_id', config('app.game_id'))
                 ->where('level', $level)
@@ -321,9 +329,9 @@ class EnrollModel extends Model
 
 
     /**
+     * @return EnrollModel[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      * @deprecated
      *
-     * @return EnrollModel[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
     public function getParticipateTeam()
     {
