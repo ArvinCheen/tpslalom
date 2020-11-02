@@ -42,19 +42,23 @@ class CalculationScheduleTime extends Command
     {
         $schedules = app(ScheduleModel::class)->getSchedules();
 
-        $day = 1;
+        $day            = 1;
+//        $numberOfPlayer = 0;
         $this->info('第 1 天');
         foreach ($schedules as $schedule) {
             if ($schedule->game_day <> $day) {
+//                $numberOfPlayer = 0;
                 $day++;
                 $this->initTime = '08:00';
                 $this->info("\n第 $day 天");
             }
-            $this->printTime($schedule,$schedule->item, $schedule->estimate, $schedule->number_of_player);
+            $this->printTime($schedule, $schedule->item, $schedule->estimate, $schedule->number_of_player);
+//            $numberOfPlayer += $schedule->number_of_player;
+//            $this->info($numberOfPlayer);
         }
     }
 
-    public function printTime($schedule,$item, $estimate, $比賽人數)
+    public function printTime($schedule, $item, $estimate, $比賽人數)
     {
 
         switch ($item) {
@@ -85,7 +89,7 @@ class CalculationScheduleTime extends Command
 
 //        if (! is_null($schedule)) {
         if ($比賽人數 == 0) {
-            $比賽人數 = 8;
+            $比賽人數     = 8;
             $estimate = 120;
         }
 
