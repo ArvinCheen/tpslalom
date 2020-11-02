@@ -49,7 +49,7 @@
                     </div>
                     <div class="mb-3">
                         <label>經理</label>
-                        <input type="text" class="form-control" name="management" autocomplete="off" >
+                        <input type="text" class="form-control" name="manager" autocomplete="off" >
                     </div>
                     <div class="mb-3">
                         <hr class="mb-3">

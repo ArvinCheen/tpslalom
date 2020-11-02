@@ -20,15 +20,15 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $account    = $request->account;
-        $password   = $request->password;
-        $email      = $request->email;
-        $teamName   = $request->teamName;
-        $phone      = $request->phone;
-        $coach      = $request->coach;
-        $leader     = $request->leader;
-        $management = $request->management;
-        $address    = $request->address;
+        $account  = $request->account;
+        $password = $request->password;
+        $email    = $request->email;
+        $teamName = $request->teamName;
+        $phone    = $request->phone;
+        $coach    = $request->coach;
+        $leader   = $request->leader;
+        $manager  = $request->manager;
+        $address  = $request->address;
 
         if ($account == '' || $email == '' || $teamName == '' || $phone == '' || $coach == '') {
             return back()->with(['error' => '請輸入必填欄位']);
@@ -40,15 +40,15 @@ class RegisterController extends Controller
             try {
                 DB::beginTransaction();
                 AccountModel::create([
-                    'account'    => $account,
-                    'password'   => bcrypt($password),
-                    'email'      => $email,
-                    'team_name'  => $teamName,
-                    'phone'      => $phone,
-                    'coach'      => $coach,
-                    'leader'     => $leader,
-                    'management' => $management,
-                    'address'    => $address,
+                    'account'   => $account,
+                    'password'  => bcrypt($password),
+                    'email'     => $email,
+                    'team_name' => $teamName,
+                    'phone'     => $phone,
+                    'coach'     => $coach,
+                    'leader'    => $leader,
+                    'manager'   => $manager,
+                    'address'   => $address,
                 ]);
 
                 app()->make(SlackNotify::class)->setMsg("註冊成功：{$account}")->notify();
