@@ -48,7 +48,7 @@
                     </div>
                     <div class="mb-3">
                         <label>經理</label>
-                        <input type="text" class="form-control" name="management" placeholder='' value="{{ $account->management }}" >
+                        <input type="text" class="form-control" name="manager" placeholder='' value="{{ $account->manager }}" >
                     </div>
                     <div class="mb-3">
                         <hr class="mb-3">

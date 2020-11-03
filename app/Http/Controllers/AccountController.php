@@ -25,13 +25,13 @@ class AccountController extends Controller
     {
         try {
             AccountModel::where('id', $request->accountId)->update([
-                'email'      => $request->email,
-                'team_name'  => $request->teamName,
-                'phone'      => $request->phone,
-                'address'    => $request->address,
-                'coach'      => $request->coach,
-                'leader'     => $request->leader,
-                'management' => $request->management,
+                'email'     => $request->email,
+                'team_name' => $request->teamName,
+                'phone'     => $request->phone,
+                'address'   => $request->address,
+                'coach'     => $request->coach,
+                'leader'    => $request->leader,
+                'manager'   => $request->manager,
             ]);
 
             return back()->with(['success' => '修改帳戶成功']);
