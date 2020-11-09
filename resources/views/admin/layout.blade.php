@@ -217,14 +217,23 @@
 {{--                        </a>--}}
 {{--                    </li>--}}
                     <li class="m-menu__item " aria-haspopup="true">
-                        <a href="#" class="m-menu__link ">
-{{--                        <a href="{{ URL('admin/drawLots') }}" class="m-menu__link ">--}}
+                        <a href="{{ URL('admin/drawLots') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 出場序抽籤（未開放） </span>
+                            <span class="m-menu__link-text"> 出場序抽籤 </span>
                         </a>
                     </li>
+
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/createPlayerNumber') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 生成選手號碼 </span>
+                        </a>
+                    </li>
+
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/grouping') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -268,6 +277,14 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text"> 隊伍名冊 </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ URL('admin/doc/agencys') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text"> 單位名冊 </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">

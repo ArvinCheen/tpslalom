@@ -67,34 +67,37 @@ class DocController extends Controller
 
     public function teams()
     {
-
-//        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->groupBy('agency')->get();
-//
-//        foreach ($agencys as $agency) {
-//            echo ('<br><br>'.$agency->agency.',<br>');
-//            $players = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('agency',$agency->agency)->orderBy('player_number')->groupBy('player_number')->get();
-//            foreach ($players as $player) {
-//                echo ($player->name.'('.$player->player_number.'),<br>');
-//            }
-//        }
-//        dd();
-//        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->orderBy('agency')->get();
-
-        $teams = EnrollModel::leftjoin('player','player.id','enroll.player_id')
-//        wherehas('player', function ($query) {
-//            $query->groupBy('agency');
-//        })
-            ->where('game_id',config('app.game_id'))
-            ->groupBy('agency')
+        $teams = EnrollModel::where('game_id',config('app.game_id'))
+            ->groupBy('account_id')
             ->get();
 
         foreach ($teams as $team) {
-            $team->players = PlayerModel::where('agency', $team->player->agency)->get();
+            $team->players = EnrollModel::where('game_id',config('app.game_id'))
+                ->where('account_id', $team->account_id)
+                ->groupBy('player_id')
+                ->orderBy('appearance')
+                ->orderBy('player_number')
+                ->orderBy('player_id')
+                ->get();
         }
 
         return view('admin/doc/teams')->with(compact('teams'));
     }
 
+    public function agencys()
+    {
+        $agencys = EnrollModel::leftjoin('player','player.id','enroll.player_id')
+            ->where('game_id',config('app.game_id'))
+            ->groupBy('agency')
+            ->get();
+
+        foreach ($agencys as $agency) {
+            $agency->players = PlayerModel::where('agency', $agency->player->agency)->get();
+        }
+
+        return view('admin/doc/agencys')->with(compact('agencys'));
+    }
+    
     public function checkBill()
     {
         $bills = RegistryFeeModel::select(DB::raw('

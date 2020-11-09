@@ -98,6 +98,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () {
 
+    Route::get('/createPlayerNumber', 'Admin\CreatePlayerNumberController@index');
+
     Route::get('/', 'Admin\ResultController@index');
 
     Route::group(['prefix' => 'drawLots'], function () {
@@ -139,6 +141,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/all', 'Admin\DocController@all');
         Route::get('/groups', 'Admin\DocController@groups');
         Route::get('/teams', 'Admin\DocController@teams');
+        Route::get('/agencys', 'Admin\DocController@agencys');
         Route::get('/players', 'Admin\DocController@players');
         Route::get('/medals', 'Admin\DocController@medals');
         Route::get('/checkBill', 'Admin\DocController@checkBill');
