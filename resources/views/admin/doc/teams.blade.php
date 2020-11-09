@@ -35,13 +35,13 @@
                                 <tr>
                                     <td class="w-50">
                                         @if (isset($team->players[$i]))
-                                            {{ is_null($team->players[$i]->player_number) ? '未抽籤' : $team->players[$i]->player_number }}
+                                            {{ is_null($team->players[$i]->player_number) ? '無號碼' : $team->players[$i]->player_number }}
                                             {{ $team->players[$i]->player->name }}
                                         @endif
                                     </td>
                                     <td class="w-50">
                                         @if (isset($team->players[$i + 1]))
-                                            {{ is_null($team->players[$i + 1]->player_number) ? '未抽籤' : $team->players[$i + 1]->player_number }}
+                                            {{ is_null($team->players[$i + 1]->player_number) ? '無號碼' : $team->players[$i + 1]->player_number }}
                                             {{ $team->players[$i + 1]->player->name }}
                                         @endif
                                     </td>
