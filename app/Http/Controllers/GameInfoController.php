@@ -90,8 +90,9 @@ class GameInfoController extends Controller
         return view('gameInfo/groups')->with(['groups' => $schedules]);
     }
 
-    public function teams()
+    public function agencys()
     {
+
         $agencys = PlayerModel::groupBy('agency')->get();
 
         foreach ($agencys as $agency) {
@@ -140,7 +141,24 @@ class GameInfoController extends Controller
             $agency->teamMans = "教練： $coach / 領隊： $leader / 經理： $manager";
         }
 
-        return view('gameInfo/teams')->with(compact('agencys'));
+        return view('gameInfo/agencys')->with(compact('agencys'));
+    }
+
+    public function teams()
+    {
+        $teams = app(EnrollModel::class)->getParticipateTeam();
+
+        foreach ($teams as $team) {
+            $team->players = EnrollModel::with('player')
+                ->where('game_id', config('app.game_id'))
+                ->where('enroll.account_id', $team->account_id)
+                ->groupBy('enroll.player_id')
+                ->get();
+
+        }
+
+        return view('gameInfo/teams')->with(compact('teams'));
+
     }
 
     public function refereeTeam()
