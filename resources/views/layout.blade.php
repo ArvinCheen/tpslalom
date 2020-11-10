@@ -71,7 +71,7 @@
                                     <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
+                                    <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
                                 </li>
                             @endif
                             {{--                            <li>--}}
