@@ -62,14 +62,14 @@ class GameInfoController extends Controller
     public function groups()
     {
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))
-//            ->where('item', 'like', '%中級%')
-//            ->limit(20)
+            ->where('order', 'like', '%53%')
             ->get();
 
         foreach ($schedules as $schedule) {
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
+            $level   = $schedule->level;
 
             $query             = EnrollModel::query();
             $query->where('game_id', config('app.game_id'));
@@ -82,11 +82,11 @@ class GameInfoController extends Controller
 
             $schedule->players = $query->where('gender', $gender)
                 ->where('item', $item)
+                ->where('level', $level)
                 ->orderBy('appearance')
                 ->orderBy('player_number')
                 ->orderBy('player_id')
                 ->get();
-
         }
 
         return view('gameInfo/groups')->with(['groups' => $schedules]);

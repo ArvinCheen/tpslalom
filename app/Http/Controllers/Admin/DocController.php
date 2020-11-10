@@ -41,8 +41,9 @@ class DocController extends Controller
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
+            $level  = $schedule->level;
 
-            $query             = EnrollModel::query();
+            $query = EnrollModel::query();
             $query->where('game_id', config('app.game_id'));
 
             if (strpos($item, '套路') !== false) {
@@ -53,6 +54,7 @@ class DocController extends Controller
 
             $schedule->players = $query->where('gender', $gender)
                 ->where('item', $item)
+                ->where('level', $level)
                 ->orderBy('appearance')
                 ->orderBy('player_number')
                 ->orderBy('player_id')
@@ -64,12 +66,12 @@ class DocController extends Controller
 
     public function teams()
     {
-        $teams = EnrollModel::where('game_id',config('app.game_id'))
+        $teams = EnrollModel::where('game_id', config('app.game_id'))
             ->groupBy('account_id')
             ->get();
 
         foreach ($teams as $team) {
-            $team->players = EnrollModel::where('game_id',config('app.game_id'))
+            $team->players = EnrollModel::where('game_id', config('app.game_id'))
                 ->where('account_id', $team->account_id)
                 ->groupBy('player_id')
                 ->orderBy('appearance')
@@ -83,8 +85,8 @@ class DocController extends Controller
 
     public function agencys()
     {
-        $agencys = EnrollModel::leftjoin('player','player.id','enroll.player_id')
-            ->where('game_id',config('app.game_id'))
+        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')
+            ->where('game_id', config('app.game_id'))
             ->groupBy('agency')
             ->get();
 
@@ -94,7 +96,7 @@ class DocController extends Controller
 
         return view('admin/doc/agencys')->with(compact('agencys'));
     }
-    
+
     public function checkBill()
     {
         $bills = RegistryFeeModel::select(DB::raw('
