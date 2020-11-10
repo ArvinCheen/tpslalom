@@ -52,30 +52,41 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        $schedules1Day = app(ScheduleModel::class)->where('game_id',config('app.game_id'))->where('game_day', 1)->get();
-        $schedules2Day = app(ScheduleModel::class)->where('game_id',config('app.game_id'))->where('game_day', 2)->get();
-        $schedules3Day = app(ScheduleModel::class)->where('game_id',config('app.game_id'))->where('game_day', 3)->get();
+        $schedules1Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 1)->get();
+        $schedules2Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 2)->get();
+        $schedules3Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 3)->get();
 
         return view('gameInfo/schedules')->with(compact('schedules1Day', 'schedules2Day', 'schedules3Day'));
     }
 
     public function groups()
     {
-        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))
+//            ->where('item', 'like', '%中級%')
+//            ->limit(20)
+            ->get();
 
         foreach ($schedules as $schedule) {
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
 
-            $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
-                ->where('group', $group)
-                ->where('gender', $gender)
+            $query             = EnrollModel::query();
+            $query->where('game_id', config('app.game_id'));
+
+            if (strpos($item, '套路') !== false) {
+                $query->where('group2', $group);
+            } else {
+                $query->where('group', $group);
+            }
+
+            $schedule->players = $query->where('gender', $gender)
                 ->where('item', $item)
                 ->orderBy('appearance')
                 ->orderBy('player_number')
                 ->orderBy('player_id')
                 ->get();
+
         }
 
         return view('gameInfo/groups')->with(['groups' => $schedules]);
