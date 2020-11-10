@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\GameModel;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-        //
+        View::share('isOpenDocument', GameModel::where('id',config('app.game_id'))->value('is_open_document'));
     }
 }

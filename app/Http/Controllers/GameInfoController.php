@@ -68,23 +68,14 @@ class GameInfoController extends Controller
             $gender = $schedule->gender;
             $item   = $schedule->item;
 
-            if ($item == '雙人花式繞樁') {
-                // 雙人花不分性別
-                $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
-                    ->where('group', $group)
-                    ->where('item', $item)
-                    ->orderBy('appearance')
-                    ->orderBy('player_id')
-                    ->get();
-            } else {
-                $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
-                    ->where('group', $group)
-                    ->where('gender', $gender)
-                    ->where('item', $item)
-                    ->orderBy('appearance')
-                    ->orderBy('player_id')
-                    ->get();
-            }
+            $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
+                ->where('group', $group)
+                ->where('gender', $gender)
+                ->where('item', $item)
+                ->orderBy('appearance')
+                ->orderBy('player_number')
+                ->orderBy('player_id')
+                ->get();
         }
 
         return view('gameInfo/groups')->with(['groups' => $schedules]);
@@ -146,19 +137,19 @@ class GameInfoController extends Controller
 
     public function teams()
     {
-        $teams = app(EnrollModel::class)->getParticipateTeam();
+        $teams = EnrollModel::where('game_id', config('app.game_id'))
+            ->groupBy('account_id')
+            ->get();
 
         foreach ($teams as $team) {
-            $team->players = EnrollModel::with('player')
-                ->where('game_id', config('app.game_id'))
-                ->where('enroll.account_id', $team->account_id)
-                ->groupBy('enroll.player_id')
+            $team->players = EnrollModel::where('game_id', config('app.game_id'))
+                ->where('account_id', $team->account_id)
+                ->groupBy('player_id')
                 ->get();
 
         }
 
         return view('gameInfo/teams')->with(compact('teams'));
-
     }
 
     public function refereeTeam()

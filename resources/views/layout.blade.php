@@ -35,95 +35,94 @@
                 <div class="navbar-left">
                     <a class="navbar-toggle"><i class="fa fa-bars"></i></a>
                     <a href="{{ URL('') }}" class="logo mb-1">
-{{--                        <img class="" src="{{ URL::asset('front/logo.png') }}" alt="直排輪競賽" style="">--}}
+                        {{--                        <img class="" src="{{ URL::asset('front/logo.png') }}" alt="直排輪競賽" style="">--}}
                     </a>
                     <nav class="nav">
                         <ul>
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('') }}"> 首頁 </a>--}}
-{{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('enroll') }}"> 報名 </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li>--}}
+                            {{--                                <a href="{{ URL('') }}"> 首頁 </a>--}}
+                            {{--                            </li>--}}
+                            {{--                            <li>--}}
+                            {{--                                <a href="{{ URL('enroll') }}"> 報名 </a>--}}
+                            {{--                            </li>--}}
+
+
+                            {{--                            <li class="has-dropdown">--}}
+                            {{--                                <a href="#">成績公告</a>--}}
+                            {{--                                <ul>--}}
+                            {{--                                    <li>--}}
+                            {{--                                        <a href="{{ URL('search/result') }}">--}}
+                            {{--                                            成績查詢 </a>--}}
+                            {{--                                    </li>--}}
+                            {{--                                    <li>--}}
+                            {{--                                        <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
+                            {{--                                    </li>--}}
+                            {{--                                </ul>--}}
+                            {{--                            </li>--}}
+
+                            {{--                            <li class="has-dropdown">--}}
+                            {{--                                <a href="#">比賽資訊</a>--}}
+                            {{--                                <ul>--}}
+                            @if ($isOpenDocument)
+                                <li>
+                                    <a href="{{ URL('gameInfo/schedules') }}">賽程表</a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
+                                </li>
+                            @endif
+                            {{--                            <li>--}}
+                            {{--                                <a href="{{ URL('gameInfo/program') }}"> 線上秩序冊 </a>--}}
+                            {{--                            </li>--}}
+                            {{--                            <li>--}}
+                            {{--                                <a href="{{ URL('gameInfo/nationalRecord') }}"> 單足S形全國紀錄 </a>--}}
+                            {{--                            </li>--}}
+                            {{--                                    <li>--}}
+                            {{--                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>--}}
+                            {{--                                    </li>--}}
+                            {{--                                    <li>--}}
+                            {{--                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>--}}
+                            {{--                                    </li>--}}
+                            {{--                                </ul>--}}
+                            {{--                            </li>--}}
+
+
+                            {{--                            <li>--}}
+                            {{--                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>--}}
+                            {{--                            </li>--}}
                             <li>
                                 <a href="{{ URL('paymentInfo') }}"> 報名選手清單 </a>
                             </li>
-
-                            {{--                            <li class="has-dropdown">--}}
-{{--                                <a href="#">成績公告</a>--}}
-{{--                                <ul>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('search/result') }}">--}}
-{{--                                            成績查詢 </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-
-{{--                            <li class="has-dropdown">--}}
-{{--                                <a href="#">比賽資訊</a>--}}
-{{--                                <ul>--}}
-{{--                            todo 出場序抽籤後在出現 賽程表、分組名冊、團隊名冊--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('gameInfo/schedules') }}">--}}
-{{--                                            賽程表</a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>--}}
-{{--                                    </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>--}}
-{{--                            </li>--}}
-
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('gameInfo/program') }}"> 線上秩序冊 </a>--}}
-{{--                            </li>--}}
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('gameInfo/nationalRecord') }}"> 單足S形全國紀錄 </a>--}}
-{{--                            </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-
-
-{{--                            <li>--}}
-{{--                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>--}}
-{{--                            </li>--}}
-                            {{--                全國暫時不走登入制，因為不在我們這註冊--}}
                             <li class="float-right">
                                 <a href="{{ route('account')}}"> 帳號資訊 </a>
                             </li>
-{{--                            <li class="d-lg-none">--}}
-{{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="d-lg-none">--}}
+                            {{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
+                            {{--                            </li>--}}
                         </ul>
                     </nav>
                 </div>
-{{--                全國暫時不走登入制，因為不在我們這註冊--}}
-{{--                <div class="nav navbar-right">--}}
-{{--                    <ul>--}}
-{{--                        <li class="d-none d-lg-block">--}}
-{{--                            <a href="{{ URL('account') }}"> 帳號 </a>--}}
-{{--                            @if (auth()->user())--}}
-{{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
-{{--                            @else--}}
-{{--                                <a href="{{ URL('login') }}"> 登入 </a>--}}
-{{--                            @endif--}}
-{{--                            <a data-toggle="search"><i class="fa fa-search"></i></a>--}}
-{{--                        </li>--}}
+                {{--                全國暫時不走登入制，因為不在我們這註冊--}}
+                {{--                <div class="nav navbar-right">--}}
+                {{--                    <ul>--}}
+                {{--                        <li class="d-none d-lg-block">--}}
+                {{--                            <a href="{{ URL('account') }}"> 帳號 </a>--}}
+                {{--                            @if (auth()->user())--}}
+                {{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
+                {{--                            @else--}}
+                {{--                                <a href="{{ URL('login') }}"> 登入 </a>--}}
+                {{--                            @endif--}}
+                {{--                            <a data-toggle="search"><i class="fa fa-search"></i></a>--}}
+                {{--                        </li>--}}
 
-{{--                        <li class="d-lg-none">--}}
-{{--                            <a data-toggle="search" class="fa fa-search"></a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
+                {{--                        <li class="d-lg-none">--}}
+                {{--                            <a data-toggle="search" class="fa fa-search"></a>--}}
+                {{--                        </li>--}}
+                {{--                    </ul>--}}
+                {{--                </div>--}}
             </div>
         </div>
         <div class="navbar-search">
@@ -149,10 +148,10 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-social">
-{{--                <a href="https://www.facebook.com/tpersf/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
-{{--                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>--}}
+                {{--                <a href="https://www.facebook.com/tpersf/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
+                {{--                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>--}}
             </div>
-{{--            <p>Copyright © 2020 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>--}}
+            {{--            <p>Copyright © 2020 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>--}}
 
         </div>
     </div>
