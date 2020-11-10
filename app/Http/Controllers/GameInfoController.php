@@ -62,7 +62,6 @@ class GameInfoController extends Controller
     public function groups()
     {
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))
-            ->where('order', 'like', '%53%')
             ->get();
 
         foreach ($schedules as $schedule) {
