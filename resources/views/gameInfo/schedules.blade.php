@@ -17,6 +17,7 @@
                     <table class="col-md-12 table table-striped table-dark">
                         <tr>
                             <td> 場次</td>
+                            <td> 級別</td>
                             <td> 組別</td>
                             <td> 性別</td>
                             <td> 項目</td>
@@ -27,6 +28,7 @@
                         @foreach($schedules1Day as $schedule1)
                             <tr>
                                 <td> {{ $schedule1->order }} </td>
+                                <td> {{ $schedule1->level }} </td>
                                 <td> {{ $schedule1->group }} </td>
                                 <td> {{ $schedule1->gender }} </td>
                                 <td> {{ $schedule1->item }} </td>
@@ -47,6 +49,7 @@
                     <table class="col-md-12 table table-striped table-dark">
                         <tr>
                             <td> 場次</td>
+                            <td> 級別</td>
                             <td> 組別</td>
                             <td> 性別</td>
                             <td> 項目</td>
@@ -57,6 +60,7 @@
                         @foreach($schedules2Day as $schedule2)
                             <tr>
                                 <td> {{ $schedule2->order }} </td>
+                                <td> {{ $schedule2->level }} </td>
                                 <td> {{ $schedule2->group }} </td>
                                 <td> {{ $schedule2->gender }} </td>
                                 <td> {{ $schedule2->item }} </td>
