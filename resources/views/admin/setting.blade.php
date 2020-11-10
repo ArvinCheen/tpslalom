@@ -33,6 +33,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="usr">前台賽事資訊開關</label>
+                        <div class="">
+                            <input data-switch="true" type="checkbox" name="is_open_document" {{ $gameInfo->is_open_document ? 'checked' : null }} />
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="usr">報名開關</label>
                         <div class="">
                             <input data-switch="true" type="checkbox" name="is_open_enroll" {{ $gameInfo->is_open_enroll ? 'checked' : null }} />
