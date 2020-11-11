@@ -23,7 +23,7 @@
                             <td> 性別 </td>
                             <td> 項目 </td>
                             <td> 人數 </td>
-                            <td> 時間/人 </td>
+                            <td> 秒數/人 </td>
                             <td> 預估時間 </td>
                         </tr>
                         @foreach($schedules as $schedule)
@@ -34,7 +34,7 @@
                                 <td> {{ $schedule->item }} </td>
                                 <td> {{ $schedule->number_of_player }} </td>
                                 <td> {{ $schedule->estimate }} </td>
-                                <td> {{ $schedule->estimate_time }} </td>
+                                <td> {{ date('H:i:s',strtotime($schedule->estimate_time)) }} </td>
                             </tr>
                         @endforeach
                     </table>
