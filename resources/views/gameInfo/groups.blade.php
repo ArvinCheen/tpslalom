@@ -69,7 +69,7 @@
                             <thead class="{{ $key % 2 ? 'thead-dark' : null }}">
                             <tr>
                                 <th class="pl-3" style=" border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                                    {{ $group->order }} {{ $group->level }} - {{ $group->group }}{{$group->gender }}子組 {{ $group->item }}
+                                    {{ $group->order }} {{ $group->level }} {{ $group->group }}{{$group->gender }}子組 {{ $group->item }}
                                 </th>
                                 <th class="text-right pr-3" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
                                     @if($group->number_of_player == 0)
