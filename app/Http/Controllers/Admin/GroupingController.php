@@ -326,7 +326,7 @@ class GroupingController extends Controller
             $estimateTime = ScheduleModel::where('game_id', config('app.game_id'))->where('game_day', $gameDay)->orderByDesc('id')->value('estimate_time');
 
             if (is_null($estimateTime)) {
-                $estimateTime = date('Y-m-d') . ' 08:00:00';
+                $estimateTime = date('Y-m-d') . ' 09:00:00';
             } else {
 
                 switch ($item) {
