@@ -39,7 +39,7 @@
                             @foreach ($team->players as $player)
                                 <tr>
                                     <td class="" style="">
-                                        {{ $player->player_number }} {{ $player->player->name }}
+                                        {{ $player->player_number }} {{ $player->player->name }} <small>{{ $player->player->city }}{{ $player->player->agency }}</small>
                                     </td>
                                 </tr>
                             @endforeach
