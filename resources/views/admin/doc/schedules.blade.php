@@ -18,11 +18,13 @@
                 <div class="col-md-12">
                     <table class="table table-condensed table-hover">
                         <tr>
-                            <td> 場次</td>
-                            <td> 組別</td>
-                            <td> 性別</td>
-                            <td> 項目</td>
-                            <td> 人數</td>
+                            <td> 場次 </td>
+                            <td> 組別 </td>
+                            <td> 性別 </td>
+                            <td> 項目 </td>
+                            <td> 人數 </td>
+                            <td> 時間/人 </td>
+                            <td> 預估時間 </td>
                         </tr>
                         @foreach($schedules as $schedule)
                             <tr>
@@ -31,6 +33,8 @@
                                 <td> {{ $schedule->gender }} </td>
                                 <td> {{ $schedule->item }} </td>
                                 <td> {{ $schedule->number_of_player }} </td>
+                                <td> {{ $schedule->estimate }} </td>
+                                <td> {{ $schedule->estimate_time }} </td>
                             </tr>
                         @endforeach
                     </table>
