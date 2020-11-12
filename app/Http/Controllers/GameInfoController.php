@@ -91,12 +91,11 @@ class GameInfoController extends Controller
         return view('gameInfo/groups')->with(['groups' => $schedules]);
     }
 
-    public function agencys()
+    public function agencies()
     {
+        $agencies = PlayerModel::groupBy('agency')->get();
 
-        $agencys = PlayerModel::groupBy('agency')->get();
-
-        foreach ($agencys as $agency) {
+        foreach ($agencies as $agency) {
             $coach   = '';
             $leader  = '';
             $manager = '';
@@ -142,7 +141,7 @@ class GameInfoController extends Controller
             $agency->teamMans = "教練： $coach / 領隊： $leader / 經理： $manager";
         }
 
-        return view('gameInfo/agencys')->with(compact('agencys'));
+        return view('gameInfo/agencies')->with(compact('agencies'));
     }
 
     public function teams()

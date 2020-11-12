@@ -9,16 +9,36 @@
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
 Route::get('rand', function () {
 //    大宇臨時要用的隨機授權碼
-echo  "<a style='font-size:300px;margin-left:100px'>".rand(1111,9999)."</a>";
-exit;
+    echo  "<a style='font-size:300px;margin-left:100px'>".rand(1111,9999)."</a>";
+    exit;
 });
+
+Route::get('removeCity', function () {
+//    將重復的縣市移除
+//    重復原因：教練選了縣市後，又在單位上填寫一次縣市
+
+    $x = \App\Models\PlayerModel::get();
+
+    foreach ($x as $v) {
+//        dd($v->city);
+        try {
+            if (str_contains($v->agency,$v->city)) {
+                $agency = str_replace($v->city,'',$v->agency);
+                \App\Models\PlayerModel::where('id',$v->id)->update(['agency'=>$agency]);
+            }
+        } catch (\Exception $e) {
+dd($e);
+        }
+    }
+dd('over');
+});
+
 
 
 Route::group(['prefix' => '/'], function () {
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@groups']);
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@schedules']);
     Route::get('/', ['as' => 'paymentInfo', 'uses' => 'PaymentController@index'])->middleware(['auth']);
-
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', ['as' => 'login', 'uses' => 'Auth\LoginController@index']);
         Route::post('/', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
@@ -141,7 +161,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/all', 'Admin\DocController@all');
         Route::get('/groups', 'Admin\DocController@groups');
         Route::get('/teams', 'Admin\DocController@teams');
-        Route::get('/agencys', 'Admin\DocController@agencys');
+        Route::get('/agencies', 'Admin\DocController@agencies');
         Route::get('/players', 'Admin\DocController@players');
         Route::get('/medals', 'Admin\DocController@medals');
         Route::get('/checkBill', 'Admin\DocController@checkBill');
@@ -169,17 +189,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin']], function () 
         Route::get('/result', 'Admin\ExportController@result');
         Route::get('/groups', 'Admin\ExportController@groups');
         Route::get('/teams', 'Admin\ExportController@teams');
+        Route::get('/agencies', 'Admin\ExportController@agencies');
         Route::get('/playerNumber', 'Admin\ExportController@playerNumber');
         Route::get('/花樁評分表', 'Admin\ExportController@花樁評分表');
         Route::get('/花樁總匯表', 'Admin\ExportController@花樁總匯表');
         Route::get('/花樁罰分紀錄', 'Admin\ExportController@花樁罰分紀錄');
         Route::get('/花樁紀錄', 'Admin\ExportController@花樁紀錄');
         Route::get('/music/{filename}', 'Admin\ExportController@music');
-
-
-
     });
-
 
     Route::get('/musics', 'Admin\MusicsController@index');
     Route::get('/musics/download/{filename}', ['as' => 'musics.download', 'uses' => 'Admin\MusicsController@download']);
