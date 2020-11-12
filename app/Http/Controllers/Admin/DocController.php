@@ -83,18 +83,18 @@ class DocController extends Controller
         return view('admin/doc/teams')->with(compact('teams'));
     }
 
-    public function agencys()
+    public function agencies()
     {
-        $agencys = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')
+        $agencies = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')
             ->where('game_id', config('app.game_id'))
             ->groupBy('agency')
             ->get();
 
-        foreach ($agencys as $agency) {
+        foreach ($agencies as $agency) {
             $agency->players = PlayerModel::where('agency', $agency->player->agency)->get();
         }
 
-        return view('admin/doc/agencys')->with(compact('agencys'));
+        return view('admin/doc/agencies')->with(compact('agencies'));
     }
 
     public function checkBill()

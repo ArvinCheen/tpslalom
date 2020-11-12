@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="portlet-body">
-                    @foreach($agencys as $agency)
+                    @foreach($agencies as $agency)
                         <table class="table mb-0">
                             <tr>
                                                                 <td colspan="5" class="w-25"> {{ $agency->agency }} - {{ count($agency->players) }} 人參賽</td>

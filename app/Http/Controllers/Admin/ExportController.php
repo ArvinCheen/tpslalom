@@ -73,6 +73,8 @@ class ExportController extends Controller
      */
     public function groups()
     {
+        ini_set('memory_limit', '256M');
+
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
         $section = $phpWord->addSection([
@@ -117,27 +119,21 @@ class ExportController extends Controller
                         $query->where('gender', $schedule->gender);
                     }
                 })
+                    ->where('game_id', config('app.game_id'))
+                    ->where('level', $schedule->level)
                     ->where('group', $schedule->group)
                     ->where('item', $schedule->item)
                     ->get();
 
                 for ($i = 0; $i < count($enrolls); $i += 3) {
-                    if (strpos($enrolls[$i]->player->agency, $enrolls[$i]->player->city) !== false) {
-                        $agencyName = $enrolls[$i]->player->agency;
-                    } else {
-                        $agencyName = $enrolls[$i]->player->city . $enrolls[$i]->player->agency;
-                    }
+                    $agencyName = $enrolls[$i]->player->city . $enrolls[$i]->player->agency;
 
                     $table->addRow();
                     $table->addCell(100 * 33, ['borderLeftSize' => 1])->addText($enrolls[$i]->player_number . ' ' . $enrolls[$i]->player->name . '(' . $agencyName . ')', $textStyle);
                     $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
 
                     if (isset($enrolls[$i + 1])) {
-                        if (strpos($enrolls[$i + 1]->player->agency, $enrolls[$i + 1]->player->city) !== false) {
-                            $agencyName = $enrolls[$i + 1]->player->agency;
-                        } else {
-                            $agencyName = $enrolls[$i + 1]->player->city . $enrolls[$i + 1]->player->agency;
-                        }
+                        $agencyName = $enrolls[$i + 1]->player->city . $enrolls[$i + 1]->player->agency;
 
                         $table->addCell(100 * 33)->addText($enrolls[$i + 1]->player_number . ' ' . $enrolls[$i + 1]->player->name . '(' . $agencyName . ')', $textStyle);
                         $table->addCell(100 * 0.5, ['borderLeftSize' => 1])->addText('.', $textSpaceStyle);
@@ -147,11 +143,8 @@ class ExportController extends Controller
                     }
 
                     if (isset($enrolls[$i + 2])) {
-                        if (strpos($enrolls[$i + 2]->player->agency, $enrolls[$i + 2]->player->city) !== false) {
-                            $agencyName = $enrolls[$i + 2]->player->agency;
-                        } else {
-                            $agencyName = $enrolls[$i + 2]->player->city . $enrolls[$i + 2]->player->agency;
-                        }
+                        $agencyName = $enrolls[$i + 2]->player->city . $enrolls[$i + 2]->player->agency;
+
                         $table->addCell(100 * 33, ['borderRightSize' => 1])->addText($enrolls[$i + 2]->player_number . ' ' . $enrolls[$i + 2]->player->name . '(' . $agencyName . ')', $textStyle);
                     } else {
                         $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('.', $textSpaceStyle);
@@ -169,8 +162,10 @@ class ExportController extends Controller
         return response()->download(storage_path($fileName . '.docx'));
     }
 
-    public function teams()
+    public function agencies()
     {
+        ini_set('memory_limit', '256M');
+
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
         $section  = $phpWord->addSection([
@@ -181,9 +176,9 @@ class ExportController extends Controller
         $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText(' 隊伍名冊', ['size' => 20]);
         $section->addTextBreak();
 
-        $agencys = PlayerModel::selectRaw('agency,city,count(*) as co')->groupBy('agency')->groupBy('city')->orderByDesc('co')->get();
+        $agencies = PlayerModel::selectRaw('agency,city,count(*) as co')->groupBy('agency')->groupBy('city')->orderByDesc('co')->get();
 
-        foreach ($agencys as $agency) {
+        foreach ($agencies as $agency) {
             $fontSize            = 10;
             $fancyTableStyleName = 'Fancy Table';
             $fancyTableStyle     = ['borderSize' => 1, 'borderColor' => 'white', 'cellMargin' => 130];
@@ -265,7 +260,85 @@ class ExportController extends Controller
 
             $section->addTextBreak();
         }
+
+        $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $fileName     = $gameName . ' 單位名冊' . time();
+        $objectWriter->save(storage_path($fileName . '.docx'));
+
+        return response()->download(storage_path($fileName . '.docx'));
+    }
+
+
+    public function teams()
+    {
         ini_set('memory_limit', '256M');
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
+        $section  = $phpWord->addSection([
+            'marginLeft' => 700, 'marginRight' => 700,
+            'marginTop'  => 700, 'marginBottom' => 700
+        ]);
+
+        $gameName = GameModel::find(config('app.game_id'))->complete_name;
+        $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText(' 隊伍名冊', ['size' => 20]);
+        $section->addTextBreak();
+
+        $agencies = EnrollModel::where('game_id', config('app.game_id'))->groupBy('account_id')->get()->map(function ($query) {
+            return (object)[
+                'team_name'  => $query->account->team_name,
+                'account_id' => $query->account_id,
+                'coach'      => is_null($query->account->coach) ? '無' : $query->account->coach,
+                'leader'     => is_null($query->account->leader) ? '無' : $query->account->leader,
+                'manager'    => is_null($query->account->manager) ? '無' : $query->account->manager,
+            ];
+        });
+
+        foreach ($agencies as $agency) {
+            $fontSize            = 10;
+            $fancyTableStyleName = 'Fancy Table';
+            $fancyTableStyle     = ['borderSize' => 1, 'borderColor' => 'white', 'cellMargin' => 130];
+            $textStyle           = ['size' => $fontSize];
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+            $table = $section->addTable($fancyTableStyleName);
+
+            $numberOfPlayer = EnrollModel::where('game_id', config('app.game_id'))->where('account_id', $agency->account_id)->groupBy('player_id')->get()->count();
+
+            $table->addRow();
+            $table->addCell(100 * 100, ['borderBottomSize' => 1])->addText($agency->team_name . ' - ' . $numberOfPlayer . '位選手參賽 / 教練：' . $agency->coach . ' / 領隊：' . $agency->leader . ' / 經理：' . $agency->manager, $textStyle);
+
+
+            $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle);
+            $table = $section->addTable($fancyTableStyleName);
+
+
+            $players = EnrollModel::where('game_id', config('app.game_id'))->where('account_id', $agency->account_id)->groupBy('player_id')->get()->map(function ($query) {
+                return (object)[
+                    'name'          => $query->player->name,
+                    'player_number' => $query->player_number,
+                ];
+            });
+
+            for ($i = 0; $i < count($players); $i += 5) {
+                $table->addRow();
+                $table->addCell(100 * 20)->addText($players[$i]->player_number . ' ' . $players[$i]->name, $textStyle);
+
+                if (isset($players[$i + 1])) {
+                    $table->addCell(100 * 20)->addText($players[$i + 1]->player_number . ' ' . $players[$i + 1]->name, $textStyle);
+                }
+                if (isset($players[$i + 2])) {
+                    $table->addCell(100 * 20)->addText($players[$i + 2]->player_number . ' ' . $players[$i + 2]->name, $textStyle);
+                }
+                if (isset($players[$i + 3])) {
+                    $table->addCell(100 * 20)->addText($players[$i + 3]->player_number . ' ' . $players[$i + 3]->name, $textStyle);
+                }
+                if (isset($players[$i + 4])) {
+                    $table->addCell(100 * 20)->addText($players[$i + 4]->player_number . ' ' . $players[$i + 4]->name, $textStyle);
+                }
+            }
+
+            $section->addTextBreak();
+        }
 
         $objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $fileName     = $gameName . ' 隊伍名冊' . time();
