@@ -14,18 +14,24 @@
     </div>
     <div class="m-content">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="portlet-body">
                     <table class="table table-condensed table-hover">
                         <tr>
-                            <td> 金牌</td>
-                            <td> 銀牌</td>
-                            <td> 銅牌</td>
+                            <td> 金牌 </td>
+                            <td> 銀牌 </td>
+                            <td> 銅牌 </td>
+                            <td> 四名 </td>
+                            <td> 五名 </td>
+                            <td> 六名 </td>
                         </tr>
                         <tr>
-                            <td> {{ $goldTotal }} </td>
-                            <td> {{ $silverTotal }} </td>
-                            <td> {{ $copperTotal }} </td>
+                            <td> {{ $medalTotal->rank1 }} </td>
+                            <td> {{ $medalTotal->rank2 }} </td>
+                            <td> {{ $medalTotal->rank3 }} </td>
+                            <td> {{ $medalTotal->rank4 }} </td>
+                            <td> {{ $medalTotal->rank5 }} </td>
+                            <td> {{ $medalTotal->rank6 }} </td>
                         </tr>
                     </table>
                 </div>
@@ -41,9 +47,12 @@
                             <td> 性別</td>
                             <td> 項目</td>
                             <td> 人數</td>
-                            <td class="text-center"> 金牌</td>
-                            <td class="text-center"> 銀牌</td>
-                            <td class="text-center"> 銅牌</td>
+                            <td class="text-center"> 金牌 </td>
+                            <td class="text-center"> 銀牌 </td>
+                            <td class="text-center"> 銅牌 </td>
+                            <td class="text-center"> 四名 </td>
+                            <td class="text-center"> 五名 </td>
+                            <td class="text-center"> 六名 </td>
                         </tr>
                         @foreach($medalData as $val)
                             <tr>
@@ -65,6 +74,21 @@
                                 </td>
                                 <td class="text-center">
                                     @if ($val->number_of_player >= 3)
+                                        v
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($val->number_of_player >= 4)
+                                        v
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($val->number_of_player >= 5)
+                                        v
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($val->number_of_player >= 6)
                                         v
                                     @endif
                                 </td>

@@ -117,15 +117,18 @@ class DocController extends Controller
     {
         $medalData = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
 
-        $goldTotal   = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 1)->count();
-        $silverTotal = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 2)->count();
-        $copperTotal = ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 3)->count();
+        $medalTotal = (object)[
+            'rank1' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 1)->count(),
+            'rank2' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 2)->count(),
+            'rank3' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 3)->count(),
+            'rank4' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 4)->count(),
+            'rank5' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 5)->count(),
+            'rank6' => ScheduleModel::where('game_id', config('app.game_id'))->where('number_of_player', '>=', 5)->count(),
+        ];
 
         return view('admin/doc/medals')
             ->with('medalData', $medalData)
-            ->with('goldTotal', $goldTotal)
-            ->with('silverTotal', $silverTotal)
-            ->with('copperTotal', $copperTotal);
+            ->with('medalTotal', $medalTotal);
     }
 
     public function players()
