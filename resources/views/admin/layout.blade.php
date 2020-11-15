@@ -226,11 +226,12 @@
                     </li>
 
                     <li class="m-menu__item " aria-haspopup="true">
-                        <a href="{{ URL('admin/createPlayerNumber') }}" class="m-menu__link ">
+{{--                        <a href="{{ URL('admin/createPlayerNumber') }}" class="m-menu__link ">--}}
+                        <a class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
-                            <span class="m-menu__link-text"> 生成選手號碼 </span>
+                            <span class="m-menu__link-text"> 生成選手號碼（鎖住） </span>
                         </a>
                     </li>
 
