@@ -275,7 +275,7 @@ class ExportController extends Controller
 
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $phpWord->setDefaultFontName('微軟正黑體'); //設定預設字型
-        $section  = $phpWord->addSection([
+        $section = $phpWord->addSection([
             'marginLeft' => 700, 'marginRight' => 700,
             'marginTop'  => 700, 'marginBottom' => 700
         ]);
@@ -349,9 +349,11 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,player.coach as 教練,player.leader as 領隊,player.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 項報項目")
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,account.coach as 教練,account.leader as 領隊,account.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 報名項目")
             ->leftjoin('player', 'player.id', 'enroll.player_id')
-            ->groupBy('player_number')
+            ->leftjoin('account', 'account.id', 'enroll.account_id')
+            ->where('game_id', config('app.game_id'))
+            ->groupBy('player_id')
             ->get();
         Excel::create('選手號碼布列表', function ($excel) use ($data) {//第一參數是檔案名稱
             $excel->sheet('SheetName', function ($sheet) use ($data) {//第一個參數是sheet名稱
