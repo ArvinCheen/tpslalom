@@ -349,7 +349,7 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,account.coach as 教練,account.leader as 領隊,account.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 報名項目")
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,account.team_name as 隊伍,account.coach as 教練,account.leader as 領隊,account.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 報名項目")
             ->leftjoin('player', 'player.id', 'enroll.player_id')
             ->leftjoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
