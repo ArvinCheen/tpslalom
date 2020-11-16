@@ -26,12 +26,13 @@
                             <th style="width:80px"> 級別</th>
                             <th style="width:100px"> 組別</th>
                             <th style="width:50px"> 性別</th>
-                            <th style="width:240px"> 項目</th>
+                            <th style="width:150px"> 項目</th>
                             <th style="width:80px"> 縣市</th>
-                            <th> 單位</th>
-                            <th style="width:80px"> 教練</th>
-                            <th style="width:80px"> 領隊</th>
-                            <th style="width:80px"> 經理</th>
+                            <th style="width:80px"> 單位</th>
+                            <th style="width:80px"> 團隊</th>
+                            <th style="width:50px"> 教練</th>
+                            <th style="width:50px"> 領隊</th>
+                            <th style="width:50px"> 經理</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,7 @@
                                 </td>
                                 <td> {{ $val->player->city }} </td>
                                 <td> {{ $val->player->agency }} </td>
+                                <td> {{ $val->account->team_name }} </td>
                                 <td> {{ $val->account->coach }} </td>
                                 <td> {{ $val->account->leader }} </td>
                                 <td> {{ $val->account->manager }} </td>
