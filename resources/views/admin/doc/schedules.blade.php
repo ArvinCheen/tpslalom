@@ -19,6 +19,7 @@
                     <table class="table table-condensed table-hover">
                         <tr>
                             <td> 場次 </td>
+                            <td> 級別 </td>
                             <td> 組別 </td>
                             <td> 性別 </td>
                             <td> 項目 </td>
@@ -29,6 +30,7 @@
                         @foreach($schedules as $schedule)
                             <tr>
                                 <td> {{ $schedule->order }} </td>
+                                <td> {{ $schedule->level }} </td>
                                 <td> {{ $schedule->group }} </td>
                                 <td> {{ $schedule->gender }} </td>
                                 <td> {{ $schedule->item }} </td>
