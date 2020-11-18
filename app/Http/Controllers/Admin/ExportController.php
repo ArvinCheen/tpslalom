@@ -114,14 +114,17 @@ class ExportController extends Controller
                 $table->addCell(100 * 0.5)->addText('.', ['size' => 1]);
                 $table->addCell(100 * 33, ['borderRightSize' => 1])->addText('', ['size' => 1]);
             } else {
-                $enrolls = EnrollModel::wherehas('player', function ($query) use ($schedule) {
-                    if ($schedule->item <> '雙人花式繞樁') {
-                        $query->where('gender', $schedule->gender);
-                    }
-                })
-                    ->where('game_id', config('app.game_id'))
-                    ->where('level', $schedule->level)
-                    ->where('group', $schedule->group)
+                $enrolls = EnrollModel::query();
+                $enrolls->where('game_id', config('app.game_id'));
+
+                if (strpos($schedule->item, '套路') !== false) {
+                    $enrolls->where('group2', $schedule->group);
+                } else {
+                    $enrolls->where('group', $schedule->group);
+                }
+
+                $enrolls = $enrolls->where('level', $schedule->level)
+                    ->where('gender', $schedule->gender)
                     ->where('item', $schedule->item)
                     ->get();
 
