@@ -32,10 +32,7 @@ class DrawLotsController extends Controller
                 $enrolls = $query->where('gender', $gameInfo->gender)
                     ->where('item', $gameInfo->item)
                     ->where('level', $gameInfo->level)
-                    ->orderBy('appearance')
-                    ->orderBy('player_number')
-                    ->orderBy('player_id')
-                    ->inRandomOrder('id')
+                    ->inRandomOrder()
                     ->get();
 
                 foreach ($enrolls as $key => $enroll) {  // 將該場次已亂數排序的所有選手逐一加入出場編號
