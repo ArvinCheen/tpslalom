@@ -39,7 +39,7 @@
 
                             @if ($schedule1->order == '場次14')
                                 <tr>
-                                    <td class="text-center" colspan="10">午休時間至下午一點半<br>下午時間從一點半開始往後繼續</td>
+                                    <td class="text-center" colspan="10">午休</td>
                                 </tr>
                             @endif
                         @endforeach
@@ -81,7 +81,7 @@
 
                             @if ($schedule2->order == '場次90')
                                 <tr>
-                                    <td class="text-center" colspan="10">午休時間至下午一點半<br>下午時間從一點半開始往後繼續</td>
+                                    <td class="text-center" colspan="10">午休</td>
                                 </tr>
                             @endif
                         @endforeach
