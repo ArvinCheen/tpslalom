@@ -36,7 +36,16 @@
 {{--                                <td> {{ $schedule1->remark }} </td>--}}
                                 <td> {{ $schedule1->number_of_player }} </td>
                             </tr>
+
+                            @if ($schedule1->order == '場次14')
+                                <tr>
+                                    <td class="text-center" colspan="10">午休時間至下午一點半<br>下午時間從一點半開始往後繼續</td>
+                                </tr>
+                            @endif
                         @endforeach
+                        <tr>
+                            <td class="text-center" colspan="10">第一天賽程結束</td>
+                        </tr>
                     </table>
                 </div>
 
@@ -68,7 +77,17 @@
 {{--                                <td> {{ $schedule2->remark }} </td>--}}
                                 <td> {{ $schedule2->number_of_player }} </td>
                             </tr>
+
+
+                            @if ($schedule2->order == '場次90')
+                                <tr>
+                                    <td class="text-center" colspan="10">午休時間至下午一點半<br>下午時間從一點半開始往後繼續</td>
+                                </tr>
+                            @endif
                         @endforeach
+                        <tr>
+                            <td class="text-center" colspan="10">第二天賽程結束</td>
+                        </tr>
                     </table>
                 </div>
             </div>
