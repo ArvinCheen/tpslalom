@@ -882,7 +882,7 @@ class ExportController extends Controller
                     });
                     $sheet->cell('A3', function ($cell) use ($schedule) {
                         $cell->setFontSize(12);
-                        $cell->setValue($schedule->item . ' ' . $schedule->group . $schedule->gender . '子組');
+                        $cell->setValue($schedule->level . ' ' . $schedule->item . ' ' . $schedule->group . $schedule->gender . '子組');
                         $cell->setAlignment('center');
                         $cell->setValignment('center');
                     });
@@ -948,12 +948,14 @@ class ExportController extends Controller
                     $group  = $schedule->group;
                     $gender = $schedule->gender;
                     $item   = $schedule->item;
+                    $level   = $schedule->level;
 
 
                     $enrolls = EnrollModel::where('gender', $gender)
                         ->where('game_id', $gameId)
                         ->where('group', $group)
                         ->where('item', $item)
+                        ->where('level', $level)
                         ->orderBy('appearance')
                         ->get();
 
