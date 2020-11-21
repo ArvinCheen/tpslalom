@@ -34,6 +34,7 @@ class ResultController extends Controller
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item)
+                ->where('level', $gameInfo->level)
                 ->orderBy('appearance')
                 ->get();
         }
