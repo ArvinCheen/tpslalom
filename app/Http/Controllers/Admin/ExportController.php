@@ -580,7 +580,7 @@ class ExportController extends Controller
 
                 $sheet->mergeCells("A1:H1");
                 $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
-                $sheet->row(2, ['名次', '姓名', '教練']);
+                $sheet->row(2, ['名次', '姓名', '隊伍 & 教練']);
 
                 $sheet->cell('A1', function ($cell) {
                     $cell->setFontSize(20);
@@ -597,7 +597,7 @@ class ExportController extends Controller
 
                 $initIndex = 3;
                 foreach ($enrolls as $enroll) {
-                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->coach]);
+                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->account->team_name .' '.$enroll->account->coach]);
 
                     $sheet->cell('A' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
