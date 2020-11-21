@@ -32,7 +32,8 @@ class GameInfoController extends Controller
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $gameInfo->group)
-                ->where('item', $gameInfo->item);
+                ->where('item', $gameInfo->item)
+                ->where('level', $gameInfo->level);
 
             if ($gameInfo->item <> '雙人花式繞樁') {
                 $enrolls->where('gender', $gameInfo->gender);

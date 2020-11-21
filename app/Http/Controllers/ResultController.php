@@ -21,6 +21,7 @@ class ResultController extends Controller
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
             ->where('item', $schedule->item)
+            ->where('level', $schedule->level)
             ->whereNotNull('rank')
             ->orderBy('rank')
             ->get();

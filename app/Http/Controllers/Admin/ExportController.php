@@ -1040,6 +1040,7 @@ class ExportController extends Controller
                         ->where('game_id', config('app.game_id'))
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
+                        ->where('level', $schedule->level)
                         ->whereNotNull('rank')
                         ->orderBy('rank')
                         ->get();
@@ -1286,6 +1287,7 @@ class ExportController extends Controller
                     $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
+                        ->where('level', $schedule->level)
                         ->orderBy('appearance')
                         ->get();
 
@@ -1396,6 +1398,7 @@ class ExportController extends Controller
                     $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
+                        ->where('level', $schedule->level)
                         ->orderBy('appearance')
                         ->get();
 
@@ -1500,6 +1503,7 @@ class ExportController extends Controller
                     $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
+                        ->where('level', $schedule->level)
                         ->orderBy('appearance')
                         ->get();
 
@@ -1603,6 +1607,7 @@ class ExportController extends Controller
                     $enrolls = EnrollModel::where('gender', $schedule->gender)
                         ->where('group', $schedule->group)
                         ->where('item', $schedule->item)
+                        ->where('level', $schedule->level)
                         ->orderBy('appearance')
                         ->get();
 
