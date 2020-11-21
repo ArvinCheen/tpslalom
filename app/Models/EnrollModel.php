@@ -170,6 +170,7 @@ class EnrollModel extends Model
             ->where('gender', $gameInfo->gender)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
+            ->where('level', $gameInfo->level)
             ->get()
             ->map(function ($query) {
                 return $query->id;
