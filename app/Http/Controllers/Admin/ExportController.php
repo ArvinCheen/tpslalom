@@ -23,32 +23,31 @@ class ExportController extends Controller
         $order    = $gameInfo->order;
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
+        $level     = $gameInfo->level;
 
         $scheduleiInfo = ScheduleModel::find($scheduleId);
 
         $rankLimit = $scheduleiInfo->number_of_player;
 
-        if ($rankLimit > 8) {
-            $rankLimit = 8;
+        if ($rankLimit > 6) {
+            $rankLimit = 6;
         }
 
         if ($scheduleiInfo->item == '雙人花式繞樁') {
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-            })
-                ->where('game_id', config('app.game_id'))
+            $enrolls = EnrollModel::where('game_id', config('app.game_id'))
                 ->where('item', $item)
+                ->where('level', $level)
                 ->whereNotNull('rank')
                 ->where('rank', '<>', 0)
                 ->orderBy('rank')
                 ->limit($rankLimit)
                 ->get();
         } else {
-            $enrolls = EnrollModel::wherehas('player', function ($query) use ($gameInfo) {
-            })
-                ->where('gender', $gameInfo->gender)
+            $enrolls = EnrollModel::where('gender', $gameInfo->gender)
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('item', $item)
+                ->where('level', $level)
                 ->whereNotNull('rank')
                 ->where('rank', '<>', 0)
                 ->orderBy('rank')
@@ -61,11 +60,11 @@ class ExportController extends Controller
             return back()->with(['error' => '無獎狀資料']);
         }
 
-        if (strpos($scheduleiInfo->item, '速度過樁') !== false) {
-            $this->exportExcel($order, $enrolls, 'certificate');
-        } else {
-            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
-        }
+//        if (strpos($scheduleiInfo->item, '速度過樁') !== false) {
+            $this->exportExcel($scheduleId, $order, $enrolls, 'certificate');
+//        } else {
+//            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
+//        }
     }
 
     /**
@@ -386,11 +385,13 @@ class ExportController extends Controller
 //    }
     private function exportExcelFreeStyle($fileName, $enrolls)
     {
+        dd($fileName);
         $scheduleId = substr($fileName, 6);
 
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
             $excel->sheet('明細', function ($sheet) use ($enrolls, $scheduleId) {
                 $gameInfo = ScheduleModel::find($scheduleId);
+                dd($gameInfo);
                 $sheet->setWidth(array(
                     'A' => 24,
                     'B' => 24,
@@ -555,7 +556,7 @@ class ExportController extends Controller
 //                            $cell->setValignment('center');
 //                        });
                         $sheet->cell('A43', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　十　月　五　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　十 一　月　二 十 一　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -566,10 +567,8 @@ class ExportController extends Controller
     }
 
 
-    private function exportExcel($fileName, $enrolls)
+    private function exportExcel($scheduleId, $fileName, $enrolls)
     {
-        $scheduleId = substr($fileName, 6);
-
         Excel::create($fileName, function ($excel) use ($enrolls, $scheduleId) {
             $excel->sheet('明細', function ($sheet) use ($enrolls, $scheduleId) {
                 $gameInfo = ScheduleModel::find($scheduleId);
@@ -640,7 +639,8 @@ class ExportController extends Controller
                         $sheet->mergeCells('F27:J27');
                         $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
-                            $cell->setValue('獎　　　狀');
+//                            $cell->setValue('獎　　　狀');
+                            $cell->setValue('  ');
                             $cell->setFontSize(60);
 
                             $cell->setFontWeight('bold');
@@ -776,7 +776,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　十　月　五　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　十 一　月　二 十 一　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
