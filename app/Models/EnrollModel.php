@@ -247,6 +247,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('group', $group)
             ->where('item', $item)
+            ->where('level', $level)
             ->where('final_result', '<>', '無成績')
             ->where('final_result', '<>', '')
             ->limit($rankLimit)
