@@ -29,8 +29,8 @@ class ExportController extends Controller
 
         $rankLimit = $scheduleiInfo->number_of_player;
 
-        if ($rankLimit > 10) {
-            $rankLimit = 10;
+        if ($rankLimit > 6) {
+            $rankLimit = 6;
         }
 
         if ($scheduleiInfo->item == '雙人花式繞樁') {
