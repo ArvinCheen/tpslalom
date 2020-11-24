@@ -125,6 +125,9 @@ class ExportController extends Controller
                 $enrolls = $enrolls->where('level', $schedule->level)
                     ->where('gender', $schedule->gender)
                     ->where('item', $schedule->item)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
                     ->get();
 
                 for ($i = 0; $i < count($enrolls); $i += 3) {
