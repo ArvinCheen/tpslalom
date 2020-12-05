@@ -24,7 +24,15 @@ class tmp extends Command
      */
     public function handle()
     {
-        \Log::info('ddd');
-        dd();
+//        $enrolls = EnrollModel::where('game_id', 9)->whereNull('player_number')->groupBy('player_id')->get();
+//
+//        foreach ($enrolls as $enroll) {
+//            echo '.';
+//            $maxNumber = EnrollModel::where('game_id', 9)->max('player_number') + 1;
+//            EnrollModel::where('player_id', $enroll->player_id)->where('game_id', 9)->update(['player_number' => $maxNumber]);
+//        }
+//
+//        dd('done');
+
     }
 }
