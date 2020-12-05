@@ -170,6 +170,7 @@ class EnrollModel extends Model
             ->where('gender', $gameInfo->gender)
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
+            ->where('level', $gameInfo->level)
             ->get()
             ->map(function ($query) {
                 return $query->id;
@@ -247,6 +248,7 @@ class EnrollModel extends Model
             ->where('game_id', config('app.game_id'))
             ->where('group', $group)
             ->where('item', $item)
+            ->where('level', $level)
             ->where('final_result', '<>', '無成績')
             ->where('final_result', '<>', '')
             ->limit($rankLimit)

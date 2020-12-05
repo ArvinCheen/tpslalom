@@ -45,6 +45,7 @@ class SearchService
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
+            ->where('level', $gameInfo->level)
             ->whereNotNull('rank')
             ->orderBy('rank')
             ->get();
@@ -54,6 +55,7 @@ class SearchService
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
+            ->where('level', $gameInfo->level)
             ->whereNull('rank')
             ->where('final_result', '無成績')
             ->get();
