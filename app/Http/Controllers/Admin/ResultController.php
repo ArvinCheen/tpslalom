@@ -30,13 +30,24 @@ class ResultController extends Controller
         if (is_null($gameInfo = ScheduleModel::find($scheduleId))) {
             $enrolls = [];
         } else {
-            $enrolls = EnrollModel::where('gender', $gameInfo->gender)
-                ->where('game_id', config('app.game_id'))
-                ->where('group', $gameInfo->group)
-                ->where('item', $gameInfo->item)
-                ->where('level', $gameInfo->level)
-                ->orderBy('appearance')
-                ->get();
+            if (strpos($gameInfo->item, '套路') !== false && strpos($gameInfo->group, '國小') !== false) {
+                $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+                    ->where('game_id', config('app.game_id'))
+                    ->where('group2', $gameInfo->group)
+                    ->where('item', $gameInfo->item)
+                    ->where('level', $gameInfo->level)
+                    ->orderBy('appearance')
+                    ->get();
+            } else {
+
+                $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+                    ->where('game_id', config('app.game_id'))
+                    ->where('group', $gameInfo->group)
+                    ->where('item', $gameInfo->item)
+                    ->where('level', $gameInfo->level)
+                    ->orderBy('appearance')
+                    ->get();
+            }
         }
 
         $model = 'speed';

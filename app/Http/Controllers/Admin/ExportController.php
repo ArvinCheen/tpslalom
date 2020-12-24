@@ -1287,12 +1287,23 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::where('gender', $schedule->gender)
-                        ->where('group', $schedule->group)
-                        ->where('item', $schedule->item)
-                        ->where('level', $schedule->level)
-                        ->orderBy('appearance')
-                        ->get();
+                    if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group2', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
 
                     $location = 4;
                     foreach ($enrolls as $key => $enroll) {
@@ -1398,12 +1409,23 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::where('gender', $schedule->gender)
-                        ->where('group', $schedule->group)
-                        ->where('item', $schedule->item)
-                        ->where('level', $schedule->level)
-                        ->orderBy('appearance')
-                        ->get();
+                    if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group2', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
 
                     $location = 4;
                     foreach ($enrolls as $key => $enroll) {
@@ -1503,12 +1525,23 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::where('gender', $schedule->gender)
-                        ->where('group', $schedule->group)
-                        ->where('item', $schedule->item)
-                        ->where('level', $schedule->level)
-                        ->orderBy('appearance')
-                        ->get();
+                    if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group2', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
 
                     $location = 4;
                     foreach ($enrolls as $key => $enroll) {
@@ -1607,12 +1640,23 @@ class ExportController extends Controller
                         $cell->setValignment('center');
                     });
 
-                    $enrolls = EnrollModel::where('gender', $schedule->gender)
-                        ->where('group', $schedule->group)
-                        ->where('item', $schedule->item)
-                        ->where('level', $schedule->level)
-                        ->orderBy('appearance')
-                        ->get();
+                    if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group2', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
 
                     $location = 4;
                     foreach ($enrolls as $key => $enroll) {
