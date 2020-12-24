@@ -954,13 +954,23 @@ class ExportController extends Controller
                     $level   = $schedule->level;
 
 
-                    $enrolls = EnrollModel::where('gender', $gender)
-                        ->where('game_id', $gameId)
-                        ->where('group', $group)
-                        ->where('item', $item)
-                        ->where('level', $level)
-                        ->orderBy('appearance')
-                        ->get();
+                    if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group2', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+
+                        $enrolls = EnrollModel::where('gender', $schedule->gender)
+                            ->where('group', $schedule->group)
+                            ->where('item', $schedule->item)
+                            ->where('level', $schedule->level)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
 
                     $location = 6;
                     foreach ($enrolls as $key => $enroll) {
