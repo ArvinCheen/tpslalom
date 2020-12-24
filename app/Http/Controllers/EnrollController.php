@@ -80,18 +80,20 @@ class EnrollController extends Controller
                 'agency'     => $agency,
             ])->id;
 
+            $playerNumber = $this->getPlayerNumber($playerId);
             app(EnrollModel::class)->cancel($playerId);
 
             if ($enrollItem) {
                 foreach ($enrollItem as $item) {
                     EnrollModel::create([
-                        'game_id'    => config('app.game_id'),
-                        'player_id'  => $playerId,
-                        'account_id' => auth()->user()->id,
-                        'level'      => $level,
-                        'group'      => $group,
-                        'gender'     => $gender,
-                        'item'       => $item,
+                        'game_id'       => config('app.game_id'),
+                        'player_id'     => $playerId,
+                        'player_number' => $playerNumber,
+                        'account_id'    => auth()->user()->id,
+                        'level'         => $level,
+                        'group'         => $group,
+                        'gender'        => $gender,
+                        'item'          => $item,
                     ]);
                 }
             }
@@ -102,6 +104,7 @@ class EnrollController extends Controller
                 EnrollModel::create([
                     'game_id'    => config('app.game_id'),
                     'player_id'  => $playerId,
+                    'player_number' => $playerNumber,
                     'account_id' => auth()->user()->id,
                     'group'      => $group,
                     'group2'     => $this->getFlowerGroup($group),
@@ -114,6 +117,7 @@ class EnrollController extends Controller
                 EnrollModel::create([
                     'game_id'    => config('app.game_id'),
                     'player_id'  => $playerId,
+                    'player_number' => $playerNumber,
                     'account_id' => auth()->user()->id,
                     'group'      => $group,
                     'group2'     => $this->getFlowerGroup($group),
