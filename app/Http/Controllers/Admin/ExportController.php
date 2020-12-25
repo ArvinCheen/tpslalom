@@ -960,6 +960,7 @@ class ExportController extends Controller
                             ->where('group2', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     } else {
@@ -968,6 +969,7 @@ class ExportController extends Controller
                             ->where('group', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     }
@@ -1303,6 +1305,7 @@ class ExportController extends Controller
                             ->where('group2', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     } else {
@@ -1311,6 +1314,7 @@ class ExportController extends Controller
                             ->where('group', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     }
@@ -1541,6 +1545,7 @@ class ExportController extends Controller
                             ->where('group2', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     } else {
@@ -1549,6 +1554,7 @@ class ExportController extends Controller
                             ->where('group', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     }
@@ -1656,6 +1662,7 @@ class ExportController extends Controller
                             ->where('group2', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     } else {
@@ -1664,6 +1671,7 @@ class ExportController extends Controller
                             ->where('group', $schedule->group)
                             ->where('item', $schedule->item)
                             ->where('level', $schedule->level)
+                            ->where('game_id', config('app.game_id'))
                             ->orderBy('appearance')
                             ->get();
                     }
@@ -1674,7 +1682,7 @@ class ExportController extends Controller
                         $sheet->setHeight($location, 80);
 
                         $sheet->cell('A' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player_nbumber . ' ' . $enroll->player->name);
+                            $cell->setValue($enroll->player_number . ' ' . $enroll->player->name);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
