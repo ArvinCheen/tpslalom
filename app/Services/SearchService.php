@@ -46,22 +46,8 @@ class SearchService
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
-            ->whereNotNull('rank')
-            ->orderBy('rank')
+            ->orderByRaw('-`rank` desc')
             ->get();
-
-        $data無成績 = EnrollModel::where('game_id', config('app.game_id'))
-            ->where('game_id', config('app.game_id'))
-            ->where('group', $gameInfo->group)
-            ->where('item', $gameInfo->item)
-            ->where('gender', $gameInfo->gender)
-            ->where('level', $gameInfo->level)
-            ->whereNull('rank')
-            ->where('final_result', '無成績')
-            ->get();
-//
-
-        $data = $data->merge($data無成績);
 
         return $this->translationResult($data);
     }

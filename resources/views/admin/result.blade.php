@@ -152,6 +152,16 @@
                                 <td class="text-center" style="width:70px"> {{ $enroll->player_number }} <br>{{ $enroll->player->name }}</td>
                                 @switch ($model)
                                     @case('speed')
+{{--                                    <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ rand(4, 20) . '.' . rand(0,9) }}"--}}
+{{--                                                                   autocomplete="off"></td>--}}
+{{--                                    <td class="text-center"><input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3"--}}
+{{--                                                                   value="{{ rand(0,7) }}" autocomplete="off"></td>--}}
+{{--                                    <td class="text-center"><input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ rand(4, 20) . '.' . rand(0,9) }}"--}}
+{{--                                                                   autocomplete="off"></td>--}}
+{{--                                    <td class="text-center"><input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3"--}}
+{{--                                                                   value="{{ rand(0,7) }}" autocomplete="off"></td>--}}
+
+
                                     <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}"
                                                                    autocomplete="off"></td>
                                     <td class="text-center"><input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3"
@@ -160,6 +170,7 @@
                                                                    autocomplete="off"></td>
                                     <td class="text-center"><input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3"
                                                                    value="{{ $enroll->round_two_miss_conr }}" autocomplete="off"></td>
+
                                     <td class="text-center"> {{ $enroll->final_result }} </td>
                                     <td class="text-center"> {{ $enroll->rank }} </td>
                                     @break
@@ -179,18 +190,18 @@
                                     <td class="text-center"><input name="art_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_3 }}" autocomplete="off"></td>
 {{--                                    <td class="text-center"><input name="score_3[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_3 }}" autocomplete="off"></td>--}}
                                     <td class="text-center">{{ $enroll->score_3 }}</td>
-                                    @if ($當前項目 == '個人花式繞樁')
-                                    <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>
+{{--                                    @if ($當前項目 == '個人花式繞樁')--}}
+{{--                                    <td class="text-center"><input name="skill_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_4 }}" autocomplete="off"></td>--}}
+{{--                                    <td class="text-center"><input name="art_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_4 }}" autocomplete="off"></td>--}}
 {{--                                    <td class="text-center"><input name="score_4[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_4 }}" autocomplete="off"></td>--}}
-                                    <td class="text-center">{{ $enroll->score_4 }}</td>
-                                    <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>
-                                    <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>
+{{--                                    <td class="text-center">{{ $enroll->score_4 }}</td>--}}
+{{--                                    <td class="text-center"><input name="skill_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->skill_5 }}" autocomplete="off"></td>--}}
+{{--                                    <td class="text-center"><input name="art_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->art_5 }}" autocomplete="off"></td>--}}
 {{--                                    <td class="text-center"><input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off"></td>--}}
-                                    <td class="text-center">{{ $enroll->score_5 }}</td>
-@endif
-                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>
-                                    @break
+{{--                                    <td class="text-center">{{ $enroll->score_5 }}</td>--}}
+{{--@endif--}}
+{{--                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>--}}
+{{--                                    @break--}}
                                 @endswitch
                             </tr>
                         @endforeach
@@ -212,10 +223,10 @@
                             <td class="text-center">裁判一</td>
                             <td class="text-center">裁判二</td>
                             <td class="text-center">裁判三</td>
-                            @if ($當前項目 == '個人花式繞樁')
-                            <td class="text-center">裁判四</td>
-                            <td class="text-center">裁判五</td>
-                                @endif
+{{--                            @if ($當前項目 == '個人花式繞樁')--}}
+{{--                            <td class="text-center">裁判四</td>--}}
+{{--                            <td class="text-center">裁判五</td>--}}
+{{--                                @endif--}}
                         </tr>
                         </thead>
                         <tbody>

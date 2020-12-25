@@ -70,15 +70,8 @@ class SearchController extends Controller
         }
 
         app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
-        return view('search/result')->with(compact(
-            'scheduleId',
-            'model',
-            'schedules',
-            'scheduleInfo',
-            'result',
-            'rankLimit',
-            'remark'
-        ));
+
+        return view('search/result', compact(['scheduleId', 'model', 'schedules', 'scheduleInfo', 'result', 'rankLimit', 'remark']));
     }
 
     public function integral()

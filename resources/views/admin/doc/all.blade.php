@@ -45,7 +45,7 @@
                                 <td> {{ $val->gender }} </td>
                                 <td>
                                     @foreach($val->itemAll as $key => $item)
-                                        {{$key + 1}}. {{$item}}<br>
+                                        {{ $key + 1 }}. {{ $item }} {{ $val->sound }}<br>
                                     @endforeach
                                 </td>
                                 <td> {{ $val->player->city }} </td>

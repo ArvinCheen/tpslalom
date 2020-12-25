@@ -38,42 +38,41 @@
 
                         @switch ($model)
                             @case('speed')
-                            <th class="text-center"> 選手</th>
-                            <th class="text-center"> 一回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 二回</th>
-                            <th class="text-center"> 誤椿</th>
-                            <th class="text-center"> 成績</th>
-                            <th class="text-center"> 名次</th>
+                                <th class="text-center"> 選手 </th>
+                                <th class="text-center"> 一回 </th>
+                                <th class="text-center"> 誤椿 </th>
+                                <th class="text-center"> 二回 </th>
+                                <th class="text-center"> 誤椿 </th>
+                                <th class="text-center"> 成績 </th>
+                                <th class="text-center"> 名次 </th>
                             @break;
                             @case('freeStyle')
-                            <th class="text-center"> 選手</th>
-
-                            <th class="text-center"> 罰分</th>
-                            <th class="text-center"> 技術一</th>
-                            <th class="text-center"> 藝術一</th>
-                            <th class="text-center"> 總分一</th>
-                            <th class="text-center"> 技術二</th>
-                            <th class="text-center"> 藝術二</th>
-                            <th class="text-center"> 總分二</th>
-                            <th class="text-center"> 技術三</th>
-                            <th class="text-center"> 藝術三</th>
-                            <th class="text-center"> 總分三</th>
-                            @if ($scheduleInfo->item == '個人花式繞樁' )
-                                <th class="text-center"> 技術四</th>
-                                <th class="text-center"> 藝術四</th>
-                                <th class="text-center"> 總分四</th>
-                                <th class="text-center"> 技術五</th>
-                                <th class="text-center"> 藝術五</th>
-                                <th class="text-center"> 總分五</th>
-                            @endif
-                            <th class="text-center"> 名次</th>
+                                <th class="text-center"> 選手 </th>
+                                <th class="text-center"> 罰分 </th>
+                                <th class="text-center"> 技術一 </th>
+                                <th class="text-center"> 藝術一 </th>
+                                <th class="text-center"> 總分一 </th>
+                                <th class="text-center"> 技術二 </th>
+                                <th class="text-center"> 藝術二 </th>
+                                <th class="text-center"> 總分二 </th>
+                                <th class="text-center"> 技術三 </th>
+                                <th class="text-center"> 藝術三 </th>
+                                <th class="text-center"> 總分三 </th>
+{{--                            @if ($scheduleInfo->item == '中級指定套路')--}}
+{{--                                <th class="text-center"> 技術四 </th>--}}
+{{--                                <th class="text-center"> 藝術四 </th>--}}
+{{--                                <th class="text-center"> 總分四 </th>--}}
+{{--                                <th class="text-center"> 技術五 </th>--}}
+{{--                                <th class="text-center"> 藝術五 </th>--}}
+{{--                                <th class="text-center"> 總分五 </th>--}}
+{{--                            @endif--}}
+                            <th class="text-center"> 名次 </th>
 
                             @break;
 
                             @case('stop')
-                            <th class="text-center"> 名次</th>
-                            <th class="text-center"> 選手</th>
+                                <th class="text-center"> 名次 </th>
+                                <th class="text-center"> 選手 </th>
                             @break;
                             @case('pk')
                             @break;
@@ -85,13 +84,13 @@
                         @case('speed')
                         @foreach ($result as $key => $val)
                             <tr>
-                                <td class="text-center"> {{ $val->player_number }} {{$val->player->name}}</td>
-                                <td class="text-center"> {{ $val->round_one_second }}</td>
-                                <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }}</td>
-                                <td class="text-center"> {{ $val->round_two_second }}</td>
-                                <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }}</td>
-                                <td class="text-center"> {{ $val->final_result }}</td>
-                                <td class="text-center"> {{ $val->rank }}</td>
+                                <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
+                                <td class="text-center"> {{ $val->round_one_second }} </td>
+                                <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
+                                <td class="text-center"> {{ $val->round_two_second }} </td>
+                                <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
+                                <td class="text-center"> {{ $val->final_result }} </td>
+                                <td class="text-center"> {{ $val->rank }} </td>
                             </tr>
                         @endforeach
                         @break;
@@ -153,14 +152,14 @@
                                     <td class="text-center"> {{ $val->skill_3 }}</td>
                                     <td class="text-center"> {{ $val->art_3 }}</td>
                                     <td class="text-center"> {{ $val->score_3 }}</td>
-                                    @if ($scheduleInfo->item == '個人花式繞樁')
-                                    <td class="text-center"> {{ $val->skill_4 }}</td>
-                                    <td class="text-center"> {{ $val->art_4 }}</td>
-                                    <td class="text-center"> {{ $val->score_4 }}</td>
-                                    <td class="text-center"> {{ $val->skill_5 }}</td>
-                                    <td class="text-center"> {{ $val->art_5 }}</td>
-                                    <td class="text-center"> {{ $val->score_5 }}</td>
-                                    @endif
+{{--                                    @if ($scheduleInfo->item == '中級指定套路')--}}
+{{--                                    <td class="text-center"> {{ $val->skill_4 }}</td>--}}
+{{--                                    <td class="text-center"> {{ $val->art_4 }}</td>--}}
+{{--                                    <td class="text-center"> {{ $val->score_4 }}</td>--}}
+{{--                                    <td class="text-center"> {{ $val->skill_5 }}</td>--}}
+{{--                                    <td class="text-center"> {{ $val->art_5 }}</td>--}}
+{{--                                    <td class="text-center"> {{ $val->score_5 }}</td>--}}
+{{--                                    @endif--}}
                                     <td class="text-center"> {{ $val->rank }}</td>
                                 </tr>
                             @endforeach

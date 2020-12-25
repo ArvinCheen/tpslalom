@@ -33,8 +33,9 @@ class RankController extends Controller
         $rankLimit = ScheduleModel::find($scheduleId)->number_of_player;
 
         if ($rankLimit >= 6) {
-            $rankLimit == 6;
+            $rankLimit = 6;
         }
+
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
         $this->processRank($level, $gender, $group, $item, $rankLimit);

@@ -22,7 +22,6 @@ class ResultController extends Controller
             ->where('gender', $schedule->gender)
             ->where('item', $schedule->item)
             ->where('level', $schedule->level)
-            ->whereNotNull('rank')
             ->orderBy('rank')
             ->get();
 
@@ -48,6 +47,7 @@ class ResultController extends Controller
 
         return view('searchResult')
             ->with('schedules', $schedules)
+            ->with('schedule', $schedule)
             ->with('order', $order)
             ->with('enrollData', $enrollData)
             ->with('active', '成績查詢');
