@@ -1326,7 +1326,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('B' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->id);
+                            $cell->setValue($enroll->player_number);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -1448,7 +1448,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('B' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->id);
+                            $cell->setValue($enroll->player_number);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -1564,7 +1564,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('B' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->id);
+                            $cell->setValue($enroll->player_number);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -1674,7 +1674,7 @@ class ExportController extends Controller
                         $sheet->setHeight($location, 80);
 
                         $sheet->cell('A' . $location, function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->id . ' ' . $enroll->player->name);
+                            $cell->setValue($enroll->player_nbumber . ' ' . $enroll->player->name);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
