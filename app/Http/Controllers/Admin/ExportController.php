@@ -28,6 +28,7 @@ class ExportController extends Controller
         $scheduleiInfo = ScheduleModel::find($scheduleId);
 
         $rankLimit = $scheduleiInfo->number_of_player;
+        $targetColumn = $this->getGroupColumn($group);
 
         if ($rankLimit > 6) {
             $rankLimit = 6;
@@ -43,17 +44,16 @@ class ExportController extends Controller
 //                ->limit($rankLimit)
                 ->get();
         } else {
+
             $enrolls = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')
                 ->where('player.gender', $gameInfo->gender)
                 ->where('game_id', config('app.game_id'))
-                ->where('group', $group)
+                ->where($targetColumn, $group)
                 ->where('item', $item)
                 ->where('level', $level)
                 ->whereNotNull('rank')
-//                ->where('rank', '<>', 0)
                 ->orderBy('city')
                 ->orderBy('rank')
-//                ->limit($rankLimit)
                 ->get();
         }
 
@@ -66,6 +66,21 @@ class ExportController extends Controller
 //        } else {
 //            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
 //        }
+    }
+
+
+    private function getGroupColumn($group)
+    {
+        switch ($group) {
+            case '國小低年級':
+            case '國小中年級':
+            case '國小高年級':
+                return 'group2';
+                break;
+            default:
+                return 'group';
+                break;
+        }
     }
 
     /**
@@ -719,9 +734,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F18', function ($cell) use ($enroll) {
-                            $item = str_replace('(男)', '', $enroll->item);
-                            $item = str_replace('(女)', '', $item);
-                            $cell->setValue($item);
+                            $cell->setValue($enroll->item);
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -738,30 +751,30 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('C20', function ($cell) use ($enroll, $scheduleId) {
-                            $cell->setValue('成　　　績：');
-                            $cell->setFontSize(20);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-
-                        $sheet->cell('F20', function ($cell) use ($enroll, $scheduleId) {
-                            $explodeSecond = explode(".", $enroll->final_result);
-                            if ($explodeSecond[0] >= 60) {
-                                $result = gmdate("i分s秒", $explodeSecond[0]);
-                            } else {
-                                $result = gmdate("s秒", $explodeSecond[0]);
-                            }
-
-                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
-                                $result .= $explodeSecond[1];
-                            }
-
-                            $cell->setValue($result);
-                            $cell->setFontSize(20);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
+//                        $sheet->cell('C20', function ($cell) use ($enroll, $scheduleId) {
+//                            $cell->setValue('成　　　績：');
+//                            $cell->setFontSize(20);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
+//
+//                        $sheet->cell('F20', function ($cell) use ($enroll, $scheduleId) {
+//                            $explodeSecond = explode(".", $enroll->final_result);
+//                            if ($explodeSecond[0] >= 60) {
+//                                $result = gmdate("i分s秒", $explodeSecond[0]);
+//                            } else {
+//                                $result = gmdate("s秒", $explodeSecond[0]);
+//                            }
+//
+//                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
+//                                $result .= $explodeSecond[1];
+//                            }
+//
+//                            $cell->setValue($result);
+//                            $cell->setFontSize(20);
+//                            $cell->setAlignment('center');
+//                            $cell->setValignment('center');
+//                        });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
                             $cell->setValue('中　華　民　國　一　百　零　九　年　十 二　月　二 十 七　日');
                             $cell->setFontSize(18);
