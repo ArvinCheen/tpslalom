@@ -41,6 +41,41 @@ class SearchService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
         $data = EnrollModel::where('game_id', config('app.game_id'))
+            ->where('group', $gameInfo->group)
+            ->where('item', $gameInfo->item)
+            ->where('gender', $gameInfo->gender)
+            ->where('level', $gameInfo->level)
+            ->orderByRaw('-`rank` desc')
+            ->get();
+
+        return $this->translationResult($data);
+    }
+
+    public function getTaipeiCityResult($scheduleId)
+    {
+        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
+
+        $data = EnrollModel::whereHas('player', function ($query) {
+            $query->where('city', '臺北市');
+        })
+            ->where('game_id', config('app.game_id'))
+            ->where('group', $gameInfo->group)
+            ->where('item', $gameInfo->item)
+            ->where('gender', $gameInfo->gender)
+            ->where('level', $gameInfo->level)
+            ->orderByRaw('-`rank` desc')
+            ->get();
+
+        return $this->translationResult($data);
+    }
+
+    public function getOtherCityResult($scheduleId)
+    {
+        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
+
+        $data = EnrollModel::whereHas('player', function ($query) {
+            $query->where('city', '<>', '臺北市');
+        })
             ->where('game_id', config('app.game_id'))
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)

@@ -30,6 +30,7 @@ class RankController extends Controller
         $gender   = $gameInfo->gender;
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
+
         $rankLimit = ScheduleModel::find($scheduleId)->number_of_player;
 
         if ($rankLimit >= 6) {
@@ -38,7 +39,12 @@ class RankController extends Controller
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
 
-        $this->processRank($level, $gender, $group, $item, $rankLimit);
+        if ($level == '選手組') {
+            $this->processRank($level, $gender, $group, $item, $rankLimit, null);
+        } else {
+            $this->processRank($level, $gender, $group, $item, $rankLimit, '臺北市');
+            $this->processRank($level, $gender, $group, $item, $rankLimit, '外縣市');
+        }
 
 
         $gameInfo->open_result_time = now();
@@ -46,9 +52,9 @@ class RankController extends Controller
     }
 
 
-    public function processRank($level, $gender, $group, $item, $rankLimit)
+    public function processRank($level, $gender, $group, $item, $rankLimit, $city)
     {
-        $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit);
+        $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit, $city);
 
         foreach ($results as $key => $result) {
             if ($key <> 0) {

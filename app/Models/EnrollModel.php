@@ -240,10 +240,20 @@ class EnrollModel extends Model
             ->update($updateData);
     }
 
-    public function getResults($level, $gender, $group, $item, $rankLimit)
+    public function getResults($level, $gender, $group, $item, $rankLimit, $city)
     {
-        return $this::whereHas('player', function ($query) use ($gender) {
+        return $this::whereHas('player', function ($query) use ($gender, $city) {
             $query->where('gender', $gender);
+
+            if (! is_null($city)) {
+                if ($city == '臺北市') {
+                    $query->where('city', $city);
+                }
+
+                if ($city == '外縣市') {
+                    $query->where('city', '<>', '臺北市');
+                }
+            }
         })
             ->where('game_id', config('app.game_id'))
             ->where('group', $group)
@@ -315,7 +325,7 @@ class EnrollModel extends Model
         if (strpos($item, '套路') !== false && strpos($group, '國小') !== false) {
             return $this->where('game_id', config('app.game_id'))
                 ->where('level', $level)
-                ->where('group2', $group) // 國小分 低、中、高 級
+                ->where('group2', $group)// 國小分 低、中、高 級
                 ->where('gender', $gender)
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();

@@ -24,6 +24,10 @@ class SearchController extends Controller
 
     public function result($scheduleId = null)
     {
+        $taipeiCityResult = null;
+        $otherCityResult  = null;
+        $result           = null;
+
         $searchService = new SearchService();
 
         $schedules = app(ScheduleModel::class)->getSchedules();
@@ -35,7 +39,22 @@ class SearchController extends Controller
         }
 
         $scheduleInfo = ScheduleModel::find($scheduleId);
-        $result       = $searchService->getResult($scheduleId);
+
+        $model = $this->getModel($scheduleInfo->item);
+
+        if ($model == 'speed') {
+
+            if ($scheduleInfo->level == '選手組') {
+                $result = $searchService->getResult($scheduleId);
+            } else {
+                $taipeiCityResult = $searchService->getTaipeiCityResult($scheduleId);
+                $otherCityResult  = $searchService->getOtherCityResult($scheduleId);
+            }
+        }
+
+        if ($model == 'freeStyle') {
+            $result = $searchService->getResult($scheduleId);
+        }
 
         $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
         $remark         = ScheduleModel::find($scheduleId)->remark;
@@ -50,28 +69,19 @@ class SearchController extends Controller
             }
         }
 
+
+        return view('search/result', compact('scheduleId', 'model', 'schedules', 'scheduleInfo', 'rankLimit', 'remark', 'taipeiCityResult', 'otherCityResult', 'result'));
+    }
+
+    private function getModel($item)
+    {
         $model = 'speed';
 
-        if ($scheduleInfo->item == '中級指定套路' ||
-            $scheduleInfo->item == '中級指定套路' ||
-            $scheduleInfo->item == '個人花式繞樁' ||
-            $scheduleInfo->item == '個人花式繞樁' ||
-            $scheduleInfo->item == '初級指定套路' ||
-            $scheduleInfo->item == '初級指定套路' ||
-            $scheduleInfo->item == '雙人花式繞樁') {
+        if ($item == '中級指定套路' || $item == '初級指定套路') {
             $model = 'freeStyle';
         }
-        if ($scheduleInfo->number_of_player == 0) {
-            $model = 'pk';
-        }
 
-        if ($scheduleInfo->item == '花式煞停(女)' || $scheduleInfo->item == '花式煞停(男)') {
-            $model = 'stop';
-        }
-
-        app(SlackNotify::class)->setMsg('有人正在觀看 `' . $scheduleInfo->order . '` 的成績公告 - ' . now())->notify();
-
-        return view('search/result', compact(['scheduleId', 'model', 'schedules', 'scheduleInfo', 'result', 'rankLimit', 'remark']));
+        return $model;
     }
 
     public function integral()
