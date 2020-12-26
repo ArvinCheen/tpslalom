@@ -82,10 +82,10 @@ class ResultController extends Controller
             $judge_5 = [];
 
             foreach ($評分表資料源 as $val) {
-                $評分表[$val->player_id][]   = $val->player_number . ' ' . $val->name;
-                $judge_1[$val->player_id] = $val->score_1;
-                $judge_2[$val->player_id] = $val->score_2;
-                $judge_3[$val->player_id] = $val->score_3;
+                $評分表[$val->player_number][]   = $val->player_number . ' ' . $val->name;
+                $judge_1[$val->player_number] = $val->score_1;
+                $judge_2[$val->player_number] = $val->score_2;
+                $judge_3[$val->player_number] = $val->score_3;
 
 //                if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
 //                    $judge_4[$val->player_id] = $val->score_4;
@@ -183,7 +183,7 @@ class ResultController extends Controller
                     }
                 }
 
-                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('player_id', $key)->where($targetColumn, $group)->where('item', $item)->first();
+                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('player_number', $key)->where($targetColumn, $group)->where('item', $item)->first();
 
                 $得勝分表[$key][] = $多數得勝分;
                 $得勝分表[$key][] = '';
