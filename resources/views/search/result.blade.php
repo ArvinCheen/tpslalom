@@ -162,8 +162,8 @@
                                 <td class="text-center"> {{ $val->score_3 }}</td>
                                 <td class="text-center"> {{ $val->rank }}</td>
                             </tr>
-                        </tbody>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
                 @break;
