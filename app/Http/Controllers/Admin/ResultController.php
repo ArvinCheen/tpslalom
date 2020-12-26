@@ -53,10 +53,8 @@ class ResultController extends Controller
         $model = 'speed';
 
         if ($schedule->item == '中級指定套路' ||
-            $schedule->item == '中級指定套路' ||
             $schedule->item == '個人花式繞樁' ||
             $schedule->item == '個人花式繞樁' ||
-            $schedule->item == '初級指定套路' ||
             $schedule->item == '初級指定套路' ||
             $schedule->item == '花式煞停' ||
             $schedule->item == '花式煞停' ||
@@ -69,10 +67,12 @@ class ResultController extends Controller
             $group  = $schedule->group;
             $item   = $schedule->item;
 
+            $targetColumn = $this->getGroupColumn($group);
+
             if ($schedule->item == '雙人花式繞樁') {
-                $評分表資料源 = EnrollModel::where('item', $item)->orderBy('appearance')->get();
+                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('item', $item)->orderBy('appearance')->get();
             } else {
-                $評分表資料源 = EnrollModel::where('gender', $gender)->where('group', $group)->where('item', $item)->orderBy('appearance')->get();
+                $評分表資料源       = EnrollModel::where('game_id', config('app.game_id'))->where('gender', $gender)->where($targetColumn, $group)->where('item', $item)->orderBy('appearance')->get();
             }
 
             $judge_1 = [];
@@ -87,20 +87,20 @@ class ResultController extends Controller
                 $judge_2[$val->player_id] = $val->score_2;
                 $judge_3[$val->player_id] = $val->score_3;
 
-                if ($schedule->item == '個人花式繞樁') {
-                    $judge_4[$val->player_id] = $val->score_4;
-                    $judge_5[$val->player_id] = $val->score_5;
-                }
+//                if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+//                    $judge_4[$val->player_id] = $val->score_4;
+//                    $judge_5[$val->player_id] = $val->score_5;
+//                }
             }
             // 建立評分表架構 結束
 
             arsort($judge_1);
             arsort($judge_2);
             arsort($judge_3);
-            if ($schedule->item == '個人花式繞樁') {
-                arsort($judge_4);
-                arsort($judge_5);
-            }
+//            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+//                arsort($judge_4);
+//                arsort($judge_5);
+//            }
             $rank = 1;
             foreach ($judge_1 as $key => $val) {
                 $評分表[$key][] = $rank;
@@ -116,18 +116,18 @@ class ResultController extends Controller
                 $評分表[$key][] = $rank;
                 $rank++;
             }
-            if ($schedule->item == '個人花式繞樁') {
-                $rank = 1;
-                foreach ($judge_4 as $key => $val) {
-                    $評分表[$key][] = $rank;
-                    $rank++;
-                }
-                $rank = 1;
-                foreach ($judge_5 as $key => $val) {
-                    $評分表[$key][] = $rank;
-                    $rank++;
-                }
-            }
+//            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+//                $rank = 1;
+//                foreach ($judge_4 as $key => $val) {
+//                    $評分表[$key][] = $rank;
+//                    $rank++;
+//                }
+//                $rank = 1;
+//                foreach ($judge_5 as $key => $val) {
+//                    $評分表[$key][] = $rank;
+//                    $rank++;
+//                }
+//            }
             $得勝分表 = [];
             foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
 
@@ -168,6 +168,7 @@ class ResultController extends Controller
             }
 
             $多數得勝分 = 0;
+
             foreach ($得勝分表 as $key => $val) {
 
                 foreach ($val as $席位分數) {
@@ -182,7 +183,7 @@ class ResultController extends Controller
                     }
                 }
 
-                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('player_id', $key)->where('group', $group)->where('item', $item)->first();
+                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('player_id', $key)->where($targetColumn, $group)->where('item', $item)->first();
 
                 $得勝分表[$key][] = $多數得勝分;
                 $得勝分表[$key][] = '';
@@ -267,6 +268,20 @@ class ResultController extends Controller
 
 
         return view('admin/result')->with(compact('schedules', '當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));
+    }
+
+    private function getGroupColumn($group)
+    {
+        switch ($group) {
+            case '國小低年級':
+            case '國小中年級':
+            case '國小高年級':
+                return 'group2';
+                break;
+            default:
+                return 'group';
+                break;
+        }
     }
 
     public function update(Request $request)
