@@ -82,7 +82,7 @@ class ResultController extends Controller
             $judge_5 = [];
 
             foreach ($評分表資料源 as $val) {
-                $評分表[$val->player_id][]   = $val->player_id . ' ' . $val->name;
+                $評分表[$val->player_id][]   = $val->player_number . ' ' . $val->name;
                 $judge_1[$val->player_id] = $val->score_1;
                 $judge_2[$val->player_id] = $val->score_2;
                 $judge_3[$val->player_id] = $val->score_3;
