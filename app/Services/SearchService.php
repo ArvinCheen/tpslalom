@@ -41,7 +41,7 @@ class SearchService
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
 
         $data = EnrollModel::where('game_id', config('app.game_id'))
-            ->where('group', $gameInfo->group)
+            ->where($this->getGroupColumn($gameInfo->group), $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
@@ -49,6 +49,20 @@ class SearchService
             ->get();
 
         return $this->translationResult($data);
+    }
+
+    private function getGroupColumn($group)
+    {
+        switch ($group) {
+            case '國小低年級':
+            case '國小中年級':
+            case '國小高年級':
+                return 'group2';
+                break;
+            default:
+                return 'group';
+                break;
+        }
     }
 
     public function getTaipeiCityResult($scheduleId)
