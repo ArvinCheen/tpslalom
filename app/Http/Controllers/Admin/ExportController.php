@@ -23,7 +23,7 @@ class ExportController extends Controller
         $order    = $gameInfo->order;
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
-        $level     = $gameInfo->level;
+        $level    = $gameInfo->level;
 
         $scheduleiInfo = ScheduleModel::find($scheduleId);
 
@@ -38,20 +38,22 @@ class ExportController extends Controller
                 ->where('item', $item)
                 ->where('level', $level)
                 ->whereNotNull('rank')
-                ->where('rank', '<>', 0)
+//                ->where('rank', '<>', 0)
                 ->orderBy('rank')
-                ->limit($rankLimit)
+//                ->limit($rankLimit)
                 ->get();
         } else {
-            $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+            $enrolls = EnrollModel::leftjoin('player', 'player.id', 'enroll.player_id')
+                ->where('player.gender', $gameInfo->gender)
                 ->where('game_id', config('app.game_id'))
                 ->where('group', $group)
                 ->where('item', $item)
                 ->where('level', $level)
                 ->whereNotNull('rank')
-                ->where('rank', '<>', 0)
+//                ->where('rank', '<>', 0)
+                ->orderBy('city')
                 ->orderBy('rank')
-                ->limit($rankLimit)
+//                ->limit($rankLimit)
                 ->get();
         }
 
@@ -60,7 +62,7 @@ class ExportController extends Controller
         }
 
 //        if (strpos($scheduleiInfo->item, '速度過樁') !== false) {
-            $this->exportExcel($scheduleId, $order, $enrolls, 'certificate');
+        $this->exportExcel($scheduleId, $order, $enrolls, 'certificate');
 //        } else {
 //            $this->exportExcelFreeStyle($order, $enrolls, 'certificate');
 //        }
@@ -577,12 +579,13 @@ class ExportController extends Controller
                 $sheet->setWidth(array(
                     'A' => 24,
                     'B' => 24,
-                    'C' => 24,
+                    'C' => 60,
+                    'D' => 60,
                 ));
 
                 $sheet->mergeCells("A1:H1");
                 $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
-                $sheet->row(2, ['名次', '姓名', '隊伍 & 教練']);
+                $sheet->row(2, ['名次', '姓名', '單位', '隊伍 & 教練']);
 
                 $sheet->cell('A1', function ($cell) {
                     $cell->setFontSize(20);
@@ -599,7 +602,7 @@ class ExportController extends Controller
 
                 $initIndex = 3;
                 foreach ($enrolls as $enroll) {
-                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->account->team_name .' '.$enroll->account->coach]);
+                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->city . ' ' . $enroll->player->agency, $enroll->account->team_name . ' ' . $enroll->account->coach]);
 
                     $sheet->cell('A' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
@@ -610,6 +613,10 @@ class ExportController extends Controller
                     });
 
                     $sheet->cell('C' . $initIndex, function ($cell) {
+                        $cell->setFontSize(20);
+                    });
+
+                    $sheet->cell('D' . $initIndex, function ($cell) {
                         $cell->setFontSize(20);
                     });
                     $initIndex++;
@@ -779,7 +786,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A41', function ($cell) use ($enroll) {
-                            $cell->setValue('中　華　民　國　一　百　零　九　年　十 一　月　二 十 一　日');
+                            $cell->setValue('中　華　民　國　一　百　零　九　年　十 r 　月　二 十 一　日');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
@@ -951,7 +958,7 @@ class ExportController extends Controller
                     $group  = $schedule->group;
                     $gender = $schedule->gender;
                     $item   = $schedule->item;
-                    $level   = $schedule->level;
+                    $level  = $schedule->level;
 
 
                     if (strpos($schedule->item, '套路') !== false && strpos($schedule->group, '國小') !== false) {
