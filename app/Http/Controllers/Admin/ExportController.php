@@ -55,7 +55,6 @@ class ExportController extends Controller
                 ->get();
         }
 
-
         if ($enrolls->isEmpty()) {
             return back()->with(['error' => '無獎狀資料']);
         }
@@ -678,9 +677,10 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F15', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->agency);
+                            $agency = $enroll->player->city . ' ' . $enroll->player->agency;
+                            $cell->setValue($agency);
 
-                            if (mb_strlen($enroll->player->agency) >= 10) {
+                            if (mb_strlen($agency) >= 10) {
                                 $cell->setFontSize(14);
                             } else {
                                 $cell->setFontSize(18);
