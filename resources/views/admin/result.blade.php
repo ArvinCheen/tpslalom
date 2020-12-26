@@ -200,7 +200,7 @@
 {{--                                    <td class="text-center"><input name="score_5[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->score_5 }}" autocomplete="off"></td>--}}
 {{--                                    <td class="text-center">{{ $enroll->score_5 }}</td>--}}
 {{--@endif--}}
-{{--                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>--}}
+                                    <td class="text-center"><input name="rank[]" type="text" class="text-center resultInput " size="3" value="{{ $enroll->rank }}" autocomplete="off"></td>
 {{--                                    @break--}}
                                 @endswitch
                             </tr>
