@@ -52,7 +52,7 @@ class ExportController extends Controller
                 ->where('item', $item)
                 ->where('level', $level)
                 ->whereNotNull('rank')
-                ->orderBy('city')
+//                ->orderBy('city') // 因應花樁，暫時關閉
                 ->orderBy('rank')
                 ->get();
         }
