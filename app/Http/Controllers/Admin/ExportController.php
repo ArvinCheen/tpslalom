@@ -632,24 +632,16 @@ class ExportController extends Controller
                         $sheet->mergeCells('A12:L12');
                         $sheet->mergeCells('C13:K13');
                         $sheet->mergeCells('C14:K14');
-                        $sheet->mergeCells('C15:E15');
-                        $sheet->mergeCells('F15:K15');
-                        $sheet->mergeCells('C17:E17');
-                        $sheet->mergeCells('F17:K17');
-                        $sheet->mergeCells('C19:E19');
-                        $sheet->mergeCells('F19:K19');
-                        $sheet->mergeCells('C21:E21');
-                        $sheet->mergeCells('F21:K21');
-                        $sheet->mergeCells('C23:E23');
-                        $sheet->mergeCells('F23:K23');
-                        $sheet->mergeCells('C25:E25');
-                        $sheet->mergeCells('F25:K25');
-                        $sheet->mergeCells('C27:E27');
-                        $sheet->mergeCells('F27:J27');
+                        $sheet->mergeCells('C15:E15'); $sheet->mergeCells('F15:K15');
+                        $sheet->mergeCells('C16:E16'); $sheet->mergeCells('F16:K16');
+                        $sheet->mergeCells('C17:E17'); $sheet->mergeCells('F17:K17');
+                        $sheet->mergeCells('C18:E18'); $sheet->mergeCells('F18:K18');
+                        $sheet->mergeCells('C19:E19'); $sheet->mergeCells('F19:K19');
+                        $sheet->mergeCells('C20:E20'); $sheet->mergeCells('F20:K20');
+//                        $sheet->mergeCells('C21:E21'); $sheet->mergeCells('F21:J21');
                         $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
-//                            $cell->setValue('獎　　　狀');
-                            $cell->setValue('  ');
+                            $cell->setValue('獎　　　狀');
                             $cell->setFontSize(60);
 
                             $cell->setFontWeight('bold');
@@ -679,7 +671,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C15', function ($cell) use ($enroll) {
                             $cell->setValue('單　　　位：');
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
@@ -696,79 +688,64 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('C17', function ($cell) use ($enroll) {
+                        $sheet->cell('C16', function ($cell) use ($enroll) {
                             $cell->setValue('姓　　　名：');
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('F16', function ($cell) use ($enroll) {
+                            $cell->setValue($enroll->player->name);
+                            $cell->setFontSize(20);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('C17', function ($cell) use ($enroll) {
+                            $cell->setValue('組　　　別：');
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F17', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->player->name);
-                            $cell->setFontSize(24);
+                            $cell->setValue($enroll->group . $enroll->player->gender . '子組');
+                            $cell->setFontSize(20);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('C18', function ($cell) use ($enroll) {
+                            $cell->setValue('項　　　目：');
+                            $cell->setFontSize(20);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('F18', function ($cell) use ($enroll) {
+                            $item = str_replace('(男)', '', $enroll->item);
+                            $item = str_replace('(女)', '', $item);
+                            $cell->setValue($item);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C19', function ($cell) use ($enroll) {
-                            $cell->setValue('組　　　別：');
-                            $cell->setFontSize(24);
+                            $cell->setValue('名　　　次：');
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->group . $enroll->player->gender . '子組');
-                            $cell->setFontSize(24);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('C21', function ($cell) use ($enroll) {
-                            $cell->setValue('項　　　目：');
-                            $cell->setFontSize(24);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('F21', function ($cell) use ($enroll) {
-                            $item = str_replace('(男)', '', $enroll->item);
-                            $item = str_replace('(女)', '', $item);
-                            $cell->setValue($item);
-                            $cell->setFontSize(18);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('C23', function ($cell) use ($enroll) {
-                            $cell->setValue('名　　　次：');
-                            $cell->setFontSize(24);
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        $sheet->cell('F23', function ($cell) use ($enroll) {
                             $cell->setValue('第 ' . $enroll->rank . ' 名');
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-
-//                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
-//                            $cell->setValue('　');
-//                            $cell->setFontSize(24);
-//                            $cell->setAlignment('center');
-//                            $cell->setValignment('center');
-//                        });
-//
-//                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
-//                            $cell->setValue('　');
-//                            $cell->setFontSize(24);
-//                            $cell->setAlignment('center');
-//                            $cell->setValignment('center');
-//                        });
-                        //
-                        $sheet->cell('C25', function ($cell) use ($enroll, $scheduleId) {
+                        $sheet->cell('C20', function ($cell) use ($enroll, $scheduleId) {
                             $cell->setValue('成　　　績：');
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
 
-                        $sheet->cell('F25', function ($cell) use ($enroll, $scheduleId) {
+                        $sheet->cell('F20', function ($cell) use ($enroll, $scheduleId) {
                             $explodeSecond = explode(".", $enroll->final_result);
                             if ($explodeSecond[0] >= 60) {
                                 $result = gmdate("i分s秒", $explodeSecond[0]);
@@ -781,7 +758,7 @@ class ExportController extends Controller
                             }
 
                             $cell->setValue($result);
-                            $cell->setFontSize(24);
+                            $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
