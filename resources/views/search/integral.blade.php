@@ -52,7 +52,7 @@
                                 <tr>
                                     <th class="text-center"> {{ $player->player_number }} </th>
                                     <th class="text-center"> {{ $player->name }} </th>
-                                    <td> {{ $player->level . $player->group . $player->gender . '子組' }} </td>
+                                    <td> {{ "{$player->level} {$player->group} {$player->gender}子組 {$player->item} 第 {$player->rank} 名" }} </td>
                                     <td class="text-center"> {{ $player->integral }} </td>
                                 </tr>
                             @endforeach
