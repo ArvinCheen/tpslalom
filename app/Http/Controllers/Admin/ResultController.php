@@ -72,7 +72,7 @@ class ResultController extends Controller
             if ($schedule->item == '雙人花式繞樁') {
                 $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('item', $item)->orderBy('appearance')->get();
             } else {
-                $評分表資料源       = EnrollModel::where('game_id', config('app.game_id'))->where('gender', $gender)->where($targetColumn, $group)->where('item', $item)->orderBy('appearance')->get();
+                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('gender', $gender)->where($targetColumn, $group)->where('item', $item)->orderBy('appearance')->get();
             }
 
             $judge_1 = [];
@@ -308,6 +308,7 @@ class ResultController extends Controller
         $score_5          = $request->score_5;
         $art_5            = $request->art_5;
         $rank             = $request->rank;
+        $integral         = $request->integral;
         $model            = $request->model;
         $scheduleId       = $request->scheduleId;
 
@@ -342,6 +343,7 @@ class ResultController extends Controller
                             'art_5'        => $art_5[$key],
                             'score_5'      => $skill_5[$key] + $art_5[$key] - $punish[$key],
                             'rank'         => $rank[$key],
+                            'integral'     => $integral[$key],
                             'final_result' => empty($rank[$key]) ? '無成績' : $rank[$key]
                         ];
                     } else if (ScheduleModel::find($scheduleId)->item == '雙人花式繞樁') {
