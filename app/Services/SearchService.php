@@ -46,6 +46,7 @@ class SearchService
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
             ->orderByRaw('-`rank` desc')
+            ->orderByRaw('-final_result desc')
             ->get();
 
         return $this->translationResult($data);
@@ -78,6 +79,7 @@ class SearchService
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
             ->orderByRaw('-`rank` desc')
+            ->orderByRaw('-final_result desc')
             ->get();
 
         return $this->translationResult($data);
@@ -96,6 +98,7 @@ class SearchService
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
             ->orderByRaw('-`rank` desc')
+            ->orderByRaw('-final_result desc')
             ->get();
 
         return $this->translationResult($data);
