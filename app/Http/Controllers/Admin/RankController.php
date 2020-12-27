@@ -79,6 +79,7 @@ class RankController extends Controller
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
+            ->whereNotNull('final_result')
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
