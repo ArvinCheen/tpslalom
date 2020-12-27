@@ -85,6 +85,9 @@
                                 <th class="text-center">
                                     <i class=""></i> 名次
                                 </th>
+                                <th class="text-center">
+                                    <i class=""></i> 積分
+                                </th>
                                 @break
                                 @case('pk')
                                 @break
@@ -142,6 +145,9 @@
                                 <th class="text-center">
                                     名次
                                 </th>
+                                <th class="text-center">
+                                    積分
+                                </th>
                                 @break
                             @endswitch
                         </tr>
@@ -173,6 +179,7 @@
 
                                     <td class="text-center"> {{ $enroll->final_result }} </td>
                                     <td class="text-center"> {{ $enroll->rank }} </td>
+                                    <td class="text-center"> {{ $enroll->integral }} </td>
                                     @break
                                     @case('pk')
                                     @break

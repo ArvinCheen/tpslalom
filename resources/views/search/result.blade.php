@@ -38,6 +38,7 @@
                                 <th class="text-center"> 誤椿</th>
                                 <th class="text-center"> 成績</th>
                                 <th class="text-center"> 名次</th>
+                                <th class="text-center"> 積分</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -50,6 +51,7 @@
                                     <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
                                     <td class="text-center"> {{ $val->final_result }} </td>
                                     <td class="text-center"> {{ $val->rank }} </td>
+                                    <td class="text-center"> {{ $val->integral }} </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -72,6 +74,7 @@
                                 <th class="text-center"> 誤椿</th>
                                 <th class="text-center"> 成績</th>
                                 <th class="text-center"> 名次</th>
+                                <th class="text-center"> 積分</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -84,6 +87,7 @@
                                     <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
                                     <td class="text-center"> {{ $val->final_result }} </td>
                                     <td class="text-center"> {{ $val->rank }} </td>
+                                    <td class="text-center"> {{ $val->integral }} </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -106,6 +110,7 @@
                                 <th class="text-center"> 誤椿</th>
                                 <th class="text-center"> 成績</th>
                                 <th class="text-center"> 名次</th>
+                                <th class="text-center"> 積分</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -118,6 +123,7 @@
                                     <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
                                     <td class="text-center"> {{ $val->final_result }} </td>
                                     <td class="text-center"> {{ $val->rank }} </td>
+                                    <td class="text-center"> {{ $val->integral }} </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -144,6 +150,7 @@
                             <th class="text-center"> 藝術三</th>
                             <th class="text-center"> 總分三</th>
                             <th class="text-center"> 名次</th>
+                            <th class="text-center"> 積分</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -161,6 +168,7 @@
                                 <td class="text-center"> {{ $val->art_3 }}</td>
                                 <td class="text-center"> {{ $val->score_3 }}</td>
                                 <td class="text-center"> {{ $val->rank }}</td>
+                                <td class="text-center"> {{ $val->integral }}</td>
                             </tr>
                         @endforeach
                         </tbody>

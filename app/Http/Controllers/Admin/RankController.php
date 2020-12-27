@@ -49,6 +49,8 @@ class RankController extends Controller
 
         $gameInfo->open_result_time = now();
         $gameInfo->save();
+
+        $this->processIntegral($level, $gender, $group, $item);
     }
 
 
@@ -72,18 +74,14 @@ class RankController extends Controller
 
     public function processIntegral($level, $gender, $group, $item)
     {
-        $enrolls = EnrollModel::select('enroll.id', 'final_result')
-            ->leftJoin('player', 'player.id', 'enroll.player_id')
-            ->where('game_id', config('app.game_id'))
+        $enrolls = EnrollModel::where('game_id', config('app.game_id'))
             ->where('level', $level)
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->where('check', 1)
             ->limit(6)
             ->orderBy(\DB::raw('final_result * 1'))
             ->get();
-
 
         $integrals = $this->getIntegrals($level);
 
@@ -108,8 +106,8 @@ class RankController extends Controller
     private function getIntegrals($level)
     {
         switch ($level) {
-            case Level::Primary:
-                return [1, 2, 3, 4, 5, 7];
+//            case Level::Primary:  //109北市中正盃不開放
+//                return [1, 2, 3, 4, 5, 7];
             case Level::Novice:
                 return [2, 3, 4, 5, 6, 8];
             case Level::Contestant:
