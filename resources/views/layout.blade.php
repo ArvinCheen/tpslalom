@@ -54,9 +54,9 @@
                                                                     <a href="{{ URL('search/result') }}">
                                                                         成績查詢 </a>
                                                                 </li>
-                                                                <li>
-                                                                    <a href="{{ URL('search/integral') }}"> 積分查詢 </a>
-                                                                </li>
+{{--                                                                <li>--}}
+{{--                                                                    <a href="{{ URL('search/integral') }}"> 積分查詢 </a>--}}
+{{--                                                                </li>--}}
                             {{--                                </ul>--}}
                             {{--                            </li>--}}
 
