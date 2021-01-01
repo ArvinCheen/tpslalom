@@ -675,7 +675,7 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F17', function ($cell) use ($enroll) {
-                            $cell->setValue($enroll->group . $enroll->player->gender . '子組');
+                            $cell->setValue("{$enroll->group}{$enroll->player->gender}子 {$enroll->level}");
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
