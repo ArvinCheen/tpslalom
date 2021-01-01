@@ -27,7 +27,7 @@ class ExportController extends Controller
 
         $scheduleiInfo = ScheduleModel::find($scheduleId);
 
-        $rankLimit = $scheduleiInfo->number_of_player;
+        $rankLimit    = $scheduleiInfo->number_of_player;
         $targetColumn = $this->getGroupColumn($group);
 
         if ($rankLimit > 6) {
@@ -370,7 +370,7 @@ class ExportController extends Controller
 
     public function playerNumber()
     {
-        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,account.team_name as 隊伍,account.coach as 教練,account.leader as 領隊,account.manager as 管理,enroll.group as 組別,player.gender as 性別,group_concat(item) as 報名項目")
+        $data = EnrollModel::selectRaw("player_number as 選手號碼,player.name as 選手姓名,city as 縣市,player.agency as 單位,account.team_name as 隊伍,account.coach as 教練,account.leader as 領隊,account.manager as 管理,enroll.group as 組別,player.gender as 性別,enroll.level as 級別,group_concat(item) as 報名項目")
             ->leftjoin('player', 'player.id', 'enroll.player_id')
             ->leftjoin('account', 'account.id', 'enroll.account_id')
             ->where('game_id', config('app.game_id'))
@@ -782,12 +782,18 @@ class ExportController extends Controller
                         $sheet->mergeCells('A12:L12');
                         $sheet->mergeCells('C13:K13');
                         $sheet->mergeCells('C14:K14');
-                        $sheet->mergeCells('C15:E15'); $sheet->mergeCells('F15:K15');
-                        $sheet->mergeCells('C16:E16'); $sheet->mergeCells('F16:K16');
-                        $sheet->mergeCells('C17:E17'); $sheet->mergeCells('F17:K17');
-                        $sheet->mergeCells('C18:E18'); $sheet->mergeCells('F18:K18');
-                        $sheet->mergeCells('C19:E19'); $sheet->mergeCells('F19:K19');
-                        $sheet->mergeCells('C20:E20'); $sheet->mergeCells('F20:K20');
+                        $sheet->mergeCells('C15:E15');
+                        $sheet->mergeCells('F15:K15');
+                        $sheet->mergeCells('C16:E16');
+                        $sheet->mergeCells('F16:K16');
+                        $sheet->mergeCells('C17:E17');
+                        $sheet->mergeCells('F17:K17');
+                        $sheet->mergeCells('C18:E18');
+                        $sheet->mergeCells('F18:K18');
+                        $sheet->mergeCells('C19:E19');
+                        $sheet->mergeCells('F19:K19');
+                        $sheet->mergeCells('C20:E20');
+                        $sheet->mergeCells('F20:K20');
 //                        $sheet->mergeCells('C21:E21'); $sheet->mergeCells('F21:J21');
                         $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
@@ -1223,11 +1229,11 @@ class ExportController extends Controller
                     $sheet->mergeCells('A' . $initIndex . ':E' . $initIndex);
                     $sheet->cell('A' . $initIndex, function ($cell) use ($schedule) {
                         $cell->setAlignment('center');
-                        $cell->setValue($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . '子組 ' . $schedule->item);
+                        $cell->setValue($schedule->order . ' ' . $schedule->group . ' ' . $schedule->gender . '子組 ' . $schedule->level . ' ' . $schedule->item);
                     });
                     $initIndex++;
 
-                    $sheet->row($initIndex, ['名次', '選手','縣市', '單位', '成績', '積分']);
+                    $sheet->row($initIndex, ['名次', '選手', '縣市', '單位', '成績', '積分']);
                     $initIndex++;
 
                     if ($results->isEmpty()) {
@@ -1257,7 +1263,7 @@ class ExportController extends Controller
 ////                                }
 //
 //                            } else {
-                                $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->city,$result->player->agency, $result->final_result, $result->integral]);
+                            $sheet->row($initIndex, [$result->rank, $result->player_number . ' ' . $result->player->name, $result->player->city, $result->player->agency, $result->final_result, $result->integral]);
 //                            }
 
                             $initIndex++;
