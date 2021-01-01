@@ -400,8 +400,10 @@ class ExportController extends Controller
 
         $teamName = AccountModel::where('id', $accountId)->value('team_name');
 
-        $this->exportCompletionExcel($accountId, $enrolls);
+//        $this->exportExcel($teamName, $enrolls, 'completion');
+        $this->exportCompletionExcel($teamName, $enrolls, 'completion');
     }
+
 
     private function exportExcelFreeStyle($fileName, $enrolls)
     {
@@ -586,61 +588,12 @@ class ExportController extends Controller
         })->download('xls');
     }
 
-    private function exportCompletionExcel($accountId, $enrolls)
+    private function exportCompletionExcel($fileName, $enrolls)
     {
-        Excel::create('完賽證明', function ($excel) use ($enrolls) {
-            $excel->sheet('明細', function ($sheet) use ($enrolls) {
-                $gameInfo = ScheduleModel::find($scheduleId);
-                $sheet->setWidth(array(
-                    'A' => 24,
-                    'B' => 24,
-                    'C' => 60,
-                    'D' => 60,
-                ));
-
-                $sheet->mergeCells("A1:H1");
-                $sheet->row(1, ["$gameInfo->order $gameInfo->group $gameInfo->gender $gameInfo->item"]);
-                $sheet->row(2, ['名次', '姓名', '單位', '隊伍 & 教練']);
-
-                $sheet->cell('A1', function ($cell) {
-                    $cell->setFontSize(20);
-                });
-                $sheet->cell('A2', function ($cell) {
-                    $cell->setFontSize(20);
-                });
-                $sheet->cell('B2', function ($cell) {
-                    $cell->setFontSize(20);
-                });
-                $sheet->cell('C2', function ($cell) {
-                    $cell->setFontSize(20);
-                });
-
-                $initIndex = 3;
-                foreach ($enrolls as $enroll) {
-                    $sheet->row($initIndex, [$enroll->rank, ' ' . $enroll->player_number . ' ' . $enroll->player->name, $enroll->player->city . ' ' . $enroll->player->agency, $enroll->account->team_name . ' ' . $enroll->account->coach]);
-
-                    $sheet->cell('A' . $initIndex, function ($cell) {
-                        $cell->setFontSize(20);
-                    });
-
-                    $sheet->cell('B' . $initIndex, function ($cell) {
-                        $cell->setFontSize(20);
-                    });
-
-                    $sheet->cell('C' . $initIndex, function ($cell) {
-                        $cell->setFontSize(20);
-                    });
-
-                    $sheet->cell('D' . $initIndex, function ($cell) {
-                        $cell->setFontSize(20);
-                    });
-                    $initIndex++;
-                }
-            });
-
+        Excel::create($fileName, function ($excel) use ($enrolls) {
             foreach ($enrolls as $enroll) {
-                $excel->sheet($enroll->rank . '名-' . $enroll->player->name . '-' . $enroll->player_number,
-                    function ($sheet) use ($enroll, $scheduleId) {
+                $excel->sheet($enroll->player->name . '-' . $enroll->player_number,
+                    function ($sheet) use ($enroll) {
                         $gameInfo = GameModel::find(config('app.game_id'));
                         $sheet->setFontFamily('微軟正黑體');
                         $sheet->mergeCells('A9:L9');
@@ -656,7 +609,7 @@ class ExportController extends Controller
 //                        $sheet->mergeCells('C21:E21'); $sheet->mergeCells('F21:J21');
                         $sheet->mergeCells('A41:L41');
                         $sheet->cell('A9', function ($cell) use ($enroll) {
-                            $cell->setValue('獎　　　狀');
+                            $cell->setValue('完 賽 證 明');
                             $cell->setFontSize(60);
 
                             $cell->setFontWeight('bold');
@@ -740,18 +693,18 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C19', function ($cell) use ($enroll) {
-                            $cell->setValue('　');
+                            $cell->setValue('名　　　次：');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue('　');
+                            $cell->setValue('優　　勝');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('C20', function ($cell) use ($enroll, $scheduleId) {
+                        $sheet->cell('C20', function ($cell) use ($enroll) {
                             $cell->setValue('　');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
