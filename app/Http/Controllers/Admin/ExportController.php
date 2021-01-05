@@ -693,19 +693,36 @@ class ExportController extends Controller
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C19', function ($cell) use ($enroll) {
-                            $cell->setValue('名　　　次：');
+                            $cell->setValue('成　　　績：');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('F19', function ($cell) use ($enroll) {
-                            $cell->setValue('優　　勝');
+                            $explodeSecond = explode(".", $enroll->final_result);
+                            if ($explodeSecond[0] >= 60) {
+                                $result = gmdate("i分s秒", $explodeSecond[0]);
+                            } else {
+                                $result = gmdate("s秒", $explodeSecond[0]);
+                            }
+
+                            if (isset($explodeSecond[1])) {  //如果剛好整秒如8秒00、9秒00，就會掉進來
+                                $result .= $explodeSecond[1];
+                            }
+
+                            $cell->setValue($result);
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('C20', function ($cell) use ($enroll) {
-                            $cell->setValue('　');
+                            $cell->setValue('名　　　次：');
+                            $cell->setFontSize(20);
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('F20', function ($cell) use ($enroll) {
+                            $cell->setValue('優　　勝');
                             $cell->setFontSize(20);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
