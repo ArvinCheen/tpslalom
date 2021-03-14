@@ -34,7 +34,7 @@ class SearchController extends Controller
 
         if (is_null($scheduleId)) {
             if (is_null($scheduleId = app(ScheduleModel::class)->getFirstScheduleId())) {
-                return back()->with('error', '目前未開放查詢');
+                return redirect('paymentInfo');
             }
         }
 
