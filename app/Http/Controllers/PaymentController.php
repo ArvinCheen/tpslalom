@@ -12,6 +12,7 @@ class PaymentController extends Controller
     public function index()
     {
         $paymentInfo = app(RegistryFeeModel::class)->getCart();
+        $gameInfo = app(GameModel::class)->where('id',config('app.game_id'))->first();
 
         foreach ($paymentInfo as $payment) {
             $payment->item = $this->assembleItem($payment->player_id);
@@ -21,7 +22,7 @@ class PaymentController extends Controller
 
         $isOpenEnroll = GameModel::where('id', config('app.game_id'))->value('is_open_enroll');
 
-        return view('paymentInfo/index',compact('paymentInfo', 'total','isOpenEnroll'));
+        return view('paymentInfo/index',compact('paymentInfo', 'total','isOpenEnroll','gameInfo'));
     }
 
     private function assembleItem($playerId)

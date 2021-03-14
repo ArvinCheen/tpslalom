@@ -22,8 +22,10 @@ class ResultController extends Controller
         }
 
         $schedule       = ScheduleModel::find($scheduleId);
-        $numberOfPlayer = $schedule->number_of_player;
-        $當前項目           = $schedule->item;
+//        $numberOfPlayer = $schedule->number_of_player;
+        $numberOfPlayer = 0; // 有些賽事還沒有賽程表，會抓不到人數，未避免錯誤，先暫時給一個臨時的數字;
+//        $當前項目           = $schedule->item;
+        $當前項目           = '暫時沒有項目'; // 有些賽事還沒有賽程表，會抓不到項數，未避免錯誤，先暫時給一個臨時的項數;
         $評分表            = [];
         $得勝分表           = [];
 
@@ -52,156 +54,156 @@ class ResultController extends Controller
 
         $model = 'speed';
 
-        if ($schedule->item == '中級指定套路' ||
-            $schedule->item == '個人花式繞樁' ||
-            $schedule->item == '個人花式繞樁' ||
-            $schedule->item == '初級指定套路' ||
-            $schedule->item == '花式煞停' ||
-            $schedule->item == '花式煞停' ||
-            $schedule->item == '雙人花式繞樁') {
-            $model = 'freeStyle';
-
-            // 建立評分表架構 開始
-
-            $gender = $schedule->gender;
-            $group  = $schedule->group;
-            $item   = $schedule->item;
-
-            $targetColumn = $this->getGroupColumn($group);
-
-            if ($schedule->item == '雙人花式繞樁') {
-                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('item', $item)->orderBy('appearance')->get();
-            } else {
-                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('gender', $gender)->where($targetColumn, $group)->where('item', $item)->orderBy('appearance')->get();
-            }
-
-            $judge_1 = [];
-            $judge_2 = [];
-            $judge_3 = [];
-            $judge_4 = [];
-            $judge_5 = [];
-
-            foreach ($評分表資料源 as $val) {
-                $評分表[$val->player_number][]   = $val->player_number . ' ' . $val->name;
-                $judge_1[$val->player_number] = $val->score_1;
-                $judge_2[$val->player_number] = $val->score_2;
-                $judge_3[$val->player_number] = $val->score_3;
-
-//                if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
-//                    $judge_4[$val->player_id] = $val->score_4;
-//                    $judge_5[$val->player_id] = $val->score_5;
-//                }
-            }
-            // 建立評分表架構 結束
-
-            arsort($judge_1);
-            arsort($judge_2);
-            arsort($judge_3);
-//            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
-//                arsort($judge_4);
-//                arsort($judge_5);
+//        if ($schedule->item == '中級指定套路' ||  // 地方賽暫時沒有花樁
+//            $schedule->item == '個人花式繞樁' ||
+//            $schedule->item == '個人花式繞樁' ||
+//            $schedule->item == '初級指定套路' ||
+//            $schedule->item == '花式煞停' ||
+//            $schedule->item == '花式煞停' ||
+//            $schedule->item == '雙人花式繞樁') {
+//            $model = 'freeStyle';
+//
+//            // 建立評分表架構 開始
+//
+//            $gender = $schedule->gender;
+//            $group  = $schedule->group;
+//            $item   = $schedule->item;
+//
+//            $targetColumn = $this->getGroupColumn($group);
+//
+//            if ($schedule->item == '雙人花式繞樁') {
+//                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('item', $item)->orderBy('appearance')->get();
+//            } else {
+//                $評分表資料源 = EnrollModel::where('game_id', config('app.game_id'))->where('gender', $gender)->where($targetColumn, $group)->where('item', $item)->orderBy('appearance')->get();
 //            }
-            $rank = 1;
-            foreach ($judge_1 as $key => $val) {
-                $評分表[$key][] = $rank;
-                $rank++;
-            }
-            $rank = 1;
-            foreach ($judge_2 as $key => $val) {
-                $評分表[$key][] = $rank;
-                $rank++;
-            }
-            $rank = 1;
-            foreach ($judge_3 as $key => $val) {
-                $評分表[$key][] = $rank;
-                $rank++;
-            }
-//            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
-//                $rank = 1;
-//                foreach ($judge_4 as $key => $val) {
-//                    $評分表[$key][] = $rank;
-//                    $rank++;
+//
+//            $judge_1 = [];
+//            $judge_2 = [];
+//            $judge_3 = [];
+//            $judge_4 = [];
+//            $judge_5 = [];
+//
+//            foreach ($評分表資料源 as $val) {
+//                $評分表[$val->player_number][]   = $val->player_number . ' ' . $val->name;
+//                $judge_1[$val->player_number] = $val->score_1;
+//                $judge_2[$val->player_number] = $val->score_2;
+//                $judge_3[$val->player_number] = $val->score_3;
+//
+////                if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+////                    $judge_4[$val->player_id] = $val->score_4;
+////                    $judge_5[$val->player_id] = $val->score_5;
+////                }
+//            }
+//            // 建立評分表架構 結束
+//
+//            arsort($judge_1);
+//            arsort($judge_2);
+//            arsort($judge_3);
+////            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+////                arsort($judge_4);
+////                arsort($judge_5);
+////            }
+//            $rank = 1;
+//            foreach ($judge_1 as $key => $val) {
+//                $評分表[$key][] = $rank;
+//                $rank++;
+//            }
+//            $rank = 1;
+//            foreach ($judge_2 as $key => $val) {
+//                $評分表[$key][] = $rank;
+//                $rank++;
+//            }
+//            $rank = 1;
+//            foreach ($judge_3 as $key => $val) {
+//                $評分表[$key][] = $rank;
+//                $rank++;
+//            }
+////            if ($schedule->item == '個人花式繞樁') { 北市中正盃只有三個裁判
+////                $rank = 1;
+////                foreach ($judge_4 as $key => $val) {
+////                    $評分表[$key][] = $rank;
+////                    $rank++;
+////                }
+////                $rank = 1;
+////                foreach ($judge_5 as $key => $val) {
+////                    $評分表[$key][] = $rank;
+////                    $rank++;
+////                }
+////            }
+//            $得勝分表 = [];
+//            foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
+//
+//                $評分表暫存     = $評分表;
+//                $score     = 0;
+//                $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
+//                $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
+//                $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
+//                if ($schedule->item == '個人花式繞樁') {
+//                    $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
+//                    $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
 //                }
-//                $rank = 1;
-//                foreach ($judge_5 as $key => $val) {
-//                    $評分表[$key][] = $rank;
-//                    $rank++;
+//
+//                foreach ($評分表暫存 as $比較選手號碼 => $比較選手評分表) {
+//                    if ($主要選手號碼 == $比較選手號碼) {
+//                        $得勝分表[$主要選手號碼][] = 'N/A';
+//                        continue;
+//                    }
+//                    $比較選手裁判一名次 = $評分表暫存[$比較選手號碼][1];
+//                    $比較選手裁判二名次 = $評分表暫存[$比較選手號碼][2];
+//                    $比較選手裁判三名次 = $評分表暫存[$比較選手號碼][3];
+//                    if ($schedule->item == '個人花式繞樁') {
+//                        $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
+//                        $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
+//                    }
+//
+//                    if ($主要選手裁判一名次 < $比較選手裁判一名次) $score++;
+//                    if ($主要選手裁判二名次 < $比較選手裁判二名次) $score++;
+//                    if ($主要選手裁判三名次 < $比較選手裁判三名次) $score++;
+//                    if ($schedule->item == '個人花式繞樁') {
+//                        if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
+//                        if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
+//                    }
+//
+//                    $得勝分表[$主要選手號碼][] = $score;
+//                    $score           = 0;
 //                }
 //            }
-            $得勝分表 = [];
-            foreach ($評分表 as $主要選手號碼 => $主要選手評分表) {
-
-                $評分表暫存     = $評分表;
-                $score     = 0;
-                $主要選手裁判一名次 = $評分表[$主要選手號碼][1];
-                $主要選手裁判二名次 = $評分表[$主要選手號碼][2];
-                $主要選手裁判三名次 = $評分表[$主要選手號碼][3];
-                if ($schedule->item == '個人花式繞樁') {
-                    $主要選手裁判四名次 = $評分表[$主要選手號碼][4];
-                    $主要選手裁判五名次 = $評分表[$主要選手號碼][5];
-                }
-
-                foreach ($評分表暫存 as $比較選手號碼 => $比較選手評分表) {
-                    if ($主要選手號碼 == $比較選手號碼) {
-                        $得勝分表[$主要選手號碼][] = 'N/A';
-                        continue;
-                    }
-                    $比較選手裁判一名次 = $評分表暫存[$比較選手號碼][1];
-                    $比較選手裁判二名次 = $評分表暫存[$比較選手號碼][2];
-                    $比較選手裁判三名次 = $評分表暫存[$比較選手號碼][3];
-                    if ($schedule->item == '個人花式繞樁') {
-                        $比較選手裁判四名次 = $評分表暫存[$比較選手號碼][4];
-                        $比較選手裁判五名次 = $評分表暫存[$比較選手號碼][5];
-                    }
-
-                    if ($主要選手裁判一名次 < $比較選手裁判一名次) $score++;
-                    if ($主要選手裁判二名次 < $比較選手裁判二名次) $score++;
-                    if ($主要選手裁判三名次 < $比較選手裁判三名次) $score++;
-                    if ($schedule->item == '個人花式繞樁') {
-                        if ($主要選手裁判四名次 < $比較選手裁判四名次) $score++;
-                        if ($主要選手裁判五名次 < $比較選手裁判五名次) $score++;
-                    }
-
-                    $得勝分表[$主要選手號碼][] = $score;
-                    $score           = 0;
-                }
-            }
-
-            $多數得勝分 = 0;
-
-            foreach ($得勝分表 as $key => $val) {
-
-                foreach ($val as $席位分數) {
-                    if ($schedule->item == '個人花式繞樁') {
-                        if ($席位分數 > 2.5) {
-                            $多數得勝分++;
-                        }
-                    } else {
-                        if ($席位分數 > 1.5) {
-                            $多數得勝分++;
-                        }
-                    }
-                }
-
-                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('player_number', $key)->where($targetColumn, $group)->where('item', $item)->first();
-
-                $得勝分表[$key][] = $多數得勝分;
-                $得勝分表[$key][] = '';
-                $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
-                $總分           = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
-
-                $總計得勝分 = 0;
-
-                for ($i = 0; $i < count($得勝分表); $i++) {
-                    if ($得勝分表[$key][$i] == 'N/A') continue;
-                    $總計得勝分 += $得勝分表[$key][$i];
-                }
-                $得勝分表[$key][] = $總計得勝分;
-                $得勝分表[$key][] = $總分;
-                $得勝分表[$key][] = '';
-                $多數得勝分        = 0;
-            }
-        }
+//
+//            $多數得勝分 = 0;
+//
+//            foreach ($得勝分表 as $key => $val) {
+//
+//                foreach ($val as $席位分數) {
+//                    if ($schedule->item == '個人花式繞樁') {
+//                        if ($席位分數 > 2.5) {
+//                            $多數得勝分++;
+//                        }
+//                    } else {
+//                        if ($席位分數 > 1.5) {
+//                            $多數得勝分++;
+//                        }
+//                    }
+//                }
+//
+//                $記算技術分 = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')->where('game_id', config('app.game_id'))->where('player_number', $key)->where($targetColumn, $group)->where('item', $item)->first();
+//
+//                $得勝分表[$key][] = $多數得勝分;
+//                $得勝分表[$key][] = '';
+//                $得勝分表[$key][] = $記算技術分->skill_1 + $記算技術分->skill_2 + $記算技術分->skill_3 + $記算技術分->skill_4 + $記算技術分->skill_5;
+//                $總分           = $記算技術分->score_1 + $記算技術分->score_2 + $記算技術分->score_3 + $記算技術分->score_4 + $記算技術分->score_5;
+//
+//                $總計得勝分 = 0;
+//
+//                for ($i = 0; $i < count($得勝分表); $i++) {
+//                    if ($得勝分表[$key][$i] == 'N/A') continue;
+//                    $總計得勝分 += $得勝分表[$key][$i];
+//                }
+//                $得勝分表[$key][] = $總計得勝分;
+//                $得勝分表[$key][] = $總分;
+//                $得勝分表[$key][] = '';
+//                $多數得勝分        = 0;
+//            }
+//        }
 
         $第一層 = $numberOfPlayer;
         $第二層 = $第一層 + 1;
@@ -256,15 +258,15 @@ class ResultController extends Controller
 //        }
 
 
-        if (
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
-            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
-            $model = 'pk';
-        }
+//        if (
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '青年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年女速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '成年男速度過樁選手菁英組積分賽-前溜單足S形決賽' ||
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中男速度過樁選手菁英-前溜單足S形決賽' ||
+//            $schedule->group . $schedule->gender . $schedule->item . $schedule->game_type == '國中女速度過樁選手菁英-前溜單足S形決賽') {
+//            $model = 'pk';
+//        }
 
 
         return view('admin/result')->with(compact('schedules', '當前項目', 'scheduleId', 'enrolls', 'model', '評分表', '得勝分表'));

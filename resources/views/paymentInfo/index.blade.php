@@ -8,7 +8,7 @@
     <div class="mh mb-5">
         <div class="container">
             <div class="mt-5 mb-4 text-center">
-                <h2 class="mb-3">109北市中正盃</h2>
+                <h2 class="mb-3">{{ $gameInfo->complete_name }}</h2>
             </div>
 
             <div class="row justify-content-center col-md-12">

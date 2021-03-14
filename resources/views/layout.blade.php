@@ -146,12 +146,13 @@
                 <p>能讓選手在場上展現自我技巧，在舞台上盡情地發光發熱。我們能給的不多，為了給選手一個專屬的舞台，對我來說，這比我的生死更重要。</p>
             </div>
         </div>
+        <a href="https://yoyocharity.ebc.net.tw/" target="_blank"><img src="https://imgur.com/3uHTVfK.png" style="width:220px;"></a>
         <div class="footer-bottom">
             <div class="footer-social">
                 {{--                <a href="https://www.facebook.com/tpersf/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
                 {{--                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>--}}
             </div>
-            {{--            <p>Copyright © 2020 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>--}}
+                        <p>Copyright © {{date ('Y')}} 臺北市體育總會滑輪溜冰協會自由式組. All rights reserved.</p>
 
         </div>
     </div>

@@ -83,183 +83,241 @@
                                 <option value="花蓮縣">花蓮縣</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label>組別</label>
-                            <select id="groupSelect" class="form-control" name="group" required disabled>
-                                <option value=''> -- 請選擇 --</option>
-                                <option value="幼童">幼童</option>
-                                <option value="國小一年級">國小一年級</option>
-                                <option value="國小二年級">國小二年級</option>
-                                <option value="國小三年級">國小三年級</option>
-                                <option value="國小四年級">國小四年級</option>
-                                <option value="國小五年級">國小五年級</option>
-                                <option value="國小六年級">國小六年級</option>
-                                <option value="國中">國中</option>
-                                <option value="高中">高中</option>
-                                <option value="大專">大專</option>
-                                <option value="社會">社會</option>
-                            </select>
+                            <div class="mb-3">
+                                <label>組別</label>
+                                <select id="groupSelect" class="form-control" name="group" required >
+                                    <option value=''> -- 請選擇 --</option>
+                                    <option value="幼童">幼童</option>
+                                    <option value="國小一年級">國小一年級</option>
+                                    <option value="國小二年級">國小二年級</option>
+                                    <option value="國小三年級">國小三年級</option>
+                                    <option value="國小四年級">國小四年級</option>
+                                    <option value="國小五年級">國小五年級</option>
+                                    <option value="國小六年級">國小六年級</option>
+                                    <option value="國中">國中</option>
+                                    <option value="高中">高中</option>
+                                    <option value="大專">大專</option>
+                                    <option value="社會">社會</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>級別</label>
+                                <select id="groupSelect" class="form-control" name="level" required >
+                                    <option value=''> -- 請選擇 --</option>
+                                    <option value="初級組" {{ $level == '初級組' ? 'selected' : '' }}>初級組</option>
+                                    <option value="新人組" {{ $level == '新人組' ? 'selected' : '' }}>新人組</option>
+                                    <option value="選手組" {{ $level == '選手組' ? 'selected' : '' }}>選手組</option>
+                                </select>
+                            </div>
+                    </div>
+
+
+                </div>
+                <hr>
+                <div class="row mt-3">
+                    <div class="col-md-12 mb-12">
+                        <label>參賽項目 - 對應組別請參照簡章說明</label>
+                        <label>初級組 快速過角標： <small style="color:red">（限從未在民國109(含)年之前於全國盃賽報名者及未於臺北市中正盃、青年盃尚未獲得初級組前六名者，如發現違反規定者取消名次並不退還報名費。）</small></label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
+                            </label>
                         </div>
                     </div>
-
-
                 </div>
-                <div id="selectGameItem" class="row" style="display:none">
+                <div class="row mt-3">
                     <div class="col-md-12 mb-12">
-                        <h4 class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="mb-3">選擇競賽項目</h4>
-                        </h4>
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item mb-3">
-                                <h6>速樁</h6>
-                                <div>
-                                    <select class="form-control" name="level" id="levelSelect">
-                                        <option value=''> -- 選擇速樁級別 --</option>
-                                        <option id="option初級組" value="初級組" {{ $level == '初級組' ? 'selected' : null }}>初級組</option>
-                                        <option value="新人組" {{ $level == '新人組' ? 'selected' : null }}>新人組</option>
-                                        <option value="選手組" {{ $level == '選手組' ? 'selected' : null }}>選手組</option>
-                                    </select>
-                                </div>
-                                <div class="enrollItemBox" style="display:none">
-                                    <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S形" id="doubleS"
-                                               @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進雙足S形')
-                                               checked
-                                            @endif
-                                            @endforeach
-                                        >
-                                        <label class="form-check-label" for="doubleS">
-                                            前進雙足S形
-                                        </label>
-                                    </div>
-                                    <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S形" id="singleS"
-                                               @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進單足S形')
-                                               checked
-                                            @endif
-                                            @endforeach
-                                        >
-                                        <label class="form-check-label" for="singleS">
-                                            前進單足S形
-                                        </label>
-                                    </div>
-                                    <div class="form-check" style="margin-top:10px">
-                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉形" id="cross"
-                                               @foreach ($enrolls as $enroll)
-                                               @if ($enroll->item == '前進交叉形')
-                                               checked
-                                            @endif
-                                            @endforeach
-                                        >
-                                        <label class="form-check-label" for="cross">
-                                            前進交叉形
-                                        </label>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item mb-3">
-                                <div>
-                                    <h6>個人指定套路</h6>
-                                </div>
-                                <div class="form-check" style="margin-top:10px">
-                                    <input class="form-check-input" name="flowerItem" type="radio" value="初級指定套路" id="flower1"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->item == '初級指定套路')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="flower1">
-                                        初級指定套路（指定曲目）
-                                    </label>
-                                </div>
-                                <div class="form-check" style="margin-top:10px">
-                                    <input class="form-check-input" name="flowerItem" type="radio" value="中級指定套路" id="flower2"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->item == '中級指定套路')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="flower2">
-                                        中級指定套路（自選曲目）
-                                    </label>
-                                </div>
-
-                                <hr id="flowerHrLine" style="display:none;">
-
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目1" id="sound1"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目1')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound1">
-                                        曲目1
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目2" id="sound2"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目2')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound2">
-                                        曲目2
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目3')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound3">
-                                        曲目3
-                                    </label>
-                                </div>
-                                <div class="form-check flower1sound" style="margin-top:10px; display:none">
-                                    <input class="form-check-input" name="sound" type="radio" value="曲目4" id="sound4"
-                                           @foreach ($enrolls as $enroll)
-                                           @if ($enroll->sound == '曲目4')
-                                           checked
-                                        @endif
-                                        @endforeach
-                                    >
-                                    <label class="form-check-label" for="sound4">
-                                        曲目4
-                                    </label>
-                                </div>
-
-
-                                <div class="form-check custom-file flower2sound" style="margin-top:10px; display:none">
-                                    <input type="file" class="custom-file-input" id="customFile" name="soundFile">
-                                    <label class="custom-file-label" for="customFile">選擇音樂檔</label>
-                                </div>
-                            </li>
-                        </ul>
-
-                        @if ($status)
-                            @if (is_null($playerId))
-                                <button class="btn btn-primary col-md-12" type="submit">報名</button>
-                            @else
-                                <button class="btn btn-primary col-md-5" type="submit">修改報名資訊</button>
-                                <a class="btn btn-default col-md-5" href="{{ URL('paymentInfo') }}">回繳費資訊</a>
-                            @endif
-                        @else
-                            <button class="btn" type="button" disabled>報名截止，無法報名</button>
-                        @endif
+                        <label>新人組 速度過樁 - (每人限報一項，不得跨組) <small style="color:red">（限從未在民國109(含)年之前於全國盃賽（含新人組）中得過前三名之選手報名參賽，如發現違反規定者取消名次並不退還報名費）</small></label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進交叉形">前進交叉形
+                            </label>
+                        </div>
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-md-12 mb-12">
+                        <label>選手組 速度過樁</label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進單足Ｓ形">前進單足Ｓ形
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="enrollItem[]" value="前進交叉形">前進交叉形
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {{--                <div id="selectGameItem" class="row" style="display:none">--}}
+                {{--                    <div class="col-md-12 mb-12">--}}
+                {{--                        <h4 class="d-flex justify-content-between align-items-center mb-3">--}}
+                {{--                            <h4 class="mb-3">選擇競賽項目</h4>--}}
+                {{--                        </h4>--}}
+                {{--                        <ul class="list-group mb-3">--}}
+                {{--                            <li class="list-group-item mb-3">--}}
+                {{--                                <h6>速樁</h6>--}}
+                {{--                                <div>--}}
+                {{--                                    <select class="form-control" name="level" id="levelSelect">--}}
+                {{--                                        <option value=''> -- 選擇速樁級別 --</option>--}}
+                {{--                                        <option id="option初級組" value="初級組" {{ $level == '初級組' ? 'selected' : null }}>初級組</option>--}}
+                {{--                                        <option value="新人組" {{ $level == '新人組' ? 'selected' : null }}>新人組</option>--}}
+                {{--                                        <option value="選手組" {{ $level == '選手組' ? 'selected' : null }}>選手組</option>--}}
+                {{--                                    </select>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="enrollItemBox" style="display:none">--}}
+                {{--                                    <div class="form-check" style="margin-top:10px">--}}
+                {{--                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進雙足S形" id="doubleS"--}}
+                {{--                                               @foreach ($enrolls as $enroll)--}}
+                {{--                                               @if ($enroll->item == '前進雙足S形')--}}
+                {{--                                               checked--}}
+                {{--                                            @endif--}}
+                {{--                                            @endforeach--}}
+                {{--                                        >--}}
+                {{--                                        <label class="form-check-label" for="doubleS">--}}
+                {{--                                            前進雙足S形--}}
+                {{--                                        </label>--}}
+                {{--                                    </div>--}}
+                {{--                                    <div class="form-check" style="margin-top:10px">--}}
+                {{--                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進單足S形" id="singleS"--}}
+                {{--                                               @foreach ($enrolls as $enroll)--}}
+                {{--                                               @if ($enroll->item == '前進單足S形')--}}
+                {{--                                               checked--}}
+                {{--                                            @endif--}}
+                {{--                                            @endforeach--}}
+                {{--                                        >--}}
+                {{--                                        <label class="form-check-label" for="singleS">--}}
+                {{--                                            前進單足S形--}}
+                {{--                                        </label>--}}
+                {{--                                    </div>--}}
+                {{--                                    <div class="form-check" style="margin-top:10px">--}}
+                {{--                                        <input class="form-check-input" name="enrollItem[]" type="checkbox" value="前進交叉形" id="cross"--}}
+                {{--                                               @foreach ($enrolls as $enroll)--}}
+                {{--                                               @if ($enroll->item == '前進交叉形')--}}
+                {{--                                               checked--}}
+                {{--                                            @endif--}}
+                {{--                                            @endforeach--}}
+                {{--                                        >--}}
+                {{--                                        <label class="form-check-label" for="cross">--}}
+                {{--                                            前進交叉形--}}
+                {{--                                        </label>--}}
+                {{--                                    </div>--}}
+                {{--                                </div>--}}
+                {{--                            </li>--}}
+
+                {{--                            <li class="list-group-item mb-3">--}}
+                {{--                                <div>--}}
+                {{--                                    <h6>個人指定套路</h6>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="form-check" style="margin-top:10px">--}}
+                {{--                                    <input class="form-check-input" name="flowerItem" type="radio" value="初級指定套路" id="flower1"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->item == '初級指定套路')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="flower1">--}}
+                {{--                                        初級指定套路（指定曲目）--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="form-check" style="margin-top:10px">--}}
+                {{--                                    <input class="form-check-input" name="flowerItem" type="radio" value="中級指定套路" id="flower2"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->item == '中級指定套路')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="flower2">--}}
+                {{--                                        中級指定套路（自選曲目）--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+
+                {{--                                <hr id="flowerHrLine" style="display:none;">--}}
+
+                {{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+                {{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目1" id="sound1"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->sound == '曲目1')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="sound1">--}}
+                {{--                                        曲目1--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+                {{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目2" id="sound2"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->sound == '曲目2')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="sound2">--}}
+                {{--                                        曲目2--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+                {{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目3" id="sound3"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->sound == '曲目3')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="sound3">--}}
+                {{--                                        曲目3--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+                {{--                                <div class="form-check flower1sound" style="margin-top:10px; display:none">--}}
+                {{--                                    <input class="form-check-input" name="sound" type="radio" value="曲目4" id="sound4"--}}
+                {{--                                           @foreach ($enrolls as $enroll)--}}
+                {{--                                           @if ($enroll->sound == '曲目4')--}}
+                {{--                                           checked--}}
+                {{--                                        @endif--}}
+                {{--                                        @endforeach--}}
+                {{--                                    >--}}
+                {{--                                    <label class="form-check-label" for="sound4">--}}
+                {{--                                        曲目4--}}
+                {{--                                    </label>--}}
+                {{--                                </div>--}}
+
+
+                {{--                                <div class="form-check custom-file flower2sound" style="margin-top:10px; display:none">--}}
+                {{--                                    <input type="file" class="custom-file-input" id="customFile" name="soundFile">--}}
+                {{--                                    <label class="custom-file-label" for="customFile">選擇音樂檔</label>--}}
+                {{--                                </div>--}}
+                {{--                            </li>--}}
+                {{--                        </ul>--}}
+
+                <hr>
+                                        @if ($status)
+                                            @if (is_null($playerId))
+                                                <button class="btn btn-primary col-md-12" type="submit">報名</button>
+                                            @else
+                                                <button class="btn btn-primary col-md-3" type="submit">修改報名資訊</button>
+                                                <a class="btn btn-default col-md-3" href="{{ URL('paymentInfo') }}">回繳費資訊</a>
+                                            @endif
+                                        @else
+                                            <button class="btn" type="button" disabled>報名截止，無法報名</button>
+                                        @endif
+                {{--                    </div>--}}
+                {{--                </div>--}}
             </form>
         </div>
     </div>

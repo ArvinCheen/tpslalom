@@ -68,7 +68,6 @@ class EnrollController extends Controller
         $flowerItem = $request->flowerItem;
         $sound      = $request->sound;
 
-
         try {
             DB::beginTransaction();
 
@@ -132,6 +131,7 @@ class EnrollController extends Controller
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $this->calculationFee($enrollItem, $flowerItem)]
             );
+
 
             $account = AccountModel::find(auth()->user()->id)->team_name;
             app(SlackNotify::class)->setMsg("```選手： {$name}（{$account}） 報名成功```")->notify();
@@ -206,7 +206,6 @@ class EnrollController extends Controller
         $player->cross   = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉型');
         $player->group   = app(EnrollModel::class)->getGroup($playerId);
         $player->level   = app(EnrollModel::class)->getLevel($playerId);
-
 
         $gameInfo = GameModel::find(config('app.game_id'));
 
