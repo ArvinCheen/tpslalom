@@ -74,55 +74,30 @@
                                     <a href="{{ URL('gameInfo/teams') }}"> 隊伍名冊 </a>
                                 </li>
                             @endif
-                            {{--                            <li>--}}
-                            {{--                                <a href="{{ URL('gameInfo/program') }}"> 線上秩序冊 </a>--}}
-                            {{--                            </li>--}}
-                            {{--                            <li>--}}
-                            {{--                                <a href="{{ URL('gameInfo/nationalRecord') }}"> 單足S形全國紀錄 </a>--}}
-                            {{--                            </li>--}}
-                            {{--                                    <li>--}}
-                            {{--                                        <a href="{{ URL('gameInfo/getAppearance') }}"> 出場序名冊 </a>--}}
-                            {{--                                    </li>--}}
-                            {{--                                    <li>--}}
-                            {{--                                        <a href="{{ URL('gameInfo/refereeTeam') }}"> 裁判團隊 </a>--}}
-                            {{--                                    </li>--}}
-                            {{--                                </ul>--}}
-                            {{--                            </li>--}}
-
-
-                            {{--                            <li>--}}
-                            {{--                                <a href="{{ URL('gameInfo/errata') }}"> 勘誤專區 </a>--}}
-                            {{--                            </li>--}}
                             <li>
                                 <a href="{{ URL('paymentInfo') }}"> 報名選手清單 </a>
                             </li>
-                            <li class="float-right">
-                                <a href="{{ route('account')}}"> 帳號資訊 </a>
-                            </li>
-                            {{--                            <li class="d-lg-none">--}}
-                            {{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
-                            {{--                            </li>--}}
                         </ul>
                     </nav>
                 </div>
-                {{--                全國暫時不走登入制，因為不在我們這註冊--}}
-                {{--                <div class="nav navbar-right">--}}
-                {{--                    <ul>--}}
-                {{--                        <li class="d-none d-lg-block">--}}
-                {{--                            <a href="{{ URL('account') }}"> 帳號 </a>--}}
-                {{--                            @if (auth()->user())--}}
-                {{--                                <a href="{{ URL('logout') }}"> 登出 </a>--}}
-                {{--                            @else--}}
-                {{--                                <a href="{{ URL('login') }}"> 登入 </a>--}}
-                {{--                            @endif--}}
-                {{--                            <a data-toggle="search"><i class="fa fa-search"></i></a>--}}
-                {{--                        </li>--}}
+                                <!-- 全國暫時不走登入制，因為不在我們這註冊 -->
+                                <div class="nav navbar-right">
+                                    <ul>
+                                        <li class="d-none d-lg-block">
+                                            <a href="{{ URL('account') }}"> 帳號 </a>
+                                            @if (auth()->user())
+                                                <a href="{{ URL('logout') }}"> 登出 </a>
+                                            @else
+                                                <a href="{{ URL('login') }}"> 登入 </a>
+                                            @endif
+                                            <!-- <a data-toggle="search"><i class="fa fa-search"></i></a> -->
+                                        </li>
 
-                {{--                        <li class="d-lg-none">--}}
-                {{--                            <a data-toggle="search" class="fa fa-search"></a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </div>--}}
+                                        <!-- <li class="d-lg-none">
+                                            <a data-toggle="search" class="fa fa-search"></a>
+                                        </li> -->
+                                    </ul>
+                                </div>
             </div>
         </div>
         <div class="navbar-search">
