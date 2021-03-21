@@ -58,7 +58,7 @@ class EnrollModel extends Model
     public function cancel($playerId)
     {
         return $this->where('player_id', $playerId)
-            ->where('game_id', config('app.game_id'))
+            ->where('game_id', env('GAME'))
             ->delete();
     }
 

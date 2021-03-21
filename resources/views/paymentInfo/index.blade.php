@@ -56,6 +56,20 @@
                                     <a style="color:darkblue" href="https://docs.google.com/forms/d/e/1FAIpQLSdt75uY3cwyRBBdfaBSfGnXkcHFetCaMlYdjOpBxyMwTDywvQ/viewform">若完成匯款，請點此連結回報</a>
                                 </div>
                             @endif
+
+                            @if (env('GAME') == 12)
+                                <div class="col-md-9">
+                                    <p>付款資訊：700 中華郵政分局 0061-0041-9045-57 戶名：朱啟維</p>
+                                </div>
+                            @endif
+
+
+                            @if (env('GAME') == 13)
+                                <div class="col-md-9">
+                                    <p></p>
+                                </div>
+                            @endif
+
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
                         @else
                             <div class="col-md-9">

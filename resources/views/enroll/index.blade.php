@@ -115,54 +115,193 @@
                     </div>
                 </div>
                 <hr>
-                @if(env('GAME') == 11)
-                    <div class="row mt-3">
-                        <div class="col-md-12 mb-12">
-                            <label>參賽項目 - 對應組別請參照簡章說明</label>
-                            <label>初級組 快速過角標： <small style="color:red">（限從未在民國109(含)年之前於全國盃賽報名者及未於臺北市中正盃、青年盃尚未獲得初級組前六名者，如發現違反規定者取消名次並不退還報名費。）</small></label>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
-                                </label>
+                <h3 class="mb-3">參賽項目 <small>對應組別請參照簡章說明</small></h3>
+                @switch (env('GAME'))
+                    @case(11)
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>初級組 快速過角標： <small style="color:red">（限從未在民國109(含)年之前於全國盃賽報名者及未於臺北市中正盃、青年盃尚未獲得初級組前六名者，如發現違反規定者取消名次並不退還報名費。）</small></label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進雙足S形"> 前進雙足S形
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>新人組 速度過樁 - (每人限報一項，不得跨組) <small style="color:red">（限從未在民國109(含)年之前於全國盃賽（含新人組）中得過前三名之選手報名參賽，如發現違反規定者取消名次並不退還報名費）</small></label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進雙足S形"> 前進雙足S形
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進交叉形"> 前進交叉形
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>選手組 速度過樁</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進雙足S形"> 前進雙足S形
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進單足Ｓ形"> 前進單足Ｓ形
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="前進交叉形"> 前進交叉形
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12 mb-12">
-                            <label>新人組 速度過樁 - (每人限報一項，不得跨組) <small style="color:red">（限從未在民國109(含)年之前於全國盃賽（含新人組）中得過前三名之選手報名參賽，如發現違反規定者取消名次並不退還報名費）</small></label>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
-                                </label>
+                        @break;
+                    @case(12)
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>競速溜冰 - 休閒競速組</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="300、450 公尺計時賽"> 300、450 公尺計時賽
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進交叉形">前進交叉形
-                                </label>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>競速溜冰 - 休閒鞋組</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="150、300 公尺計時賽"> 150、300 公尺計時賽
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>自由式輪滑</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="單足S形"> 單足S形
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="雙足S形"> 雙足S形
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12 mb-12">
-                            <label>選手組 速度過樁</label>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進雙足S形">前進雙足S形
-                                </label>
+
+                        @break;
+                    @case(13)
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>前溜單足S形</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="公開組"> 公開組
+                                        </label>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進單足Ｓ形">前進單足Ｓ形
-                                </label>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>前溜雙足S形</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組"> 國小選手甲組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組"> 國中選手甲組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="enrollItem[]" value="前進交叉形">前進交叉形
-                                </label>
+                            <div class="row mt-3">
+                                <div class="col-md-12 mb-12">
+                                    <label>前溜交叉形</label>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組"> 國小選手甲組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組"> 國中選手甲組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                        </label>
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @endif
+                        @break;
+                    @default
+                @endswitch
                 <hr>
                 @if ($status)
                     @if (is_null($playerId))

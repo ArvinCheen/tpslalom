@@ -97,35 +97,7 @@ class EnrollController extends Controller
                 }
             }
 
-            if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
-                $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
-                Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
-                EnrollModel::create([
-                    'game_id'    => config('app.game_id'),
-                    'player_id'  => $playerId,
-                    'player_number' => $playerNumber,
-                    'account_id' => auth()->user()->id,
-                    'group'      => $group,
-                    'group2'     => $this->getFlowerGroup($group),
-                    'item'       => $flowerItem,
-                    'gender'     => $gender,
-                    'sound'      => $soundName,
-                ]);
-            }
-            if ($flowerItem == '初級指定套路') {
-                EnrollModel::create([
-                    'game_id'    => config('app.game_id'),
-                    'player_id'  => $playerId,
-                    'player_number' => $playerNumber,
-                    'account_id' => auth()->user()->id,
-                    'group'      => $group,
-                    'group2'     => $this->getFlowerGroup($group),
-                    'item'       => $flowerItem,
-                    'gender'     => $gender,
-                    'sound'      => $sound == null ? '未選曲目' : $sound,
-                ]);
-            }
-
+            $this->flowItem(); // 暫時未開放花式
 
             app(RegistryFeeModel::class)::updateOrCreate(
                 ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
@@ -142,6 +114,38 @@ class EnrollController extends Controller
             DB::rollback();
             return false;
         }
+    }
+
+    private function flowItem() 
+    {
+        // if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
+        //     $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
+        //     Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
+        //     EnrollModel::create([
+        //         'game_id'    => config('app.game_id'),
+        //         'player_id'  => $playerId,
+        //         'player_number' => $playerNumber,
+        //         'account_id' => auth()->user()->id,
+        //         'group'      => $group,
+        //         'group2'     => $this->getFlowerGroup($group),
+        //         'item'       => $flowerItem,
+        //         'gender'     => $gender,
+        //         'sound'      => $soundName,
+        //     ]);
+        // }
+        // if ($flowerItem == '初級指定套路') {
+        //     EnrollModel::create([
+        //         'game_id'    => config('app.game_id'),
+        //         'player_id'  => $playerId,
+        //         'player_number' => $playerNumber,
+        //         'account_id' => auth()->user()->id,
+        //         'group'      => $group,
+        //         'group2'     => $this->getFlowerGroup($group),
+        //         'item'       => $flowerItem,
+        //         'gender'     => $gender,
+        //         'sound'      => $sound == null ? '未選曲目' : $sound,
+        //     ]);
+        // }
     }
 
     private function getFlowerGroup($group)
@@ -175,13 +179,54 @@ class EnrollController extends Controller
     {
         $fee = 0;
 
-        if ($enrollItem) {
-            $fee += count($enrollItem) * 100 + 600;
-        }
+        switch (env('GAME')) {
+            case 11:
+                $startFee = 600;
 
-        if ($flowerItem) {
-            $fee += 600;
+                if ($enrollItem) {
+                    $fee += count($enrollItem) * 100 + $startFee;
+                }
+                break;
+            case 12:
+                $startFee = 300;
+                $speedItemCount = 0;
+                $freeItemCount = 0;
+                
+                foreach ($enrollItem as $item) {
+                    if (strpos($item, '計時') !== false) {
+                        $speedItemCount++;
+                    }
+                    if (strpos($item, '足') !== false) {
+                        $freeItemCount++;
+                    }
+                }
+
+                if ($speedItemCount <> 0) {
+                    $fee += $speedItemCount * 100 + $startFee;
+                }
+
+                if ($freeItemCount <> 0) {
+                    $fee += $freeItemCount * 100 + $startFee;
+                }
+
+                break;
+            case 13:
+                $startFee = 300;
+
+                if ($enrollItem) {
+                    $fee += count($enrollItem) * 100 + $startFee;
+                }
+                break;
+            default:
+                $startFee = 0;
+                dd('發生錯誤，請通知承辦人員');
+                break;
         }
+        
+
+        // if ($flowerItem) { // 花式未開放
+        //     $fee += 600;
+        // }
 
         return $fee;
 
