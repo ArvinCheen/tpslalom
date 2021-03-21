@@ -146,7 +146,7 @@
                 <p>能讓選手在場上展現自我技巧，在舞台上盡情地發光發熱。我們能給的不多，為了給選手一個專屬的舞台，對我來說，這比我的生死更重要。</p>
             </div>
         </div>
-        <a href="https://yoyocharity.ebc.net.tw/" target="_blank"><img src="https://imgur.com/3uHTVfK.png" style="width:220px;"></a>
+        <a href="https://yoyocharity.ebc.net.tw/" target="_blank"><img src="https://imgur.com/3uHTVfK.png" style="width:220px;border-radius:7px;"></a>
         <div class="footer-bottom">
             <div class="footer-social">
                 {{--                <a href="https://www.facebook.com/tpersf/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
