@@ -23,7 +23,7 @@ class EnrollController extends Controller
         $enrolls  = [];
         $gameInfo = GameModel::find(config('app.game_id'));
 
-        if ($gameInfo->is_open_enroll) {
+    if ($gameInfo->is_open_enroll) {
             $status = true;
         } else {
             $status = false;

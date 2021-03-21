@@ -2,7 +2,7 @@
 
 return [
 
-    'game_id' => 11,
+    'game_id' => env('GAME'),
 
     'enroll' => 0,
 
