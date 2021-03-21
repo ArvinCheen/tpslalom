@@ -152,7 +152,7 @@
                 {{--                <a href="https://www.facebook.com/tpersf/" target="_blank" data-toggle="tooltip" title="" data-original-title="facebook"><i class="fa fa-facebook"></i></a>--}}
                 {{--                <a href="#https://www.youtube.com/user/AuthenticRollerblade" data-toggle="fbbuytooltip" title="" data-original-title="youtube"><i class="fa fa-youtube"></i></a>--}}
             </div>
-            <p>Copyright © {{date ('Y')}} Sundog Copyright. All rights reserved.</p>
+            <p>Copyright © {{date ('Y')}} Sundog All rights reserved.</p>
 
         </div>
     </div>
