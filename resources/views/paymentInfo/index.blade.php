@@ -60,6 +60,8 @@
                             @if (env('GAME') == 12)
                                 <div class="col-md-9">
                                     <p>付款資訊：700 中華郵政分局 0061-0041-9045-57 戶名：朱啟維</p>
+                                    <a href="{{ URL::asset('tmpdoc/2.pdf') }}" target="_brank">新竹市110年市長盃溜冰錦標賽 - 競賽章程(網路版本).pdf</a><br>
+                                    <a href="{{ URL::asset('tmpdoc/1.doc') }}" target="_brank">新竹市110年市長盃溜冰錦標賽 - 競賽章程(網路版本).doc</a>
                                 </div>
                             @endif
 
