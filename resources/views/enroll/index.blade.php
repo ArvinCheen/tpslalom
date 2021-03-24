@@ -173,7 +173,8 @@
                                     <label>競速溜冰 - 競速組</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="競速組 300、450 公尺計時賽"> 競速組 300、450 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="競速組 300 公尺計時賽"> 競速組 300 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="競速組 450 公尺計時賽"> 競速組 450 公尺計時賽
                                         </label>
                                     </div>
                                 </div>
@@ -184,7 +185,8 @@
                                     <label>競速溜冰 - 休閒組</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="休閒組 150、300 公尺計時賽"> 休閒組 150、300 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="休閒組 150 公尺計時賽"> 休閒組 150 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="休閒組 300 公尺計時賽"> 休閒組 300 公尺計時賽
                                         </label>
                                     </div>
                                 </div>
