@@ -174,6 +174,8 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="競速組 300 公尺計時賽"> 競速組 300 公尺計時賽
+                                        </label>
+                                        <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="競速組 450 公尺計時賽"> 競速組 450 公尺計時賽
                                         </label>
                                     </div>
@@ -186,6 +188,8 @@
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="休閒組 150 公尺計時賽"> 休閒組 150 公尺計時賽
+                                        </label>
+                                        <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="休閒組 300 公尺計時賽"> 休閒組 300 公尺計時賽
                                         </label>
                                     </div>
