@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as Controller;
+use App\Models\AccountModel;
 use App\Models\EnrollModel;
 use App\Models\PlayerModel;
 use App\Models\ScheduleModel;
@@ -61,6 +62,19 @@ class GameInfoController extends Controller
 
     public function groups()
     {
+        $enrolls = EnrollModel::get();
+
+        foreach ($enrolls as $enroll) {
+            echo "
+            選手：{$enroll->player->name} 
+            隊伍：{$enroll->player->agency}  
+            教練：{$enroll->player->coach} 
+            領隊：{$enroll->player->leader} 
+            經理：{$enroll->player->manager} 
+            報名項目：{$enroll->group} {$enroll->gender} {$enroll->item}<br>";
+        }
+
+        dd();
         $schedules = ScheduleModel::where('game_id', config('app.game_id'))->get();
 
         foreach ($schedules as $schedule) {
