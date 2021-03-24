@@ -170,10 +170,10 @@
                         <div>
                             <div class="row mt-3">
                                 <div class="col-md-12 mb-12">
-                                    <label>競速溜冰 - 休閒競速組</label>
+                                    <label>競速溜冰 - 競速組</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="300、450 公尺計時賽"> 300、450 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="競速組 300、450 公尺計時賽"> 競速組 300、450 公尺計時賽
                                         </label>
                                     </div>
                                 </div>
@@ -181,10 +181,10 @@
 
                             <div class="row mt-3">
                                 <div class="col-md-12 mb-12">
-                                    <label>競速溜冰 - 休閒鞋組</label>
+                                    <label>競速溜冰 - 休閒組</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="150、300 公尺計時賽"> 150、300 公尺計時賽
+                                            <input type="checkbox" name="enrollItem[]" value="休閒組 150、300 公尺計時賽"> 休閒組 150、300 公尺計時賽
                                         </label>
                                     </div>
                                 </div>
