@@ -87,6 +87,11 @@
                                 <label>組別</label>
                                 <select id="groupSelect" class="form-control" name="group" required >
                                     <option value=''> -- 請選擇 --</option>
+                                    @if(env('GAME') == 12)
+                                        <option value="小班">小班</option>
+                                        <option value="中班">中班</option>
+                                        <option value="大班">大班</option>
+                                    @endif
                                     <option value="幼童">幼童</option>
                                     <option value="國小一年級">國小一年級</option>
                                     <option value="國小二年級">國小二年級</option>
