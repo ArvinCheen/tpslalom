@@ -65,13 +65,13 @@
 {{--                            <li class="has-dropdown">--}}
 {{--                                <a href="#">比賽資訊</a>--}}
 {{--                                <ul>--}}
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ URL('gameInfo/schedules') }}">
                                             賽程表</a>
                                     </li>
                                     <li>
                                         <a href="{{ URL('gameInfo/groups') }}"> 分組名冊 </a>
-                                    </li>
+                                    </li> --}}
                             <li>
                                 <a href="{{ URL('gameInfo/teams') }}"> 團隊名冊 </a>
                             </li>
