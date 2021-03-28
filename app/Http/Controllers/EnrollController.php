@@ -23,13 +23,13 @@ class EnrollController extends Controller
         $enrolls  = [];
         $gameInfo = GameModel::find(config('app.game_id'));
 
-    if ($gameInfo->is_open_enroll) {
+        if ($gameInfo->is_open_enroll) {
             $status = true;
         } else {
             $status = false;
         }
 
-        if (! is_null($playerId)) {
+        if (!is_null($playerId)) {
             $level   = EnrollModel::where('player_id', $playerId)->where('level', '<>', '')->value('level');
             $enrolls = EnrollModel::where('player_id', $playerId)->get();
         }
@@ -39,7 +39,7 @@ class EnrollController extends Controller
 
     public function enroll(Request $request)
     {
-        if (! $this->store($request)) {
+        if (!$this->store($request)) {
             return back()->with(['error' => '報名失敗，請確定欄位都填寫完畢']);
         }
 
@@ -48,7 +48,7 @@ class EnrollController extends Controller
 
     public function update(Request $request)
     {
-        if (! $this->store($request)) {
+        if (!$this->store($request)) {
             return back()->with(['error' => '報名失敗']);
         }
 
@@ -59,6 +59,9 @@ class EnrollController extends Controller
     {
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
+        $personalId = $request->personalId;
+        dd($personalId);
+        $birthday   = $request->birthday;
         $agency     = $request->agency;
         $gender     = $request->gender;
         $city       = $request->city;
@@ -72,11 +75,13 @@ class EnrollController extends Controller
             DB::beginTransaction();
 
             $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
-                'account_id' => auth()->user()->id,
-                'name'       => $name,
-                'gender'     => $gender,
-                'city'       => $city,
-                'agency'     => $agency,
+                'account_id'  => auth()->user()->id,
+                'name'        => $name,
+                'personal_id' => $personalId,
+                'birthday'    => $birthday,
+                'gender'      => $gender,
+                'city'        => $city,
+                'agency'      => $agency,
             ])->id;
 
             $playerNumber = $this->getPlayerNumber($playerId);
@@ -116,7 +121,7 @@ class EnrollController extends Controller
         }
     }
 
-    private function flowItem() 
+    private function flowItem()
     {
         // if ($flowerItem == '中級指定套路' && $request->hasFile('soundFile')) {
         //     $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
@@ -191,7 +196,7 @@ class EnrollController extends Controller
                 $startFee = 300;
                 $speedItemCount = 0;
                 $freeItemCount = 0;
-                
+
                 foreach ($enrollItem as $item) {
                     if (strpos($item, '計時') !== false) {
                         $speedItemCount++;
@@ -222,14 +227,13 @@ class EnrollController extends Controller
                 dd('發生錯誤，請通知承辦人員');
                 break;
         }
-        
+
 
         // if ($flowerItem) { // 花式未開放
         //     $fee += 600;
         // }
 
         return $fee;
-
     }
 
     private function getPlayerNumber($playerId)

@@ -40,11 +40,21 @@
                         @endif
 
                         <div class="mb-3">
-                            <label for="address">姓名</label>
+                            <label>姓名</label>
                             <input type="text" class="form-control" name="name" placeholder='' value="" required disabled>
                         </div>
+                        @if(env('GAME') == 13)
+                            <div class="mb-3">
+                                <label>身份證字號</label>
+                                <input type="text" class="form-control" name="personalId" placeholder='A123456789' value="" required disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label>出生年月日</label>
+                                <input type="text" class="form-control" name="birthday" placeholder='民國月日（0800523）' value="" required disabled>
+                            </div>
+                        @endif
                         <div class="mb-3">
-                            <label for="address">單位</label>
+                            <label>單位</label>
                             <input type="text" class="form-control" name="agency" placeholder="" value="" required disabled>
                         </div>
                         <div class="mb-3">
@@ -462,6 +472,8 @@
 
         function disabledForm(action) {
             $("input[name='name']").prop('disabled', action);
+            $("input[name='personalId']").prop('disabled', action);
+            $("input[name='birthday']").prop('disabled', action);
             $("input[name='agency']").prop('disabled', action);
             $("select[name='gender']").prop('disabled', action);
             $("select[name='city']").prop('disabled', action);
