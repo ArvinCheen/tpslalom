@@ -52,6 +52,20 @@
                                 <label>出生年月日</label>
                                 <input type="text" class="form-control" name="birthday" placeholder='範例：西元月日（19900523）' value="" required disabled>
                             </div>
+                            <div class="mb-3">
+                                <label>教練</label>
+                                <input type="text" class="form-control" name="coach" placeholder="" value="" required disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>領隊</label>
+                                <input type="text" class="form-control" name="leader" placeholder="" value="" required disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>經理</label>
+                                <input type="text" class="form-control" name="manager" placeholder="" value="" required disabled>
+                            </div>
                         @endif
                         <div class="mb-3">
                             <label>單位</label>
@@ -474,6 +488,9 @@
             $("input[name='name']").prop('disabled', action);
             $("input[name='identityId']").prop('disabled', action);
             $("input[name='birthday']").prop('disabled', action);
+            $("input[name='coach']").prop('disabled', action);
+            $("input[name='leader']").prop('disabled', action);
+            $("input[name='manager']").prop('disabled', action);
             $("input[name='agency']").prop('disabled', action);
             $("select[name='gender']").prop('disabled', action);
             $("select[name='city']").prop('disabled', action);

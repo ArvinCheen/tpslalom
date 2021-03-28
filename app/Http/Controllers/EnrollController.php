@@ -59,8 +59,7 @@ class EnrollController extends Controller
     {
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
-        $identityId = $request->identityId;
-        $birthday   = $request->birthday;
+        
         $agency     = $request->agency;
         $gender     = $request->gender;
         $city       = $request->city;
@@ -70,6 +69,12 @@ class EnrollController extends Controller
         $flowerItem = $request->flowerItem;
         $sound      = $request->sound;
 
+        // 花蓮限定，為了要投保個人保險使用
+        $identityId = $request->identityId;
+        $birthday   = $request->birthday;
+        $coach   = $request->coach;
+        $leader   = $request->leader;
+        $manager   = $request->manager;
         try {
             DB::beginTransaction();
             $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
@@ -77,6 +82,9 @@ class EnrollController extends Controller
                 'name'        => $name,
                 'identity_id' => $identityId,
                 'birthday'    => $birthday,
+                'coach'    => $coach,
+                'leader'    => $leader,
+                'manager'    => $manager,
                 'gender'      => $gender,
                 'city'        => $city,
                 'agency'      => $agency,
