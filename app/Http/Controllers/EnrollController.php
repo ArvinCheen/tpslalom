@@ -59,8 +59,7 @@ class EnrollController extends Controller
     {
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
-        $personalId = $request->personalId;
-        dd($personalId);
+        $identityId = $request->identityId;
         $birthday   = $request->birthday;
         $agency     = $request->agency;
         $gender     = $request->gender;
@@ -73,11 +72,10 @@ class EnrollController extends Controller
 
         try {
             DB::beginTransaction();
-
             $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
                 'account_id'  => auth()->user()->id,
                 'name'        => $name,
-                'personal_id' => $personalId,
+                'identity_id' => $identityId,
                 'birthday'    => $birthday,
                 'gender'      => $gender,
                 'city'        => $city,
@@ -115,6 +113,7 @@ class EnrollController extends Controller
             DB::commit();
             return true;
         } catch (\Exception $e) {
+            dd($e);
             app()->make(SlackNotify::class)->setMsg('[EnrollController@store] Error ' . $e->getMessage())->notify();
             DB::rollback();
             return false;
