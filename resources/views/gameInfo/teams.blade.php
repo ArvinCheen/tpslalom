@@ -38,7 +38,10 @@
                             @foreach ($agency->players as $player)
                                 <tr>
                                     <td class="" style="">
-                                        {{ $player->id }} {{ $player->name }}
+                                        {{ $player->id }} {{ $player->name }} - {{ $player->gender }}<br>
+                                        @foreach ($player->enrolls as $enroll)
+                                            {{ $enroll->item}} <br>
+                                        @endforeach
                                     </td>
                                 </tr>
                             @endforeach

@@ -17,14 +17,14 @@ class PlayerModel extends Model
 
     protected $fillable = ['id','account_id', 'name', 'gender', 'city', 'agency','coach','leader','manager','cloth_size'];
 
+    public function enrolls()
+    {
+        return $this->hasMany('App\Models\EnrollModel', 'player_id', 'id');
+    }
+
     public function store($playerId, $data)
     {
         return $this->updateOrCreate(['player_id' => $playerId], $data);
-    }
-
-    public function enroll()
-    {
-        return $this->belongsTo('App\Models\EnrollModel', 'id', 'player_id');
     }
 
     public function getPlayers()
