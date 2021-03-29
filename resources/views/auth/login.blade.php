@@ -32,7 +32,7 @@
 
                         @if (env('GAME') == 12)
                             <div class="col-md-12">
-                                <a href="{{ URL::asset('tmpdoc/3.pdf') }}" target="_brank">新竹市市長盃簡章</a><br>
+                                <a href="{{ URL::asset('tmpdoc/4.pdf') }}" target="_brank">新竹市市長盃簡章</a><br>
                             </div>
                         @endif
 
