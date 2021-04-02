@@ -46,15 +46,7 @@
                                     @if ($player->player->name == '劉祐呈')
                                         <tr>
                                             <td class="" style="">
-                                                劉祐呈 / 劉哲呈
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                    @if ($player->player->name == '侯鈞諺')
-                                        <tr>
-                                            <td class="" style="">
-                                                侯鈞諺 / 陳建廷
+                                                劉祐呈 / 賴徐捷
                                             </td>
                                         </tr>
                                     @endif

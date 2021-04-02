@@ -56,8 +56,9 @@ class GameInfoController extends Controller
         $schedules1Day = app(ScheduleModel::class)->where('game_day', 1)->get();
         $schedules2Day = app(ScheduleModel::class)->where('game_day', 2)->get();
         $schedules3Day = app(ScheduleModel::class)->where('game_day', 3)->get();
+        $schedules4Day = app(ScheduleModel::class)->where('game_day', 4)->get();
 
-        return view('gameInfo/schedules')->with(compact('schedules1Day', 'schedules2Day', 'schedules3Day'));
+        return view('gameInfo/schedules')->with(compact('schedules1Day', 'schedules2Day', 'schedules3Day', 'schedules4Day'));
     }
 
     public function groups()
