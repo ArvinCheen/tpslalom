@@ -21,7 +21,7 @@
                         <td> 性別</td>
                         <td> 項目</td>
                         <td> 賽別</td>
-                        <td> 備註</td>
+                        {{-- <td> 備註</td> --}}
                         <td> 人數</td>
                     </tr>
                     @foreach($schedules1Day as $schedule1)
@@ -31,7 +31,7 @@
                                 <td> {{ $schedule1->gender }} </td>
                                 <td> {{ $schedule1->item }} </td>
                                 <td> {{ $schedule1->game_type }} </td>
-                                <td> {{ $schedule1->remark }} </td>
+                                {{-- <td> {{ $schedule1->remark }} </td> --}}
                                 @if ($schedule1->number_of_player == 0)
                                     <td> ? </td>
                                     @else
@@ -60,7 +60,7 @@
                         <td> 性別</td>
                         <td> 項目</td>
                         <td> 賽別</td>
-                        <td> 備註</td>
+                        {{-- <td> 備註</td> --}}
                         <td> 人數</td>
                     </tr>
                     @foreach($schedules2Day as $schedule2)
@@ -70,7 +70,7 @@
                                 <td> {{ $schedule2->gender }} </td>
                                 <td> {{ $schedule2->item }} </td>
                                 <td> {{ $schedule2->game_type }} </td>
-                                <td> {{ $schedule2->remark }} </td>
+                                {{-- <td> {{ $schedule2->remark }} </td> --}}
                                 @if ($schedule2->number_of_player == 0)
                                     <td> ? </td>
                                 @else
@@ -98,7 +98,7 @@
                         <td> 性別</td>
                         <td> 項目</td>
                         <td> 賽別</td>
-                        <td> 備註</td>
+                        {{-- <td> 備註</td> --}}
                         <td> 人數</td>
                     </tr>
                     @foreach($schedules3Day as $schedule3)
@@ -108,7 +108,7 @@
                                 <td> {{ $schedule3->gender }} </td>
                                 <td> {{ $schedule3->item }} </td>
                                 <td> {{ $schedule3->game_type }} </td>
-                                <td> {{ $schedule3->remark }} </td>
+                                {{-- <td> {{ $schedule3->remark }} </td> --}}
                                 @if ($schedule3->number_of_player == 0)
                                     <td> ? </td>
                                 @else
@@ -137,7 +137,7 @@
                         <td> 性別</td>
                         <td> 項目</td>
                         <td> 賽別</td>
-                        <td> 備註</td>
+                        {{-- <td> 備註</td> --}}
                         <td> 人數</td>
                     </tr>
                     @foreach($schedules4Day as $schedule4)
@@ -147,7 +147,7 @@
                                 <td> {{ $schedule4->gender }} </td>
                                 <td> {{ $schedule4->item }} </td>
                                 <td> {{ $schedule4->game_type }} </td>
-                                <td> {{ $schedule4->remark }} </td>
+                                {{-- <td> {{ $schedule4->remark }} </td> --}}
                                 @if ($schedule4->number_of_player == 0)
                                     <td> ? </td>
                                 @else
