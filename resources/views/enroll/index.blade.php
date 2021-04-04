@@ -56,15 +56,17 @@
                                 <label>教練</label>
                                 <input type="text" class="form-control" name="coach" placeholder="" value="" required disabled>
                             </div>
-
                             <div class="mb-3">
                                 <label>領隊</label>
                                 <input type="text" class="form-control" name="leader" placeholder="" value="" required disabled>
                             </div>
-
                             <div class="mb-3">
-                                <label>經理</label>
+                                <label>管理</label>
                                 <input type="text" class="form-control" name="manager" placeholder="" value="" required disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label>家長</label>
+                                <input type="text" class="form-control" name="parent" placeholder="" value="" required disabled>
                             </div>
                         @endif
                         <div class="mb-3">
@@ -490,6 +492,7 @@
             $("input[name='birthday']").prop('disabled', action);
             $("input[name='coach']").prop('disabled', action);
             $("input[name='leader']").prop('disabled', action);
+            $("input[name='parent']").prop('disabled', action);
             $("input[name='manager']").prop('disabled', action);
             $("input[name='agency']").prop('disabled', action);
             $("select[name='gender']").prop('disabled', action);

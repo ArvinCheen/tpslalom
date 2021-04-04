@@ -75,6 +75,7 @@ class EnrollController extends Controller
         $coach   = $request->coach;
         $leader   = $request->leader;
         $manager   = $request->manager;
+        $parent   = $request->parent;
         try {
             DB::beginTransaction();
             $playerId = app(PlayerModel::class)->updateOrCreate(['id' => $playerId], [
@@ -85,6 +86,7 @@ class EnrollController extends Controller
                 'coach'    => $coach,
                 'leader'    => $leader,
                 'manager'    => $manager,
+                'parent'    => $parent,
                 'gender'      => $gender,
                 'city'        => $city,
                 'agency'      => $agency,
