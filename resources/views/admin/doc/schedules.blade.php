@@ -56,9 +56,9 @@
                                 @endif
                             @endif
                         @endforeach
-                        <tr>
+                        {{-- <tr>
                             <td class="text-center" colspan="10">第二天賽程結束</td>
-                        </tr>
+                        </tr> --}}
                     </table>
                 </div>
             </div>
