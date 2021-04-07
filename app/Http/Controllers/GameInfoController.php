@@ -101,7 +101,7 @@ class GameInfoController extends Controller
                     ->get();
             }
         }
-dd($schedule);
+
         return view('gameInfo/groups')->with(['groups' => $schedules]);
     }
 
