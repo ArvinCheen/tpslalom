@@ -86,7 +86,7 @@ class GameInfoController extends Controller
             if ($item == '雙人花式繞樁') {
                 // 雙人花不分性別
                 $schedule->players = EnrollModel::where('game_id', config('app.game_id'))
-                    ->where('group', $group)
+                    // ->where('group', $group) //全國賽不分
                     ->where('item', $item)
                     ->orderBy('appearance')
                     ->orderBy('player_id')
@@ -101,7 +101,7 @@ class GameInfoController extends Controller
                     ->get();
             }
         }
-
+dd($schedule);
         return view('gameInfo/groups')->with(['groups' => $schedules]);
     }
 
