@@ -88,7 +88,7 @@ class SearchController extends Controller
     {
         $integrals = EnrollModel::selectRaw('team_name, enroll.account_id, sum(integral) as integralTotal')
             ->leftJoin('account', 'account.id', 'enroll.account_id')
-            ->where('game_id', config('app.game_id'))
+            ->where('game_id', env('GAME'))
             ->whereNotNull('integral')
             ->groupBy('enroll.account_id')
             ->orderByDesc('integralTotal')
@@ -96,7 +96,7 @@ class SearchController extends Controller
 
         foreach ($integrals as $integral) {
             $integral->players = EnrollModel::leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
+                ->where('game_id', env('GAME'))
                 ->where('enroll.account_id', $integral->account_id)
                 ->where('integral', '>', 0)
                 ->orderByDesc('integral')

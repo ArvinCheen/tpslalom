@@ -50,7 +50,7 @@ class estimateGameTime extends Command
     public function printTime($gameType, $item, $group, $gender,$estimate)
     {
 
-        $schedule = ScheduleModel::where('game_id', config('app.game_id'))
+        $schedule = ScheduleModel::where('game_id', env('GAME'))
             ->where('game_type', $gameType)
             ->where('item', 'like', $item)
             ->where('group', $group)

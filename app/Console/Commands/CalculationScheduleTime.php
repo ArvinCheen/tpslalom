@@ -72,14 +72,14 @@ class CalculationScheduleTime extends Command
 
         }
 //        if ($item == '雙人花式繞樁') {
-//            $schedule = ScheduleModel::where('game_id', config('app.game_id'))
+//            $schedule = ScheduleModel::where('game_id', env('GAME'))
 //                ->where('game_type', $gameType)
 //                ->where('item', 'like', "%$item%")
 //                ->where('group', $group)
 //                ->first();
 //        } else {
 //
-//            $schedule = ScheduleModel::where('game_id', config('app.game_id'))
+//            $schedule = ScheduleModel::where('game_id', env('GAME'))
 //                ->where('game_type', $gameType)
 //                ->where('item', 'like', "%$item%")
 //                ->where('group', $group)

@@ -21,7 +21,7 @@ class EnrollController extends Controller
         $players  = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
         $level    = null;
         $enrolls  = [];
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo = GameModel::find(env('GAME'));
 
         if ($gameInfo->is_open_enroll) {
             $status = true;
@@ -98,7 +98,7 @@ class EnrollController extends Controller
             if ($enrollItem) {
                 foreach ($enrollItem as $item) {
                     EnrollModel::create([
-                        'game_id'       => config('app.game_id'),
+                        'game_id'       => env('GAME'),
                         'player_id'     => $playerId,
                         'player_number' => $playerNumber,
                         'account_id'    => auth()->user()->id,
@@ -113,8 +113,8 @@ class EnrollController extends Controller
             $this->flowItem(); // 暫時未開放花式
 
             app(RegistryFeeModel::class)::updateOrCreate(
-                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
-                ['game_id' => config('app.game_id'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $this->calculationFee($enrollItem, $flowerItem)]
+                ['game_id' => env('GAME'), 'account_id' => auth()->user()->id, 'player_id' => $playerId],
+                ['game_id' => env('GAME'), 'account_id' => auth()->user()->id, 'player_id' => $playerId, 'fee' => $this->calculationFee($enrollItem, $flowerItem)]
             );
 
 
@@ -136,7 +136,7 @@ class EnrollController extends Controller
         //     $soundName = $this->getFlowerGroup($group) . '-' . $flowerItem . '-' . $name . '.mp3';
         //     Storage::put('flower_sound/' . $soundName, $request->file('soundFile')->get());
         //     EnrollModel::create([
-        //         'game_id'    => config('app.game_id'),
+        //         'game_id'    => env('GAME'),
         //         'player_id'  => $playerId,
         //         'player_number' => $playerNumber,
         //         'account_id' => auth()->user()->id,
@@ -149,7 +149,7 @@ class EnrollController extends Controller
         // }
         // if ($flowerItem == '初級指定套路') {
         //     EnrollModel::create([
-        //         'game_id'    => config('app.game_id'),
+        //         'game_id'    => env('GAME'),
         //         'player_id'  => $playerId,
         //         'player_number' => $playerNumber,
         //         'account_id' => auth()->user()->id,
@@ -265,7 +265,7 @@ class EnrollController extends Controller
         $player->group   = app(EnrollModel::class)->getGroup($playerId);
         $player->level   = app(EnrollModel::class)->getLevel($playerId);
 
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo = GameModel::find(env('GAME'));
 
         $now          = strtotime(date('Y/m/d H:i:s'));
         $errataStatus = true;

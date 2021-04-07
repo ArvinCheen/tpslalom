@@ -17,7 +17,7 @@ class ResultController extends Controller
         $schedules     = $scheduleModel->getSchedules();
         $schedule      = $scheduleModel->getSchedule($order);
 
-        $enrollData = EnrollModel::where('game_id', config('app.game_id'))
+        $enrollData = EnrollModel::where('game_id', env('GAME'))
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
             ->where('item', $schedule->item)

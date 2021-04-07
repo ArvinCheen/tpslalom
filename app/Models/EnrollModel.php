@@ -314,6 +314,10 @@ class EnrollModel extends Model
 
     public function countGameItemNumberOfPlayer($level, $group, $gender, $item)
     {
+        // dd($level);
+        // dd($group);
+        // dd($gender);
+        dd($item);
         if ($item == '雙人花式繞樁') {
             // 雙人花式繞樁 沒有分性別
             return $this->where('game_id', config('app.game_id'))

@@ -18,7 +18,7 @@ class SetAppearanceNull extends Command
 
     public function handle()
     {
-        EnrollModel::where('game_id', config('app.game_id'))->update(['appearance' => null]);
+        EnrollModel::where('game_id', env('GAME'))->update(['appearance' => null]);
 
         $this->info('done');
     }

@@ -19,18 +19,18 @@ class GameInfoController extends Controller
         $gameInfo           = null;
         $enrolls            = [];
         $schedules          = app(ScheduleModel::class)->getSchedules();
-        $numberOfAppearance = app(EnrollModel::class)->where('game_id', config('app.game_id'))->whereNull('appearance')->count();
+        $numberOfAppearance = app(EnrollModel::class)->where('game_id', env('GAME'))->whereNull('appearance')->count();
 
         if ($numberOfAppearance > 0) {
             $isView = false;
         } else {
             $isView = true;
 
-            $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
+            $gameInfo = ScheduleModel::where('game_id', env('GAME'))->where('id', $scheduleId)->first();
 
-            $enrolls = EnrollModel::where('game_id', config('app.game_id'))
+            $enrolls = EnrollModel::where('game_id', env('GAME'))
                 ->leftJoin('player', 'player.id', 'enroll.player_id')
-                ->where('game_id', config('app.game_id'))
+                ->where('game_id', env('GAME'))
                 ->where('group', $gameInfo->group)
                 ->where('item', $gameInfo->item)
                 ->where('level', $gameInfo->level);
@@ -53,16 +53,16 @@ class GameInfoController extends Controller
 
     public function schedules()
     {
-        $schedules1Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 1)->get();
-        $schedules2Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 2)->get();
-        $schedules3Day = app(ScheduleModel::class)->where('game_id', config('app.game_id'))->where('game_day', 3)->get();
+        $schedules1Day = app(ScheduleModel::class)->where('game_id', env('GAME'))->where('game_day', 1)->get();
+        $schedules2Day = app(ScheduleModel::class)->where('game_id', env('GAME'))->where('game_day', 2)->get();
+        $schedules3Day = app(ScheduleModel::class)->where('game_id', env('GAME'))->where('game_day', 3)->get();
 
         return view('gameInfo/schedules')->with(compact('schedules1Day', 'schedules2Day', 'schedules3Day'));
     }
 
     public function groups()
     {
-        $schedules = ScheduleModel::where('game_id', config('app.game_id'))
+        $schedules = ScheduleModel::where('game_id', env('GAME'))
             ->get();
 
         foreach ($schedules as $schedule) {
@@ -72,7 +72,7 @@ class GameInfoController extends Controller
             $level   = $schedule->level;
 
             $query             = EnrollModel::query();
-            $query->where('game_id', config('app.game_id'));
+            $query->where('game_id', env('GAME'));
 
             if (strpos($item, '套路') !== false) {
                 $query->where('group2', $group);
@@ -147,12 +147,12 @@ class GameInfoController extends Controller
 
     public function teams()
     {
-        $teams = EnrollModel::where('game_id', config('app.game_id'))
+        $teams = EnrollModel::where('game_id', env('GAME'))
             ->groupBy('account_id')
             ->get();
 
         foreach ($teams as $team) {
-            $team->players = EnrollModel::where('game_id', config('app.game_id'))
+            $team->players = EnrollModel::where('game_id', env('GAME'))
                 ->where('account_id', $team->account_id)
                 ->groupBy('player_id')
                 ->get();

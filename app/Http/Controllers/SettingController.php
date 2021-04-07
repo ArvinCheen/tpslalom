@@ -12,14 +12,14 @@ class SettingController extends Controller
 {
     public function index()
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo = GameModel::find(env('GAME'));
 
         return view('admin/setting')->with(compact('gameInfo'));
     }
 
     public function update(Request $request)
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo = GameModel::find(env('GAME'));
 
         $gameInfo->complete_name    = $request->completeName;
         $gameInfo->letter           = $request->letterOne . ' ' . $request->letterTwo;

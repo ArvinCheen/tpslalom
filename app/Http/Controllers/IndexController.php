@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $gameInfo = GameModel::find(config('app.game_id'));
+        $gameInfo = GameModel::find(env('GAME'));
 
         return view('index')->with(compact('gameInfo'));
     }
