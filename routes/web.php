@@ -7,33 +7,6 @@
 //Route::get('/playerRegister', 'DocumentController@playerRegister');  // 分組名冊
 //Route::get('/teamRegister', 'DocumentController@teamRegister');  // 團隊名冊
 //Route::get('/searchIntegral', 'DocumentController@searchIntegral');  // 績分查詢
-Route::get('rand', function () {
-//    大宇臨時要用的隨機授權碼
-    echo  "<a style='font-size:300px;margin-left:100px'>".rand(1111,9999)."</a>";
-    exit;
-});
-
-Route::get('removeCity', function () {
-//    將重復的縣市移除
-//    重復原因：教練選了縣市後，又在單位上填寫一次縣市
-
-    $x = \App\Models\PlayerModel::get();
-
-    foreach ($x as $v) {
-//        dd($v->city);
-        try {
-            if (str_contains($v->agency,$v->city)) {
-                $agency = str_replace($v->city,'',$v->agency);
-                \App\Models\PlayerModel::where('id',$v->id)->update(['agency'=>$agency]);
-            }
-        } catch (\Exception $e) {
-dd($e);
-        }
-    }
-dd('over');
-});
-
-
 
 Route::group(['prefix' => '/'], function () {
 //    Route::get('/', ['as' => '/', 'uses' => 'GameInfoController@groups']);
@@ -45,7 +18,6 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
     });
 });
-
 
 Route::group(['prefix' => 'register'], function () {
     Route::get('/', 'Auth\RegisterController@index');

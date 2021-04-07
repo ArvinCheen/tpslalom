@@ -287,6 +287,9 @@
                                     <label>前溜雙足S形</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="幼幼組"> 幼幼組
+                                        </label>
+                                        <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
                                         </label>
                                         <label class="form-check-label">
@@ -317,6 +320,9 @@
                                 <div class="col-md-12 mb-12">
                                     <label>前溜交叉形</label>
                                     <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="enrollItem[]" value="幼幼組"> 幼幼組
+                                        </label>
                                         <label class="form-check-label">
                                             <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
                                         </label>
