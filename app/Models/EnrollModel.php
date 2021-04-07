@@ -317,7 +317,7 @@ class EnrollModel extends Model
         // dd($level);
         // dd($group);
         // dd($gender);
-        dd($item);
+        // dd($item);
         if ($item == '雙人花式繞樁') {
             // 雙人花式繞樁 沒有分性別
             return $this->where('game_id', config('app.game_id'))
