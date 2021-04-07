@@ -50,6 +50,15 @@
                                             </td>
                                         </tr>
                                     @endif
+
+                                    @if ($player->player->name == '陳建廷')
+                                        <tr>
+                                            <td class="" style="">
+                                                陳建廷 / 侯鈞諺
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    
                                 @endforeach
                                 </tbody>
                             </table>

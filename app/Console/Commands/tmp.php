@@ -24,146 +24,69 @@ class tmp extends Command
      */
     public function handle()
     {
-        for ($i = 1; $i <= 400; $i++) {
-            $gene1 = null;
-            $gene2 = null;
-            for ($x = 1; $x <= 12; $x++) {
-                switch (rand(1, 4)) {
-                    case 1:
-                        $gene1 .= 'A';
-                        $gene2 .= 'T';
-                        break;
-                    case 2:
-                        $gene1 .= 'T';
-                        $gene2 .= 'A';
-                        break;
-                    case 3:
+        try {
+            \DB::beginTransaction();
 
-                        $gene1 .= 'C';
-                        $gene2 .= 'G';
-                        break;
-                    case 4:
-
-                        $gene1 .= 'G';
-                        $gene2 .= 'C';
-                        break;
-                }
-            }
-//            $this->info('物種' . $i);
-            $this->info($gene1);
-//            $this->info('基因上段：' . $gene1);
-//            $this->info('基因下段：' . $gene2);
-//            $this->info("\n");
+            
+            $this->createData('楊昕橋','男','花蓮縣','楊永成','花蓮縣體育會滑輪溜冰委員會','大專社會', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('高啟明','男','高雄市','高啟明','高雄市體育總會滑輪溜冰委員會','大專社會', ['中級指定套路']);
+            $this->createData('孫麗晴','女','高雄市','李筱茹','高雄市體育總會滑輪溜冰委員會','大專社會', ['個人花式繞樁']);
+            $this->createData('孫麗晴','女','高雄市','李筱茹','高雄市體育總會滑輪溜冰委員會','大專社會', ['個人花式繞樁']);
+            $this->createData('王佳葳','女','高雄市','王政基','高雄市體育總會滑輪溜冰委員會','大專社會', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('楊士民','男','新北市','王聖文','新北市體育總會溜冰委員會','大專社會', ['個人花式繞樁']);
+            $this->createData('蔡榆平','男','新北市','李懿蓓 高林達','新北市體育總會溜冰委員會','大專社會', ['速度過樁乙組-前溜雙足S形','速度過樁乙組-前溜交叉形']);
+            $this->createData('魏庸峻','男','新北市','黃冠儒','新北市體育總會溜冰委員會','大專社會', ['速度過樁選手菁英-前進單足S形','速度過樁選手菁英-前溜雙足S形','速度過樁選手菁英-前溜交叉形','個人花式繞樁']);
+            $this->createData('楊翔宇','男','新北市','王聖文、楊翔宇','新北市體育總會溜冰委員會','大專社會', ['個人花式繞樁','速度過樁選手菁英-前溜雙足S形','速度過樁選手菁英-前溜交叉形','速度過樁選手菁英-前進單足S形','花式煞停']);
+            $this->createData('林鈐毅','男','新北市','林鈐毅','新北市體育總會溜冰委員會','大專社會', ['個人花式繞樁']);
+            $this->createData('呂亭諾','女','新北市','王聖文、楊翔宇','新北市體育總會溜冰委員會','大專社會', ['花式煞停']);
+            $this->createData('溫瑞玲','女','新北市','李懿蓓 高林達','新北市體育總會溜冰委員會','大專社會', ['個人花式繞樁']);
+            $this->createData('周知毅','男','新竹市','杜澄文','新竹市立成德高中','高中', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('孫廷瑋','男','新竹市','杜澄文','新竹市立青草湖國小','國小五年級', ['速度過樁甲組-前溜交叉形','速度過樁甲組-前溜雙足S形']);
+            $this->createData('黃宥恩','男','新竹市','杜澄文','新竹市立青草湖國小','國小三年級', ['速度過樁乙組-前溜雙足S形','速度過樁乙組-前溜交叉形']);
+            $this->createData('鄭凱駿','男','新竹市','杜澄文','新竹市立培英國中','國中', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('徐若瑀','女','新竹市','杜澄文','新竹市立新竹國小','國小三年級', ['速度過樁乙組-前溜雙足S形','速度過樁乙組-前溜交叉形']);
+            $this->createData('陳昱錡','男','嘉義市','王聖文','嘉義市體育會滑輪溜冰委員會','大專社會', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('羅珮瑜','女','嘉義市','羅賢益、吳素菊','嘉義市體育會滑輪溜冰委員會','大專社會', ['速度過樁選手菁英-前溜雙足S形','速度過樁選手菁英-前溜交叉形','速度過樁選手菁英-前進單足S形']);
+            $this->createData('陳貝怡','女','嘉義市','羅賢益、吳素菊','嘉義市體育會滑輪溜冰委員會','大專社會', ['速度過樁選手菁英-前進單足S形']);
+            $this->createData('李颻','男','臺中市','余嘉浤','臺中市體育總會滑輪溜冰委員會','大專社會', ['花式煞停']);
+            $this->createData('郭俊廷','男','臺中市','余嘉浤','臺中市體育總會滑輪溜冰委員會','大專社會', ['花式煞停']);
+            $this->createData('陳建廷','不分','臺北市','王聖文','臺北市體育總會滑輪溜冰協會','大專社會', ['雙人花式繞樁']);
+            $this->createData('謝牧倫','男','臺北市','王聖文','臺北市體育總會滑輪溜冰協會','大專社會', ['個人花式繞樁']);
+            $this->createData('鍾詠字','男','臺北市','鍾詠字','臺北市體育總會滑輪溜冰協會','大專社會', ['花式煞停']);
+            $this->createData('侯鈞諺','不分','臺北市','王聖文','臺北市體育總會滑輪溜冰協會','大專社會', ['雙人花式繞樁']);
+            $this->createData('吳東諺','男','臺北市','潘莉青','臺北市體育總會滑輪溜冰協會','大專社會', ['速度過樁選手菁英-前溜雙足S形','速度過樁選手菁英-前進單足S形','速度過樁選手菁英-前溜交叉形']);
+            $this->createData('莊祥霖','男','澎湖縣','莊祥霖','澎湖縣體育會溜冰委員會','大專社會', ['個人花式繞樁']);
+            
+            \DB::commit();
+            $this->info('done');
+        } catch (\Exception $e) {
+            dd($e);
+            \DB::rollBack();
         }
-        dd();
-        $x = ScheduleModel::where('game_day', 3)->get();
+    }
 
-        $int = 0;
-        foreach ($x as $v) {
-            if ($v->number_of_player >= 8) {
-                $int += 8;
-            } else {
-                $int += $v->number_of_player;
-            }
-        }
-        dd($int);
-        foreach (PlayerModel::groupBy('coach')->get() as $v) {
-            $players = PlayerModel::where('coach', $v->coach)->orderBy('id')->get();
+    private function createData($name,$gender,$city,$coach,$agency,$group,$items)
+    {
+        $this->info('.');
+        $id = PlayerModel::create([
+            'account_id' => 40,
+            'name' => $name,
+            'gender' => $gender,
+            'city' => $city,
+            'coach' => $coach,
+            'agency' => $agency,
+        ])->id;
 
-            $this->info('團隊教練：' . $v->coach);
-            foreach ($players as $player) {
-
-                $this->info("$player->id, $player->name, $player->cloth_size, $player->agency");
-            }
-            $this->info(' ');
-        }
-        dd();
-
-        $aminoAcid = [
-            1  => '苯丙胺酸',
-            2  => '白胺酸',
-            3  => '異白胺酸',
-            4  => '甲硫胺酸',
-            5  => '纈胺酸',
-            6  => '絲胺酸',
-            7  => '脯胺酸',
-            8  => '蘇胺酸',
-            9  => '丙胺酸',
-            10 => '酪胺酸',
-            11 => '組胺酸',
-            12 => '離胺酸',
-            13 => '天門冬胺酸',
-            14 => '麩胺酸',
-            15 => '半胱胺酸',
-            16 => '色胺酸',
-            17 => '精胺酸',
-            18 => '甘胺酸',
-            19 => '麩胺醯胺',
-            20 => '天門冬醯胺'
-        ];
-
-        foreach ($aminoAcid as $k => $v) {
-            $this->info($k . ',' . $v);
-        }
-
-//        \DB::table('amino_acid')->truncate();
-//        \DB::table('amino_acid')->insert(['id' => 1, 'name' => $aminoAcid[1]]);
-//        \DB::table('amino_acid')->insert(['id' => 2, 'name' => $aminoAcid[2]]);
-//        \DB::table('amino_acid')->insert(['id' => 3, 'name' => $aminoAcid[3]]);
-//        \DB::table('amino_acid')->insert(['id' => 4, 'name' => $aminoAcid[4]]);
-//        \DB::table('amino_acid')->insert(['id' => 5, 'name' => $aminoAcid[5]]);
-//        \DB::table('amino_acid')->insert(['id' => 6, 'name' => $aminoAcid[6]]);
-//        \DB::table('amino_acid')->insert(['id' => 7, 'name' => $aminoAcid[7]]);
-//        \DB::table('amino_acid')->insert(['id' => 8, 'name' => $aminoAcid[8]]);
-//        \DB::table('amino_acid')->insert(['id' => 9, 'name' => $aminoAcid[9]]);
-//        \DB::table('amino_acid')->insert(['id' => 10, 'name' => $aminoAcid[10]]);
-//        \DB::table('amino_acid')->insert(['id' => 11, 'name' => $aminoAcid[11]]);
-//        \DB::table('amino_acid')->insert(['id' => 12, 'name' => $aminoAcid[12]]);
-//        \DB::table('amino_acid')->insert(['id' => 13, 'name' => $aminoAcid[13]]);
-//        \DB::table('amino_acid')->insert(['id' => 14, 'name' => $aminoAcid[14]]);
-//        \DB::table('amino_acid')->insert(['id' => 15, 'name' => $aminoAcid[15]]);
-//        \DB::table('amino_acid')->insert(['id' => 16, 'name' => $aminoAcid[16]]);
-//        \DB::table('amino_acid')->insert(['id' => 17, 'name' => $aminoAcid[17]]);
-//        \DB::table('amino_acid')->insert(['id' => 18, 'name' => $aminoAcid[18]]);
-//        \DB::table('amino_acid')->insert(['id' => 19, 'name' => $aminoAcid[19]]);
-//        \DB::table('amino_acid')->insert(['id' => 20, 'name' => $aminoAcid[20]]);
-
-        $characteristic = [
-            1 => null,
-            2 => null,
-            3 => null,
-            4 => null,
-        ];
-
-        $characteristicNumber = 1;
-
-        foreach ($aminoAcid as $key1 => $v1) {
-
-            $characteristic[1] = "($key1)$v1";
-
-            foreach ($aminoAcid as $key2 => $v2) {
-                $characteristic[2] = "($key2)$v2";
-
-                foreach ($aminoAcid as $key3 => $v3) {
-                    $characteristic[3] = "($key3)$v3";
-
-                    foreach ($aminoAcid as $key4 => $v4) {
-                        $characteristic[4] = "($key4)$v4";
-//                        \DB::table('characteristic')->insert([
-//                            'id'      => $characteristicNumber,
-//                            'amino_1' => $key1,
-//                            'amino_2' => $key2,
-//                            'amino_3' => $key3,
-//                            'amino_4' => $key4,
-//                            'name'    => null,
-//                        ]);
-
-                        $this->info($characteristicNumber . ',' . $characteristic[1] . ',' . $characteristic[2] . ',' . $characteristic[3] . ',' . $characteristic[4] . ',特性');
-
-                        $characteristicNumber++;
-                    }
-                }
-            }
+        foreach ($items as $item) {
+            EnrollModel::create([
+                'group' => $group,
+                'gender' => $gender,
+                'item' => $item,
+                'player_id' => $id,
+                'player_number' => $id,
+                'account_id' => 40,
+                'game_id' => 1,
+            ]);
         }
     }
 }

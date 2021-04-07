@@ -309,7 +309,7 @@ class EnrollModel extends Model
         if ($item == '雙人花式繞樁') {
             // 雙人花式繞樁 沒有分性別
             return $this->where('game_id', config('app.game_id'))
-                ->where('group', $group)
+                // ->where('group', $group) // 全國賽沒有分組別
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();
         } else {
