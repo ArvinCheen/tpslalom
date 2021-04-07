@@ -124,6 +124,7 @@
                                     @endif
 
                                     @if(env('GAME') == 13)
+                                        <option value="小班">小班</option>
                                         <option value="中班">中班</option>
                                         <option value="大班">大班</option>
                                     @endif
