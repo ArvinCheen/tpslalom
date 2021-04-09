@@ -195,7 +195,7 @@
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="前進單足Ｓ形"> 前進單足Ｓ形
+                                            <input type="checkbox" name="enrollItem[]" value="前進單足S形"> 前進單足S形
                                         </label>
                                     </div>
                                     <div class="form-check">
