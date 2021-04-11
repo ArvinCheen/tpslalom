@@ -271,14 +271,14 @@
                             <span class="m-menu__link-text"> 隊伍名冊 </span>
                         </a>
                     </li>
-                    <li class="m-menu__item " aria-haspopup="true">
+                    {{-- <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/doc/agencies') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text"> 單位名冊 </span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('admin/doc/medals') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -349,7 +349,7 @@
                         </a>
                     </li>
 
-                    <li class="m-menu__item " aria-haspopup="true">
+                    {{-- <li class="m-menu__item " aria-haspopup="true">
                         <a href="{{ URL('/admin/export/花樁評分表') }}" class="m-menu__link ">
                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                 <span></span>
@@ -389,7 +389,7 @@
                             </i>
                             <span class="m-menu__link-text"> 下載套路音樂檔 </span>
                         </a>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </div>
