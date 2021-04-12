@@ -39,7 +39,7 @@
                                     @if ($player->player->name == '邱映瑄')
                                         <tr>
                                             <td class="" style="">
-                                                邱映瑄 / 賴徐捷
+                                                邱映瑄 / 邱宇廷
                                             </td>
                                         </tr>
                                     @endif
@@ -47,7 +47,7 @@
                                     @if ($player->player->name == '劉祐呈')
                                         <tr>
                                             <td class="" style="">
-                                                劉祐呈 / 邱宇廷
+                                                劉祐呈 / 賴徐捷
                                             </td>
                                         </tr>
                                     @endif
