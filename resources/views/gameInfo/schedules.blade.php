@@ -38,11 +38,11 @@
                                     <td> {{ $schedule1->number_of_player }} </td>
                                 @endif
                             </tr>
-{{--                        @if($schedule1->order == '場次10')--}}
-{{--                            <tr>--}}
-{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
-{{--                            </tr>--}}
-{{--                        @endif--}}
+                       @if($schedule1->order == '場次3')--}}
+                           <tr>
+                               <td class='text-center' colspan="7"> 中午休息 </td>
+                           </tr>
+                        @endif
                     @endforeach
                 </table>
             </div>
@@ -77,11 +77,11 @@
                                     <td> {{ $schedule2->number_of_player }} </td>
                                 @endif
                             </tr>
-{{--                        @if($schedule2->order == '場次34')--}}
-{{--                            <tr>--}}
-{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
-{{--                            </tr>--}}
-{{--                        @endif--}}
+                        @if($schedule2->order == '場次13')
+                            <tr>
+                                <td class='text-center' colspan="7"> 中午休息 </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </table>
             </div>
@@ -115,11 +115,11 @@
                                     <td> {{ $schedule3->number_of_player }} </td>
                                 @endif
                             </tr>
-{{--                        @if($schedule3->order == '場次80')--}}
-{{--                            <tr>--}}
-{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
-{{--                            </tr>--}}
-{{--                        @endif--}}
+                        @if($schedule3->order == '場次44')
+                            <tr>
+                                <td class='text-center' colspan="7"> 中午休息 </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </table>
             </div>
@@ -154,11 +154,11 @@
                                     <td> {{ $schedule4->number_of_player }} </td>
                                 @endif
                             </tr>
-{{--                        @if($schedule4->order == '場次80')--}}
-{{--                            <tr>--}}
-{{--                                <td class='text-center' colspan="7"> 中午休息 12:00 ~ 13:00</td>--}}
-{{--                            </tr>--}}
-{{--                        @endif--}}
+                        @if($schedule4->order == '場次112')
+                            <tr>
+                                <td class='text-center' colspan="7"> 中午休息 </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </table>
             </div>
