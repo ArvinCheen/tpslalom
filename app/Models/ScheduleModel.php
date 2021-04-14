@@ -17,7 +17,7 @@ class ScheduleModel extends Model
 {
     protected $table = 'schedule';
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     public function getSchedules()
     {

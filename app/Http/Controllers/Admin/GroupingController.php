@@ -417,6 +417,23 @@ class GroupingController extends Controller
 
     private function setGrouping($level, $group, $gender, $item, $gameType, $remark, $gameDay, $estimate)
     {
+        if (env('GAME') == 12) {
+            EnrollModel::where('group','國小一年級')->where('item','雙足S形')->update(['group' =>'國小低年級']);
+            EnrollModel::where('group','國小二年級')->where('item','雙足S形')->update(['group' =>'國小低年級']);
+            EnrollModel::where('group','國小一年級')->where('item','單足S形')->update(['group' =>'國小低年級']);
+            EnrollModel::where('group','國小二年級')->where('item','單足S形')->update(['group' =>'國小低年級']);
+
+            EnrollModel::where('group','國小三年級')->where('item','雙足S形')->update(['group' =>'國小中年級']);
+            EnrollModel::where('group','國小四年級')->where('item','雙足S形')->update(['group' =>'國小中年級']);
+            EnrollModel::where('group','國小三年級')->where('item','單足S形')->update(['group' =>'國小中年級']);
+            EnrollModel::where('group','國小四年級')->where('item','單足S形')->update(['group' =>'國小中年級']);
+
+            EnrollModel::where('group','國小五年級')->where('item','雙足S形')->update(['group' =>'國小高年級']);
+            EnrollModel::where('group','國小六年級')->where('item','雙足S形')->update(['group' =>'國小高年級']);
+            EnrollModel::where('group','國小五年級')->where('item','單足S形')->update(['group' =>'國小高年級']);
+            EnrollModel::where('group','國小六年級')->where('item','單足S形')->update(['group' =>'國小高年級']);
+        }
+
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($level, $group, $gender, $item, $gameType);
 
         if ($numberOfPlayer) {
@@ -446,21 +463,70 @@ class GroupingController extends Controller
                 $estimateTime = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s", strtotime($estimateTime))) + (($estimate * $numberOfPlayer) / $每次上場人數));
             // }
 
+            switch (env('GAME')) {
+                case 11:
+                    ScheduleModel::create([
+                        'game_id'          => config('app.game_id'),
+                        'order'            => '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1),
+                        'level'            => $level,
+                        'group'            => $group,
+                        'gender'           => $gender,
+                        'item'             => $item,
+                        'game_type'        => $gameType,
+                        'remark'           => $remark,
+                        'number_of_player' => $numberOfPlayer,
+                        'game_day'         => $gameDay,
+                        'estimate'         => $estimate,
+                        'estimate_time'    => $estimateTime,
+                    ]);
+                    break;
+                
+                case 12:
+                    if ($item == '雙足S形' || $item == '單足S形') {
+                        switch ($group) {
+                            case '國小一年級':
+                            case '國小二年級':
+                                $group = '國小低年級';
+                                break;
+                            
+                            case '國小三年級':
+                            case '國小四年級':
+                                $group = '國小中年級';
+                                break;
 
-            ScheduleModel::create([
-                'game_id'          => config('app.game_id'),
-                'order'            => '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1),
-                'level'            => $level,
-                'group'            => $group,
-                'gender'           => $gender,
-                'item'             => $item,
-                'game_type'        => $gameType,
-                'remark'           => $remark,
-                'number_of_player' => $numberOfPlayer,
-                'game_day'         => $gameDay,
-                'estimate'         => $estimate,
-                'estimate_time'    => $estimateTime,
-            ]);
+                            case '國小五年級':
+                            case '國小六年級':
+                                $group = '國小高年級';
+                                break;
+                            
+                            default:
+                                break;
+                        }
+                    }
+
+                    ScheduleModel::create([
+                        'game_id'          => config('app.game_id'),
+                        'order'            => '場次' . (ScheduleModel::where('game_id', config('app.game_id'))->count() + 1),
+                        'level'            => $level,
+                        'group'            => $group,
+                        'gender'           => $gender,
+                        'item'             => $item,
+                        'game_type'        => $gameType,
+                        'remark'           => $remark,
+                        'number_of_player' => $numberOfPlayer,
+                        'game_day'         => $gameDay,
+                        'estimate'         => $estimate,
+                        'estimate_time'    => $estimateTime,
+                    ]);
+                    break;
+                
+                case 13:
+                    break;
+                default:
+                    dd('error');
+
+            }
+
         }
     }
 

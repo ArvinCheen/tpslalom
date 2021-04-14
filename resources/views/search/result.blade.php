@@ -23,85 +23,120 @@
                 @case('speed')
 
 
-                @if (! is_null($taipeiCityResult))
-                    <div class="col-md-12 mt-3">
-                        <table class="table table-striped table-bordered table-advance table-hover">
-                            <thead>
-                            <tr>
-                                <th colspan="10" class="text-center"> 臺北市</th>
-                            </tr>
-                            <tr>
-                                <th class="text-center"> 選手</th>
-                                <th class="text-center"> 一回</th>
-                                <th class="text-center"> 誤椿</th>
-                                <th class="text-center"> 二回</th>
-                                <th class="text-center"> 誤椿</th>
-                                <th class="text-center"> 成績</th>
-                                <th class="text-center"> 名次</th>
-                                <th class="text-center"> 積分</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($taipeiCityResult as $key => $val)
+                @if (env('GAME') == 11)
+                
+                    @if (! is_null($taipeiCityResult))
+                        <div class="col-md-12 mt-3">
+                            <table class="table table-striped table-bordered table-advance table-hover">
+                                <thead>
                                 <tr>
-                                    <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
-                                    <td class="text-center"> {{ $val->round_one_second }} </td>
-                                    <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->round_two_second }} </td>
-                                    <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->final_result }} </td>
-                                    <td class="text-center"> {{ $val->rank }} </td>
-                                    <td class="text-center"> {{ $val->integral }} </td>
+                                    <th colspan="10" class="text-center"> 臺北市</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
+                                <tr>
+                                    <th class="text-center"> 選手</th>
+                                    <th class="text-center"> 一回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 二回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 成績</th>
+                                    <th class="text-center"> 名次</th>
+                                    <th class="text-center"> 積分</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($taipeiCityResult as $key => $val)
+                                    <tr>
+                                        <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
+                                        <td class="text-center"> {{ $val->round_one_second }} </td>
+                                        <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->round_two_second }} </td>
+                                        <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->final_result }} </td>
+                                        <td class="text-center"> {{ $val->rank }} </td>
+                                        <td class="text-center"> {{ $val->integral }} </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
 
-                @if (! is_null($otherCityResult))
-                    <div class="col-md-12 mt-3">
-                        <table class="table table-striped table-bordered table-advance table-hover">
-                            <thead>
-                            <tr>
-                                <th colspan="10" class="text-center"> 外縣市</th>
-                            </tr>
-                            <tr>
-                                <th class="text-center"> 選手</th>
-                                <th class="text-center"> 一回</th>
-                                <th class="text-center"> 誤椿</th>
-                                <th class="text-center"> 二回</th>
-                                <th class="text-center"> 誤椿</th>
-                                <th class="text-center"> 成績</th>
-                                <th class="text-center"> 名次</th>
-                                <th class="text-center"> 積分</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($otherCityResult as $key => $val)
+                    @if (! is_null($otherCityResult))
+                        <div class="col-md-12 mt-3">
+                            <table class="table table-striped table-bordered table-advance table-hover">
+                                <thead>
                                 <tr>
-                                    <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
-                                    <td class="text-center"> {{ $val->round_one_second }} </td>
-                                    <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->round_two_second }} </td>
-                                    <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->final_result }} </td>
-                                    <td class="text-center"> {{ $val->rank }} </td>
-                                    <td class="text-center"> {{ $val->integral }} </td>
+                                    <th colspan="10" class="text-center"> 外縣市</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
+                                <tr>
+                                    <th class="text-center"> 選手</th>
+                                    <th class="text-center"> 一回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 二回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 成績</th>
+                                    <th class="text-center"> 名次</th>
+                                    <th class="text-center"> 積分</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($otherCityResult as $key => $val)
+                                    <tr>
+                                        <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
+                                        <td class="text-center"> {{ $val->round_one_second }} </td>
+                                        <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->round_two_second }} </td>
+                                        <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->final_result }} </td>
+                                        <td class="text-center"> {{ $val->rank }} </td>
+                                        <td class="text-center"> {{ $val->integral }} </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
 
-                @if (! is_null($result))
+                    @if (! is_null($result))
+                        <div class="col-md-12 mt-3">
+                            <table class="table table-striped table-bordered table-advance table-hover">
+                                <thead>
+                                <tr>
+                                    <th colspan="10" class="text-center"> 選手組不分縣市</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center"> 選手</th>
+                                    <th class="text-center"> 一回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 二回</th>
+                                    <th class="text-center"> 誤椿</th>
+                                    <th class="text-center"> 成績</th>
+                                    <th class="text-center"> 名次</th>
+                                    <th class="text-center"> 積分</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($result as $key => $val)
+                                    <tr>
+                                        <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
+                                        <td class="text-center"> {{ $val->round_one_second }} </td>
+                                        <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->round_two_second }} </td>
+                                        <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->final_result }} </td>
+                                        <td class="text-center"> {{ $val->rank }} </td>
+                                        <td class="text-center"> {{ $val->integral }} </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                @else
+                        
                     <div class="col-md-12 mt-3">
                         <table class="table table-striped table-bordered table-advance table-hover">
                             <thead>
-                            <tr>
-                                <th colspan="10" class="text-center"> 選手組不分縣市</th>
-                            </tr>
                             <tr>
                                 <th class="text-center"> 選手</th>
                                 <th class="text-center"> 一回</th>
@@ -114,18 +149,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($result as $key => $val)
-                                <tr>
-                                    <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
-                                    <td class="text-center"> {{ $val->round_one_second }} </td>
-                                    <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->round_two_second }} </td>
-                                    <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
-                                    <td class="text-center"> {{ $val->final_result }} </td>
-                                    <td class="text-center"> {{ $val->rank }} </td>
-                                    <td class="text-center"> {{ $val->integral }} </td>
-                                </tr>
-                            @endforeach
+                                {{-- @foreach ($result as $key => $val)
+                                    <tr>
+                                        <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
+                                        <td class="text-center"> {{ $val->round_one_second }} </td>
+                                        <td class="text-center"> {{ $val->round_one_miss_conr == 99 ? '超過5次' : $val->round_one_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->round_two_second }} </td>
+                                        <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
+                                        <td class="text-center"> {{ $val->final_result }} </td>
+                                        <td class="text-center"> {{ $val->rank }} </td>
+                                        <td class="text-center"> {{ $val->integral }} </td>
+                                    </tr>
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

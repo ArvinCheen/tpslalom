@@ -58,7 +58,6 @@
                     <table class="col-md-12 table table-striped table-dark">
                         <tr>
                             <td> 場次</td>
-                            <td> 級別</td>
                             <td> 組別</td>
                             <td> 性別</td>
                             <td> 項目</td>
@@ -66,16 +65,15 @@
                             {{--                            <td> 備註</td>--}}
                             <td> 人數</td>
                         </tr>
-                        @foreach($schedules1Day as $schedule1)
+                        @foreach($schedules as $schedule)
                             <tr>
-                                <td> {{ $schedule1->order }} </td>
-                                <td> {{ $schedule1->level }} </td>
-                                <td> {{ $schedule1->group }} </td>
-                                <td> {{ $schedule1->gender }} </td>
-                                <td> {{ $schedule1->item }} </td>
-                                {{--                                <td> {{ $schedule1->game_type }} </td>--}}
-                                {{--                                <td> {{ $schedule1->remark }} </td>--}}
-                                <td> {{ $schedule1->number_of_player }} </td>
+                                <td> {{ $schedule->order }} </td>
+                                <td> {{ $schedule->group }} </td>
+                                <td> {{ $schedule->gender }} </td>
+                                <td> {{ $schedule->item }} </td>
+                                {{--                                <td> {{ $schedule->game_type }} </td>--}}
+                                {{--                                <td> {{ $schedule->remark }} </td>--}}
+                                <td> {{ $schedule->number_of_player }} </td>
                             </tr>
                         @endforeach
                     </table>
