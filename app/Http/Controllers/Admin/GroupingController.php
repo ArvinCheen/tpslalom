@@ -432,6 +432,13 @@ class GroupingController extends Controller
             EnrollModel::where('group','國小六年級')->where('item','雙足S形')->update(['group' =>'國小高年級']);
             EnrollModel::where('group','國小五年級')->where('item','單足S形')->update(['group' =>'國小高年級']);
             EnrollModel::where('group','國小六年級')->where('item','單足S形')->update(['group' =>'國小高年級']);
+
+            EnrollModel::where('group','小班')->where('item','單足S形')->update(['group' =>'幼童']);
+            EnrollModel::where('group','中班')->where('item','單足S形')->update(['group' =>'幼童']);
+            EnrollModel::where('group','大班')->where('item','單足S形')->update(['group' =>'幼童']);
+            EnrollModel::where('group','小班')->where('item','雙足S形')->update(['group' =>'幼童']);
+            EnrollModel::where('group','中班')->where('item','雙足S形')->update(['group' =>'幼童']);
+            EnrollModel::where('group','大班')->where('item','雙足S形')->update(['group' =>'幼童']);
         }
 
         $numberOfPlayer = app(EnrollModel::class)->countGameItemNumberOfPlayer($level, $group, $gender, $item, $gameType);

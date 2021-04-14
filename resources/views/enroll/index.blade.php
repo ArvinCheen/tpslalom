@@ -138,8 +138,22 @@
                                     <option value="國小六年級">國小六年級</option>
                                     <option value="國中">國中</option>
                                     <option value="高中">高中</option>
-                                    <option value="大專">大專</option>
-                                    <option value="社會">社會</option>
+                                    
+                                    @if(env('GAME') == 11)
+                                        <option value="大專">大專</option>
+                                        <option value="社會">社會</option>
+                                    @endif
+
+                                    @if(env('GAME') == 12)
+                                        chr<option value="社會">社會</option>
+                                    @endif
+
+                                    @if(env('GAME') == 13)
+                                        <option value="大專">青年</option>
+                                        <option value="大專">公開</option>
+                                    @endif
+                                    
+                                    
                                 </select>
                             </div>
 
