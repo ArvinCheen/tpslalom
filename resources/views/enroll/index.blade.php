@@ -84,29 +84,33 @@
                         <div class="mb-3">
                             <label>縣市</label>
                             <select class="form-control" name="city" required disabled>
-                                <option value=''> -- 請選擇 --</option>
-                                <option value="臺北市">臺北市</option>
-                                <option value="基隆市">基隆市</option>
-                                <option value="新北市">新北市</option>
-                                <option value="連江縣">連江縣</option>
-                                <option value="宜蘭縣">宜蘭縣</option>
-                                <option value="新竹市">新竹市</option>
-                                <option value="新竹縣">新竹縣</option>
-                                <option value="桃園市">桃園市</option>
-                                <option value="苗栗縣">苗栗縣</option>
-                                <option value="台中市">台中市</option>
-                                <option value="彰化縣">彰化縣</option>
-                                <option value="南投縣">南投縣</option>
-                                <option value="嘉義市">嘉義市</option>
-                                <option value="嘉義縣">嘉義縣</option>
-                                <option value="雲林縣">雲林縣</option>
-                                <option value="台南市">台南市</option>
-                                <option value="高雄市">高雄市</option>
-                                <option value="澎湖縣">澎湖縣</option>
-                                <option value="金門縣">金門縣</option>
-                                <option value="屏東縣">屏東縣</option>
-                                <option value="台東縣">台東縣</option>
-                                <option value="花蓮縣">花蓮縣</option>
+                                @if (env('GAME') == 13)
+                                    <option value="花蓮縣">花蓮縣</option>
+                                @else
+                                    <option value=''> -- 請選擇 --</option>
+                                    <option value="臺北市">臺北市</option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="連江縣">連江縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="台中市">台中市</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="台南市">台南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="台東縣">台東縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                @endif
                             </select>
                         </div>
                             <div class="mb-3">
@@ -277,25 +281,24 @@
                                     <label>前溜單足S形</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組 前溜單足S形"> 國小低年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組 前溜單足S形"> 國小中年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組 前溜單足S形"> 國小高年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                            <input type="checkbox" name="enrollItem[]" value="國中組 前溜單足S形"> 國中組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                            <input type="checkbox" name="enrollItem[]" value="青年組 前溜單足S形"> 青年組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="公開組"> 公開組
+                                            <input type="checkbox" name="enrollItem[]" value="公開組 前溜單足S形"> 公開組
                                         </label>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -303,31 +306,31 @@
                                     <label>前溜雙足S形</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="幼幼組"> 幼幼組
+                                            <input type="checkbox" name="enrollItem[]" value="幼幼組 前溜雙足S形"> 幼幼組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
+                                            <input type="checkbox" name="enrollItem[]" value="幼童組 前溜雙足S形"> 幼童組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組"> 國小選手甲組
+                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組 前溜雙足S形"> 國小選手甲組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組"> 國中選手甲組
+                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組 前溜雙足S形"> 國中選手甲組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組 前溜雙足S形"> 國小低年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組 前溜雙足S形"> 國小中年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組 前溜雙足S形"> 國小高年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                            <input type="checkbox" name="enrollItem[]" value="國中組 前溜雙足S形"> 國中組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                            <input type="checkbox" name="enrollItem[]" value="青年組 前溜雙足S形"> 青年組
                                         </label>
                                     </div>
                                 </div>
@@ -337,31 +340,31 @@
                                     <label>前溜交叉形</label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="幼幼組"> 幼幼組
+                                            <input type="checkbox" name="enrollItem[]" value="幼幼組 前溜交叉形"> 幼幼組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="幼童組"> 幼童組
+                                            <input type="checkbox" name="enrollItem[]" value="幼童組 前溜交叉形"> 幼童組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組"> 國小選手甲組
+                                            <input type="checkbox" name="enrollItem[]" value="國小選手甲組 前溜交叉形"> 國小選手甲組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組"> 國中選手甲組
+                                            <input type="checkbox" name="enrollItem[]" value="國中選手甲組 前溜交叉形"> 國中選手甲組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組"> 國小低年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小低年級菁英組 前溜交叉形"> 國小低年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組"> 國小中年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小中年級菁英組 前溜交叉形"> 國小中年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組"> 國小高年級菁英組
+                                            <input type="checkbox" name="enrollItem[]" value="國小高年級菁英組 前溜交叉形"> 國小高年級菁英組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="國中組"> 國中組
+                                            <input type="checkbox" name="enrollItem[]" value="國中組 前溜交叉形"> 國中組
                                         </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="enrollItem[]" value="青年組"> 青年組
+                                            <input type="checkbox" name="enrollItem[]" value="青年組 前溜交叉形"> 青年組
                                         </label>
                                     </div>
                                 </div>
@@ -563,6 +566,15 @@
                     $("input[name='agency']").val(msg.agency);
                     $("select[name='gender'] option[value=" + msg.gender + "]").prop('selected', true);
                     $("select[name='city'] option[value=" + msg.city + "]").prop('selected', true);
+
+                    @if (env('GAME') == 13)
+                        $("input[name='identityId']").val(msg.identity_id);
+                        $("input[name='birthday']").val(msg.birthday);
+                        $("input[name='coach']").val(msg.coach);
+                        $("input[name='leader']").val(msg.leader);
+                        $("input[name='manager']").val(msg.manager);
+                        $("input[name='parent']").val(msg.parent);
+                    @endif
 
                     if (!msg.group) {
                         $("select[name='group']").prop("selectedIndex", 0);
