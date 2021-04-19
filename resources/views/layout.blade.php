@@ -58,7 +58,7 @@
                                                                     <li>
                                                                         <a href="{{ URL('search/integral') }}"> 積分查詢 </a>
                                                                     </li>
-                                                                }
+                                                                @endif
                             {{--                                </ul>--}}
                             {{--                            </li>--}}
 
