@@ -61,6 +61,16 @@ class GroupingController extends Controller
                 $data->item = '幼幼班' . substr($data->item,9);
                 $data->save();
             } 
+
+
+            $datas = EnrollModel::where('game_id', env('GAME'))->where('item','like','%國中選手甲組%')->get();
+
+            // 國中選手甲組 前溜交叉形
+            
+            foreach ($datas as $data) {
+                $data->item = '國中菁英組' . substr($data->item,18);
+                $data->save();
+            } 
         }
 
         if (config('app.game_id') == 11) {
@@ -357,16 +367,16 @@ class GroupingController extends Controller
         $this->setGrouping(null, null, '女','國中組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小高年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小高年級菁英組 前溜交叉形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中選手甲組 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中選手甲組 前溜雙足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中菁英組 前溜雙足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '女','國中菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小低年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小低年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小中年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小中年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小低年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小低年級菁英組 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中選手甲組 前溜交叉形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中選手甲組 前溜交叉形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中菁英組 前溜交叉形', '', '', '1', '300');
+        $this->setGrouping(null, null, '女','國中菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小中年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小中年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小低年級菁英組 前溜交叉形', '', '', '1', '300');
