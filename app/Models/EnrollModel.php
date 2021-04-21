@@ -334,12 +334,22 @@ class EnrollModel extends Model
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();
         } else {
-            return $this->where('game_id', config('app.game_id'))
+            if (env('GAME') == 13) {
+                $query = $this->where('game_id', config('app.game_id'));
+                
+                if (substr($item,0,9) <> '幼幼班') {
+                    $query->where('gender', $gender);
+                }
+
+                return $query->where('item', 'like', '%' . $item . '%')->count();
+            } else {
+                return $this->where('game_id', config('app.game_id'))
                 ->where('level', $level)
                 ->where('group', $group)
                 ->where('gender', $gender)
                 ->where('item', 'like', '%' . $item . '%')
                 ->count();
+            }
         }
     }
 

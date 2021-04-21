@@ -19,11 +19,12 @@
                     @foreach($teams as $team)
                         <table class="table mb-0">
                             <tr>
-{{--                                                                <td colspan="5" class="w-25"> 隊伍：{{ $team->agency }} - {{ count($team->players) }} 人參賽</td>--}}
-{{--                                / 教練團：{{ $team->coach }}　{{ $team->leader }}　{{ $team->management }}--}}
                                 <td colspan="5" class="w-25"> {{ $team->account->team_name }} - {{ count($team->players) }} 人參賽 / 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }}</td>
-{{--                                <td colspan="5" class="w-25"> 教練：{{ $team->account->coach }}　/　領隊：{{ $team->account->leader }}　/　經理：{{ $team->account->management }}</td>--}}
-                                <td class="w-25 text-right"> <a href="{{ URL('admin/export/completion') }}/{{ $team->account_id }}"><button type="button" class="btn btn-primary btn-sm"> 完賽證明 </button></a> </td>
+                                <td class="w-25 text-right"> <a href="{{ URL('admin/export/completion') }}/{{ $team->account_id }}">
+                                    @if (env('GAME') == 11)
+                                        <button type="button" class="btn btn-primary btn-sm"> 完賽證明 </button></a> 
+                                    @endif
+                                </td>
                             </tr>
                         </table>
 

@@ -46,19 +46,28 @@ class DocController extends Controller
             $query = EnrollModel::query();
             $query->where('game_id', config('app.game_id'));
 
-            if (strpos($item, '套路') !== false) {
-                $query->where('group2', $group);
+            if (env('GAME') == 13) {
+                $schedule->players = $query->where('gender', $gender)
+                    ->where('item', $item)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
+                    ->get();
             } else {
-                $query->where('group', $group);
+                if (strpos($item, '套路') !== false) {
+                    $query->where('group2', $group);
+                } else {
+                    $query->where('group', $group);
+                }
+    
+                $schedule->players = $query->where('gender', $gender)
+                    ->where('item', $item)
+                    ->where('level', $level)
+                    ->orderBy('appearance')
+                    ->orderBy('player_number')
+                    ->orderBy('player_id')
+                    ->get();
             }
-
-            $schedule->players = $query->where('gender', $gender)
-                ->where('item', $item)
-                ->where('level', $level)
-                ->orderBy('appearance')
-                ->orderBy('player_number')
-                ->orderBy('player_id')
-                ->get();
         }
 
         return view('admin.doc.groups')->with(['groups' => $schedules]);
