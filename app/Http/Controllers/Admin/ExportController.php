@@ -135,12 +135,20 @@ class ExportController extends Controller
                 if (strpos($schedule->item, '套路') !== false) {
                     $enrolls->where('group2', $schedule->group);
                 } else {
-                    $enrolls->where('group', $schedule->group);
+                    if (env('GAME') <> 13) {
+                        $enrolls->where('group', $schedule->group);
+                    }
+                }
+                if (env('GAME') <> 13) {
+                    $enrolls->where('level', $schedule->level)
+                            ->where('gender', $schedule->gender);
                 }
 
-                $enrolls = $enrolls->where('level', $schedule->level)
-                    ->where('gender', $schedule->gender)
-                    ->where('item', $schedule->item)
+                if ($schedule->gender <> '不分') {
+                    $enrolls->where('gender', $schedule->gender);
+                }
+
+                $enrolls = $enrolls->where('item', $schedule->item)
                     ->orderBy('appearance')
                     ->orderBy('player_number')
                     ->orderBy('player_id')
