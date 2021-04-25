@@ -47,12 +47,21 @@ class DocController extends Controller
             $query->where('game_id', config('app.game_id'));
 
             if (env('GAME') == 13) {
-                $schedule->players = $query->where('gender', $gender)
-                    ->where('item', $item)
-                    ->orderBy('appearance')
-                    ->orderBy('player_number')
-                    ->orderBy('player_id')
-                    ->get();
+                    if ($item == '幼幼班 前溜雙足S形') {
+                        $schedule->players = $query->where('item', $item)
+                        ->orderBy('appearance')
+                        ->orderBy('player_number')
+                        ->orderBy('player_id')
+                        ->get();
+                    } else {
+                        $schedule->players = $query->where('gender', $gender)
+                        ->where('item', $item)
+                        ->orderBy('appearance')
+                        ->orderBy('player_number')
+                        ->orderBy('player_id')
+                        ->get();
+                    }
+
             } else {
                 if (strpos($item, '套路') !== false) {
                     $query->where('group2', $group);

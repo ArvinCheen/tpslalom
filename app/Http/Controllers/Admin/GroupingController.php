@@ -63,14 +63,64 @@ class GroupingController extends Controller
             } 
 
 
-            $datas = EnrollModel::where('game_id', env('GAME'))->where('item','like','%國中選手甲組%')->get();
 
-            // 國中選手甲組 前溜交叉形
+            $datas = EnrollModel::where('game_id', env('GAME'))->groupBy('player_id')->get();
+            // $datas = EnrollModel::where('id',3442)->get();
             
+
             foreach ($datas as $data) {
-                $data->item = '國中菁英組' . substr($data->item,18);
-                $data->save();
+                $player = PlayerModel::where('id', $data->player_id)->first();
+                // $player = PlayerModel::where('id',3442)->first();
+                
+                if (substr($player->agency,0,12) == '花蓮縣立') {
+                    $player->city = '花蓮縣';
+                    $player->agency = substr($player->agency,12);
+                    $player->save();
+                    continue;
+                }
+
+                if (substr($player->agency,0,12) == '花蓮市立') {
+                    $player->city = '花蓮市';
+                    $player->agency = substr($player->agency,12);
+                    $player->save();
+                    continue;
+                }
+
+                if (substr($player->agency,0,9) == '花蓮縣') {
+                    $player->city = '花蓮縣';
+                    $player->agency = substr($player->agency,9);
+                    $player->save();
+                    continue;
+                }
+
+                if (substr($player->agency,0,9) == '花蓮市') {
+                    $player->city = '花蓮市';
+                    $player->agency = substr($player->agency,9);
+                    $player->save();
+                    continue;
+                }
             } 
+
+            // 處理 蒲宥均 國中菁英組 調 國中甲組
+            $playerID = PlayerModel::where('player.identity_id', 'U122167771')->first()->id;
+            $datas = EnrollModel::where('game_id',env('GAME'))->where('player_id', $playerID)->where('item','like','%國中菁英組%')->get();
+            foreach ($datas as $data) {
+                $data->item = '國中甲組' . substr($data->item,15);
+                $data->save();
+            }
+
+
+            // 處理 國中 調 國中菁英組
+            $datas = EnrollModel::where('game_id',env('GAME'))->where('item','like','%國中組%')->get();
+            foreach ($datas as $data) {
+                $data->item = '國中菁英組' . substr($data->item,9);
+                $data->save();
+            }
+
+            // foreach ($datas as $data) {
+            //     $data->item = '國中菁英組' . substr($data->item, 18);
+            //     $data->save();
+            // } 
         }
 
         if (config('app.game_id') == 11) {
@@ -349,22 +399,22 @@ class GroupingController extends Controller
         $this->setGrouping(null, null, '女','公開組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','青年組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','青年組 前溜單足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中組 前溜單足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中組 前溜單足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中菁英組 前溜單足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '女','國中菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小高年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小高年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小中年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小中年級菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','青年組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','青年組 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中組 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中組 前溜雙足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中菁英組 前溜單足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '女','國中菁英組 前溜單足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小高年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小高年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','青年組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','青年組 前溜交叉形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中組 前溜交叉形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中組 前溜交叉形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中菁英組 前溜交叉形', '', '', '1', '300');
+        $this->setGrouping(null, null, '女','國中菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小高年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小高年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國中菁英組 前溜雙足S形', '', '', '1', '300');
@@ -375,8 +425,8 @@ class GroupingController extends Controller
         $this->setGrouping(null, null, '女','國小中年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小低年級菁英組 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小低年級菁英組 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '男','國中菁英組 前溜交叉形', '', '', '1', '300');
-        $this->setGrouping(null, null, '女','國中菁英組 前溜交叉形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中甲組 前溜雙足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '男','國中甲組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小中年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小中年級菁英組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小低年級菁英組 前溜交叉形', '', '', '1', '300');
@@ -397,7 +447,6 @@ class GroupingController extends Controller
         $this->setGrouping(null, null, '女','幼童大班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','幼童中班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','幼童中班 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '不分','幼幼班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '不分','幼幼班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男','國小六年級選手甲組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女','國小六年級選手甲組 前溜交叉形', '', '', '1', '300');
