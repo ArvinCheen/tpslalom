@@ -281,7 +281,7 @@ class GroupingController extends Controller
         $this->setGrouping('選手組','國小六年級','女','前進單足S形', '', '', '1', 300);
         $this->setGrouping('選手組','國中','男','前進單足S形', '', '', '1', 300);
         $this->setGrouping('選手組','國中','女','前進單足S形', '', '', '1', 300);
-        $this->setGrouping('選手組','高中','女','前進單足S形', '', '', '1', 300);
+        $this->setGrouping('選手組','高中','男','前進單足S形', '', '', '1', 300);
         $this->setGrouping('選手組','高中','女','前進單足S形', '', '', '1', 300);
         $this->setGrouping('選手組','大專','男','前進單足S形', '', '', '1', 300);
         $this->setGrouping('選手組','大專','女','前進單足S形', '', '', '1', 300);
