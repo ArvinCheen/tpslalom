@@ -158,14 +158,14 @@
                                 <td class="text-center" style="width:70px"> {{ $enroll->player_number }} <br>{{ $enroll->player->name }}</td>
                                 @switch ($model)
                                     @case('speed')
-{{--                                    <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ rand(4, 20) . '.' . rand(0,9) }}"--}}
-{{--                                                                   autocomplete="off"></td>--}}
-{{--                                    <td class="text-center"><input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3"--}}
-{{--                                                                   value="{{ rand(0,7) }}" autocomplete="off"></td>--}}
-{{--                                    <td class="text-center"><input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ rand(4, 20) . '.' . rand(0,9) }}"--}}
-{{--                                                                   autocomplete="off"></td>--}}
-{{--                                    <td class="text-center"><input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3"--}}
-{{--                                                                   value="{{ rand(0,7) }}" autocomplete="off"></td>--}}
+                                   {{-- <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ rand(4, 10) . '.' . rand(0,9) }}"
+                                                                  autocomplete="off"></td>
+                                   <td class="text-center"><input name="roundOneMissConr[]" type="text" class="text-center resultInput roundOneMissConr" size="3"
+                                                                  value="{{ rand(0,7) }}" autocomplete="off"></td>
+                                   <td class="text-center"><input name="roundTwoSecond[]" type="text" class="text-center resultInput roundTwoSecond" size="8" value="{{ rand(4, 20) . '.' . rand(0,9) }}"
+                                                                  autocomplete="off"></td>
+                                   <td class="text-center"><input name="roundTwoMissConr[]" type="text" class="text-center resultInput roundTwoMissConr" size="3"
+                                                                   value="{{ rand(0,7) }}" autocomplete="off"></td> --}}
 
 
                                     <td class="text-center"><input name="roundOneSecond[]" type="text" class="text-center resultInput roundOneSecond" size="8" value="{{ $enroll->round_one_second }}"

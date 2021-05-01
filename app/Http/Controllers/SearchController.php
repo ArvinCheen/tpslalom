@@ -56,21 +56,22 @@ class SearchController extends Controller
             $result = $searchService->getResult($scheduleId);
         }
 
-        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
-        $remark         = ScheduleModel::find($scheduleId)->remark;
+        // $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
+        // $remark         = ScheduleModel::find($scheduleId)->remark;
 
-        if ($numberOfPlayer == 1) {
-            $rankLimit = 1;
-        } else {
-            $rankLimit = floor($numberOfPlayer / 2);
+        // 這段好像用不到了
+        // if ($numberOfPlayer == 1) {
+        //     $rankLimit = 1;
+        // } else {
+        //     $rankLimit = floor($numberOfPlayer / 2);
 
-            if ($rankLimit > 6) {
-                $rankLimit = 6;
-            }
-        }
+        //     if ($rankLimit > 6) {
+        //         $rankLimit = 6;
+        //     }
+        // }
 
 
-        return view('search/result', compact('scheduleId', 'model', 'schedules', 'scheduleInfo', 'rankLimit', 'remark', 'taipeiCityResult', 'otherCityResult', 'result'));
+        return view('search/result', compact('scheduleId', 'model', 'schedules', 'scheduleInfo', 'taipeiCityResult', 'otherCityResult', 'result'));
     }
 
     private function getModel($item)

@@ -45,9 +45,19 @@ class SearchService
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
+            ->whereRaw('(`round_one_second` is not null or `round_one_miss_conr` is not null or `round_two_second` is not null or `round_two_miss_conr` is not null)')
             ->orderByRaw('-`rank` desc')
-            ->orderByRaw('-final_result desc')
-            ->get();
+            ->get()
+            ->merge(EnrollModel::where('game_id', config('app.game_id'))
+                ->where($this->getGroupColumn($gameInfo->group), $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->where('level', $gameInfo->level)
+                ->whereNull('round_one_second')
+                ->whereNull('round_one_miss_conr')
+                ->whereNull('round_two_second')
+                ->whereNull('round_two_miss_conr')
+                ->get());
 
         return $this->translationResult($data);
     }
@@ -73,14 +83,27 @@ class SearchService
         $data = EnrollModel::whereHas('player', function ($query) {
             $query->where('city', '臺北市');
         })
+        ->where('game_id', config('app.game_id'))
+        ->where('group', $gameInfo->group)
+        ->where('item', $gameInfo->item)
+        ->where('gender', $gameInfo->gender)
+        ->where('level', $gameInfo->level)
+        ->whereRaw('(`round_one_second` is not null or `round_one_miss_conr` is not null or `round_two_second` is not null or `round_two_miss_conr` is not null)')
+        ->orderByRaw('-`rank` desc')
+        ->get()
+        ->merge(EnrollModel::whereHas('player', function ($query) {
+            $query->where('city', '臺北市');
+        })
             ->where('game_id', config('app.game_id'))
             ->where('group', $gameInfo->group)
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
-            ->orderByRaw('-`rank` desc')
-            ->orderByRaw('-final_result desc')
-            ->get();
+            ->whereNull('round_one_second')
+            ->whereNull('round_one_miss_conr')
+            ->whereNull('round_two_second')
+            ->whereNull('round_two_miss_conr')
+            ->get());
 
         return $this->translationResult($data);
     }
@@ -97,9 +120,22 @@ class SearchService
             ->where('item', $gameInfo->item)
             ->where('gender', $gameInfo->gender)
             ->where('level', $gameInfo->level)
+            ->whereRaw('(`round_one_second` is not null or `round_one_miss_conr` is not null or `round_two_second` is not null or `round_two_miss_conr` is not null)')
             ->orderByRaw('-`rank` desc')
-            ->orderByRaw('-final_result desc')
-            ->get();
+            ->get()
+            ->merge(EnrollModel::whereHas('player', function ($query) {
+                $query->where('city', '<>', '臺北市');
+            })
+                ->where('game_id', config('app.game_id'))
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->where('level', $gameInfo->level)
+                ->whereNull('round_one_second')
+                ->whereNull('round_one_miss_conr')
+                ->whereNull('round_two_second')
+                ->whereNull('round_two_miss_conr')
+                ->get());
 
         return $this->translationResult($data);
     }

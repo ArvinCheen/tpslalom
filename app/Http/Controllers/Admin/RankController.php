@@ -79,18 +79,26 @@ class RankController extends Controller
             ->where('gender', $gender)
             ->where('group', $group)
             ->where('item', $item)
-            ->whereNotNull('final_result')
-            ->limit(6)
-            ->orderBy(\DB::raw('final_result * 1'))
+            // ->whereNotNull('final_result')
+            // ->limit(6)
+            // ->orderBy(\DB::raw('final_result * 1'))
+            ->orderByRaw('-`final_result` desc')
             ->get();
 
         $integrals = $this->getIntegrals($level);
+        // dd($integrals);
 
         $count = count($enrolls) - 1;
+
+        if ($count > 5) { // 最多取六名
+            $count = 5;
+        }
+
         foreach ($enrolls as $enroll) {
             $integral = $integrals[$count];
-
-            if ($enroll->final_result == '無成績') {
+            // echo "count: $count  |  rank: $enroll->rank <br>";
+            
+            if (is_null($enroll->rank)) {
                 continue;
             }
 
@@ -99,9 +107,14 @@ class RankController extends Controller
             }
 
             EnrollModel::where('id', $enroll->id)->update(['integral' => $integral]);
-
+            
             $count--;
+
+            if ($count < 0) {
+                break;
+            }
         }
+        // dd();
     }
 
     private function getIntegrals($level)
