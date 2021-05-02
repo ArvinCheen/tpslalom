@@ -614,8 +614,17 @@ class ExportController extends Controller
                         $sheet->mergeCells('C18:E18'); $sheet->mergeCells('F18:K18');
                         $sheet->mergeCells('C19:E19'); $sheet->mergeCells('F19:K19');
                         $sheet->mergeCells('C20:E20'); $sheet->mergeCells('F20:K20');
-//                        $sheet->mergeCells('C21:E21'); $sheet->mergeCells('F21:J21');
-                        $sheet->mergeCells('A41:L41');
+                        $sheet->mergeCells('A40:L40');
+
+                        $sheet->setHeight([
+                            15     =>  35,
+                            16     =>  35,
+                            17     =>  35,
+                            18     =>  35,
+                            19     =>  35,
+                            20     =>  35,
+                        ]);
+
                         $sheet->cell('A9', function ($cell) use ($enroll) {
                             $cell->setValue('完 賽 證 明');
                             $cell->setFontSize(60);
@@ -639,7 +648,7 @@ class ExportController extends Controller
                         });
                         $sheet->cell('C14', function ($cell) use ($enroll, $gameInfo) {
                             if (isset(explode(' ', $gameInfo->letter)[1])) {
-                                $cell->setValue(explode(' ', $gameInfo->letter)[1]);
+                                $cell->setValue(explode(' ', $gameInfo->letter)[1] . "　");
                             }
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
@@ -735,7 +744,7 @@ class ExportController extends Controller
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
-                        $sheet->cell('A41', function ($cell) use ($enroll) {
+                        $sheet->cell('A40', function ($cell) use ($enroll) {
                             $cell->setValue('中　華　民　國　110　年　5　月　2　日');
                             $cell->setFontSize(18);
                             $cell->setAlignment('center');
