@@ -66,7 +66,7 @@ class GameInfoController extends Controller
             $group  = $schedule->group;
             $gender = $schedule->gender;
             $item   = $schedule->item;
-            $level   = $schedule->level;
+            $level  = $schedule->level;
 
             $query = EnrollModel::query();
             $query->where('game_id', env('GAME'));
@@ -81,9 +81,11 @@ class GameInfoController extends Controller
             }
 
             // 花蓮不適用級別
-            if (env('GAME') <> 13) {
+            if (env('GAME') == 13) {
                 $schedule->players = $query->where('gender', $gender)
                     ->where('item', $item)
+                    ->where('group', $group)
+                    ->where('level', $level)
                     ->orderBy('appearance')
                     ->orderBy('player_number')
                     ->orderBy('player_id')
@@ -91,7 +93,6 @@ class GameInfoController extends Controller
             } else {
                 $schedule->players = $query->where('gender', $gender)
                     ->where('item', $item)
-                    ->where('level', $level)
                     ->orderBy('appearance')
                     ->orderBy('player_number')
                     ->orderBy('player_id')
