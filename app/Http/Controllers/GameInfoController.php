@@ -71,7 +71,7 @@ class GameInfoController extends Controller
             $query = EnrollModel::query();
             $query->where('game_id', env('GAME'));
 
-            // 花蓮不適用組別
+            
             if (env('GAME') <> 13) {
                 if (strpos($item, '套路') !== false) {
                     $query->where('group2', $group);
@@ -80,19 +80,18 @@ class GameInfoController extends Controller
                 }
             }
 
-            // 花蓮不適用級別
             if (env('GAME') == 13) {
                 $schedule->players = $query->where('gender', $gender)
                     ->where('item', $item)
-                    ->where('group', $group)
-                    ->where('level', $level)
                     ->orderBy('appearance')
                     ->orderBy('player_number')
                     ->orderBy('player_id')
                     ->get();
             } else {
                 $schedule->players = $query->where('gender', $gender)
+                    ->where('group', $group)
                     ->where('item', $item)
+                    ->where('level', $level)
                     ->orderBy('appearance')
                     ->orderBy('player_number')
                     ->orderBy('player_id')
