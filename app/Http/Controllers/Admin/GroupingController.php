@@ -59,14 +59,11 @@ class GroupingController extends Controller
 
             foreach ($datas as $data) {
                 $data->item = '幼幼班' . substr($data->item,9);
+                $data->gender = '不分';
                 $data->save();
             } 
 
-
-
             $datas = EnrollModel::where('game_id', env('GAME'))->groupBy('player_id')->get();
-            // $datas = EnrollModel::where('id',3442)->get();
-            
 
             foreach ($datas as $data) {
                 $player = PlayerModel::where('id', $data->player_id)->first();
@@ -444,7 +441,7 @@ class GroupingController extends Controller
         $this->setGrouping(null, null, '女', '幼童大班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男', '幼童中班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '女', '幼童中班 前溜雙足S形', '', '', '1', '300');
-        $this->setGrouping(null, null, '不', '幼幼班 前溜雙足S形', '', '', '1', '300');
+        $this->setGrouping(null, null, '不分', '幼幼班 前溜雙足S形', '', '', '1', '300');
         $this->setGrouping(null, null, '男', '國中甲組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '男', '國小六年級選手甲組 前溜交叉形', '', '', '1', '300');
         $this->setGrouping(null, null, '女', '國小六年級選手甲組 前溜交叉形', '', '', '1', '300');

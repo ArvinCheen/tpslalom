@@ -100,7 +100,7 @@ class ExportController extends Controller
         $gameName = GameModel::find(config('app.game_id'))->complete_name;
         $section->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText('分組名冊', ['size' => 20]);
         $section->addTextBreak();
-        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->orderBy('id')->get();
+        $schedules = ScheduleModel::where('game_id', config('app.game_id'))->where('order','場次50')->orderBy('id')->get();
 
         foreach ($schedules as $schedule) {
             $fontSize            = 10;
@@ -153,7 +153,7 @@ class ExportController extends Controller
                     ->orderBy('player_number')
                     ->orderBy('player_id')
                     ->get();
-
+ 
                 for ($i = 0; $i < count($enrolls); $i += 3) {
                     $agencyName = $enrolls[$i]->player->city . $enrolls[$i]->player->agency;
 
