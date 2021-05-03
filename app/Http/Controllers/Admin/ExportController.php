@@ -113,7 +113,7 @@ class ExportController extends Controller
 
             $table->addRow();
             $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderLeftSize' => 1])->addText($schedule->order, $textStyle);
-            $table->addCell(100 * 60, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText("$schedule->group $schedule->item", $textStyle);
+            $table->addCell(100 * 60, ['borderTopSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER])->addText($schedule->gender . "子 $schedule->group $schedule->item", $textStyle);
             $numberOfPlyaer = empty($schedule->number_of_player) ? '?' : $schedule->number_of_player;
             $table->addCell(100 * 20, ['borderTopSize' => 1, 'borderRightSize' => 1])->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END])->addText('共 ' . $numberOfPlyaer . ' 人', $textStyle);
 
