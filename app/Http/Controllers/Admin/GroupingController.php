@@ -114,10 +114,9 @@ class GroupingController extends Controller
                 $data->save();
             }
 
-            // foreach ($datas as $data) {
-            //     $data->item = '國中菁英組' . substr($data->item, 18);
-            //     $data->save();
-            // } 
+            // 將 國立體育大學 的花蓮縣移除
+            PlayerModel::where('agency', '國立體育大學')->where('name', '楊曾智')->update(['city' => null]);
+            
         }
 
         if (config('app.game_id') == 11) {
