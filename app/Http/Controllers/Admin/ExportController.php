@@ -1155,13 +1155,21 @@ class ExportController extends Controller
                             ->get();
                     } else {
 
-                        $enrolls = EnrollModel::where('gender', $schedule->gender)
-                            ->where('group', $schedule->group)
-                            ->where('item', $schedule->item)
-                            ->where('level', $schedule->level)
-                            ->where('game_id', config('app.game_id'))
-                            ->orderBy('appearance')
-                            ->get();
+                        if (env('GAME') == 13) {
+                            $enrolls = EnrollModel::where('gender', $schedule->gender)
+                                ->where('item', $schedule->item)
+                                ->where('game_id', config('app.game_id'))
+                                ->orderBy('appearance')
+                                ->get();
+                        } else {
+                            $enrolls = EnrollModel::where('gender', $schedule->gender)
+                                ->where('group', $schedule->group)
+                                ->where('item', $schedule->item)
+                                ->where('level', $schedule->level)
+                                ->where('game_id', config('app.game_id'))
+                                ->orderBy('appearance')
+                                ->get();
+                        }
                     }
 
                     $location = 6;

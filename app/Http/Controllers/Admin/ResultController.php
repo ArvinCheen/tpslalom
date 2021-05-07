@@ -42,13 +42,21 @@ class ResultController extends Controller
                     ->get();
             } else {
 
-                $enrolls = EnrollModel::where('gender', $gameInfo->gender)
-                    ->where('game_id', config('app.game_id'))
-                    ->where('group', $gameInfo->group)
-                    ->where('item', $gameInfo->item)
-                    ->where('level', $gameInfo->level)
-                    ->orderBy('appearance')
-                    ->get();
+                if (env('GAME') == 13) {
+                    $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+                        ->where('game_id', config('app.game_id'))
+                        ->where('item', $gameInfo->item)
+                        ->orderBy('appearance')
+                        ->get();
+                } else {
+                    $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+                        ->where('game_id', config('app.game_id'))
+                        ->where('group', $gameInfo->group)
+                        ->where('item', $gameInfo->item)
+                        ->where('level', $gameInfo->level)
+                        ->orderBy('appearance')
+                        ->get();
+                }
             }
         }
 
