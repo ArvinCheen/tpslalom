@@ -44,11 +44,21 @@ class SearchController extends Controller
 
         if ($model == 'speed') {
 
-            if ($scheduleInfo->level == '選手組') {
-                $result = $searchService->getResult($scheduleId);
-            } else {
-                $taipeiCityResult = $searchService->getTaipeiCityResult($scheduleId);
-                $otherCityResult  = $searchService->getOtherCityResult($scheduleId);
+            if (env('GAME') == 11) {
+                if ($scheduleInfo->level == '選手組') {
+                    $result = $searchService->getResult($scheduleId);
+                } else {
+                    $taipeiCityResult = $searchService->getTaipeiCityResult($scheduleId);
+                    $otherCityResult  = $searchService->getOtherCityResult($scheduleId);
+                }
+            }
+
+            if (env('GAME') == 12) {
+                dd('未設定');
+            }
+
+            if (env('GAME') == 13) {
+                $result = $searchService->getResultForHualien($scheduleId);
             }
         }
 

@@ -150,11 +150,10 @@
                                     <th class="text-center"> 誤椿</th>
                                     <th class="text-center"> 成績</th>
                                     <th class="text-center"> 名次</th>
-                                    <th class="text-center"> 積分</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($result as $key => $val)
+                                    @foreach ($result as $key => $val)
                                         <tr>
                                             <td class="text-center"> {{ $val->player_number }} {{$val->player->name}} </td>
                                             <td class="text-center"> {{ $val->round_one_second }} </td>
@@ -163,9 +162,8 @@
                                             <td class="text-center"> {{ $val->round_two_miss_conr == 99 ? '超過5次' : $val->round_two_miss_conr }} </td>
                                             <td class="text-center"> {{ $val->final_result }} </td>
                                             <td class="text-center"> {{ $val->rank }} </td>
-                                            <td class="text-center"> {{ $val->integral }} </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

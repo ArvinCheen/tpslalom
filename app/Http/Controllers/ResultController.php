@@ -17,6 +17,15 @@ class ResultController extends Controller
         $schedules     = $scheduleModel->getSchedules();
         $schedule      = $scheduleModel->getSchedule($order);
 
+        if (env('GAME') == 13) {
+            $enrollData = EnrollModel::where('game_id', env('GAME'))
+            ->where('gender', $schedule->gender)
+            ->where('item', $schedule->item)
+            ->orderBy('rank')
+            ->get();
+        } else {
+
+        
         $enrollData = EnrollModel::where('game_id', env('GAME'))
             ->where('group', $schedule->group)
             ->where('gender', $schedule->gender)
@@ -24,7 +33,7 @@ class ResultController extends Controller
             ->where('level', $schedule->level)
             ->orderBy('rank')
             ->get();
-
+        }
         foreach ($enrollData as $val) {
             if (! is_null($val->finalResult)) {
                 $explodeSecond = explode(".", $val->finalResult);

@@ -36,6 +36,28 @@ class SearchService
         return $players;
     }
 
+    public function getResultForHualien($scheduleId)
+    {
+        $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
+
+        $data = EnrollModel::where('game_id', config('app.game_id'))
+            ->where('item', $gameInfo->item)
+            ->where('gender', $gameInfo->gender)
+            ->whereRaw('(`round_one_second` is not null or `round_one_miss_conr` is not null or `round_two_second` is not null or `round_two_miss_conr` is not null)')
+            ->orderByRaw('-`final_result` desc')
+            ->get()
+            ->merge(EnrollModel::where('game_id', config('app.game_id'))
+                ->where('item', $gameInfo->item)
+                ->where('gender', $gameInfo->gender)
+                ->whereNull('round_one_second')
+                ->whereNull('round_one_miss_conr')
+                ->whereNull('round_two_second')
+                ->whereNull('round_two_miss_conr')
+                ->get());
+
+        return $this->translationResult($data);
+    }
+
     public function getResult($scheduleId)
     {
         $gameInfo = ScheduleModel::where('game_id', config('app.game_id'))->where('id', $scheduleId)->first();
