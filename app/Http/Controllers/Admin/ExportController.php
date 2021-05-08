@@ -1379,11 +1379,18 @@ class ExportController extends Controller
                     } else {
 
                         if (env('GAME') == 13) {
-                            $enrolls = EnrollModel::where('gender', $schedule->gender)
-                                ->where('item', $schedule->item)
-                                ->where('game_id', config('app.game_id'))
-                                ->orderBy('appearance')
-                                ->get();
+                            if ($schedule->gender == '不分') {
+                                $enrolls = EnrollModel::where('item', $schedule->item)
+                                    ->where('game_id', config('app.game_id'))
+                                    ->orderBy('appearance')
+                                    ->get();
+                            } else {
+                                $enrolls = EnrollModel::where('gender', $schedule->gender)
+                                    ->where('item', $schedule->item)
+                                    ->where('game_id', config('app.game_id'))
+                                    ->orderBy('appearance')
+                                    ->get();
+                            }
                         } else {
                             $enrolls = EnrollModel::where('gender', $schedule->gender)
                                 ->where('group', $schedule->group)
