@@ -827,14 +827,12 @@ class ExportController extends Controller
                         $sheet->cell('A12', function ($cell) use ($enroll, $gameInfo) {
                             $cell->setValue($gameInfo->complete_name);
                             $cell->setFontSize(26);
-                            $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
                         $sheet->cell('A13', function ($cell) use ($enroll, $gameInfo) {
                             $cell->setValue('暨速度過樁代表隊選手選拔賽');
                             $cell->setFontSize(22);
-                            $cell->setFontWeight('bold');
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
