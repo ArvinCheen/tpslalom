@@ -242,7 +242,7 @@ class EnrollModel extends Model
 
     public function getResults($level, $gender, $group, $item, $rankLimit, $city)
     {
-        return $this::whereHas('player', function ($query) use ($gender, $city) {
+        $data = $this::whereHas('player', function ($query) use ($gender, $city) {
             $query->where('gender', $gender);
 
             if (! is_null($city)) {
@@ -254,16 +254,21 @@ class EnrollModel extends Model
                     $query->where('city', '<>', '臺北市');
                 }
             }
-        })
-            ->where('game_id', config('app.game_id'))
-            ->where('group', $group)
-            ->where('item', $item)
-            ->where('level', $level)
-            ->where('final_result', '<>', '無成績')
+        })->where('game_id', config('app.game_id'))
+        ->where('item', $item);
+
+        if (env('GAME') <> 13) {
+            $data = $data->where('group', $group)
+                ->where('level', $level);
+        }
+            
+            $data = $data->where('final_result', '<>', '無成績')
             ->where('final_result', '<>', '')
             ->limit($rankLimit)
             ->orderBy(\DB::raw("final_result * 1"))
             ->get();
+
+            return $data;
     }
 
     public function getOtherCityResultOrderSn($level, $gender, $group, $item)

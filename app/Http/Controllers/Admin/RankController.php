@@ -42,8 +42,13 @@ class RankController extends Controller
         if ($level == '選手組') {
             $this->processRank($level, $gender, $group, $item, $rankLimit, null);
         } else {
-            $this->processRank($level, $gender, $group, $item, $rankLimit, '臺北市');
-            $this->processRank($level, $gender, $group, $item, $rankLimit, '外縣市');
+            if (env('GAME') == 11) {
+                $this->processRank($level, $gender, $group, $item, $rankLimit, '臺北市');
+                $this->processRank($level, $gender, $group, $item, $rankLimit, '外縣市');
+            } else {
+                $this->processRank($level, $gender, $group, $item, $rankLimit);
+            }
+            
         }
 
         $gameInfo->open_result_time = now();
@@ -53,7 +58,7 @@ class RankController extends Controller
     }
 
 
-    public function processRank($level, $gender, $group, $item, $rankLimit, $city)
+    public function processRank($level, $gender, $group, $item, $rankLimit, $city = null)
     {
         $results = app(EnrollModel::class)->getResults($level, $gender, $group, $item, $rankLimit, $city);
 
