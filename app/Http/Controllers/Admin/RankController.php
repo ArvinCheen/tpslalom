@@ -74,13 +74,7 @@ class RankController extends Controller
                 return 2;
             case ('3'):
                 return 3;
-            case ('3'):
-                return 3;
-            case ('3'):
-                return 3;
             case ('4'):
-                return 3;
-            case ('5'):
                 return 3;
             case ('5'):
                 return 3;
@@ -106,9 +100,15 @@ class RankController extends Controller
                 return 7;
             case ('16'):
                 return 8;
+            case ('17'):
+                return 8;
             case ('18'):
                 return 8;
             case ('21'):
+                return 10;
+            case ('22'):
+                return 10;
+            case ('23'):
                 return 10;
             case ('24'):
                 return 10;
