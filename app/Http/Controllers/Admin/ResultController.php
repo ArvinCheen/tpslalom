@@ -43,11 +43,18 @@ class ResultController extends Controller
             } else {
 
                 if (env('GAME') == 13) {
-                    $enrolls = EnrollModel::where('gender', $gameInfo->gender)
-                        ->where('game_id', config('app.game_id'))
-                        ->where('item', $gameInfo->item)
-                        ->orderBy('appearance')
-                        ->get();
+                    if ($gameInfo->gender == '不分') {
+                        $enrolls = EnrollModel::where('game_id', config('app.game_id'))
+                            ->where('item', $gameInfo->item)
+                            ->orderBy('appearance')
+                            ->get();
+                    } else {
+                        $enrolls = EnrollModel::where('gender', $gameInfo->gender)
+                            ->where('game_id', config('app.game_id'))
+                            ->where('item', $gameInfo->item)
+                            ->orderBy('appearance')
+                            ->get();
+                    }
                 } else {
                     $enrolls = EnrollModel::where('gender', $gameInfo->gender)
                         ->where('game_id', config('app.game_id'))
