@@ -165,16 +165,28 @@ class EnrollModel extends Model
     {
         $gameInfo = ScheduleModel::find($scheduleId);
 
-        $enrolls = $this->select('enroll.id')
-            ->where('game_id', config('app.game_id'))
-            ->where('gender', $gameInfo->gender)
-            ->where('group', $gameInfo->group)
-            ->where('item', $gameInfo->item)
-            ->where('level', $gameInfo->level)
-            ->get()
-            ->map(function ($query) {
-                return $query->id;
-            });
+        if (env('GAME') == 13) {
+            $enrolls = $this->select('enroll.id')
+                ->where('game_id', config('app.game_id'))
+                ->where('gender', $gameInfo->gender)
+                ->where('item', $gameInfo->item)
+                ->get()
+                ->map(function ($query) {
+                    return $query->id;
+                });
+        } else {
+
+            $enrolls = $this->select('enroll.id')
+                ->where('game_id', config('app.game_id'))
+                ->where('gender', $gameInfo->gender)
+                ->where('group', $gameInfo->group)
+                ->where('item', $gameInfo->item)
+                ->where('level', $gameInfo->level)
+                ->get()
+                ->map(function ($query) {
+                    return $query->id;
+                });
+        }
 
         return $this->whereIn('id', $enrolls)->update(['rank' => null, 'integral' => null,]);
     }
