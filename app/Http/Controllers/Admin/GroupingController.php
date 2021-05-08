@@ -55,7 +55,7 @@ class GroupingController extends Controller
                 $data->save();
             } 
 
-            $datas = EnrollModel::where('game_id', env('GAME'))->where('item','like','%幼幼組%')->get();
+            $datas = EnrollModel::where('game_id', env('GAME'))->where('item','like','%幼幼班%')->get();
 
             foreach ($datas as $data) {
                 $data->item = '幼幼班' . substr($data->item,9);

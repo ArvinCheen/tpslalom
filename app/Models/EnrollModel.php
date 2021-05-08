@@ -255,7 +255,7 @@ class EnrollModel extends Model
     public function getResults($level, $gender, $group, $item, $rankLimit, $city)
     {
         $data = $this::whereHas('player', function ($query) use ($gender, $city) {
-            $query->where('gender', $gender);
+            // $query->where('gender', $gender);
 
             if (! is_null($city)) {
                 if ($city == '臺北市') {
@@ -267,6 +267,7 @@ class EnrollModel extends Model
                 }
             }
         })->where('game_id', config('app.game_id'))
+        ->where('gender', $gender)
         ->where('item', $item);
 
         if (env('GAME') <> 13) {
