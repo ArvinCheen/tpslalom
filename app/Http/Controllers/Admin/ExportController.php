@@ -830,6 +830,7 @@ class ExportController extends Controller
                         $sheet->setFontFamily('標楷體');
                         $sheet->mergeCells('A9:L9');
                         $sheet->mergeCells('A12:L12');
+                        $sheet->mergeCells('A13:L13');
                         $sheet->mergeCells('C10:K10');
                         $sheet->mergeCells('C14:K14');
                         $sheet->mergeCells('C15:E15');
@@ -843,11 +844,11 @@ class ExportController extends Controller
                         $sheet->mergeCells('C19:E19');
                         $sheet->mergeCells('F19:K19');
                         $sheet->mergeCells('A20:K20');
-                        $sheet->mergeCells('A40:L40');
+                        $sheet->mergeCells('A37:L37');
 
                         $sheet->setHeight([
                             9 => 110,
-                            13     =>  3,
+                            11     =>  5,
                             14     =>  3,
                             15     =>  33,
                             16     =>  33,
@@ -855,7 +856,6 @@ class ExportController extends Controller
                             18     =>  33,
                             19     =>  33,
                             20     =>  33,
-                            40     =>  60,
                         ]);
 
                         // $sheet->cell('A9', function ($cell) use ($enroll) {
@@ -864,18 +864,26 @@ class ExportController extends Controller
                         //     $cell->setAlignment('center');
                         //     $cell->setValignment('center');
                         // });
-                        $sheet->cell('A12', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue($gameInfo->complete_name);
-                            $cell->setFontSize(30);
-                            $cell->setFontWeight('bold');
-                            $cell->setAlignment('center');
-                            $cell->setValignment('center');
-                        });
-                        
+
                         $sheet->cell('C10', function ($cell) use ($enroll, $gameInfo) {
                             $cell->setValue(explode(' ', $gameInfo->letter)[0] . '　　');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
+                            $cell->setValignment('center');
+                        });
+                        
+                        $sheet->cell('A12', function ($cell) use ($enroll, $gameInfo) {
+                            $cell->setValue($gameInfo->complete_name);
+                            $cell->setFontSize(26);
+                            $cell->setFontWeight('bold');
+                            $cell->setAlignment('center');
+                            $cell->setValignment('center');
+                        });
+                        $sheet->cell('A13', function ($cell) use ($enroll, $gameInfo) {
+                            $cell->setValue('暨速度過樁代表隊選手選拔賽');
+                            $cell->setFontSize(22);
+                            $cell->setFontWeight('bold');
+                            $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
 
@@ -954,12 +962,12 @@ class ExportController extends Controller
 
                         $sheet->cell('A20', function ($cell) use ($enroll, $scheduleId) {
                             $cell->setValue('特頒此狀　以資鼓勵');
-                            $cell->setFontSize(30);
+                            $cell->setFontSize(26);
                             $cell->setAlignment('center');
                             $cell->setValignment('center');
                         });
 
-                        $sheet->cell('A40', function ($cell) use ($enroll) {
+                        $sheet->cell('A37', function ($cell) use ($enroll) {
                             $cell->setValue('中　華　民　國　110　年　5　月　8　日');
                             $cell->setFontSize(18);
                             $cell->setAlignment('center');

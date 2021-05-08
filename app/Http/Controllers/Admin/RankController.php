@@ -31,32 +31,93 @@ class RankController extends Controller
         $group    = $gameInfo->group;
         $item     = $gameInfo->item;
 
-        $rankLimit = ScheduleModel::find($scheduleId)->number_of_player;
-
-        if ($rankLimit >= 6) {
-            $rankLimit = 6;
-        }
+        $numberOfPlayer = ScheduleModel::find($scheduleId)->number_of_player;
 
         app(EnrollModel::class)->cleanRankAndIntegral($scheduleId);
+        
+        if (env('GAME') == 11) {
+            if ($numberOfPlayer >= 6) {
+                $rankLimit = 6;
+            } else {
+                $rankLimit = $numberOfPlayer;
+            }
 
-        if ($level == '選手組') {
-            $this->processRank($level, $gender, $group, $item, $rankLimit, null);
-        } else {
-            if (env('GAME') == 11) {
+            if ($level == '選手組') {
+                $this->processRank($level, $gender, $group, $item, $rankLimit, null);
+            } else {
                 $this->processRank($level, $gender, $group, $item, $rankLimit, '臺北市');
                 $this->processRank($level, $gender, $group, $item, $rankLimit, '外縣市');
-            } else {
-                $this->processRank($level, $gender, $group, $item, $rankLimit);
             }
-            
         }
-
+        
+        if (env('GAME') == 12) {
+            dd('未設定');
+        }
+        
+        if (env('GAME') == 13) {
+            $rankLimit = $this->getHualienRankLimit($numberOfPlayer);
+            $this->processRank($level, $gender, $group, $item, $rankLimit);
+        }
+        
         $gameInfo->open_result_time = now();
         $gameInfo->save();
 
         $this->processIntegral($level, $gender, $group, $item);
     }
 
+    private function getHualienRankLimit($numberOfPlayer)
+    {
+        switch ($numberOfPlayer) {
+            case ('1'):
+                return 1;
+            case ('2'):
+                return 2;
+            case ('3'):
+                return 3;
+            case ('3'):
+                return 3;
+            case ('3'):
+                return 3;
+            case ('4'):
+                return 3;
+            case ('5'):
+                return 3;
+            case ('5'):
+                return 3;
+            case ('6'):
+                return 4;
+            case ('7'):
+                return 5;
+            case ('8'):
+                return 5;
+            case ('9'):
+                return 5;
+            case ('10'):
+                return 6;
+            case ('11'):
+                return 6;
+            case ('12'):
+                return 6;
+            case ('13'):
+                return 6;
+            case ('14'):
+                return 6;
+            case ('15'):
+                return 7;
+            case ('16'):
+                return 8;
+            case ('18'):
+                return 8;
+            case ('21'):
+                return 10;
+            case ('24'):
+                return 10;
+            case ('25'):
+                return 10;
+            default:
+                dd('人數異常');
+            }
+    }
 
     public function processRank($level, $gender, $group, $item, $rankLimit, $city = null)
     {
