@@ -818,7 +818,7 @@ class ExportController extends Controller
                         // });
 
                         $sheet->cell('C10', function ($cell) use ($enroll, $gameInfo) {
-                            $cell->setValue(explode(' ', $gameInfo->letter)[0] . '　　');
+                            $cell->setValue(explode(' ', $gameInfo->letter)[0] . '　');
                             $cell->setFontSize(12);
                             $cell->setAlignment('right');
                             $cell->setValignment('center');
