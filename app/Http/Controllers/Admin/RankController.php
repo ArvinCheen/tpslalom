@@ -46,7 +46,6 @@ class RankController extends Controller
             $this->processRank($level, $gender, $group, $item, $rankLimit, '外縣市');
         }
 
-
         $gameInfo->open_result_time = now();
         $gameInfo->save();
 
