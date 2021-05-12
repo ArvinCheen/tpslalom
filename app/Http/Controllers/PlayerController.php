@@ -30,7 +30,8 @@ class PlayerController extends Controller
 //        $player->doubleS = app(EnrollModel::class)->getItemLevel($playerId, '前進雙足S形');
 //        $player->singleS = app(EnrollModel::class)->getItemLevel($playerId, '前進單足S形');
 //        $player->cross   = app(EnrollModel::class)->getItemLevel($playerId, '前進交叉形');
-        $player->group   = app(EnrollModel::class)->getGroup($playerId);
+//        $player->group   = app(EnrollModel::class)->getGroup($playerId);
+        $player->group   = 'test';
 
         return response()->json($player);
     }
