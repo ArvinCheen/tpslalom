@@ -232,7 +232,7 @@ class EnrollController extends Controller
                 }
                 break;
             case 14:
-                $startFee = 300;
+                $startFee = 400;
 
                 if ($enrollItem) {
                     $fee += count($enrollItem) * 100 + $startFee;
