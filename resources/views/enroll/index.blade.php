@@ -610,10 +610,26 @@
 
         function getPlayer(playerId) {
             // dev 和 production 的domain不同，暫時使用兩種寫法
-                @if (env('APP_ENV') == 'local')
-            var url = "/player/ajaxGetPlayer/" + playerId;
-                @else
-            var url = "/./public/player/ajaxGetPlayer/" + playerId;
+            @if (env('APP_ENV') == 'local')
+                var url = "/player/ajaxGetPlayer/" + playerId;
+            @else
+                @switch (env('GAME'))
+                    @case(11)
+                        var url = "https://nksds.com/tpslalom/public/player/ajaxGetPlayer/" + playerId;
+                    @break;
+                    @case(12)
+                        var url = "https://nksds.com/hsslalom/public/player/ajaxGetPlayer/" + playerId;
+                    @break;
+                    @case(13)
+                        var url = "https://nksds.com/hualien/public/player/ajaxGetPlayer/" + playerId;
+                    @break;
+                    @case(14)
+                        var url = "https://nksds.com/newTpslalom/public/player/ajaxGetPlayer/" + playerId;
+                    @break;
+                @default:
+                @break;
+            @endswitch
+
             @endif
 
             $.ajax({
