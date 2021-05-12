@@ -18,7 +18,6 @@ class EnrollController extends Controller
 {
     public function index($playerId = null)
     {
-        dd(app(EnrollModel::class)->getGroup($playerId));
         $players  = app(PlayerModel::class)::where('account_id', auth()->user()->id)->orderByDesc('id')->get();
         $level    = null;
         $enrolls  = [];
