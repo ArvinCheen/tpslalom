@@ -45,7 +45,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'player'], function () {
-//        Route::get('ajaxGetPlayer/{playerId}', 'PlayerController@ajaxGetPlayer');
+        Route::get('ajaxGetPlayer/{playerId}', 'PlayerController@ajaxGetPlayer');
         Route::delete('deletePlayer', 'PlayerController@deletePlayer');
     });
 
