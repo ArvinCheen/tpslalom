@@ -377,19 +377,53 @@
                         <div class="row mt-3">
                             <div class="col-md-12 mb-12">
                                 <div class="form-check">
+                                    @php
+                                        $checkedStatus = false;
+                                    @endphp
+
+                                    @foreach ($enrolls as $enroll)
+                                        @if ($enroll->item == '前進雙足S形')
+                                            @php
+                                                $checkedStatus = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
                                     <label class="form-check-label">
-                                        <input type="checkbox" name="enrollItem[]" value="前進雙足S形"> 前進雙足S形
+                                        <input type="checkbox" name="enrollItem[]" value="前進雙足S形" {{ $checkedStatus ? 'checked' : null }}> 前進雙足S形
                                     </label>
+                                    @php
+                                        $checkedStatus = false;
+                                    @endphp
                                 </div>
                                 <div class="form-check">
+                                    @foreach ($enrolls as $enroll)
+                                        @if ($enroll->item == '前進單足S形')
+                                            @php
+                                                $checkedStatus = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
                                     <label class="form-check-label">
-                                        <input type="checkbox" name="enrollItem[]" value="前進單足S形"> 前進單足S形
+                                        <input type="checkbox" name="enrollItem[]" value="前進單足S形" {{ $checkedStatus ? 'checked' : null }}> 前進單足S形
                                     </label>
+                                    @php
+                                        $checkedStatus = false;
+                                    @endphp
                                 </div>
                                 <div class="form-check">
+                                    @foreach ($enrolls as $enroll)
+                                        @if ($enroll->item == '前進交叉形')
+                                            @php
+                                                $checkedStatus = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
                                     <label class="form-check-label">
-                                        <input type="checkbox" name="enrollItem[]" value="前進交叉形"> 前進交叉形
+                                        <input type="checkbox" name="enrollItem[]" value="前進交叉形" {{ $checkedStatus ? 'checked' : null }}> 前進交叉形
                                     </label>
+                                    @php
+                                        $checkedStatus = false;
+                                    @endphp
                                 </div>
                             </div>
                         </div>

@@ -70,6 +70,12 @@
                                 </div>
                             @endif
 
+                            @if (env('GAME') == 14)
+                                <div class="col-md-9">
+                                    付款資訊：822 中國信託 285-54022448-8 戶名：王聖文
+                                </div>
+                            @endif
+
                             <div class="col-md-3 text-right" style="padding-right:30px">Total：${{ $total }} 元</div>
                         @else
                             <div class="col-md-9">
