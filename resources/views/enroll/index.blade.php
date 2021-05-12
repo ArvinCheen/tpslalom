@@ -641,23 +641,23 @@
                         $("select[name='group'] option[value=" + msg.group + "]").prop('selected', true);
                     }
 
-                    if (!msg.doubleS) {
-                        $("select[name='doubleS']").prop("selectedIndex", 0);
-                    } else {
-                        $("select[name='doubleS'] option[value=" + msg.doubleS + "]").prop('selected', true);
-                    }
-
-                    if (!msg.singleS) {
-                        $("select[name='singleS']").prop("selectedIndex", 0);
-                    } else {
-                        $("select[name='singleS'] option[value=" + msg.singleS + "]").prop('selected', true);
-                    }
-
-                    if (!msg.cross) {
-                        $("select[name='cross']").prop("selectedIndex", 0);
-                    } else {
-                        $("select[name='cross'] option[value=" + msg.cross + "]").prop('selected', true);
-                    }
+                    // if (!msg.doubleS) {
+                    //     $("select[name='doubleS']").prop("selectedIndex", 0);
+                    // } else {
+                    //     $("select[name='doubleS'] option[value=" + msg.doubleS + "]").prop('selected', true);
+                    // }
+                    //
+                    // if (!msg.singleS) {
+                    //     $("select[name='singleS']").prop("selectedIndex", 0);
+                    // } else {
+                    //     $("select[name='singleS'] option[value=" + msg.singleS + "]").prop('selected', true);
+                    // }
+                    //
+                    // if (!msg.cross) {
+                    //     $("select[name='cross']").prop("selectedIndex", 0);
+                    // } else {
+                    //     $("select[name='cross'] option[value=" + msg.cross + "]").prop('selected', true);
+                    // }
                     if (msg.group) {
                         showItemSelect();
                     }
