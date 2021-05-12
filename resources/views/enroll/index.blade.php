@@ -117,7 +117,7 @@
                                 <label>組別</label>
                                 <select id="groupSelect" class="form-control" name="group" required >
                                     <option value=''> -- 請選擇 --</option>
-                                    @if(env('GAME') == 11)
+                                    @if(env('GAME') == 11 || env('GAME') == 14)
                                         <option value="幼童">幼童</option>
                                     @endif
 
@@ -133,7 +133,7 @@
                                         <option value="中班">中班</option>
                                         <option value="大班">大班</option>
                                     @endif
-                                    
+
                                     <option value="國小一年級">國小一年級</option>
                                     <option value="國小二年級">國小二年級</option>
                                     <option value="國小三年級">國小三年級</option>
@@ -142,8 +142,8 @@
                                     <option value="國小六年級">國小六年級</option>
                                     <option value="國中">國中</option>
                                     <option value="高中">高中</option>
-                                    
-                                    @if(env('GAME') == 11)
+
+                                    @if(env('GAME') == 11 || env('GAME') == 14)
                                         <option value="大專">大專</option>
                                         <option value="社會">社會</option>
                                     @endif
@@ -156,12 +156,12 @@
                                         <option value="大專">青年</option>
                                         <option value="大專">公開</option>
                                     @endif
-                                    
-                                    
+
+
                                 </select>
                             </div>
 
-                            @if(env('GAME') == 11)
+                            @if(env('GAME') == 11 || env('GAME') == 14)
                                 <div class="mb-3">
                                     <label>級別</label>
                                     <select id="groupSelect" class="form-control" name="level" required >
@@ -371,6 +371,31 @@
                             </div>
                         </div>
                         @break;
+
+                    @case(14)
+                    <div>
+                        <div class="row mt-3">
+                            <div class="col-md-12 mb-12">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="enrollItem[]" value="前進雙足S形"> 前進雙足S形
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="enrollItem[]" value="前進單足S形"> 前進單足S形
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="enrollItem[]" value="前進交叉形"> 前進交叉形
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @break;
                     @default
                 @endswitch
                 <hr>

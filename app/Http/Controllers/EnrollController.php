@@ -59,7 +59,7 @@ class EnrollController extends Controller
     {
         $playerId   = $request->playerId == 'newPlayer' ? null : $request->playerId;
         $name       = $request->name;
-        
+
         $agency     = $request->agency;
         $gender     = $request->gender;
         $city       = $request->city;
@@ -225,6 +225,13 @@ class EnrollController extends Controller
 
                 break;
             case 13:
+                $startFee = 300;
+
+                if ($enrollItem) {
+                    $fee += count($enrollItem) * 100 + $startFee;
+                }
+                break;
+            case 14:
                 $startFee = 300;
 
                 if ($enrollItem) {
